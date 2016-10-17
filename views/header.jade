@@ -1,3 +1,35 @@
-//
-   Created by phuc.ngo on 17/10/2016.
-
+header
+    .widewrapper.masthead
+        .container
+            a#logo(href='index.html')
+                | Tales
+                // Use the following line instead if you want to use an image logo
+                // <img src="img/tales-logo.png" alt="Tales Blog">
+            #mobile-nav-toggle.pull-right
+                a(href='#', data-toggle='collapse', data-target='.tales-nav .navbar-collapse')
+                    i.fa.fa-bars
+            nav.pull-right.tales-nav
+                .collapse.navbar-collapse
+                    ul.nav.nav-pills.navbar-nav
+                        li.dropdown.active
+                            a.dropdown-toggle(data-toggle='dropdown', href='#')
+                                | Blog
+                                b.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='index.html') Blog
+                                li
+                                    a(href='blog-detail.html') Blog Detail
+                        li
+                            a(href='about.html') About
+                        li
+                            a(href='credits.html') Credits
+    .widewrapper.subheader
+        .container
+            .tales-breadcrumb
+                a(href='#') Blog
+            .tales-searchbox
+                form(action='#', method='get', accept-charset='utf-8')
+                    button.searchbutton(type='submit')
+                        i.fa.fa-search
+                    input#searchbox.searchfield(type='text', placeholder='Search')
