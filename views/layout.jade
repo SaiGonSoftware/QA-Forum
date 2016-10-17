@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/css/web-style.min.css')
+  body
+    include header.jade
+    block content
+    include footer.jade
+    script(src="/js/angular-app.min.js")
+    script(src="/js/jquery-app.min.js")
