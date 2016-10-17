@@ -2,6 +2,12 @@
 
 -Project viết trên nền Mean Js và sẽ open source
 
+-Tránh gặp lỗi khi clone project về chạy lệnh
+
+```sh
+$ npm install
+```
+
 -Để chạy sử dụng lệnh
 
 ```sh
