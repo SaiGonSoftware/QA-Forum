@@ -1,7 +1,7 @@
--Mục đích của project này dùng để tra cứu thông tin tự dộng về quy chế nội quy nhà trường,
-mở rộng ra sẽ là tra cứu tiếng anh,công nghệ
+-Mục đích của project này dùng để tra cứu thông tin tự dộng về quy chế nội quy nhà trường sử dụng chat bot trả lời tự động,
+mở rộng ra sẽ cho phép người dùng tra cứu tiếng anh,công nghệ
 
--Project viết trên nền Mean Js và sẽ open source
+-Project viết trên nền Mean Js và sẽ phát triển theo hướng open source
 
 -Tránh gặp lỗi khi clone project về chạy lệnh
 
@@ -20,7 +20,7 @@ $ npm start
 $ mongoexport -d DatabaseName -c CollectionName -o extension
 ```
 
-Để import database (nên import ra file json) 
+Để import database (nên import bằng file json) 
 ```sh
 $ mongoimport -d DatabaseName -c CollectionName -o extension
 ```
