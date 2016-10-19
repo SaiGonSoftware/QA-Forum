@@ -2,12 +2,12 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/css/web-style.min.css')
-    link(rel='icon', type='image/x-icon', href='/favicon.ico')
+    link(rel="stylesheet", href="/css/web-style.min.css", media="none",onload="if(media!='all')media='all'")
+    link(rel="icon", type="image/x-icon", href="/favicon.ico")
 
     body
     include header.jade
     block content
     include footer.jade
-    script(src="/js/angular-app.min.js")
-    script(src="/js/jquery-app.min.js")
+    script(src="/js/angular-app.min.js",async)
+    script(src="/js/jquery-app.min.js",async)
