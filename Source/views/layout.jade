@@ -2,10 +2,11 @@ doctype html
 html
   head
     title= title
-    link(rel="stylesheet", href="/css/web-style.min.css", media="none",onload="if(media!='all')media='all'")
-    link(rel="icon", type="image/x-icon", href="/favicon.ico")
+    link(rel="stylesheet", href="/css/web-style.min.css", media="bogus")
+    link(rel="icon", type="image/x-icon", href='/favicon.ico')
 
     body
+    link(rel="stylesheet", href="/css/web-style.min.css")
     include header.jade
     block content
     include footer.jade
