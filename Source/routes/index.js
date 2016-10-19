@@ -9,7 +9,12 @@ var users = [
     }
 ];
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.all(function(req,res,next){
+    if(!req.user){
+        req.redirect('/');
+    }
+    next();
+}).get('/',function(req, res, next) {
   res.render('site/index', { title: 'Trang Chủ' });
 });
 
