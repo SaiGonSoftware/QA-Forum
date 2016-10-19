@@ -10,7 +10,7 @@ var users = [
 ];
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('site/index', { title: 'Trang Chủ' });
 });
 
 router.get('/insert', function(req, res, next) {
