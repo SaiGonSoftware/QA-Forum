@@ -9,11 +9,11 @@ html
     link(rel="stylesheet", href="/css/login.min.css")
     .login-page
     .form
-      form.login-form(name="signInForm",action="/login/signin",method="post")
-        input(type='text',name="username", placeholder='Tài Khoản')
-        input(type='password',name="password", placeholder='Mật Khẩu')
+      form.login-form(name="signInForm",action="/login/signIn",method="post")
+        input(type='text',name="userName", placeholder='Tài Khoản')
+        input(type='password',name="passWord", placeholder='Mật Khẩu')
         button Đăng Nhập
 
     script(language='JavaScript', src='/js/angular-app.min.js')
-    script(language='JavaScript', src='/js/jquery-app.min.js')    
+    script(language='JavaScript', src='/js/jquery-app.min.js')
 
