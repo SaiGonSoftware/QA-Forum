@@ -24,5 +24,5 @@ $ mongoexport -d DatabaseName -c CollectionName -o extension
 ```sh
 $ mongoimport -d DatabaseName -c CollectionName -o extension
 ```
-![Link to mean](/note/meanjs.jpg)
-![Image of Node js](/note/nodejs.jpg)
+![](Note/meanjs.jpg)
+![](Note/nodejs.jpg)
