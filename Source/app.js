@@ -5,16 +5,17 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var db = require('./config/db');
+var app = express();
+
 
 //require route for app
-var loginRoute = require('./routes/login');
-var indexRoute = require('./routes/index');
-
-var app = express();
+var loginRoute = require('./app/routes/login.server.routes');
+var indexRoute = require('./app/routes/index.server.routes');
 
 //app.locals.pretty = true;
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -22,7 +23,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 

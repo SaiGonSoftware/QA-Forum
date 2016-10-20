@@ -15,12 +15,12 @@ $ npm install
 $ npm start
 ```
 
-Để export database (nên export ra file json) 
+Để export database (nên export ra file json)
 ```sh
 $ mongoexport -d DatabaseName -c CollectionName -o extension
 ```
 
-Để import database (nên import bằng file json) 
+Để import database (nên import bằng file json)
 ```sh
 $ mongoimport -d DatabaseName -c CollectionName -o extension
 ```
