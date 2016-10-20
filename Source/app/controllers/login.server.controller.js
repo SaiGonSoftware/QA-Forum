@@ -1,8 +1,8 @@
 /*
 * @Author: hoangphucvu
 * @Date:   2016-10-20 13:19:53
-* @Last Modified by:   hoangphucvu
-* @Last Modified time: 2016-10-20 14:15:18
+* @Last Modified by:   Ngo Hung Phuc
+* @Last Modified time: 2016-10-20 19:16:11
 */
 
 var User = require('../models/user.server.model');
@@ -13,7 +13,7 @@ exports.Index = function(req,res){
 exports.Login = function(req,res){
 	var username = req.body.userName;
 	var password = req.body.passWord;
-	User.findOne({username:username},function(err,user){
+	User.findOne({username:username,password:password},function(err,user){
 		if(err){
 			console.log(err);
 			return res.status(500).send();
