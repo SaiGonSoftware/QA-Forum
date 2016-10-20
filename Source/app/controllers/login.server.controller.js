@@ -2,7 +2,7 @@
 * @Author: hoangphucvu
 * @Date:   2016-10-20 13:19:53
 * @Last Modified by:   hoangphucvu
-* @Last Modified time: 2016-10-20 13:50:15
+* @Last Modified time: 2016-10-20 14:13:00
 */
 
 var User = require('../models/user.server.model');
@@ -22,6 +22,7 @@ exports.Login = function(req,res){
 			console.log(err);
 			return res.status(404).send();
 		}
-		return res.status(200).send();
+		req.session.user = user;
+		return res.redirect('/index');
 	});
 };
