@@ -17,12 +17,12 @@ $ npm start
 
 Để export database (nên export ra file json)
 ```sh
-$ mongoexport -d DatabaseName -c CollectionName -o extension
+$ mongoexport -d ChatBot -c users -o user.json
 ```
 
 Để import database (nên import bằng file json)
 ```sh
-$ mongoimport -d DatabaseName -c CollectionName -o extension
+$ mongoimport -d ChatBot -c users user.json
 ```
 ![](Note/meanjs.jpg)
 ![](Note/nodejs.jpg)
