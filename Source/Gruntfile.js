@@ -1,4 +1,8 @@
 module.exports = function (grunt) {
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-nodemon');
     grunt.initConfig({
         cssmin: {
             combine:{
@@ -18,10 +22,17 @@ module.exports = function (grunt) {
                     'public/js/jquery-app.min.js':['public/js/jquery.min.js', 'public/js/bootstrap.min.js']
                 }
             }
+        },
+        jshint: {
+            all: ['Gruntfile.js', 'public/frontend/**/*.js']
+        },
+        nodemon: {
+          dev: {
+            script: 'app.js'
         }
-    });
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    }
+});
+    
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default',['cssmin','uglify']);
+    grunt.registerTask('default',['jshint','cssmin','uglify','nodemon']);
 };

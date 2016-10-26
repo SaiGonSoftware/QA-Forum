@@ -18,7 +18,7 @@ var indexRoute = require('./app/routes/index.server.routes');
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
@@ -63,4 +63,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+app.listen(3000,function(){
+  console.log('Listen on port 3000');
+});
+
