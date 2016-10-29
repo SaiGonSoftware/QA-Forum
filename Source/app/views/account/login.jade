@@ -5,15 +5,17 @@ html
     link(rel="stylesheet", href="/css/login.min.css", media="bogus")
     link(rel="icon", type="image/x-icon", href='/favicon.ico')
 
-    body
+    body(ng-app="ChatBotApp")
     link(rel="stylesheet", href="/css/login.min.css")
-    .login-page
-    .form
-      form.login-form(name="signInForm",action="/login/signIn",method="post")
+    .login-page(ng-controller="LoginCtrl")
+    .form(ng-submit="Login()")
+      form.login-form(id="loginForm",name="loginForm",method="post")
         input(type='text',name="userName", placeholder='Tài Khoản')
         input(type='password',name="passWord", placeholder='Mật Khẩu')
-        button Đăng Nhập
+        button(type="submit") Đăng Nhập
 
     script(language='JavaScript', src='/js/angular-app.min.js')
     script(language='JavaScript', src='/js/jquery-app.min.js')
+    script(language='JavaScript', src='/frontend/app.min.js')
+    script(language='JavaScript', src='/frontend/frontend.min.js')
 

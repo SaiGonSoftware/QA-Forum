@@ -19,12 +19,14 @@ module.exports = function (grunt) {
             my_target:{
                 files:{
                     'public/js/angular-app.min.js':['public/js/angular.min.js', 'public/js/angular-route.min.js'],
-                    'public/js/jquery-app.min.js':['public/js/jquery.min.js', 'public/js/bootstrap.min.js']
+                    'public/js/jquery-app.min.js':['public/js/jquery.min.js', 'public/js/bootstrap.min.js'],
+                    'public/frontend/app.min.js':['public/frontend/app.client.controller.js'],
+                    'public/frontend/frontend.min.js':['public/frontend/controllers/*.js']
                 }
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'public/frontend/**/*.js']
+            all: ['Gruntfile.js', 'public/frontend/**/!*.min.js']
         },
         nodemon: {
           dev: {
