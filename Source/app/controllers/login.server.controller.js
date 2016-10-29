@@ -2,29 +2,42 @@
 * @Author: hoangphucvu
 * @Date:   2016-10-20 13:19:53
 * @Last Modified by:   Ngo Hung Phuc
-* @Last Modified time: 2016-10-26 21:50:37
+* @Last Modified time: 2016-10-29 21:41:29
 */
-var passwordHash = require('password-hash');
+var bcrypt = require('bcrypt-nodejs');
 var User = require('../models/user.server.model');
 exports.Index = function(req,res){
 	res.render('account/login',{title:'Đăng Nhập'});
 };
 
+exports.Import = function(req,res){
+	var hash = bcrypt.hashSync("070695");
+	data = [
+	{ 'username' : 'phucngo' ,'password':hash,'level':1}
+	];
+	User.collection.insert(data,function(err,result){
+		console.log(err);
+		console.log(result);
+	});
+};
+
 exports.Login = function(req,res){
 	var username = req.body.userName;
 	var password = req.body.passWord;
-	User.findOne({username:username,password:password},function(err,user){
-
-		if(err){
-			console.log(err);
-			return res.status(500).send();
-		}
-		if(!user){
-			console.log(err);
-			return res.status(404).send();
-		}
-		req.session.user = user;
-		return res.redirect('/index');
+	var hash = bcrypt.hashSync(password);
+	User.findOne({username:username},function(err,user){
+		bcrypt.compare(password, hash, function(err, result) {
+			if(err){
+				console.log(err);
+				return res.status(500).send();
+			}
+			if(!user){
+				console.log(err);
+				return res.status(404).send();
+			}
+			req.session.user = user;
+			return res.redirect('/index');
+		});
 	});
 };
 
