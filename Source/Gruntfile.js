@@ -20,8 +20,7 @@ module.exports = function (grunt) {
                 files:{
                     'public/js/angular-app.min.js':['public/js/angular.min.js', 'public/js/angular-route.min.js'],
                     'public/js/jquery-app.min.js':['public/js/jquery.min.js', 'public/js/bootstrap.min.js'],
-                    'public/frontend/app.min.js':['public/frontend/app.client.controller.js'],
-                    'public/frontend/frontend.min.js':['public/frontend/controllers/*.js']
+                    'public/frontend/app.min.js':['public/frontend/controllers/**/*.js']
                 }
             }
         },
@@ -34,7 +33,7 @@ module.exports = function (grunt) {
         }
     }
 });
-    
+
     grunt.log.write('Grunt is running\n');
     grunt.registerTask('default',['jshint','cssmin','uglify','nodemon']);
 };
