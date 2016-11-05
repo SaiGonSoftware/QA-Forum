@@ -2,7 +2,7 @@
 * @Author: hoangphucvu
 * @Date:   2016-10-20 13:19:53
 * @Last Modified by:   Ngo Hung Phuc
-* @Last Modified time: 2016-10-29 21:41:29
+* @Last Modified time: 2016-11-05 22:10:26
 */
 var bcrypt = require('bcrypt-nodejs');
 var User = require('../models/user.server.model');
@@ -25,6 +25,8 @@ exports.Login = function(req,res){
 	var username = req.body.userName;
 	var password = req.body.passWord;
 	var hash = bcrypt.hashSync(password);
+	console.log(username);
+	console.log(hash);
 	User.findOne({username:username},function(err,user){
 		bcrypt.compare(password, hash, function(err, result) {
 			if(err){
@@ -40,6 +42,7 @@ exports.Login = function(req,res){
 		});
 	});
 };
+
 
 exports.Logout = function(req,res){
 	req.session.destroy();

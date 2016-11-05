@@ -1,6 +1,6 @@
 {
   "name": "ChatBot",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
@@ -16,6 +16,7 @@
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.4",
     "morgan": "~1.7.0",
+    "open": "0.0.5",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {

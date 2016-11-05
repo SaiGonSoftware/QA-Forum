@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var db = require('./config/db');
 var app = express();
-
+var port = process.env.PORT || 3000;
 
 //require route for app
 var loginRoute = require('./app/routes/login.server.routes');
@@ -28,8 +28,8 @@ app.use(cookieParser());
 app.use(session({secret:"asdkoasdkascmkascpoascmkalscasoi",resave:false,saveUninitialized:true}));
 
 //set route for specific request
-app.use('/', loginRoute);
-app.use('/index', indexRoute);
+//app.use('/', loginRoute);
+app.use('/', indexRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,7 +63,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.listen(3000,function(){
-  console.log('Listen on port 3000');
+app.listen(port,function(req,res){
+  console.log('Listen on port ' + port);
 });
 
