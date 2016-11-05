@@ -1,3 +1,1 @@
-{"_id":{"$oid":"5809cd4ab5b52108e33aaaaf"},"username":"phucngo","password":"070695","level":1}
-{"_id":{"$oid":"5809cd4ab5b52108e33aaab0"},"username":"nhatnguyen","password":"123456","level":1}
-
+{"_id":{"$oid":"581df427158b542eac504f6d"},"username":"phucngo","password":"$2a$10$ZpCGUFkULaMAoFLDy0rBZeNLxfI7PdOrXNePUSbdQ/7/ZbUzoVp5u","level":1}
