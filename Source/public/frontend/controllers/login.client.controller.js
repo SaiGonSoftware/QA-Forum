@@ -2,9 +2,9 @@
 * @Author: Ngo Hung Phuc
 * @Date:   2016-10-29 21:57:33
 * @Last Modified by:   Ngo Hung Phuc
-* @Last Modified time: 2016-10-29 22:26:17
+* @Last Modified time: 2016-11-06 22:06:42
 */
-(function(){
+/*(function(){
 	'use strict';
 	angular
 	.module('ChatBotApp')
@@ -60,3 +60,4 @@
 		return factory;
 	}
 })();
+*/
