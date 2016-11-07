@@ -30,7 +30,8 @@ app.use(session({secret:"asdkoasdkascmkascpoascmkalscasoi",resave:false,saveUnin
 //set route for specific request
 //app.use('/', loginRoute);
 app.use('/', indexRoute);
-
+app.get('/partials/:name', indexRoute);
+app.get('*',indexRoute);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
