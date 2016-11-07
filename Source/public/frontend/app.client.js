@@ -1,8 +1,8 @@
 /*
 * @Author: Ngo Hung Phuc
 * @Date:   2016-10-29 21:57:50
-* @Last Modified by:   Ngo Hung Phuc
-* @Last Modified time: 2016-11-06 22:47:38
+* @Last Modified by:   hoangphucvu
+* @Last Modified time: 2016-11-07 10:10:24
 */
 
 (function(){
@@ -19,6 +19,14 @@
 	config.$inject = ['$locationProvider', '$routeProvider'];
     function config($locationProvider, $routeProvider) {
         $routeProvider
+        .when('/view1',
+        {
+            templateUrl: 'partials/view1'
+        })
+        .when('/view2',
+        {
+            templateUrl: 'partials/view2'
+        })
         .when('/details',
         {
             templateUrl: 'site/details'

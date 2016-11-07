@@ -3,6 +3,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-concurrent');
     grunt.initConfig({
         cssmin: {
             combine: {
@@ -14,7 +16,8 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                manage: false
+                manage: false,
+                concat:false
             },
             my_target: {
                 files: {
@@ -29,7 +32,7 @@ module.exports = function(grunt) {
         },
         concurrent: {
             dev: {
-                tasks: ['nodemon', 'node-inspector', 'watch'],
+                tasks: ['nodemon', 'watch'],
                 options: {
                     logConcurrentOutput: true
                 }
@@ -41,9 +44,10 @@ module.exports = function(grunt) {
                 options: {
                     ext: 'js,jade',
                     env: {
-                        PORT: 8000
+                        PORT: 8000,
+                        NODE_ENV: "development"
                     },
-                    // omit this property if you aren't serving HTML files and 
+                    // omit this property if you aren't serving HTML files and
                     // don't want to open a browser tab on start
                     callback: function(nodemon) {
                         // opens browser on initial server start
@@ -60,15 +64,23 @@ module.exports = function(grunt) {
             },
         },
         watch: {
+            scripts: {
+                files: ['public/frontend/**/*.js'],
+                tasks: ['jshint', 'uglify'],
+                options: {
+                  spawn: false,
+                  reload: true
+                },
+            },
             server: {
                 files: ['.rebooted'],
                 options: {
                     livereload: true
                 }
             }
-        }
+        },
     });
 
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default', ['jshint', 'cssmin', 'uglify', 'nodemon']);
+    grunt.registerTask('default', ['jshint', 'cssmin', 'uglify', 'concurrent']);
 };
