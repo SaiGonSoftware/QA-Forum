@@ -2,7 +2,7 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-10-29 21:57:50
  * @Last Modified by:   hoangphucvu
- * @Last Modified time: 2016-11-09 11:33:00
+ * @Last Modified time: 2016-11-09 13:57:32
  */
 
 (function() {
@@ -20,20 +20,20 @@
 
     function config($locationProvider, $routeProvider) {
         $routeProvider
-            .when('/view1', {
-                templateUrl: 'partials/view1'
+            .when('/partials/view1', {
+                templateUrl: '/partials/view1'
             })
-            .when('/view2', {
-                templateUrl: 'partials/view2'
+            .when('/partials/view2', {
+                templateUrl: '/partials/view2'
             })
             .when('/details', {
-                templateUrl: 'site/details'
+                templateUrl: '/partials/details'
             })
             .when('/dang-nhap', {
-                templateUrl: 'account/login'
+                templateUrl: '/account/login'
             })
             .otherwise({
-                templateUrl: 'site/index'
+                templateUrl: '/partials/index'
             });
         $locationProvider.html5Mode({
             enabled: true,

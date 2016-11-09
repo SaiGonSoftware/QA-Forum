@@ -84,7 +84,16 @@ module.exports = function(grunt) {
             scripts: {
                 files: ['public/frontend/**/*.js'],
                 tasks: ['jshint', 'clean', 'concat:dev', 'uglify:dev'],
-
+                options: {
+                    spawn: false,
+                    reload: true
+                }
+            },
+            server: {
+                files: ['.rebooted'],
+                options: {
+                    livereload: true
+                }
             }
 
         },
