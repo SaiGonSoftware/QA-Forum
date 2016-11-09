@@ -5,6 +5,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.initConfig({
         cssmin: {
             combine: {
@@ -14,16 +16,31 @@ module.exports = function(grunt) {
                 }
             }
         },
-        uglify: {
-            options: {
-                manage: false,
-                concat:false
-            },
-            my_target: {
+        concat: {
+            js: {
                 files: {
                     'public/js/angular-app.min.js': ['public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js'],
                     'public/js/jquery-app.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js'],
+                    'public/frontend/app.min.js': ['public/frontend/**/*.js', '!public/frontend/app.min.js']
+                }
+            },
+            dev: {
+                files: {
                     'public/frontend/app.min.js': ['public/frontend/**/*.js']
+                }
+            }
+        },
+        uglify: {
+            bundle: {
+                files: {
+                    'public/js/angular-app.min.js': 'public/js/angular-app.min.js',
+                    'public/js/jquery-app.min.js': 'public/js/jquery-app.min.js',
+                    'public/frontend/app.min.js': 'public/frontend/app.min.js'
+                }
+            },
+            dev: {
+                files: {
+                    'public/frontend/app.min.js': 'public/frontend/app.min.js'
                 }
             }
         },
@@ -32,7 +49,7 @@ module.exports = function(grunt) {
         },
         concurrent: {
             dev: {
-                tasks: ['nodemon', 'watch'],
+                tasks: ['watch', 'nodemon'],
                 options: {
                     logConcurrentOutput: true
                 }
@@ -66,21 +83,17 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['public/frontend/**/*.js'],
-                tasks: ['jshint', 'uglify'],
-                options: {
-                  spawn: false,
-                  reload: true
-                },
-            },
-            server: {
-                files: ['.rebooted'],
-                options: {
-                    livereload: true
-                }
+                tasks: ['jshint', 'clean', 'concat:dev', 'uglify:dev'],
+
             }
+
         },
+        clean: {
+            js: ['public/frontend/app.min.js']
+        }
     });
 
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default', ['jshint', 'cssmin', 'uglify', 'concurrent']);
+    grunt.registerTask('default', ['jshint', 'cssmin', 'concat:js', 'uglify:bundle', 'concurrent']);
+    grunt.registerTask('minfile', ['uglify']);
 };
