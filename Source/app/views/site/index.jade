@@ -6,15 +6,7 @@ block content
       .row
         .col-md-8.blog-main
           .row
-            ng-view
-         
-          .paging
-            a.newer(href='#')
-              i.fa.fa-long-arrow-left
-              |  Newer
-            span •
-            a.older(href='#')
-              | Older
-              i.fa.fa-long-arrow-right
+            div(ng-view)
+          include ../layout/paging
         include ../layout/side_content
 
