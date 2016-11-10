@@ -7,8 +7,10 @@ var express = require('express'),
     session = require('express-session'),
     db = require('./config/db'),
     app = express(),
-    port = process.env.PORT || 3000;
-
+    port = process.env.PORT || 3000,
+    reload = require('reload'),
+    http = require('http'),
+    server = http.createServer(app);
 //require route for app
 var loginRoute = require('./app/routes/login.server.routes'),
     indexRoute = require('./app/routes/index.server.routes');
@@ -41,6 +43,10 @@ app.get('/partials/:partialPath', function(req, res) {
 app.get('*', indexRoute);
 
 
-app.listen(port, function(req, res) {
-    console.log('Listen on port ' + port);
+
+// Config reload whenever frontend folder change
+reload(server, app);
+
+server.listen(port, function() {
+    console.log("Web server listening on port " + port);
 });
