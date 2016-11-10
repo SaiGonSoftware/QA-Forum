@@ -10,7 +10,8 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     reload = require('reload'),
     http = require('http'),
-    server = http.createServer(app);
+    server = http.createServer(app),
+    env = process.env.NODE_ENV || 'development';
 //require route for app
 var loginRoute = require('./app/routes/login.server.routes'),
     indexRoute = require('./app/routes/index.server.routes');
@@ -45,7 +46,13 @@ app.get('*', indexRoute);
 
 
 // Config reload whenever frontend folder change
-reload(server, app);
+if (env === 'development') {
+    reload(server, app);
+}
+
+if (env === 'production') {
+    // TODO
+}
 
 server.listen(port, function() {
     console.log("Web server listening on port " + port);
