@@ -1,0 +1,12 @@
+extends ../layout/layout
+
+block content
+  .widewrapper.main
+    .container
+      .row
+        .col-md-8.blog-main
+          .row
+            div(ng-view)
+          include ../layout/paging
+        include ../layout/side_content
+
