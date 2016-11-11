@@ -46,7 +46,7 @@ app.get('*', indexRoute);
 
 // Config reload whenever frontend folder change
 if (env === 'development') {
-    //reload(server, app);
+
 }
 
 if (env === 'production') {
