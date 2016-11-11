@@ -8,7 +8,6 @@ var express = require('express'),
     db = require('./config/db'),
     app = express(),
     port = process.env.PORT || 3000,
-    reload = require('reload'),
     http = require('http'),
     server = http.createServer(app),
     env = process.env.NODE_ENV || 'production';
