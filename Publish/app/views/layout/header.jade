@@ -1,0 +1,39 @@
+header
+    .widewrapper.masthead
+        .container
+            a#logo(href='index.html')
+                | Hệ thống tư vấn trực tuyến
+                // Use the following line instead if you want to use an image logo
+                // <img src="img/tales-logo.png" alt="Tales Blog">
+            #mobile-nav-toggle.pull-right
+                a(href='#', data-toggle='collapse', data-target='.tales-nav .navbar-collapse')
+                    i.fa.fa-bars
+            nav.pull-right.tales-nav
+                .collapse.navbar-collapse
+                    ul.nav.nav-pills.navbar-nav
+                        li.dropdown.active
+                            a.dropdown-toggle(data-toggle='dropdown', href='#')
+                                | Blog
+                                b.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/details') Details
+                                li
+                                    a(href='/dang-nhap') Login
+                        li
+                            a(href='/view1') view1
+                        li
+                            a(href='/view2') view2
+                        li
+                            a(href='/details') Details
+                        li
+                            a(href='/dang-nhap') Login
+    .widewrapper.subheader
+        .container
+            .tales-breadcrumb
+                a(href='#') Blog
+            .tales-searchbox
+                form(action='#', method='get', accept-charset='utf-8')
+                    button.searchbutton(type='submit')
+                        i.fa.fa-search
+                    input#searchbox.searchfield(type='text', placeholder='Search')

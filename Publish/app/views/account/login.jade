@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/login.min.css", media="bogus")
+    link(rel="icon", type="image/x-icon", href='/favicon.ico')
+
+    body
+    link(rel="stylesheet", href="/css/login.min.css")
+    .login-page
+    .form
+      form.login-form(id="loginForm",name="signInForm",action="/login/signIn",method="post")
+        input(type='text',name="userName", placeholder='Tài Khoản')
+        input(type='password',name="passWord", placeholder='Mật Khẩu')
+        button(type="submit") Đăng Nhập
+
+    script(language='JavaScript', src='/js/angular-app.min.js')
+    script(language='JavaScript', src='/js/jquery-app.min.js')
+
+

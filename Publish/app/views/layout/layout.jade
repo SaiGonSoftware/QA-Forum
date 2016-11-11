@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/web-style.min.css", media="bogus")
+    link(rel="icon", type="image/x-icon", href='/favicon.ico')
+
+    body(ng-app="ChatBotApp")
+    link(rel="stylesheet", href="/css/web-style.min.css")
+    include header.jade
+    block content
+    include footer.jade
+    script(language='JavaScript', src='/js/angular-app.min.js')
+    script(language='JavaScript', src='/frontend/app.min.js')
+    script(language='JavaScript', src='/js/jquery-app.min.js')
+    if 'development' == process.env.NODE_ENV
+        script.
+            document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+
+
