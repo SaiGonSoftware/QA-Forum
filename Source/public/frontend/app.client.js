@@ -2,7 +2,7 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-10-29 21:57:50
  * @Last Modified by:   hoangphucvu
- * @Last Modified time: 2016-11-10 11:11:00
+ * @Last Modified time: 2016-11-11 07:26:15
  */
 
 (function() {
@@ -33,7 +33,7 @@
                 templateUrl: '/partials/index'
             });
         $locationProvider.html5Mode({
-            //enabled: true,
+            enabled: true,
             requireBase: false
         });
     }
