@@ -47,13 +47,13 @@ app.get('*', indexRoute);
 
 // Config reload whenever frontend folder change
 if (env === 'development') {
-    reload(server, app);
+    //reload(server, app);
 }
 
 if (env === 'production') {
     // TODO
 }
-
+console.log(env);
 server.listen(port, function() {
     console.log("Web server listening on port " + port);
 });
