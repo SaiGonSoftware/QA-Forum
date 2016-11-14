@@ -1181,3 +1181,13 @@ fieldset[disabled] .btn-tales-two.active {
   line-height: normal;
   border-radius: 5px;
 }
+/* The starting CSS styles for the enter animation */
+#main-page.ng-enter {
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/* The finishing CSS styles for the enter animation */
+#main-page.ng-enter.ng-enter-active {
+  opacity:1;
+}
