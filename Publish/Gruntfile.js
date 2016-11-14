@@ -14,7 +14,12 @@ module.exports = function(grunt) {
                     'public/css/web-style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css'],
                     'public/css/login.min.css': ['public/css/bootstrap.min.css', 'public/css/login.css']
                 }
-            }
+            },
+            dev: {
+                files: {
+                    'public/css/web-style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css'],
+                }
+            },
         },
         concat: {
             js: {
@@ -59,7 +64,7 @@ module.exports = function(grunt) {
             dev: {
                 script: 'app.js',
                 options: {
-                    ext: 'js,jade',
+                    ext: 'js,jade,css',
                     env: {
                         PORT: 8000,
                         NODE_ENV: "development"
@@ -83,9 +88,16 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['public/frontend/**/*.js', '!public/frontend/**/*.min.js'],
-                tasks: ['jshint', 'clean', 'concat:dev', 'uglify:dev'],
+                tasks: ['jshint', 'clean:js', 'concat:dev', 'uglify:dev'],
                 options: {
                     spawn: false,
+                    reload: true
+                }
+            },
+            css: {
+                files: ['public/css/*.css', '!public/css/*.min.css'],
+                tasks: ['clean:css', 'cssmin:dev'],
+                options: {
                     reload: true
                 }
             },
@@ -98,11 +110,12 @@ module.exports = function(grunt) {
 
         },
         clean: {
-            js: ['public/frontend/app.min.js']
+            js: ['public/frontend/app.min.js'],
+            css: ['public/css/web-style.min.css']
         }
     });
 
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default', ['jshint', 'cssmin', 'concat:js', 'uglify:bundle', 'concurrent']);
+    grunt.registerTask('default', ['jshint', 'cssmin:combine', 'concat:js', 'uglify:bundle', 'concurrent']);
     grunt.registerTask('minfile', ['uglify']);
 };
