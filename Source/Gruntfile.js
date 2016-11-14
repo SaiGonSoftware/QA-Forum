@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', '!public/frontend/**/*.min.js']
+            all: ['Gruntfile.js', 'public/frontend/**/*.js', '!public/frontend/**/*.min.js']
         },
         concurrent: {
             dev: {
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
         },
         watch: {
             scripts: {
-                files: ['public/frontend/**/*.js'],
+                files: ['public/frontend/**/*.js', '!public/frontend/**/*.min.js'],
                 tasks: ['jshint', 'clean', 'concat:dev', 'uglify:dev'],
                 options: {
                     spawn: false,
