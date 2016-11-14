@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'public/frontend/**/!*.min.js']
+            all: ['Gruntfile.js', '!public/frontend/**/*.min.js']
         },
         concurrent: {
             dev: {
