@@ -1,16 +1,117 @@
 .widewrapper.main
-    .container
-      .row
-        .col-md-8.blog-main
-          .row
-            .panel.panel-default
-              .panel-heading Câu hỏi
-              .panel-body
-                |Nội dung câu hỏi
-            .panel.panel-primary
-              .panel-heading
-                h3.panel-title Trả lời bình luận
-              .panel-body  Nội dung
-
-
-
+  .container
+    .row
+      .col-md-8.blog-main
+        article.blog-post
+          header
+            h1 My Insightful Article
+            .lead-image
+              img.img-responsive(src='img/hands-big.png', alt='Hands')
+              .meta.clearfix
+                .author
+                  i.fa.fa-user
+                  span.data Alexander Rechsteiner
+                .date
+                  i.fa.fa-calendar
+                  span.data 26 July 2013
+                .comments
+                  i.fa.fa-comments
+                  span.data
+                    a(href='#comments') 26 Comments
+          .body
+            p
+              | Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostrud in. Ground round venison commodo do capicola. Id commodo laborum proident nostrud cillum duis shoulder. Shank spare ribs pastrami, jowl jerky eiusmod proident tongue occaecat enim doner pancetta capicola t-bone.
+            p
+              | Id est labore, frankfurter sausage ex do dolore adipisicing aliquip shankle deserunt. Dolore culpa flank ad. Shankle pork loin chuck dolore short loin, pork sunt aliqua eiusmod brisket deserunt ut id. Id commodo laborum proident nostrud cillum duis shoulder. Shank spare ribs pastrami, jowl jerky eiusmod proident tongue occaecat enim doner pancetta capicola t-bone.
+            p
+              | Cillum beef ribs ullamco incididunt pork belly nostrud tail et reprehenderit mollit tempor shoulder. Leberkas brisket elit, short ribs ham beef ribs enim nostrud sunt sirloin. Do esse capicola shoulder, nostrud pig non officia ribeye in cillum. Nisi ham hock ex nulla laborum minim tempor beef, frankfurter velit. Ex spare ribs eiusmod do dolore adipisicing jowl beef ut. Aute proident pork chop capicola. Enim fatback meatball kielbasa esse. Id commodo laborum proident nostrud cillum duis shoulder. Shank spare ribs pastrami, jowl jerky eiusmod proident tongue occaecat enim doner pancetta capicola t-bone. Id commodo laborum proident nostrud cillum duis shoulder. Shank spare ribs pastrami, jowl jerky eiusmod proident tongue occaecat enim doner pancetta capicola t-bone.
+            p
+              | Capicola chuck in filet mignon prosciutto turkey. Ut tri-tip eiusmod pariatur. Ball tip drumstick fugiat bacon, ribeye reprehenderit dolore sausage beef kielbasa. Ex beef magna culpa labore swine venison pancetta eu irure meatball bresaola frankfurter exercitation.
+            p
+              | Aliqua fatback tenderloin ex biltong laborum minim ut swine bresaola exercitation. Beef corned beef short loin ea. Nulla ullamco eiusmod ball tip enim, ut turkey officia tail ut tenderloin id anim. Tri-tip chuck ham hock beef pancetta pork loin. Sint ham hock aliquip sausage. Excepteur incididunt ea, eu tongue filet mignon hamburger. Ut ea nostrud short loin.
+            p
+              | Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!
+        aside.social-icons.clearfix
+          a.social-icon.color-one(href='#')
+            .inner-circle
+            i.fa.fa-twitter
+          a.social-icon.color-two(href='#')
+            .inner-circle
+            i.fa.fa-google-plus
+          a.social-icon.color-three(href='#')
+            .inner-circle
+            i.fa.fa-facebook
+        aside#comments.comments
+          hr
+          h2
+            i.fa.fa-comments
+            |  24 Comments
+          article.comment
+            header.clearfix
+              img.avatar(src='img/avatar.png', alt='A Smart Guy')
+              .meta
+                h3
+                  a(href='#') Willy Wonka
+                span.date
+                  | 27 July 2013
+                span.separator
+                  | -
+                a.reply-link(href='#create-comment') Reply
+            .body
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+          article.comment.reply
+            header.clearfix
+              img.avatar(src='img/avatar.png', alt='A Smart Guy')
+              .meta
+                h3
+                  a(href='#') Willy Wonka
+                span.date
+                  | 27 July 2013
+                span.separator
+                  | -
+                a.reply-link(href='#create-comment') Reply
+            .body
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+          article.comment
+            header.clearfix
+              img.avatar(src='img/avatar.png', alt='A Smart Guy')
+              .meta
+                h3
+                  a(href='#') Willy Wonka
+                span.date
+                  | 27 July 2013
+                span.separator
+                  | -
+                a.reply-link(href='#create-comment') Reply
+            .body
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+          article.comment
+            header.clearfix
+              img.avatar(src='img/avatar.png', alt='A Smart Guy')
+              .meta
+                h3
+                  a(href='#') Willy Wonka
+                span.date
+                  | 27 July 2013
+                span.separator
+                  | -
+                a.reply-link(href='#create-comment') Reply
+            .body
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+        aside#create-comment.create-comment
+          hr
+          h2
+            i.fa.fa-heart
+            |  Add Comment
+          form(action='#', method='get', accept-charset='utf-8')
+            .row
+              .col-md-6
+                input#comment-name.form-control.input-lg(type='text', name='name', placeholder='Name')
+              .col-md-6
+                input#comment-email.form-control.input-lg(type='email', name='email', placeholder='Email')
+            input#comment-url.form-control.input-lg(type='url', name='name', placeholder='Website')
+            textarea#comment-body.form-control.input-lg(rows='10', name='message', placeholder='Your thoughts...')
+            .buttons.clearfix
+              button.btn.btn-xlarge.btn-tales-two Cancel
+              button.btn.btn-xlarge.btn-tales-one(type='submit') Submit
+      include ../layout/side_content

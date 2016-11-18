@@ -23,6 +23,9 @@
             .when('/details', {
                 templateUrl: '/partials/details'
             })
+            .when('/credit', {
+                templateUrl: '/partials/credit'
+            })
             .otherwise({
                 templateUrl: '/partials/404'
             });
