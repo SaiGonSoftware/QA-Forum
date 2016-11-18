@@ -41,7 +41,7 @@ app.get('/partials/:partialPath', function(req, res) {
     res.render('partials/' + req.params.partialPath);
 });
 app.get('*', indexRoute);
-
+app.use('/api', indexRoute);
 
 
 // Config reload whenever frontend folder change
