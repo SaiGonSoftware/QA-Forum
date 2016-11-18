@@ -1,12 +1,6 @@
 extends ../layout/layout
 
 block content
-  .widewrapper.main
-    .container
-      .row
-        .col-md-8.blog-main
-          .row
-            #main-page(ng-view='')
-          include ../layout/paging
-        include ../layout/side_content
+    #main-page(ng-view='')
+
 
