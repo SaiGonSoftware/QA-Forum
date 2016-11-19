@@ -3,7 +3,7 @@
     .row
       .col-md-8.blog-main(ng-controller="IndexController")
         .row
-          .col-md-6.col-sm-6(ng-repeat='question in questions')
+          .col-md-6.col-sm-6(ng-repeat='question in questions track by $index')
             article.blog-teaser
               header
                 h3

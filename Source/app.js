@@ -11,10 +11,11 @@ var express = require('express'),
     http = require('http'),
     server = http.createServer(app),
     env = process.env.NODE_ENV || 'development';
+
 //require route for app
 var loginRoute = require('./app/routes/login.server.routes'),
-    indexRoute = require('./app/routes/index.server.routes');
-
+    indexRoute = require('./app/routes/index.server.routes'),
+    apiRoute = require('./app/routes/index.server.routes');
 //app.locals.pretty = true;
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -40,13 +41,14 @@ app.use(session({
 app.get('/partials/:partialPath', function(req, res) {
     res.render('partials/' + req.params.partialPath);
 });
+
+app.get('/api', apiRoute);
 app.get('*', indexRoute);
-app.use('/api', indexRoute);
 
 
 // Config reload whenever frontend folder change
 if (env === 'development') {
-
+    // TODO
 }
 
 if (env === 'production') {

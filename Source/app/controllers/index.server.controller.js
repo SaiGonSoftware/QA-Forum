@@ -1,21 +1,18 @@
 /*
  * @Author: hoangphucvu
  * @Date:   2016-10-20 13:55:32
- * @Last Modified by:   hoangphucvu
- * @Last Modified time: 2016-11-18 15:36:42
+ * @Last Modified by:   Ngo Hung Phuc
+ * @Last Modified time: 2016-11-18 20:07:53
  */
 
 var User = require('../models/user.server.model');
-var Question = require('../models/question.server.model');
+
 exports.Index = function(req, res) {
     /*if (!req.session.user) {
     	res.redirect('/');
     } else {
     	res.render('site/index', { title: 'Trang Chủ' });
     }*/
-    Question.find({}).sort({
-        'CreateDate': -1
-    }).limit(10);
     res.render('site/index', {
         title: 'HỆ THỐNG TƯ VẤN TRỰC TUYẾN'
     });
