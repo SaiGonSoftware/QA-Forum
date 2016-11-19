@@ -1,8 +1,8 @@
 /*
  * @Author: hoangphucvu
  * @Date:   2016-11-18 14:10:38
- * @Last Modified by:   hoangphucvu
- * @Last Modified time: 2016-11-18 14:36:52
+ * @Last Modified by:   Ngo Hung Phuc
+ * @Last Modified time: 2016-11-18 21:17:12
  */
 (function() {
     'use strict';

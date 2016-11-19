@@ -1,37 +1,30 @@
 /*
  * @Author: hoangphucvu
  * @Date:   2016-11-18 14:41:15
- * @Last Modified by:   hoangphucvu
- * @Last Modified time: 2016-11-18 14:49:04
+ * @Last Modified by:   Ngo Hung Phuc
+ * @Last Modified time: 2016-11-19 15:47:18
  */
 
 var mongoose = require('mongoose');
-var QuestionSchema = new mongoose.Schema({
+var questionSchema = new mongoose.Schema({
     UserQuestion: {
         type: String,
-        required: true
+        require: true
     },
     Title: {
         type: String,
-        required: true
+        require: true
     },
     Content: {
         type: String,
-        required: true
+        require: true
     },
     CreateDate: {
         type: Date,
-        default: Date.Now,
-        required: true
-    },
-    Answers: {
-        type: Array,
-        default: [],
-        required: true
+        require: true
     }
-
 });
 
-var Question = mongoose.model('question', QuestionSchema);
+var Question = mongoose.model('questions', questionSchema);
 
 module.exports = Question;
