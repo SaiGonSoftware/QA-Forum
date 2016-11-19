@@ -15,7 +15,7 @@ var express = require('express'),
 //require route for app
 var loginRoute = require('./app/routes/login.server.routes'),
     indexRoute = require('./app/routes/index.server.routes'),
-    apiRoute = require('./app/routes/index.server.routes');
+    apiRoute = require('./app/routes/api.server.routes');
 //app.locals.pretty = true;
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -42,7 +42,7 @@ app.get('/partials/:partialPath', function(req, res) {
     res.render('partials/' + req.params.partialPath);
 });
 
-app.get('/api', apiRoute);
+app.use('/api', apiRoute);
 app.get('*', indexRoute);
 
 
