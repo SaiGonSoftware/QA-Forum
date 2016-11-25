@@ -1,36 +1,26 @@
 .widewrapper.main
   .container
     .row
-      .col-md-8.blog-main
+      .col-md-8.blog-main(ng-controller="DetailController")
         article.blog-post
           header
-            h1 My Insightful Article
+            h1 {{detail.Title}}
             .lead-image
               img.img-responsive(src='img/hands-big.png', alt='Hands')
               .meta.clearfix
                 .author
                   i.fa.fa-user
-                  span.data Alexander Rechsteiner
+                  span.data {{detail.UserQuestion}}
                 .date
                   i.fa.fa-calendar
-                  span.data 26 July 2013
+                  span.data {{detail.CreateDate | date : format : fullDate}}
                 .comments
                   i.fa.fa-comments
                   span.data
                     a(href='#comments') 26 Comments
           .body
             p
-              | Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostrud in. Ground round venison commodo do capicola. Id commodo laborum proident nostrud cillum duis shoulder. Shank spare ribs pastrami, jowl jerky eiusmod proident tongue occaecat enim doner pancetta capicola t-bone.
-            p
-              | Id est labore, frankfurter sausage ex do dolore adipisicing aliquip shankle deserunt. Dolore culpa flank ad. Shankle pork loin chuck dolore short loin, pork sunt aliqua eiusmod brisket deserunt ut id. Id commodo laborum proident nostrud cillum duis shoulder. Shank spare ribs pastrami, jowl jerky eiusmod proident tongue occaecat enim doner pancetta capicola t-bone.
-            p
-              | Cillum beef ribs ullamco incididunt pork belly nostrud tail et reprehenderit mollit tempor shoulder. Leberkas brisket elit, short ribs ham beef ribs enim nostrud sunt sirloin. Do esse capicola shoulder, nostrud pig non officia ribeye in cillum. Nisi ham hock ex nulla laborum minim tempor beef, frankfurter velit. Ex spare ribs eiusmod do dolore adipisicing jowl beef ut. Aute proident pork chop capicola. Enim fatback meatball kielbasa esse. Id commodo laborum proident nostrud cillum duis shoulder. Shank spare ribs pastrami, jowl jerky eiusmod proident tongue occaecat enim doner pancetta capicola t-bone. Id commodo laborum proident nostrud cillum duis shoulder. Shank spare ribs pastrami, jowl jerky eiusmod proident tongue occaecat enim doner pancetta capicola t-bone.
-            p
-              | Capicola chuck in filet mignon prosciutto turkey. Ut tri-tip eiusmod pariatur. Ball tip drumstick fugiat bacon, ribeye reprehenderit dolore sausage beef kielbasa. Ex beef magna culpa labore swine venison pancetta eu irure meatball bresaola frankfurter exercitation.
-            p
-              | Aliqua fatback tenderloin ex biltong laborum minim ut swine bresaola exercitation. Beef corned beef short loin ea. Nulla ullamco eiusmod ball tip enim, ut turkey officia tail ut tenderloin id anim. Tri-tip chuck ham hock beef pancetta pork loin. Sint ham hock aliquip sausage. Excepteur incididunt ea, eu tongue filet mignon hamburger. Ut ea nostrud short loin.
-            p
-              | Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!
+              | {{detail.Content}}
         aside.social-icons.clearfix
           a.social-icon.color-one(href='#')
             .inner-circle
