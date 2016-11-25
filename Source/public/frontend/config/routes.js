@@ -15,14 +15,9 @@
             .when('/view1', {
                 templateUrl: '/partials/view1'
             })
-            .when('/view2', {
-                templateUrl: '/partials/view2'
-            })
-            .when('/details', {
-                templateUrl: '/partials/details'
-            })
-            .when('/details', {
-                templateUrl: '/partials/details'
+            .when('/details/:id', {
+                templateUrl: '/partials/details',
+                controller: 'DetailController'
             })
             .when('/credit', {
                 templateUrl: '/partials/credit'
