@@ -31,7 +31,7 @@ module.exports = function(grunt) {
             },
             dev: {
                 files: {
-                    'public/frontend/app.min.js': ['public/frontend/**/*.js']
+                    'public/frontend/app.min.js': ['public/frontend/**/*.js', '!public/frontend/app.min.js']
                 }
             }
         },
