@@ -2,7 +2,7 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-25 23:14:43
  * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2016-11-26 01:33:20
+ * @Last Modified time: 2016-11-26 11:05:10
  */
 
 (function() {
@@ -15,10 +15,10 @@
 
     function DetailController($scope, $routeParams, QuestionDetailService) {
         var id = $routeParams.id;
+        console.log(id);
         QuestionDetailService.GetQuestionsDetail(id).then(function(result) {
-            //$scope.detail = questionDetail;
-            //$scope.answers = answers;
-            console.log("data" + result);
+            $scope.detail = result.data.questionDetail;
+            $scope.answers = result.data.answers;
         });
     }
 })();
