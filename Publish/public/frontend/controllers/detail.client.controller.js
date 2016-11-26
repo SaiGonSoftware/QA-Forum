@@ -2,7 +2,7 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-25 23:14:43
  * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2016-11-26 00:09:40
+ * @Last Modified time: 2016-11-26 22:02:57
  */
 
 (function() {
@@ -15,9 +15,11 @@
 
     function DetailController($scope, $routeParams, QuestionDetailService) {
         var id = $routeParams.id;
+        //console.log("From client " + id);
         QuestionDetailService.GetQuestionsDetail(id).then(function(result) {
-            $scope.detail = result;
-            console.log("data" + $scope.detail);
+            //console.log("Result call from angular controller " + result);
+            $scope.detail = result.questionDetail;
+            $scope.answers = result.answers;
         });
     }
 })();

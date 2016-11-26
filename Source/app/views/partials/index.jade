@@ -7,11 +7,11 @@
             article.blog-teaser
               header
                 h3
-                  a(href='/questions/{{question._id}}') {{question.Title}}
+                  a(href='/details/{{question._id}}') {{question.Title}}
                 span.meta {{question.CreateDate | date : format : fullDate}}
                 hr
               .body
-                 {{question.Content}}
+                | {{question.Content}}
               .clearfix
                 a.btn.btn-tales-one(href='/details/{{question._id}}') Đọc thêm
         include ../layout/paging

@@ -36,46 +36,20 @@
           h2
             i.fa.fa-comments
             |  24 Comments
-          article.comment
+          article.comment(ng-repeat="answer in answers")
             header.clearfix
               img.avatar(src='img/avatar.png', alt='A Smart Guy')
               .meta
                 h3
-                  a(href='#') Willy Wonka
+                  a(href='#') {{answer.UserAnswer}}
                 span.date
-                  | 27 July 2013
+                  | {{answer.CreateDate | date : format : fullDate}}
                 span.separator
                   | -
-                a.reply-link(href='#create-comment') Reply
+                a.reply-link(href='#create-comment') Trả Lời
             .body
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-          article.comment.reply
-            header.clearfix
-              img.avatar(src='img/avatar.png', alt='A Smart Guy')
-              .meta
-                h3
-                  a(href='#') Willy Wonka
-                span.date
-                  | 27 July 2013
-                span.separator
-                  | -
-                a.reply-link(href='#create-comment') Reply
-            .body
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-          article.comment
-            header.clearfix
-              img.avatar(src='img/avatar.png', alt='A Smart Guy')
-              .meta
-                h3
-                  a(href='#') Willy Wonka
-                span.date
-                  | 27 July 2013
-                span.separator
-                  | -
-                a.reply-link(href='#create-comment') Reply
-            .body
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-          article.comment
+              | {{answer.Content}}
+          //-article.comment.reply
             header.clearfix
               img.avatar(src='img/avatar.png', alt='A Smart Guy')
               .meta

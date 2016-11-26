@@ -2,10 +2,11 @@
  * @Author: hoangphucvu
  * @Date:   2016-11-18 14:41:15
  * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2016-11-19 15:47:18
+ * @Last Modified time: 2016-11-26 01:24:52
  */
 
 var mongoose = require('mongoose');
+
 var questionSchema = new mongoose.Schema({
     UserQuestion: {
         type: String,

@@ -2,7 +2,7 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-25 23:20:32
  * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2016-11-26 11:05:48
+ * @Last Modified time: 2016-11-26 22:02:25
  */
 
 (function() {
@@ -14,9 +14,8 @@
     QuestionDetailService.$inject = ['$http', '$q'];
 
     function QuestionDetailService($http, $q) {
-        var getQuestionDetailService = {};
-        return $q(function(reject, resolve, $id) {
-            $http.get('/api/GetQuestionDetail/' + $id).then(function(response) {
+        /*return $q(function(reject, resolve, id) {
+            $http.get('/api/GetQuestionDetail/' + id).then(function(response) {
                 console.log(response);
                 if (response.data.success) {
                     resolve(response.data.msg);
@@ -24,22 +23,31 @@
                     reject(response.data.msg);
                 }
             });
-            return getQuestionDetailService;
-        });
+        });*/
 
-        /*var getQuestionDetailService = {};
+        var getQuestionDetailService = {};
         var deferred = $q.defer();
         getQuestionDetailService.GetQuestionsDetail = function($id) {
             $http.get('/api/GetQuestionDetail/' + $id)
-                .error(function() {
-                    deferred.reject('Error when getting question');
+                /*, function(response) {
+                                console.log(response);
+                                if (response.msg === "Success") {
+                                    deferred.resolve(response.msg);
+                                } else {
+                                    deferred.reject(response.msg);
+                                }
+                            });*/
+                .error(function(response) {
+                    deferred.reject(response.msg);
                 }).success(function(response) {
                     console.log(response);
+                    //console.log(response.answers);
+                    //console.log(response.questionDetail);
                     deferred.resolve(response);
                 });
             return deferred.promise;
         };
-        return getQuestionDetailService;*/
+        return getQuestionDetailService;
     }
 
 
