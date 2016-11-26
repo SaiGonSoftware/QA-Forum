@@ -2,7 +2,7 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-25 23:20:32
  * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2016-11-26 00:10:49
+ * @Last Modified time: 2016-11-26 22:02:25
  */
 
 (function() {
@@ -14,17 +14,41 @@
     QuestionDetailService.$inject = ['$http', '$q'];
 
     function QuestionDetailService($http, $q) {
+        /*return $q(function(reject, resolve, id) {
+            $http.get('/api/GetQuestionDetail/' + id).then(function(response) {
+                console.log(response);
+                if (response.data.success) {
+                    resolve(response.data.msg);
+                } else {
+                    reject(response.data.msg);
+                }
+            });
+        });*/
+
         var getQuestionDetailService = {};
         var deferred = $q.defer();
         getQuestionDetailService.GetQuestionsDetail = function($id) {
             $http.get('/api/GetQuestionDetail/' + $id)
-                .error(function() {
-                    deferred.reject('Error when getting question');
-                }).success(function(data) {
-                    deferred.resolve(data);
+                /*, function(response) {
+                                console.log(response);
+                                if (response.msg === "Success") {
+                                    deferred.resolve(response.msg);
+                                } else {
+                                    deferred.reject(response.msg);
+                                }
+                            });*/
+                .error(function(response) {
+                    deferred.reject(response.msg);
+                }).success(function(response) {
+                    console.log(response);
+                    //console.log(response.answers);
+                    //console.log(response.questionDetail);
+                    deferred.resolve(response);
                 });
             return deferred.promise;
         };
         return getQuestionDetailService;
     }
+
+
 })();
