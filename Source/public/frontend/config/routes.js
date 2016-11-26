@@ -15,7 +15,7 @@
             .when('/view1', {
                 templateUrl: '/partials/view1'
             })
-            .when('/details/:id', {
+        .when('/details/:id', {
                 templateUrl: '/partials/details',
                 controller: 'DetailController'
             })
