@@ -2,15 +2,20 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-18 20:06:26
  * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2016-11-26 22:00:47
+ * @Last Modified time: 2016-11-27 22:25:54
  */
 
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
+var User = require('../models/user.server.model');
 exports.QuestionIndex = function(req, res) {
     var query = Question.find({}).sort({
-        'CreateDate': -1
+        'CreateDate': 'descending'
     }).limit(6);
+    var count = Question.count();
+    count.exec(function(e, count) {
+        console.log('count', count); // can be more than 2, this is not calculated, mongo stores this value internally
+    });
     query.exec(function(err, questions) {
         if (err)
             return res.status(500).send();
@@ -21,11 +26,10 @@ exports.QuestionIndex = function(req, res) {
 
 exports.QuestionDetail = function(req, res) {
     var id = req.params.id;
-    console.log("From server " + id);
     Question.findById(id).populate('QuestionId').exec(function(err, questionDetail) {
         if (err) {
             res.json({
-                suceess: false,
+                success: false,
                 msg: "Error"
             });
         } else {
@@ -35,16 +39,13 @@ exports.QuestionDetail = function(req, res) {
                 }
             }, function(err, answers) {
                 if (err) {
-                    //console.log(err);
                     res.json({
-                        suceess: false,
+                        success: false,
                         msg: "Error"
                     });
                 } else {
-                    //console.log(questionDetail);
-                    //console.log("From server answer" + answers);
                     res.json({
-                        suceess: true,
+                        success: true,
                         msg: "Success",
                         questionDetail: questionDetail,
                         answers: answers
