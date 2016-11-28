@@ -36,8 +36,8 @@ exports.QuestionDetail = function (req, res) {
     Question.findById(id).populate('QuestionId').exec(function (err, questionDetail) {
         if (err) {
             res.json({
-                success: false,
-                msg: "Error"
+                found: false,
+                msg: "Not Found"
             });
         } else {
             Answer.find({
@@ -52,8 +52,8 @@ exports.QuestionDetail = function (req, res) {
                     });
                 } else {
                     res.json({
-                        success: true,
-                        msg: "Success",
+                        found: true,
+                        msg: "Found",
                         questionDetail: questionDetail,
                         answers: answers
                     });
