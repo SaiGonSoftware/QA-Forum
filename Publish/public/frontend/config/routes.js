@@ -1,10 +1,10 @@
-(function() {
+(function () {
     'use strict';
     angular.module('appRoute', ['ngRoute'])
-        .config(config)
-        .run(run);
+        .config(config);
+    //.run(run);
     config.$inject = ['$locationProvider', '$routeProvider'];
-    run.$inject = ['$rootScope', '$location'];
+    //run.$inject = ['$rootScope', '$location'];
 
     function config($locationProvider, $routeProvider) {
         $routeProvider
@@ -23,6 +23,7 @@
                 templateUrl: '/partials/credit'
             })
             .otherwise({
+                redirectTo: '/page-not-found',
                 templateUrl: '/partials/404'
             });
         $locationProvider.html5Mode({
@@ -31,11 +32,11 @@
         });
     }
 
-    function run($rootScope, $location) {
-        $rootScope.$on('$routeChangeError', function(event, current, previous, error) {
-            console.log(error);
-            if (error.status === 404)
-                $location.path('/not-found');
-        });
-    }
+    /*function run($rootScope, $location) {
+     $rootScope.$on('$routeChangeError', function(event, current, previous, error) {
+     console.log(error);
+     if (error.status === 404)
+     $location.path('/page-not-found');
+     });
+     }*/
 })();
