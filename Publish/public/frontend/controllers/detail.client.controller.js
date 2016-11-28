@@ -17,7 +17,6 @@
         var id = $routeParams.id;
         //console.log("From client " + id);
         QuestionDetailService.GetQuestionsDetail(id).then(function(result) {
-            //console.log("Result call from angular controller " + result);
             $scope.detail = result.questionDetail;
             $scope.answers = result.answers;
         });

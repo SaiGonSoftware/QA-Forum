@@ -29,20 +29,9 @@
         var deferred = $q.defer();
         getQuestionDetailService.GetQuestionsDetail = function($id) {
             $http.get('/api/GetQuestionDetail/' + $id)
-                /*, function(response) {
-                                console.log(response);
-                                if (response.msg === "Success") {
-                                    deferred.resolve(response.msg);
-                                } else {
-                                    deferred.reject(response.msg);
-                                }
-                            });*/
                 .error(function(response) {
                     deferred.reject(response.msg);
                 }).success(function(response) {
-                    console.log(response);
-                    //console.log(response.answers);
-                    //console.log(response.questionDetail);
                     deferred.resolve(response);
                 });
             return deferred.promise;
