@@ -14,17 +14,6 @@
     QuestionDetailService.$inject = ['$http', '$q'];
 
     function QuestionDetailService($http, $q) {
-        /*return $q(function(reject, resolve, id) {
-            $http.get('/api/GetQuestionDetail/' + id).then(function(response) {
-                console.log(response);
-                if (response.data.success) {
-                    resolve(response.data.msg);
-                } else {
-                    reject(response.data.msg);
-                }
-            });
-        });*/
-
         var getQuestionDetailService = {};
         var deferred = $q.defer();
         getQuestionDetailService.GetQuestionsDetail = function($id) {
