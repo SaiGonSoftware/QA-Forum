@@ -1,9 +1,3 @@
-/*
-* @Author: Ngo Hung Phuc
-* @Date:   2016-11-14 23:32:30
-* @Last Modified by:   Ngo Hung Phuc
-* @Last Modified time: 2016-11-14 23:32:36
-*/
 //colors
 $color_bright_gray_approx: #37424c;
 $color_limed_spruce_approx: #3e4953;
@@ -1378,6 +1372,48 @@ fieldset[disabled] {
 	line-height: normal;
 	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
 	border-radius: 5px;
+}
+#fof {
+	display: block;
+	width: 100%;
+	margin: 100px 0;
+	line-height: 1.6em;
+	text-align: center;
+	.hgroup {
+		text-transform: uppercase;
+		h1 {
+			margin-bottom: 25px;
+			font-size: 80px;
+			span {
+				display: inline-block;
+				margin-left: 5px;
+				padding: 2px;
+				border: 1px solid $color_celeste_approx;
+				overflow: hidden;
+				strong {
+					display: inline-block;
+					padding: 0 20px 20px;
+					border: 1px solid $color_celeste_approx;
+					font-weight: normal;
+				}
+			}
+		}
+		h2 {
+			font-size: 60px;
+			span {
+				display: block;
+				font-size: 30px;
+			}
+		}
+	}
+	p {
+		margin: 25px 0 0;
+		padding: 0;
+		font-size: 16px;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
 }
 .footer .tales-list {
 	margin-top: -6px;
