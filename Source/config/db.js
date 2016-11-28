@@ -6,4 +6,5 @@
  */
 
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://hungphuc95:nguyenkute@ds139937.mlab.com:39937/tdtforumdb');
