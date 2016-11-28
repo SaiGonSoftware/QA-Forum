@@ -2,16 +2,28 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-18 20:06:26
  * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2016-11-26 22:00:47
+ * @Last Modified time: 2016-11-27 22:25:54
  */
 
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
-exports.QuestionIndex = function(req, res) {
+var User = require('../models/user.server.model');
+exports.QuestionIndex = function (req, res) {
+    var limitItemOnePage = 10;
+    var currentPage = 1;
+
+    //pagination
+    Question.count({}, function (err, totalItem) {
+        var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
+        var result =  Question.find({}).sort({
+            'CreateDate': 'descending'
+        }).skip(limitItemOnePage*(currentPage-1)).limit(limitItemOnePage);
+    });
+
     var query = Question.find({}).sort({
-        'CreateDate': -1
+        'CreateDate': 'descending'
     }).limit(6);
-    query.exec(function(err, questions) {
+    query.exec(function (err, questions) {
         if (err)
             return res.status(500).send();
         else
@@ -19,13 +31,12 @@ exports.QuestionIndex = function(req, res) {
     });
 };
 
-exports.QuestionDetail = function(req, res) {
+exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
-    console.log("From server " + id);
-    Question.findById(id).populate('QuestionId').exec(function(err, questionDetail) {
+    Question.findById(id).populate('QuestionId').exec(function (err, questionDetail) {
         if (err) {
             res.json({
-                suceess: false,
+                success: false,
                 msg: "Error"
             });
         } else {
@@ -33,18 +44,15 @@ exports.QuestionDetail = function(req, res) {
                 "QuestionId": {
                     "$in": id
                 }
-            }, function(err, answers) {
+            }, function (err, answers) {
                 if (err) {
-                    //console.log(err);
                     res.json({
-                        suceess: false,
+                        success: false,
                         msg: "Error"
                     });
                 } else {
-                    //console.log(questionDetail);
-                    //console.log("From server answer" + answers);
                     res.json({
-                        suceess: true,
+                        success: true,
                         msg: "Success",
                         questionDetail: questionDetail,
                         answers: answers
