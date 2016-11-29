@@ -14,6 +14,7 @@
 
     function IndexController($scope, QuestionService) {
         QuestionService.GetAllQuestions().then(function (result) {
+            $scope.totalPage = new Array(result.data.pages);
             console.log("questions", result);
             $scope.questions = result.data;
         });

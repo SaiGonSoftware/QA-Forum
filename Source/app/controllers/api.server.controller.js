@@ -18,22 +18,23 @@ exports.QuestionIndex = function (req, res) {
         var result = Question.find({}).sort({
             'CreateDate': 'descending'
         }).skip(limitItemOnePage * (currentPage - 1)).limit(limitItemOnePage);
-    });
 
-    var query = Question.find({}).sort({
-        'CreateDate': 'descending'
-    }).limit(6);
-    query.exec(function (err, questions) {
-        if (err)
-            return res.status(500).send();
-        else
-            res.send(questions);
+        if(result){
+            res.json({
+                //data:result,
+                pages:numberOfPage
+            });
+        }
+        else{
+            res.json({
+                msg:'Error when getting data'
+            });
+        }
     });
 };
 
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
-    console.log(id);
     Question.findById(id).populate('QuestionId').exec(function (err, questionDetail) {
         if (err) {
             res.json({
