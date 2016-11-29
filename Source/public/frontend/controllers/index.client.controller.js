@@ -4,7 +4,7 @@
  * @Last Modified by:   Ngo Hung Phuc
  * @Last Modified time: 2016-11-19 22:37:18
  */
-(function() {
+(function () {
     'use strict';
 
     angular.module('ChatBotApp')
@@ -13,9 +13,9 @@
     IndexController.$inject = ['$scope', 'QuestionService'];
 
     function IndexController($scope, QuestionService) {
-        QuestionService.GetAllQuestions().then(function(result) {
-            $scope.questions = result;
-            console.log($scope.questions);
+        QuestionService.GetAllQuestions().then(function (result) {
+            console.log("questions", result);
+            $scope.questions = result.data;
         });
     }
 })();

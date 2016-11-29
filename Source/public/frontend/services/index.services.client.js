@@ -4,25 +4,18 @@
  * @Last Modified by:   Ngo Hung Phuc
  * @Last Modified time: 2016-11-27 22:21:07
  */
-(function() {
+(function () {
     'use strict';
 
     angular.module('ChatBotApp')
         .factory('QuestionService', QuestionService);
 
-    QuestionService.$inject = ['$http', '$q'];
+    QuestionService.$inject = ['$http'];
 
-    function QuestionService($http, $q) {
+    function QuestionService($http) {
         var getAllQuestionService = {};
-        var deferred = $q.defer();
-        getAllQuestionService.GetAllQuestions = function() {
-            $http.get('/api/GetAllQuestion')
-                .error(function() {
-                    deferred.reject('Error when getting question');
-                }).success(function(data) {
-                    deferred.resolve(data);
-                });
-            return deferred.promise;
+        getAllQuestionService.GetAllQuestions = function () {
+            return $http.get('/api/GetAllQuestion');
         };
         return getAllQuestionService;
     }
