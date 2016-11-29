@@ -15,9 +15,9 @@ exports.QuestionIndex = function (req, res) {
     //pagination
     Question.count({}, function (err, totalItem) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
-        var result =  Question.find({}).sort({
+        var result = Question.find({}).sort({
             'CreateDate': 'descending'
-        }).skip(limitItemOnePage*(currentPage-1)).limit(limitItemOnePage);
+        }).skip(limitItemOnePage * (currentPage - 1)).limit(limitItemOnePage);
     });
 
     var query = Question.find({}).sort({
@@ -33,6 +33,7 @@ exports.QuestionIndex = function (req, res) {
 
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
+    console.log(id);
     Question.findById(id).populate('QuestionId').exec(function (err, questionDetail) {
         if (err) {
             res.json({
