@@ -11,14 +11,16 @@
     angular.module('ChatBotApp')
         .controller('DetailController', DetailController);
 
-    DetailController.$inject = ['$scope', '$routeParams', 'QuestionDetailService', '$location'];
+    DetailController.$inject = ['$scope', '$routeParams', 'QuestionDetailService', '$location', '$route'];
 
-    function DetailController($scope, $routeParams, QuestionDetailService, $location) {
+    function DetailController($scope, $routeParams, QuestionDetailService, $location, $route) {
         var id = $routeParams.id;
+        //$route.reload();
+        console.log("Client id" + id);
         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
-            if (result.found) {
-                $scope.detail = result.questionDetail;
-                $scope.answers = result.answers;
+            if (result.data.found === true) {
+                $scope.detail = result.data.questionDetail;
+                $scope.answers = result.data.answers;
             }
             else $location.path('/page-not-found');
         });
