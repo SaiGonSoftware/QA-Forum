@@ -1,10 +1,8 @@
 (function () {
         'use strict';
         angular.module('appRoute', ['ngRoute'])
-            .config(config)
-        .run(run);
+            .config(config);
         config.$inject = ['$locationProvider', '$routeProvider'];
-        run.$inject = ['$rootScope', '$templateCache'];
 
         function config($locationProvider, $routeProvider) {
             $routeProvider
@@ -32,10 +30,4 @@
             });
         }
 
-
-        function run($rootScope, $templateCache) {
-            $rootScope.$on('$viewContentLoaded', function () {
-                $templateCache.removeAll();
-            });
-        }
     })();
