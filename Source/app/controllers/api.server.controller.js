@@ -15,21 +15,22 @@ exports.QuestionIndex = function (req, res) {
     //pagination
     Question.count({}, function (err, totalItem) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
-        var result = Question.find({}).sort({
+        var data = Question.find({}).sort({
             'CreateDate': 'descending'
         }).skip(limitItemOnePage * (currentPage - 1)).limit(limitItemOnePage);
-
-        if(result){
-            res.json({
-                //data:result,
-                pages:numberOfPage
-            });
-        }
-        else{
-            res.json({
-                msg:'Error when getting data'
-            });
-        }
+        data.exec(function (err, questions) {
+            if (err) {
+                res.json({
+                    msg: err
+                });
+            }
+            else {
+                res.json({
+                    questions: questions,
+                    pages: numberOfPage
+                });
+            }
+        });
     });
 };
 

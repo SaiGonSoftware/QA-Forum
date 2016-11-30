@@ -15,7 +15,6 @@
 
     function DetailController($scope, $routeParams, QuestionDetailService, $location, $route) {
         var id = $routeParams.id;
-        //$route.reload();
         console.log("Client id" + id);
         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
             if (result.data.found === true) {
