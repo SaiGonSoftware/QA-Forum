@@ -65,3 +65,16 @@ exports.QuestionDetail = function (req, res) {
         }
     });
 };
+
+//Api for mobile
+exports.QuestionIndexMobile = function (req, res) {
+    var query = Question.find({}).sort({
+        'CreateDate': -1
+    });
+    query.exec(function (err, questions) {
+        if (err)
+            return res.status(500).send();
+        else
+            res.send(questions);
+    });
+};

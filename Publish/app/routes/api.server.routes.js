@@ -9,4 +9,7 @@ var router = express.Router();
 var api = require('../controllers/api.server.controller');
 router.get('/GetAllQuestion', api.QuestionIndex);
 router.get('/GetQuestionDetail/:id', api.QuestionDetail);
+
+//api for mobile
+router.get('/mobile/GetAllQuestion/', api.QuestionIndexMobile);
 module.exports = router;

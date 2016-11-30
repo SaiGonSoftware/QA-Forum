@@ -15,25 +15,27 @@ exports.QuestionIndex = function (req, res) {
     //pagination
     Question.count({}, function (err, totalItem) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
-        var result = Question.find({}).sort({
+        var data = Question.find({}).sort({
             'CreateDate': 'descending'
         }).skip(limitItemOnePage * (currentPage - 1)).limit(limitItemOnePage);
-    });
-
-    var query = Question.find({}).sort({
-        'CreateDate': 'descending'
-    }).limit(6);
-    query.exec(function (err, questions) {
-        if (err)
-            return res.status(500).send();
-        else
-            res.send(questions);
+        data.exec(function (err, questions) {
+            if (err) {
+                res.json({
+                    msg: err
+                });
+            }
+            else {
+                res.json({
+                    questions: questions,
+                    pages: numberOfPage
+                });
+            }
+        });
     });
 };
 
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
-    console.log(id);
     Question.findById(id).populate('QuestionId').exec(function (err, questionDetail) {
         if (err) {
             res.json({
@@ -61,5 +63,18 @@ exports.QuestionDetail = function (req, res) {
                 }
             });
         }
+    });
+};
+
+//Api for mobile
+exports.QuestionIndexMobile = function (req, res) {
+    var query = Question.find({}).sort({
+        'CreateDate': -1
+    });
+    query.exec(function (err, questions) {
+        if (err)
+            return res.status(500).send();
+        else
+            res.send(questions);
     });
 };
