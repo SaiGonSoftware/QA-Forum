@@ -1,8 +1,12 @@
 .paging
-  a.newer(href='#')
-    i.fa.fa-long-arrow-left
-    |  Newer
-  span •
-  a.older(href='#')
-    | Older 
-    i.fa.fa-long-arrow-right
+  nav(aria-label='Page navigation')
+    ul.pagination
+      li
+        a(href='#', aria-label='Previous')
+          span(aria-hidden='true') «
+      li(ng-repeat="page in totalPage track by $index")
+        a(href='#') {{$index+1}}
+      li
+        a(href='#', aria-label='Next')
+          span(aria-hidden='true') »
+
