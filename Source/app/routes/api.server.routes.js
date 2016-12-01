@@ -7,7 +7,7 @@
 var express = require('express');
 var router = express.Router();
 var api = require('../controllers/api.server.controller');
-router.get('/GetAllQuestion', api.QuestionIndex);
+router.get('/GetAllQuestion/:pageRequest', api.QuestionIndex);
 router.get('/GetQuestionDetail/:id', api.QuestionDetail);
 
 //api for mobile
