@@ -10,8 +10,8 @@ var Answer = require('../models/answer.server.model');
 var User = require('../models/user.server.model');
 exports.QuestionIndex = function (req, res) {
     var limitItemOnePage = 10;
-    var currentPage = 1;
-
+    var currentPage = req.params.pageRequest | 1;
+    console.log("From server " + currentPage  );
     //pagination
     Question.count({}, function (err, totalItem) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
