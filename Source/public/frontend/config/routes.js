@@ -18,6 +18,9 @@
                 .when('/credit', {
                     templateUrl: '/partials/credit'
                 })
+                .when('/dang-nhap', {
+                    templateUrl: '/partials/login'
+                })
                 .otherwise({
                     redirectTo: '/page-not-found',
                     templateUrl: '/partials/404'

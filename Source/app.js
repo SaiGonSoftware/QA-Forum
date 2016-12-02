@@ -13,8 +13,7 @@ var express = require('express'),
     env = process.env.NODE_ENV || 'development';
 
 //require route for app
-var loginRoute = require('./app/routes/login.server.routes'),
-    indexRoute = require('./app/routes/index.server.routes'),
+var indexRoute = require('./app/routes/index.server.routes'),
     apiRoute = require('./app/routes/api.server.routes');
 //app.locals.pretty = true;
 // view engine setup
