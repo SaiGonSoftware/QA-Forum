@@ -13,9 +13,8 @@
 
     DetailController.$inject = ['$scope', '$routeParams', 'QuestionDetailService', '$location', '$route'];
 
-    function DetailController($scope, $routeParams, QuestionDetailService, $location, $route) {
+    function DetailController($scope, $routeParams, QuestionDetailService, $location) {
         var id = $routeParams.id;
-        console.log("Client id" + id);
         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
             if (result.data.found === true) {
                 $scope.detail = result.data.questionDetail;

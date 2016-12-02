@@ -13,9 +13,20 @@
     IndexController.$inject = ['$scope', 'QuestionService'];
 
     function IndexController($scope, QuestionService) {
-        QuestionService.GetAllQuestions().then(function (result) {
+        var page = 1;
+        QuestionService.GetAllQuestions(page).then(function (result) {
             $scope.totalPage = new Array(result.data.pages);
             $scope.questions = result.data.questions;
         });
+
+        $scope.PageRequest = function (page) {
+            console.log(page);
+            QuestionService.GetAllQuestions(page).then(function (result) {
+                console.log(result);
+                $scope.totalPage = result.data.pages;
+                $scope.questions = result.data.questions;
+            });
+
+        };
     }
 })();

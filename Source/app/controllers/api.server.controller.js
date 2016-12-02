@@ -5,12 +5,15 @@
  * @Last Modified time: 2016-11-27 22:25:54
  */
 
+var bcrypt = require('bcrypt-nodejs');
+var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
-var User = require('../models/user.server.model');
+
+
 exports.QuestionIndex = function (req, res) {
     var limitItemOnePage = 10;
-    var currentPage = req.params.pageRequest | 1;
+    var currentPage = req.params.pageRequest  | 1;
     console.log("From server " + currentPage  );
     //pagination
     Question.count({}, function (err, totalItem) {
@@ -77,4 +80,43 @@ exports.QuestionIndexMobile = function (req, res) {
         else
             res.send(questions);
     });
+};
+
+exports.Import = function(req,res){
+    var hash = bcrypt.hashSync("abc123");
+    data = [
+        { 'username' : 'nhatnguyen95' ,'password':hash,'level':1}
+    ];
+    User.collection.insert(data,function(err,result){
+        console.log(err);
+        console.log(result);
+    });
+};
+
+exports.Login = function(req,res){
+    var username = req.body.username;
+    var password = req.body.password;
+    var hash = bcrypt.hashSync(password);
+    console.log(username);
+    console.log(hash);
+    User.findOne({username:username},function(err,user){
+        bcrypt.compare(password, hash, function(err, result) {
+            if(err){
+                console.log(err);
+                return res.status(500).send();
+            }
+            if(!user){
+                console.log(err);
+                return res.status(404).send();
+            }
+            req.session.user = user;
+            return res.redirect('/index');
+        });
+    });
+};
+
+
+exports.Logout = function(req,res){
+    req.session.destroy();
+    return res.redirect('/');
 };

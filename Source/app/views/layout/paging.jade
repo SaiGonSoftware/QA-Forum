@@ -1,12 +1,12 @@
 .paging(ng-controller="IndexController")
-  nav(aria-label='Page navigation')
-    ul.pagination
-      li
-        a(href='#', aria-label='Previous')
-          span(aria-hidden='true') «
-      li(ng-repeat="page in totalPage track by $index")
-        a(href="#" ng-click="PageRequest($index+1)") {{$index+1}}
-      li
-        a(href='#', aria-label='Next')
-          span(aria-hidden='true') »
+    nav(aria-label='Page navigation')
+        ul.pagination
+            li
+                a(href='#', aria-label='Previous')
+                    span(aria-hidden='true') «
+            li(ng-repeat="page in totalPage track by $index")
+                a(href="#" ng-click="PageRequest($index)") {{$index+1}}
+            li
+                a(href='#', aria-label='Next')
+                    span(aria-hidden='true') »
 
