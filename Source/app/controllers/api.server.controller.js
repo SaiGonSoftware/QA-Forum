@@ -84,10 +84,12 @@ exports.QuestionIndexMobile = function (req, res) {
 
 exports.Import = function(req,res){
     var hash = bcrypt.hashSync("abc123");
+    var hash1 = bcrypt.hashSync("070695");
     data = [
-        { 'username' : 'nhatnguyen95' ,'password':hash,'level':1}
+        { 'Account' : 'nhatnguyen95' ,'Password':hash,'FullName':'Ngô Hùng Phúc',"CreateDate":"2016-12-02",'level':1},
+        { 'Account' : 'phucngo95' ,'Password':hash1,'FullName':'Nguyễn Nhật Nguyên',"CreateDate":"2016-12-02",'level':1}
     ];
-    User.collection.insert(data,function(err,result){
+    User.collection.insertMany(data,function(err,result){
         console.log(err);
         console.log(result);
     });
@@ -95,23 +97,32 @@ exports.Import = function(req,res){
 
 exports.Login = function(req,res){
     var username = req.body.username;
-    var password = req.body.password;
-    var hash = bcrypt.hashSync(password);
+    var passwordToHash = req.body.password;
     console.log(username);
+
+    var hash = bcrypt.hashSync(passwordToHash);
     console.log(hash);
-    User.findOne({username:username},function(err,user){
-        bcrypt.compare(password, hash, function(err, result) {
+    User.findOne({username:username,password:hash},function(err,user){
+            console.log(user);
             if(err){
-                console.log(err);
-                return res.status(500).send();
+                return res.json({
+                    status:500,
+                    msg: "Có lỗi xảy ra vui lòng thử lại"
+                });
             }
             if(!user){
                 console.log(err);
-                return res.status(404).send();
+                return res.json({
+                    status:404,
+                    msg: "Vui lòng kiểm tra tên đăng nhập và mật khẩu"
+                });
             }
             req.session.user = user;
-            return res.redirect('/index');
-        });
+            return res.json({
+                msg: "Đăng nhập thành công",
+                url:'/',
+                user:user
+            });
     });
 };
 

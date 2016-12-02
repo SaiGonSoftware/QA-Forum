@@ -13,7 +13,7 @@ router.get('/GetQuestionDetail/:id', api.QuestionDetail);
 
 router.post('/Account/Login',api.Login);
 router.get('/Account/Logout',api.Logout);
-//router.get('/import',api.Import);
+router.get('/import',api.Import);
 
 //api for mobile
 router.get('/mobile/GetAllQuestion/', api.QuestionIndexMobile);
