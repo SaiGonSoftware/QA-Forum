@@ -21,9 +21,11 @@
 
         $scope.PageRequest = function (page) {
             console.log(page);
-            QuestionService.GetAllQuestions(page).then(function (result) {
+            var requestPage = page + 1 ;
+            console.log(requestPage);
+            QuestionService.GetAllQuestions(requestPage).then(function (result) {
                 console.log(result);
-                $scope.totalPage = new Array(result.data.pages);
+                $scope.totalPage = result.data.pages;
                 $scope.questions = result.data.questions;
             });
 

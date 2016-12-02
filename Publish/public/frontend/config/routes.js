@@ -7,15 +7,13 @@
         function config($locationProvider, $routeProvider) {
             $routeProvider
                 .when('/', {
-                    templateUrl: '/partials/index',
-                    controller: 'IndexController'
+                    templateUrl: '/partials/index'
                 })
                 .when('/view1', {
                     templateUrl: '/partials/view1'
                 })
                 .when('/details/:id', {
-                    templateUrl: '/partials/details',
-                    controller: 'DetailController'
+                    templateUrl: '/partials/details'
                 })
                 .when('/credit', {
                     templateUrl: '/partials/credit'

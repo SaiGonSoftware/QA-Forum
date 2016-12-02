@@ -14,8 +14,8 @@
 
     function QuestionService($http) {
         var getAllQuestionService = {};
-        getAllQuestionService.GetAllQuestions = function () {
-            return $http.get('/api/GetAllQuestion');
+        getAllQuestionService.GetAllQuestions = function (page) {
+            return $http.get('/api/GetAllQuestion/' + page);
         };
         return getAllQuestionService;
     }
