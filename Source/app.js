@@ -10,16 +10,9 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     http = require('http'),
     server = http.createServer(app),
-    env = process.env.NODE_ENV || 'development';
-
-//require route for app
-var indexRoute = require('./app/routes/index.server.routes'),
-    apiRoute = require('./app/routes/api.server.routes');
-//app.locals.pretty = true;
-// view engine setup
-app.set('views', path.join(__dirname, 'app/views'));
-app.set('view engine', 'jade');
-
+    env = process.env.NODE_ENV || 'development',
+    passport = require('passport'),
+    localStrategy = require('passport-local').Strategy;
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -29,31 +22,33 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
+// view engine setup
+app.set('views', path.join(__dirname, 'app/views'));
+app.set('view engine', 'jade');
+//resave update session avoid it from expires
 app.use(session({
     secret: "asdkoasdkascmkascpoascmkalscasoi",
-    resave: false,
+    resave: true,
     saveUninitialized: true
 }));
-
+//require route for app
+var indexRoute = require('./app/routes/index.server.routes'),
+    apiRoute = require('./app/routes/api.server.routes');
 
 //set route for specific request
-app.get('/partials/:partialPath', function(req, res) {
+app.get('/partials/:partialPath', function (req, res) {
     res.render('partials/' + req.params.partialPath);
 });
-
 app.use('/api', apiRoute);
 app.get('*', indexRoute);
 
 
-// Config reload whenever frontend folder change
 if (env === 'development') {
     // TODO
 }
-
 if (env === 'production') {
     // TODO
 }
-console.log(env);
-server.listen(port, function() {
+server.listen(port, function () {
     console.log("Web server listening on port " + port);
 });

@@ -16,20 +16,25 @@ var userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    FullName: {
-        type: String,
-        require: true
+    Email:{
+        type:String,
+        require:true
     },
-    BirthDay: {
-        type: Date,
-        require: true
-    },
-    CreateDay: {
-        type: Date,
+    Level: {
+        type: Number,
         require: true
     }
 });
-
 var User = mongoose.model('users', userSchema);
+
+module.exports.getUserByUserName = function(username,callback){
+    var qyery = {Account:username};
+    User.findOne(query,callback);
+};
+
+module.exports.comparePassword = function(password,callback){
+    var qyery = {Account:username};
+    User.findOne(query,callback);
+};
 
 module.exports = User;

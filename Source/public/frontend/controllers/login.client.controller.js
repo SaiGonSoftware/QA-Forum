@@ -30,7 +30,7 @@
         $scope.Login = function () {
             $scope.IsLogging = true;
             $scope.Submmitted = true;
-            //if ($scope.IsFormValid) {
+            if ($scope.IsFormValid) {
                 $scope.ShowLoading = true;
                 $scope.HideLoginBtn = true;
                 console.log($scope.LoginData);
@@ -48,7 +48,7 @@
                         $scope.HideLoginBtn = false;
                     }
                 });
-            //}
+            }
         };
     }
 

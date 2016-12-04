@@ -21,6 +21,9 @@
                 .when('/dang-nhap', {
                     templateUrl: '/partials/login'
                 })
+                .when('/dang-ky', {
+                    templateUrl: '/partials/register'
+                })
                 .otherwise({
                     redirectTo: '/page-not-found',
                     templateUrl: '/partials/404'
