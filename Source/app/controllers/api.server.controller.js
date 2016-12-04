@@ -109,11 +109,21 @@ exports.QuestionIndexMobile = function (req, res) {
 };
 */
 exports.Register = function (req, res) {
-    var Account = req.body.UsernameRegis;
-    var Password = req.body.PasswordRegis;
-    var Email = req.body.EmailRegis;
-    var Level = 2 ;
-    
+    var newUser = new User({
+        Account:req.body.UsernameRegis,
+        Password:req.body.PasswordRegis,
+        Email: req.body.EmailRegis,
+        Level:2
+    });
+    User.createUser(newUser,function(err,user){
+        if(err) throw err;
+        console.log(user);
+        res.json({
+            msg: err,
+            user:user
+        });
+    });
+
 };
 
 exports.Login = function (req, res) {
