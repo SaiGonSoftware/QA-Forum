@@ -42,7 +42,7 @@
             if ($scope.IsRegisFormValid) {
                 RegisterService.RegisterAccount($scope.RegisData).then(function (result) {
                     console.log(result);
-                    if (result.status === 500 || result.status === 404) {
+                    /*if (result.status === 500 || result.status === 404) {
                         alert(result.msg);
                     }
 
@@ -50,7 +50,7 @@
                         //window.location.href = "/";
                         $scope.ShowLoading = false;
                         $scope.HideRegisBtn = false;
-                    }
+                    }*/
                 });
             }
         };
