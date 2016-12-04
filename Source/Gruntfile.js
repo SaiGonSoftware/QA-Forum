@@ -11,15 +11,14 @@ module.exports = function(grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'public/css/web-style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css'],
-                    'public/css/login.min.css': ['public/css/bootstrap.min.css', 'public/css/login.css']
+                    'public/css/web-style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css','public/css/font-awesome.min.css', 'public/css/style.css']
                 }
             },
             dev: {
                 files: {
-                    'public/css/web-style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css'],
+                    'public/css/web-style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css']
                 }
-            },
+            }
         },
         concat: {
             js: {
