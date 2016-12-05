@@ -20,9 +20,9 @@
         });
 
         $scope.PageRequest = function (page) {
-            console.log(page);
-            var requestPage = page + 1 ;
-            console.log(requestPage);
+            //console.log(page);
+            var requestPage = page + 1;
+            console.log("requestPage" + requestPage);
             QuestionService.GetAllQuestions(requestPage).then(function (result) {
                 console.log(result);
                 $scope.totalPage = result.data.pages;
