@@ -84,43 +84,43 @@ exports.QuestionIndexMobile = function (req, res) {
 };
 
 /*exports.Import = function (req, res) {
-    var hash = bcrypt.hashSync("abc123");
-    var hash1 = bcrypt.hashSync("070695");
-    data = [
-        {
-            'Account': 'nhatnguyen95',
-            'Password': hash,
-            'FullName': 'Ngô Hùng Phúc',
-            "CreateDate": "2016-12-02",
-            'level': 1
-        },
-        {
-            'Account': 'phucngo95',
-            'Password': hash1,
-            'FullName': 'Nguyễn Nhật Nguyên',
-            "CreateDate": "2016-12-02",
-            'level': 1
-        }
-    ];
-    User.collection.insertMany(data, function (err, result) {
-        console.log(err);
-        console.log(result);
-    });
-};
-*/
+ var hash = bcrypt.hashSync("abc123");
+ var hash1 = bcrypt.hashSync("070695");
+ data = [
+ {
+ 'Account': 'nhatnguyen95',
+ 'Password': hash,
+ 'FullName': 'Ngô Hùng Phúc',
+ "CreateDate": "2016-12-02",
+ 'level': 1
+ },
+ {
+ 'Account': 'phucngo95',
+ 'Password': hash1,
+ 'FullName': 'Nguyễn Nhật Nguyên',
+ "CreateDate": "2016-12-02",
+ 'level': 1
+ }
+ ];
+ User.collection.insertMany(data, function (err, result) {
+ console.log(err);
+ console.log(result);
+ });
+ };
+ */
 exports.Register = function (req, res) {
     var newUser = new User({
-        Account:req.body.UsernameRegis,
-        Password:req.body.PasswordRegis,
+        Account: req.body.UsernameRegis,
+        Password: req.body.PasswordRegis,
         Email: req.body.EmailRegis,
-        Level:2
+        Level: 2
     });
-    User.createUser(newUser,function(err,user){
-        if(err) throw err;
+    User.createUser(newUser, function (err, user) {
+        if (err) throw err;
         console.log(user);
         res.json({
             msg: err,
-            user:user
+            user: user
         });
     });
 
