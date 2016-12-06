@@ -10,9 +10,9 @@
     angular.module('ChatBotApp')
         .controller('IndexController', IndexController);
 
-    IndexController.$inject = ['$scope', 'QuestionService'];
+    IndexController.$inject = ['$scope', 'QuestionService','$location','$anchorScroll'];
 
-    function IndexController($scope, QuestionService) {
+    function IndexController($scope, QuestionService,$location,$anchorScroll) {
         var page = 1;
         QuestionService.GetAllQuestions(page).then(function (result) {
             $scope.totalPage = new Array(result.data.pages);
@@ -25,7 +25,9 @@
             console.log("requestPage" + requestPage);
             QuestionService.GetAllQuestions(requestPage).then(function (result) {
                 console.log(result);
-                $scope.totalPage = result.data.pages;
+                $location.hash("main-page");
+                $anchorScroll();
+                $scope.totalPage = new Array(result.data.pages);
                 $scope.questions = result.data.questions;
             });
 
