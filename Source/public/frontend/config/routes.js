@@ -9,6 +9,9 @@
                 .when('/', {
                     templateUrl: '/partials/index'
                 })
+                .when('/main-page',{
+                    templateUrl: '/partials/index'
+                })
                 .when('/view1', {
                     templateUrl: '/partials/view1'
                 })
@@ -28,6 +31,7 @@
                     redirectTo: '/page-not-found',
                     templateUrl: '/partials/404'
                 });
+
             $locationProvider.html5Mode({
                 enabled: true,
                 requireBase: false
