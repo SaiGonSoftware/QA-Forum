@@ -8,15 +8,15 @@
     'use strict';
 
     angular.module('ChatBotApp')
-        .factory('LoginService', LoginService);
+        .factory('RegisterService', RegisterService);
 
-    LoginService.$inject = ['$http'];
+    RegisterService.$inject = ['$http'];
 
-    function LoginService($http) {
-        var loginService = {};
-        loginService.LoginAccess = function (result) {
+    function RegisterService($http) {
+        var registerService = {};
+        registerService.RegisterAccount = function (result) {
             return $http({
-                url: '/api/Account/Login',
+                url: '/api/Account/Register',
                 method: 'POST',
                 data: JSON.stringify(result),
                 header: {
@@ -24,7 +24,7 @@
                 }
             });
         };
-        return loginService;
+        return registerService;
     }
 })();
 

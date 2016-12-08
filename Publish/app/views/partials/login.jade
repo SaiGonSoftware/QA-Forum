@@ -1,0 +1,26 @@
+.container
+    .row#login-signinContent
+        .col-md-6.col-md-offset-3
+            .panel.panel-login
+                .panel-heading
+                    .row
+                        .col-xs-12
+                            span#login-form-link.active Đăng Nhập
+                    hr
+                .panel-body
+                    .row
+                        .col-lg-12(ng-controller="LoginController" )
+                            form#login-form(ng-submit="Login()",style='display: block;')
+                                .form-group
+                                    input.form-control(type='text', name='UsernameLogin', tabindex='1', placeholder='Tài Khoản',ng-model="UsernameLogin",required='')
+                                .form-group
+                                    input.form-control(type='password', name='PasswordLogin', tabindex='2', placeholder='Mật Khẩu',ng-model="PasswordLogin",required='')
+                                .form-group
+                                    .row
+                                        .col-sm-6.col-sm-offset-3.text-center
+                                            button#login-submit.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4')  Đăng Nhập
+                                .form-group
+                                    .row
+                                        .col-lg-12
+                                            .text-center
+                                                a.forgot-password(href='/quen-mat-khau', tabindex='5') Quên Mật Khẩu?

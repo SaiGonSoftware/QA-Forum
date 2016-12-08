@@ -5,16 +5,16 @@
  * @Last Modified time: 2016-11-27 22:25:54
  */
 
-var bcrypt = require('bcrypt-nodejs');
 var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
+var passport = require('passport');
+var localStrategy = require('passport-local').Strategy;
 
 
 exports.QuestionIndex = function (req, res) {
     var limitItemOnePage = 10;
-    var currentPage = req.params.pageRequest | 1;
-    console.log("From server " + currentPage  );
+    var currentPage = req.params.pageRequest || 1;
     //pagination
     Question.count({}, function (err, totalItem) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
@@ -82,41 +82,101 @@ exports.QuestionIndexMobile = function (req, res) {
     });
 };
 
-exports.Import = function(req,res){
-    var hash = bcrypt.hashSync("abc123");
-    data = [
-        { 'username' : 'nhatnguyen95' ,'password':hash,'level':1}
-    ];
-    User.collection.insert(data,function(err,result){
-        console.log(err);
-        console.log(result);
+/*exports.Import = function (req, res) {
+ var hash = bcrypt.hashSync("abc123");
+ var hash1 = bcrypt.hashSync("070695");
+ data = [
+ {
+ 'Account': 'nhatnguyen95',
+ 'Password': hash,
+ 'FullName': 'Ngô Hùng Phúc',
+ "CreateDate": "2016-12-02",
+ 'level': 1
+ },
+ {
+ 'Account': 'phucngo95',
+ 'Password': hash1,
+ 'FullName': 'Nguyễn Nhật Nguyên',
+ "CreateDate": "2016-12-02",
+ 'level': 1
+ }
+ ];
+ User.collection.insertMany(data, function (err, result) {
+ console.log(err);
+ console.log(result);
+ });
+ };
+ */
+exports.Register = function (req, res) {
+    var newUser = new User({
+        Account: req.body.UsernameRegis,
+        Password: req.body.PasswordRegis,
+        Email: req.body.EmailRegis,
+        Level: 2
     });
-};
-
-exports.Login = function(req,res){
-    var username = req.body.userName;
-    var password = req.body.passWord;
-    var hash = bcrypt.hashSync(password);
-    console.log(username);
-    console.log(hash);
-    User.findOne({username:username},function(err,user){
-        bcrypt.compare(password, hash, function(err, result) {
-            if(err){
-                console.log(err);
-                return res.status(500).send();
-            }
-            if(!user){
-                console.log(err);
-                return res.status(404).send();
-            }
-            req.session.user = user;
-            return res.redirect('/index');
+    User.createUser(newUser, function (err, user) {
+        if (err) throw err;
+        console.log(user);
+        res.json({
+            msg: err,
+            user: user
         });
     });
+
+};
+
+exports.Login = function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    passport.use(new LocalStartegy(
+        function (username, password, done) {
+            User.getUserByUsername(username, function (err, user) {
+                if (err) throw err;
+                if (!user) return done(null, false, {message: 'Không tìm thấy user'});
+                User.comparePassword(password, user.password, function (err, isMatch) {
+                    if (err) throw err;
+                    if (isMatch) return done(null, user);
+                    return done(null, false, {message: 'Mật khẩu không đúng'});
+                });
+            });
+        }
+    ));
+
+    passport.authenticate('local',
+        {successRedirect: '/', failureRedirect: '/dang-nhap', failureFlash: true},
+        function (req, res) {
+            res.redirect('/');
+        });
+    /*console.log(username);
+
+     var hash = bcrypt.hashSync(passwordToHash);
+     console.log(hash);
+     User.findOne({username:username,password:hash},function(err,user){
+     console.log(user);
+     if(err){
+     return res.json({
+     status:500,
+     msg: "Có lỗi xảy ra vui lòng thử lại"
+     });
+     }
+     if(!user){
+     console.log(err);
+     return res.json({
+     status:404,
+     msg: "Vui lòng kiểm tra tên đăng nhập và mật khẩu"
+     });
+     }
+     req.session.user = user;
+     return res.json({
+     msg: "Đăng nhập thành công",
+     url:'/',
+     user:user
+     });
+     });*/
 };
 
 
-exports.Logout = function(req,res){
+exports.Logout = function (req, res) {
     req.session.destroy();
     return res.redirect('/');
 };
