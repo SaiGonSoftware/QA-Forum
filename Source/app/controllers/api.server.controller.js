@@ -14,8 +14,7 @@ var localStrategy = require('passport-local').Strategy;
 
 exports.QuestionIndex = function (req, res) {
     var limitItemOnePage = 10;
-    var currentPage = req.params.pageRequest | 1;
-    console.log("From server " + currentPage);
+    var currentPage = req.params.pageRequest || 1;
     //pagination
     Question.count({}, function (err, totalItem) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
