@@ -10,7 +10,7 @@
                   a(href='/details/{{question._id}}') {{question.Title}}
                 span.meta {{question.CreateDate | date : format : fullDate}}
                 hr
-              .body
+              .body#bodycontent-index
                 | {{question.Content}}
               .clearfix
                 a.btn.btn-tales-one(href='/details/{{question._id}}') Đọc thêm

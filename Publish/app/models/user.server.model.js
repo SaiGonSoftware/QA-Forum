@@ -6,6 +6,7 @@
  */
 
 var mongoose = require('mongoose');
+var bycrypt = require('bcryptjs');
 var userSchema = new mongoose.Schema({
     Account: {
         type: String,
@@ -16,20 +17,37 @@ var userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    FullName: {
-        type: String,
-        require: true
+    Email:{
+        type:String,
+        require:true
     },
-    BirthDay: {
-        type: Date,
-        require: true
-    },
-    CreateDay: {
-        type: Date,
+    Level: {
+        type: Number,
         require: true
     }
 });
-
 var User = mongoose.model('users', userSchema);
+
+module.exports.createUser = function(newUser,callback){
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(newUser.Password, salt, function(err, hash) {
+            newUser.Password = hash;
+            User.collection.insert(newUser,function(err,result){
+               if(err) throw err;
+               console.log(result);
+            });
+        });
+    });
+};
+
+module.exports.getUserByUserName = function(username,callback){
+    var qyery = {Account:username};
+    User.findOne(query,callback);
+};
+
+module.exports.comparePassword = function(password,callback){
+    var qyery = {Account:username};
+    User.findOne(query,callback);
+};
 
 module.exports = User;
