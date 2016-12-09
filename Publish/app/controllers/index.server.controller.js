@@ -8,11 +8,6 @@
 var User = require('../models/user.server.model');
 
 exports.Index = function(req, res) {
-    /*if (!req.session.user) {
-    	res.redirect('/');
-    } else {
-    	res.render('site/index', { title: 'Trang Chủ' });
-    }*/
     res.render('site/index', {
         title: 'HỆ THỐNG TƯ VẤN TRỰC TUYẾN'
     });
@@ -20,7 +15,6 @@ exports.Index = function(req, res) {
 
 exports.Partial = function(req, res) {
     var name = req.params.name;
-    console.log(name);
     res.render('partials/' + name);
 };
 
