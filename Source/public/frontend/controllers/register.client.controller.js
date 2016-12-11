@@ -20,7 +20,6 @@
         $scope.IsRegisFormValid = false;
         $scope.HideRegisBtn = false;
         $scope.ShowLoading = false;
-
         $scope.RegisData = {
             UsernameRegis: '',
             EmailRegis: '',
@@ -42,16 +41,21 @@
 
             if ($scope.IsRegisFormValid) {
                 RegisterService.RegisterAccount($scope.RegisData).then(function (result) {
-                    console.log(result);
-                    /*if (result.status === 500 || result.status === 404) {
-                        alert(result.msg);
-                    }
-
-                    else {
-                        //window.location.href = "/";
+                    if(result.data.foundAccount) {
+                        bootbox.alert("Tài Khoản đã được đăng kí");
                         $scope.ShowLoading = false;
                         $scope.HideRegisBtn = false;
-                    }*/
+                    }
+                    if(result.data.foundEmail) {
+                        bootbox.alert("Email đã được đăng kí");
+                        $scope.ShowLoading = false;
+                        $scope.HideRegisBtn = false;
+                    }
+                    if(result.data.foundBoth) {
+                        bootbox.alert("Tài Khoản và Email đã được đăng kí");
+                        $scope.ShowLoading = false;
+                        $scope.HideRegisBtn = false;
+                    }
                 });
             }
         };
