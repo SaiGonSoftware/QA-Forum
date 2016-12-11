@@ -37,6 +37,7 @@
             $scope.HideRegisBtn = true;
             if (typeof $scope.RegisData.EmailRegis === "undefined") {
                 alert("Vui lòng kiểm tra lại email");
+                return false;
             }
 
             if ($scope.IsRegisFormValid) {

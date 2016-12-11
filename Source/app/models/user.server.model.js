@@ -6,48 +6,55 @@
  */
 
 var mongoose = require('mongoose');
-var bycrypt = require('bcryptjs');
+var bcrypt   = require('bcrypt-nodejs');
 var userSchema = new mongoose.Schema({
-    Account: {
-        type: String,
-        unique: true,
-        require: true
+    local:{
+        Account: {
+            type: String,
+            unique: true,
+            require: true
+        },
+        Password: {
+            type: String,
+            require: true
+        },
+        Email:{
+            type:String,
+            require:true
+        },
+        Level: {
+            type: Number,
+            require: true
+        }
     },
-    PassWord: {
-        type: String,
-        require: true
+    facebook         : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
     },
-    Email:{
-        type:String,
-        require:true
+    twitter          : {
+        id           : String,
+        token        : String,
+        displayName  : String,
+        username     : String
     },
-    Level: {
-        type: Number,
-        require: true
+    google           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
     }
+
 });
 var User = mongoose.model('users', userSchema);
-
-module.exports.createUser = function(newUser,callback){
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(newUser.Password, salt, function(err, hash) {
-            newUser.Password = hash;
-            User.collection.insert(newUser,function(err,result){
-               if(err) throw err;
-               console.log(result);
-            });
-        });
-    });
+// generating a hash
+userSchema.methods.generateHash = function (password) {
+  return bcrypt.hashSync(password,bcrypt.genSaltSync(8),null);
 };
-
-module.exports.getUserByUserName = function(username,callback){
-    var qyery = {Account:username};
-    User.findOne(query,callback);
-};
-
-module.exports.comparePassword = function(password,callback){
-    var qyery = {Account:username};
-    User.findOne(query,callback);
+//check password valid or not
+userSchema.methods.validPassword = function (password) {
+    return bcrypt.compareSync(password,this.local.Password);
 };
 
 module.exports = User;
