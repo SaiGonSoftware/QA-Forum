@@ -10,53 +10,30 @@ var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
+var bcrypt   = require('bcrypt-nodejs');
 
 
 exports.QuestionIndex = function (req, res) {
     var limitItemOnePage = 10;
     var currentPage = req.params.pageRequest || 1;
     //pagination
-    Question.count({}, function (err, totalItem) {
+    Question.countQuestion({},function (err,totalItem) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
-        var data = Question.find({}).sort({
-            'CreateDate': 'descending'
-        }).skip(limitItemOnePage * (currentPage - 1)).limit(limitItemOnePage);
-        data.exec(function (err, questions) {
-            if (err) {
-                res.json({
-                    msg: err
-                });
-            }
-            else {
-                res.json({
-                    questions: questions,
-                    pages: numberOfPage
-                });
-            }
+        Question.getQuestionPaginate(limitItemOnePage,currentPage,
+            function (err,questions) {
+            if (err) res.json({msg: err});
+            else res.json({questions: questions, pages: numberOfPage});
         });
     });
 };
-
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
-    Question.findById(id).populate('QuestionId').exec(function (err, questionDetail) {
-        if (err) {
-            res.json({
-                found: false,
-                msg: "Not Found"
-            });
-        } else {
-            Answer.find({
-                "QuestionId": {
-                    "$in": id
-                }
-            }, function (err, answers) {
-                if (err) {
-                    res.json({
-                        success: false,
-                        msg: "Error"
-                    });
-                } else {
+    Question.getQuestionDetail(id,function (err,questionDetail) {
+        if (err) res.json({found: false, msg: "Not Found"});
+        else {
+            Answer.getAnswerViaQuestion(id,function (err, answers) {
+                if (err) res.json({success: false, msg: "Error"});
+                else {
                     res.json({
                         found: true,
                         msg: "Found",
@@ -65,66 +42,39 @@ exports.QuestionDetail = function (req, res) {
                     });
                 }
             });
-        }
+        };
     });
 };
-
-//Api for mobile
-exports.QuestionIndexMobile = function (req, res) {
-    var query = Question.find({}).sort({
-        'CreateDate': -1
-    });
-    query.exec(function (err, questions) {
-        if (err)
-            return res.status(500).send();
-        else
-            res.send(questions);
-    });
-};
-
-/*exports.Import = function (req, res) {
- var hash = bcrypt.hashSync("abc123");
- var hash1 = bcrypt.hashSync("070695");
- data = [
- {
- 'Account': 'nhatnguyen95',
- 'Password': hash,
- 'FullName': 'Ngô Hùng Phúc',
- "CreateDate": "2016-12-02",
- 'level': 1
- },
- {
- 'Account': 'phucngo95',
- 'Password': hash1,
- 'FullName': 'Nguyễn Nhật Nguyên',
- "CreateDate": "2016-12-02",
- 'level': 1
- }
- ];
- User.collection.insertMany(data, function (err, result) {
- console.log(err);
- console.log(result);
- });
- };
- */
 exports.Register = function (req, res) {
-    var newUser = new User({
-        Account: req.body.UsernameRegis,
-        Password: req.body.PasswordRegis,
-        Email: req.body.EmailRegis,
-        Level: 2
-    });
-    User.createUser(newUser, function (err, user) {
-        if (err) throw err;
-        console.log(user);
-        res.json({
-            msg: err,
-            user: user
+    User.checkAccountExists(req.body.UsernameRegis,function (err,account) {
+       User.checkEmailExists(req.body.EmailRegis,function (err,email) {
+            if(err) throw err;
+            if(account!=null && email!=null){
+                res.json({foundBoth:true});
+            }
+            if(account!=null){
+                if(email==null) res.json({foundAccount:true});
+            }
+            if(email!=null){
+               if(account==null) res.json({foundEmail:true});
+            }
+            else{
+                var hashPassword = User.generateHash(req.body.PasswordRegis);
+                var newUser = [{
+                    'Account': req.body.UsernameRegis,
+                    'Password': hashPassword,
+                    'Email': req.body.EmailRegis,
+                    'Level': 2
+                }];
+
+                User.createUser(newUser,function (err,result) {
+                    if(err) throw err;
+                    res.json({success:true,url:'/'});
+                });
+            }
         });
     });
-
 };
-
 exports.Login = function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
@@ -174,9 +124,17 @@ exports.Login = function (req, res) {
      });
      });*/
 };
-
-
 exports.Logout = function (req, res) {
     req.session.destroy();
     return res.redirect('/');
+};
+
+//Api for mobile
+exports.QuestionIndexMobile = function (req, res) {
+    Question.questionMobileIndex(function (err, questions) {
+        if (err)
+            return res.status(500).send();
+        else
+            res.send(questions);
+    });
 };

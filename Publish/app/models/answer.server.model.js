@@ -34,5 +34,10 @@ var answerSchema = new mongoose.Schema({
 });
 
 var Answer = mongoose.model('answers', answerSchema);
-
-module.exports = Answer;
+var getAnswerViaQuestion = function (id,callback) {
+    Answer.find({"QuestionId": {"$in": id}},callback);
+};
+module.exports = {
+    Answer:Answer,
+    getAnswerViaQuestion:getAnswerViaQuestion
+};
