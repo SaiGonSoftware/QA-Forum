@@ -18,9 +18,8 @@
     function RegisterController($scope, $location, RegisterService) {
         $scope.RegisFormSubmmit = false;
         $scope.IsRegisFormValid = false;
-        $scope.HideRegisBtn = false;
         $scope.ShowLoading = false;
-
+        $scope.HideRegisBtn = false;
         $scope.RegisData = {
             UsernameRegis: '',
             EmailRegis: '',
@@ -33,28 +32,39 @@
 
         $scope.Register = function () {
             $scope.RegisFormSubmmit = true;
-            $scope.ShowLoading = true;
             $scope.HideRegisBtn = true;
+            $scope.ShowLoading = true;
             if (typeof $scope.RegisData.EmailRegis === "undefined") {
                 alert("Vui lòng kiểm tra lại email");
+                $scope.ShowLoading = false;
+                return false;
             }
 
             if ($scope.IsRegisFormValid) {
                 RegisterService.RegisterAccount($scope.RegisData).then(function (result) {
-                    console.log(result);
-                    /*if (result.status === 500 || result.status === 404) {
-                        alert(result.msg);
-                    }
-
-                    else {
-                        //window.location.href = "/";
+                    if(result.data.foundAccount) {
+                        bootbox.alert("Tài Khoản đã được đăng kí");
                         $scope.ShowLoading = false;
                         $scope.HideRegisBtn = false;
-                    }*/
+                    }
+                    if(result.data.foundEmail) {
+                        bootbox.alert("Email đã được đăng kí");
+                        $scope.ShowLoading = false;
+                        $scope.HideRegisBtn = false;
+                    }
+                    if(result.data.foundBoth) {
+                        bootbox.alert("Tài Khoản và Email đã được đăng kí");
+                        $scope.ShowLoading = false;
+                        $scope.HideRegisBtn = false;
+                    }
+                    if(result.data.success){
+                        $scope.ShowLoading = false;
+                        $scope.HideRegisBtn = false;
+                        $location.path(result.data.url);
+                        bootbox.alert("Đăng kí thành công bạn có thể bắt đầu sử dụng forum");
+                    }
                 });
             }
         };
     }
-
-
 })();

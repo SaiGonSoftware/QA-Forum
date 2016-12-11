@@ -6,48 +6,51 @@
  */
 
 var mongoose = require('mongoose');
-var bycrypt = require('bcryptjs');
+var bcrypt   = require('bcrypt-nodejs');
 var userSchema = new mongoose.Schema({
-    Account: {
-        type: String,
-        unique: true,
-        require: true
-    },
-    PassWord: {
-        type: String,
-        require: true
-    },
-    Email:{
-        type:String,
-        require:true
-    },
-    Level: {
-        type: Number,
-        require: true
-    }
+        Account: {
+            type: String,
+            unique: true,
+            require: true
+        },
+        Password: {
+            type: String,
+            require: true
+        },
+        Email:{
+            type:String,
+            require:true
+        },
+        Level: {
+            type: Number,
+            require: true
+        }
 });
 var User = mongoose.model('users', userSchema);
 
-module.exports.createUser = function(newUser,callback){
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(newUser.Password, salt, function(err, hash) {
-            newUser.Password = hash;
-            User.collection.insert(newUser,function(err,result){
-               if(err) throw err;
-               console.log(result);
-            });
-        });
-    });
+var checkAccountExists = function (username,callback) {
+    User.findOne({'Account':username},callback);
+};
+var checkEmailExists = function (email,callback) {
+    User.findOne({'Email':email},callback);
+};
+// generating a hash
+var generateHash = function (password) {
+  return bcrypt.hashSync(password,bcrypt.genSaltSync(8),null);
+};
+//check password valid or not
+var validPassword = function (password) {
+    return bcrypt.compareSync(password,this.local.Password);
 };
 
-module.exports.getUserByUserName = function(username,callback){
-    var qyery = {Account:username};
-    User.findOne(query,callback);
+var createUser = function (user,callback) {
+  User.collection.insert(user,callback);
 };
 
-module.exports.comparePassword = function(password,callback){
-    var qyery = {Account:username};
-    User.findOne(query,callback);
+module.exports = {
+    User:User,
+    checkAccountExists:checkAccountExists,
+    checkEmailExists:checkEmailExists,
+    generateHash:generateHash,
+    createUser:createUser
 };
-
-module.exports = User;

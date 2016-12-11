@@ -23,40 +23,22 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js','public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js','public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js','public/js/bootbox.min.js','public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js','public/frontend/**/*.js']
                 }
             },
             dev: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js','public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js','public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js','public/js/bootbox.min.js','public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js','public/frontend/**/*.js']
                 }
             }
         },
         uglify: {
-            options: {
-                compress: {
-                    dead_code: true,
-                    drop_console: true
-                }
-            },
             my_target: {
                 files: {
                     'public/js/forum.min.js': 'public/js/forum.min.js'
                 }
             }
         },
-        /*uglify: {
-            bundle: {
-                files: {
-                    'public/js/forum.min.js': 'public/js/forum.min.js'
-                }
-            },
-            dev: {
-                files: {
-                    'public/js/forum.min.js': 'public/js/forum.min.js'
-                }
-            }
-        },*/
         jshint: {
             all: ['Gruntfile.js', 'public/frontend/**/*.js']
         },
@@ -91,7 +73,7 @@ module.exports = function (grunt) {
                         });
                     }
                 }
-            },
+            }
         },
         watch: {
             scripts: {
