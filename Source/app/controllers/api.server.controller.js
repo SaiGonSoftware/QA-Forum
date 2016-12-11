@@ -21,7 +21,6 @@ exports.QuestionIndex = function (req, res) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
         Question.getQuestionPaginate(limitItemOnePage,currentPage,
             function (err,questions) {
-            console.log(questions);
             if (err) res.json({msg: err});
             else res.json({questions: questions, pages: numberOfPage});
         });
@@ -47,19 +46,33 @@ exports.QuestionDetail = function (req, res) {
     });
 };
 exports.Register = function (req, res) {
-    var hashPassword = bcrypt.hashSync(req.body.PasswordRegis.Password,bcrypt.genSaltSync(8),null);
-    //console.log(hashPassword);
-    var newUser = new User({
-        Account: req.body.UsernameRegis,
-        Password: hashPassword,
-        Email: req.body.EmailRegis,
-        Level: 2
+    User.checkAccountExists(req.body.UsernameRegis,function (err,account) {
+       User.checkEmailExists(req.body.EmailRegis,function (err,email) {
+            if(err) throw err;
+            if(account!=null && email!=null){
+                res.json({foundBoth:true});
+            }
+            if(account!=null){
+                if(email==null) res.json({foundAccount:true});
+            }
+            if(email!=null){
+               if(account==null) res.json({foundEmail:true});
+            }
+        });
     });
 
-    User.collection.insert(newUser,function(err,user){
+    var hashPassword = User.generateHash(req.body.PasswordRegis);
+    var newUser = [{
+        'Account': req.body.UsernameRegis,
+        'Password': hashPassword,
+        'Email': req.body.EmailRegis,
+        'Level': 2
+    }];
+
+    User.createUser(newUser,function (err,result) {
         if(err) throw err;
-        console.log(user);
-    });
+        console.log(result);
+    })
 };
 exports.Login = function (req, res) {
     var username = req.body.username;

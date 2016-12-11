@@ -1,15 +1,20 @@
 .container
-    .row#login-signinContent
+    .row#login-signinContent(ng-controller="RegisterController")
         .col-md-6.col-md-offset-3
             .panel.panel-login
                 .panel-heading
                     .row
                         .col-xs-12
                             span#login-form-link.active Đăng Ký
+                            br
+                            .alert.alert-warning.alert-dismissible(role='alert',ng-show="ShowRegisterAccount")
+                                | Tài Khoản Đã Được Đăng Ký
+                            .alert.alert-warning.alert-dismissible(role='alert',ng-show="ShowRegisterEmail")
+                                | Email Đã Được Đăng Ký
                     hr
                 .panel-body
                     .row
-                        .col-lg-12(ng-controller="RegisterController")
+                        .col-lg-12
                             form#register-form(name='RegisForm', novalidate='', ng-submit="Register()",style='display: block;')
                                 .form-group
                                     input#UsernameRegis.form-control(type='text', name='UsernameRegis', tabindex='1', placeholder='Tài Khoản',ng-model="RegisData.UsernameRegis", ng-class="RegisFormSubmmit?'ng-dirty':''", required='', autofocus='')
@@ -23,4 +28,5 @@
                                 .form-group
                                     .row
                                         .col-sm-6.col-sm-offset-3.text-center
-                                            button#register-submit.form-control.btn.btn-register(type='submit', name='register-submit', tabindex='4') Đăng Ký
+                                            button#register-submit.form-control.btn.btn-register(type='submit', name='register-submit', tabindex='4',ng-hide="HideRegisBtn") Đăng Ký
+                                            img(src='img/icon/login.gif',ng-show='ShowLoading')
