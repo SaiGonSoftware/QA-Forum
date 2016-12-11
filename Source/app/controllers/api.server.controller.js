@@ -58,21 +58,22 @@ exports.Register = function (req, res) {
             if(email!=null){
                if(account==null) res.json({foundEmail:true});
             }
+            else{
+                var hashPassword = User.generateHash(req.body.PasswordRegis);
+                var newUser = [{
+                    'Account': req.body.UsernameRegis,
+                    'Password': hashPassword,
+                    'Email': req.body.EmailRegis,
+                    'Level': 2
+                }];
+
+                User.createUser(newUser,function (err,result) {
+                    if(err) throw err;
+                    res.json({success:true,url:'/'});
+                });
+            }
         });
     });
-
-    var hashPassword = User.generateHash(req.body.PasswordRegis);
-    var newUser = [{
-        'Account': req.body.UsernameRegis,
-        'Password': hashPassword,
-        'Email': req.body.EmailRegis,
-        'Level': 2
-    }];
-
-    User.createUser(newUser,function (err,result) {
-        if(err) throw err;
-        console.log(result);
-    })
 };
 exports.Login = function (req, res) {
     var username = req.body.username;
