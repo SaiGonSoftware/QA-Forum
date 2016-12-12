@@ -13,7 +13,10 @@ router.get('/GetAllQuestion/:pageRequest', api.QuestionIndex);
 router.get('/GetQuestionDetail/:id', api.QuestionDetail);
 
 router.post('/Account/Register',api.Register);
-router.post('/Account/Login',api.Login);
+router.post('/Account/Login', passport.authenticate('local',
+    { successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true }), api.Login);
 router.get('/Account/Logout',api.Logout);
 //router.get('/import',api.Import);
 

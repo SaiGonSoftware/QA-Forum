@@ -13,40 +13,28 @@
     LoginController.$inject = ['$scope', '$location', 'LoginService'];
 
     function LoginController($scope, $location, LoginService) {
-        $scope.IsLogging = false;
-        $scope.Submmitted = false;
-        $scope.IsFormValid = false;
+        $scope.LoginFormSubmmit = false;
+        $scope.IsLoginFormValid = false;
         $scope.HideLoginBtn = false;
         $scope.ShowLoading = false;
         $scope.LoginData = {
-            username: '',
-            password: ''
+            UsernameLogin: '',
+            PasswordLogin: ''
         };
 
-        $scope.$watch('login-form.$valid', function (newValue) {
-            $scope.IsFormValid = newValue;
+        $scope.$watch('LoginForm.$valid', function (newValue) {
+            $scope.IsLoginFormValid = newValue;
         });
 
         $scope.Login = function () {
-            $scope.IsLogging = true;
-            $scope.Submmitted = true;
-            if ($scope.IsFormValid) {
+            $scope.LoginFormSubmmit = true;
+            if ($scope.IsLoginFormValid) {
                 $scope.ShowLoading = true;
                 $scope.HideLoginBtn = true;
-                console.log($scope.LoginData);
                 LoginService.LoginAccess($scope.LoginData).then(function (result) {
+                    $scope.HideLoginBtn = false;
+                    $scope.ShowLoading = false;
                     console.log(result);
-                    if (result.status === 500 || result.status === 404) {
-                        alert(result.msg);
-                    }
-
-                    else {
-                        $scope.IsLogin = true;
-                        //window.location.href = "/";
-                        $scope.Message = 'Vui lòng kiểm tra tên đăng nhập và mật khẩu';
-                        $scope.ShowLoading = false;
-                        $scope.HideLoginBtn = false;
-                    }
                 });
             }
         };

@@ -12,27 +12,27 @@ var express = require('express'),
     server = http.createServer(app),
     env = process.env.NODE_ENV || 'development',
     passport = require('passport');
-    require('./config/authenticate')(passport);
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(cookieParser());
-app.use(session({
-    secret: "asdkoasdkascmkascpoascmkalscasoi",
-    resave: true,
-    saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-// view engine setup
-app.set('views', path.join(__dirname, 'app/views'));
-app.set('view engine', 'jade');
-//resave update session avoid it from expires
+    app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(logger('dev'));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({
+        extended: false
+    }));
+    app.use(cookieParser());
+    //resave update session avoid it from expires
+    app.use(session({
+        secret: "asdkoasdkascmkascpoascmkalscasoi",
+        resave: true,
+        saveUninitialized: true
+    }));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    // view engine setup
+    app.set('views', path.join(__dirname, 'app/views'));
+    app.set('view engine', 'jade');
+
 
 //require route for app
 var indexRoute = require('./app/routes/index.server.routes'),

@@ -10,15 +10,18 @@
                 .panel-body
                     .row
                         .col-lg-12(ng-controller="LoginController" )
-                            form#login-form(ng-submit="Login()",style='display: block;')
+                            form#login-form(name="LoginForm",ng-submit="Login()",novalidate='',style='display: block;')
                                 .form-group
-                                    input.form-control(type='text', name='UsernameLogin', tabindex='1', placeholder='Tài Khoản',ng-model="UsernameLogin",required='')
+                                    input.form-control(type='text', name='UsernameLogin', tabindex='1', placeholder='Tài Khoản',ng-model="LoginData.UsernameLogin",required='')
+                                    label(for='UsernameLogin', ng-show='(LoginForm.UsernameLogin.$dirty || LoginFormSubmmit) && LoginForm.UsernameLogin.$error.required') Tài khoản không được để trống
                                 .form-group
-                                    input.form-control(type='password', name='PasswordLogin', tabindex='2', placeholder='Mật Khẩu',ng-model="PasswordLogin",required='')
+                                    input.form-control(type='password', name='PasswordLogin', tabindex='2', placeholder='Mật Khẩu',ng-model="LoginData.PasswordLogin",required='')
+                                    label(for='PasswordLogin', ng-show='(LoginForm.PasswordLogin.$dirty || LoginFormSubmmit) && LoginForm.PasswordLogin.$error.required') Mật khẩu không được để trống
                                 .form-group
                                     .row
                                         .col-sm-6.col-sm-offset-3.text-center
-                                            button#login-submit.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4')  Đăng Nhập
+                                            button#login-submit.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4',ng-hide="HideLoginBtn")  Đăng Nhập
+                                            img(src='img/icon/login.gif',ng-show='ShowLoading')
                                 .form-group
                                     .row
                                         .col-lg-12
