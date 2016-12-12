@@ -8,10 +8,9 @@
 var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
-var passport = require('passport');
-var localStrategy = require('passport-local').Strategy;
 var bcrypt   = require('bcrypt-nodejs');
-
+var passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
 
 exports.QuestionIndex = function (req, res) {
     var limitItemOnePage = 10;
@@ -76,53 +75,26 @@ exports.Register = function (req, res) {
     });
 };
 exports.Login = function (req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    passport.use(new LocalStartegy(
+    var username = req.body.UsernameLogin;
+    var password = req.body.PasswordLogin;
+    console.log(username);
+    console.log(password);
+    passport.use(new LocalStartegy({
+            usernameField:'UsernameLogin',
+            passwordField:'PasswordLogin'
+        },
         function (username, password, done) {
-            User.getUserByUsername(username, function (err, user) {
+            User.checkAccountExists(username, function (err, user) {
                 if (err) throw err;
                 if (!user) return done(null, false, {message: 'Không tìm thấy user'});
-                User.comparePassword(password, user.password, function (err, isMatch) {
+                User.validPassword(password, function (err, isMatch) {
                     if (err) throw err;
-                    if (isMatch) return done(null, user);
-                    return done(null, false, {message: 'Mật khẩu không đúng'});
+                    if (!isMatch) return done(null, false, {message: 'Mật khẩu không đúng'});
+                    return res.json({login:true,url:'/'});
                 });
             });
         }
     ));
-
-    passport.authenticate('local',
-        {successRedirect: '/', failureRedirect: '/dang-nhap', failureFlash: true},
-        function (req, res) {
-            res.redirect('/');
-        });
-    /*console.log(username);
-
-     var hash = bcrypt.hashSync(passwordToHash);
-     console.log(hash);
-     User.findOne({username:username,password:hash},function(err,user){
-     console.log(user);
-     if(err){
-     return res.json({
-     status:500,
-     msg: "Có lỗi xảy ra vui lòng thử lại"
-     });
-     }
-     if(!user){
-     console.log(err);
-     return res.json({
-     status:404,
-     msg: "Vui lòng kiểm tra tên đăng nhập và mật khẩu"
-     });
-     }
-     req.session.user = user;
-     return res.json({
-     msg: "Đăng nhập thành công",
-     url:'/',
-     user:user
-     });
-     });*/
 };
 exports.Logout = function (req, res) {
     req.session.destroy();

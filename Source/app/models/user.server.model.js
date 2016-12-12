@@ -40,7 +40,7 @@ var generateHash = function (password) {
 };
 //check password valid or not
 var validPassword = function (password) {
-    return bcrypt.compareSync(password,this.local.Password);
+    return bcrypt.compareSync(password,this.Password);
 };
 
 var createUser = function (user,callback) {
@@ -52,5 +52,6 @@ module.exports = {
     checkAccountExists:checkAccountExists,
     checkEmailExists:checkEmailExists,
     generateHash:generateHash,
-    createUser:createUser
+    createUser:createUser,
+    validPassword:validPassword
 };
