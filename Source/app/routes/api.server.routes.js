@@ -8,16 +8,14 @@ var express = require('express');
 var router = express.Router();
 var api = require('../controllers/api.server.controller');
 var passport = require('passport');
+var localStrategies = require('../strategies/local.server.startegy');
 
 router.get('/GetAllQuestion/:pageRequest', api.QuestionIndex);
 router.get('/GetQuestionDetail/:id', api.QuestionDetail);
 
-router.post('/Account/Register',api.Register);
-router.post('/Account/Login', passport.authenticate('local',
-    { successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true }), api.Login);
-router.get('/Account/Logout',api.Logout);
+router.post('/Account/Register', api.Register);
+router.post('/Account/Login', api.Login);
+router.get('/Account/Logout', api.Logout);
 //router.get('/import',api.Import);
 
 //api for mobile
