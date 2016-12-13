@@ -8,29 +8,30 @@
 var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
-var bcrypt   = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
+var localStrategies = require('../strategies/local.server.startegy');
 
 exports.QuestionIndex = function (req, res) {
     var limitItemOnePage = 10;
     var currentPage = req.params.pageRequest || 1;
     //pagination
-    Question.countQuestion({},function (err,totalItem) {
+    Question.countQuestion({}, function (err, totalItem) {
         var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
-        Question.getQuestionPaginate(limitItemOnePage,currentPage,
-            function (err,questions) {
-            if (err) res.json({msg: err});
-            else res.json({questions: questions, pages: numberOfPage});
-        });
+        Question.getQuestionPaginate(limitItemOnePage, currentPage,
+            function (err, questions) {
+                if (err) res.json({msg: err});
+                else res.json({questions: questions, pages: numberOfPage});
+            });
     });
 };
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
-    Question.getQuestionDetail(id,function (err,questionDetail) {
+    Question.getQuestionDetail(id, function (err, questionDetail) {
         if (err) res.json({found: false, msg: "Not Found"});
         else {
-            Answer.getAnswerViaQuestion(id,function (err, answers) {
+            Answer.getAnswerViaQuestion(id, function (err, answers) {
                 if (err) res.json({success: false, msg: "Error"});
                 else {
                     res.json({
@@ -41,23 +42,24 @@ exports.QuestionDetail = function (req, res) {
                     });
                 }
             });
-        };
+        }
+        ;
     });
 };
 exports.Register = function (req, res) {
-    User.checkAccountExists(req.body.UsernameRegis,function (err,account) {
-       User.checkEmailExists(req.body.EmailRegis,function (err,email) {
-            if(err) throw err;
-            if(account!=null && email!=null){
-                res.json({foundBoth:true});
+    User.checkAccountExists(req.body.UsernameRegis, function (err, account) {
+        User.checkEmailExists(req.body.EmailRegis, function (err, email) {
+            if (err) throw err;
+            if (account != null && email != null) {
+                res.json({foundBoth: true});
             }
-            if(account!=null){
-                if(email==null) res.json({foundAccount:true});
+            if (account != null) {
+                if (email == null) res.json({foundAccount: true});
             }
-            if(email!=null){
-               if(account==null) res.json({foundEmail:true});
+            if (email != null) {
+                if (account == null) res.json({foundEmail: true});
             }
-            else{
+            else {
                 var hashPassword = User.generateHash(req.body.PasswordRegis);
                 var newUser = [{
                     'Account': req.body.UsernameRegis,
@@ -66,36 +68,38 @@ exports.Register = function (req, res) {
                     'Level': 2
                 }];
 
-                User.createUser(newUser,function (err,result) {
-                    if(err) throw err;
-                    res.json({success:true,url:'/'});
+                User.createUser(newUser, function (err) {
+                    if (err) throw err;
+                    res.json({success: true, url: '/'});
                 });
             }
         });
     });
 };
-exports.Login = function (req, res) {
+exports.Login = function (req, res,next) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
-    console.log(username);
-    console.log(password);
-    passport.use(new LocalStartegy({
-            usernameField:'UsernameLogin',
-            passwordField:'PasswordLogin'
-        },
-        function (username, password, done) {
-            User.checkAccountExists(username, function (err, user) {
-                if (err) throw err;
-                if (!user) return done(null, false, {message: 'Không tìm thấy user'});
-                User.validPassword(password, function (err, isMatch) {
-                    if (err) throw err;
-                    if (!isMatch) return done(null, false, {message: 'Mật khẩu không đúng'});
-                    return res.json({login:true,url:'/'});
-                });
-            });
+    passport.authenticate('loginStrategy', function (err, user, info) {
+        console.log("in 1");
+        if (err) {
+            return res.send({err: err});
         }
-    ));
+
+        if (!user) {
+            return res.send(info);
+        }
+
+        // Request login
+        req.login(user, function (err) {
+            if (err) {
+                return res.send(err);
+            }
+
+            return res.redirect('/');
+        });
+    })(req, res, next);
 };
+
 exports.Logout = function (req, res) {
     req.session.destroy();
     return res.redirect('/');

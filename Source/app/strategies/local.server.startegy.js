@@ -5,27 +5,53 @@ var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user.server.model');
 
-passport.use(new LocalStrategy(function (username,password,done) {
-    User.findOne({Account:username},function (err,user) {
-       if(err){return done(err);}
-       if(!user){
-           return done(null,false,{message:"Tên đăng nhập không đúng"});
-       }
-        if(!user.validPassword(password)){
-            return done(null,false,{message:"Mật khẩu không đúng"});
-        }
-        // If the credentials are valid,
-        // the verify callback invokes done to supply Passport with the user that authenticated
-        return done(null,user);
-    });
-}));
-
-passport.serializeUser(function (user,done) {
-    done(null,user.id);
+passport.serializeUser(function (user, done) {
+    return done(null, user._id);
 });
 
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
         done(err, user);
     });
 });
+
+passport.use('registerUser', new LocalStrategy(
+    {passReqToCallback: true},
+    function (req, username, password, done) {
+        var newUser = new User({
+            Account: req.body.UsernameRegis,
+            Password: req.body.PasswordRegis,
+            Email: req.body.EmailRegis,
+            Level:2
+        });
+
+        newUser.save(function (err) {
+            if (err) return done(err);
+            return done(null, newUser);
+        });
+    }));
+
+passport.use('loginStrategy',new LocalStrategy(function (username,password,done) {
+    console.log("in 2");
+    User.findOne({username: username}, function (err, doc) {
+        if (err) {
+            return done(err);
+        }
+
+        if (!doc) {
+            return done(null, false, {message: 'Incorrect username.'});
+        }
+
+        doc.validPassword(password, doc.password, function (err, isMatch) {
+            if (err) {
+                return  done(err);
+            }
+
+            if (!isMatch) {
+                return done(null, false, { msg: 'Incorrect' });
+            }
+
+            return done(null, doc, { msg: 'success' });
+        });
+    });
+}));
