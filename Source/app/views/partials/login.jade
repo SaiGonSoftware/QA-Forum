@@ -6,16 +6,15 @@
                     .row
                         .col-xs-12
                             span#login-form-link.active Đăng Nhập
-                        p
+                        p(ng-controller="FacebookController")
                             col-xs-6
-                                button.btn.btn-primary.btn-md
+                                button.btn.btn-primary.btn-md(ng-click='facebookLogin()')
                                     i.fa.fa-facebook-official  Đăng Nhập Bằng Facebook
-                        if(error)
-                            #{error}
+                            img(ng-src='{{profileImg}}')
                     hr
                 .panel-body
                     .row
-                        .col-lg-12(ng-controller="LoginController" )
+                        .col-lg-12(ng-controller="LoginController")
                             form#login-form(name="LoginForm",ng-submit="Login()",novalidate='',style='display: block;')
                                 .form-group
                                     input.form-control(type='text', name='UsernameLogin', tabindex='1', placeholder='Tài Khoản',ng-model="LoginData.UsernameLogin",required='')

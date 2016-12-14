@@ -25,7 +25,7 @@ var userSchema = new mongoose.Schema({
             require: true
         }
 });
-var User = mongoose.model('users', userSchema);
+var User = mongoose.model('members', userSchema);
 
 var checkAccountExists = function (username,callback) {
     User.findOne({'Account':username},callback);
