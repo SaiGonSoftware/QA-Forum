@@ -18,5 +18,12 @@ header
                                     a(href='/dang-nhap') Đăng Nhập
                                 li
                                     a(href='/dang-ky') Đăng Ký
+                            div(ng-controller="FacebookController")
+                                a.dropdown-toggle(ng-show="isFacebookLogin",href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                    | {{userImg}} - {{welcomeMsg}}
+                                    span.caret
+                                    ul.dropdown-menu
+                                    li
+                                        a(href='#',ng-click='facebookLogout()') Đăng Xuất
                         li
                             a(href='/credit') Tác Giả

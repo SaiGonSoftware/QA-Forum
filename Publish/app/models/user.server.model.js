@@ -10,7 +10,6 @@ var bcrypt   = require('bcrypt-nodejs');
 var userSchema = new mongoose.Schema({
         Account: {
             type: String,
-            unique: true,
             require: true
         },
         Password: {
@@ -26,7 +25,7 @@ var userSchema = new mongoose.Schema({
             require: true
         }
 });
-var User = mongoose.model('users', userSchema);
+var User = mongoose.model('members', userSchema);
 
 var checkAccountExists = function (username,callback) {
     User.findOne({'Account':username},callback);
@@ -39,8 +38,8 @@ var generateHash = function (password) {
   return bcrypt.hashSync(password,bcrypt.genSaltSync(8),null);
 };
 //check password valid or not
-var validPassword = function (password) {
-    return bcrypt.compareSync(password,this.local.Password);
+var validPassword = function (password,sourcePassword) {
+    return bcrypt.compareSync(password,sourcePassword);
 };
 
 var createUser = function (user,callback) {
@@ -52,5 +51,6 @@ module.exports = {
     checkAccountExists:checkAccountExists,
     checkEmailExists:checkEmailExists,
     generateHash:generateHash,
-    createUser:createUser
+    createUser:createUser,
+    validPassword:validPassword
 };
