@@ -18,11 +18,13 @@ header
                                     a(href='/dang-nhap') Đăng Nhập
                                 li
                                     a(href='/dang-ky') Đăng Ký
-                            //a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Xin Chào {{userSession}}
+                        li.dropdown(ng-controller="FacebookController")
+                            a.dropdown-toggle(ng-show='isFacebookLogin',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | {{welcomeMsg}}
+                                img(ng-src='{{profileImg}}')
                                 span.caret
-                                ul.dropdown-menu
+                            ul.dropdown-menu
                                 li
-                                    a(href='/api/Account/Logout') Đăng Xuất
+                                    a(href='#',ng-click='facebookLogout()') Đăng Xuất
                         li
                             a(href='/credit') Tác Giả
