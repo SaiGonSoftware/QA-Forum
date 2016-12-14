@@ -32,8 +32,6 @@
 
         $scope.Register = function () {
             $scope.RegisFormSubmmit = true;
-            $scope.HideRegisBtn = true;
-            $scope.ShowLoading = true;
             if (typeof $scope.RegisData.EmailRegis === "undefined") {
                 alert("Vui lòng kiểm tra lại email");
                 $scope.ShowLoading = false;
@@ -41,6 +39,8 @@
             }
 
             if ($scope.IsRegisFormValid) {
+                $scope.HideRegisBtn = true;
+                $scope.ShowLoading = true;
                 RegisterService.RegisterAccount($scope.RegisData).then(function (result) {
                     if(result.data.foundAccount) {
                         bootbox.alert("Tài Khoản đã được đăng kí");
