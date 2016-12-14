@@ -10,9 +10,9 @@
         .module('ChatBotApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', '$location', 'LoginService'];
+    LoginController.$inject = ['$scope', '$location', 'LoginService','$window'];
 
-    function LoginController($scope, $location, LoginService) {
+    function LoginController($scope, $location, LoginService,$window) {
         $scope.LoginFormSubmmit = false;
         $scope.IsLoginFormValid = false;
         $scope.HideLoginBtn = false;
@@ -35,6 +35,13 @@
                     $scope.HideLoginBtn = false;
                     $scope.ShowLoading = false;
                     console.log(result);
+                    if(!result.data.login){
+                        bootbox.alert("Vui lòng kiểm tra thông tin đăng nhập");
+                        return false;
+                    }
+                    sessionStorage.userSession = result.data.userSession;
+                    $scope.userSession = result.data.userSession;
+                    $location.path(result.data.url);
                 });
             }
         };

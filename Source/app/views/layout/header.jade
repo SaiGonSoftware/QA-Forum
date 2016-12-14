@@ -18,5 +18,11 @@ header
                                     a(href='/dang-nhap') Đăng Nhập
                                 li
                                     a(href='/dang-ky') Đăng Ký
+                            //a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Xin Chào {{userSession}}
+                                span.caret
+                                ul.dropdown-menu
+                                li
+                                    a(href='/api/Account/Logout') Đăng Xuất
                         li
                             a(href='/credit') Tác Giả
