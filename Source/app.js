@@ -10,8 +10,7 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     http = require('http'),
     server = http.createServer(app),
-    env = process.env.NODE_ENV || 'development',
-    passport = require('passport');
+    env = process.env.NODE_ENV || 'development';
 
     app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
     app.use(express.static(path.join(__dirname, 'public')));
@@ -25,10 +24,11 @@ var express = require('express'),
     app.use(session({
         secret: "asdkoasdkascmkascpoascmkalscasoi",
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        duration: 30 * 60 * 1000,
+        activeDuration: 5 * 60 * 1000
     }));
-    app.use(passport.initialize());
-    app.use(passport.session());
+
     // view engine setup
     app.set('views', path.join(__dirname, 'app/views'));
     app.set('view engine', 'jade');

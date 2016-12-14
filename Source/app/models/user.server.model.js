@@ -38,8 +38,8 @@ var generateHash = function (password) {
   return bcrypt.hashSync(password,bcrypt.genSaltSync(8),null);
 };
 //check password valid or not
-var validPassword = function (password) {
-    return bcrypt.compareSync(password,this.Password);
+var validPassword = function (password,sourcePassword) {
+    return bcrypt.compareSync(password,sourcePassword);
 };
 
 var createUser = function (user,callback) {

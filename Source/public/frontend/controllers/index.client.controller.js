@@ -13,6 +13,7 @@
     IndexController.$inject = ['$scope', 'QuestionService', '$window'];
 
     function IndexController($scope, QuestionService, $window) {
+        $scope.userSession = null;
         QuestionService.GetAllQuestions().then(function (result) {
             $scope.totalPage = new Array(result.data.pages);
             $scope.questions = result.data.questions;

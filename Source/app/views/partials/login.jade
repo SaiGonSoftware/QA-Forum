@@ -6,6 +6,12 @@
                     .row
                         .col-xs-12
                             span#login-form-link.active Đăng Nhập
+                        p
+                            col-xs-6
+                                button.btn.btn-primary.btn-md
+                                    i.fa.fa-facebook-official  Đăng Nhập Bằng Facebook
+                        if(error)
+                            #{error}
                     hr
                 .panel-body
                     .row

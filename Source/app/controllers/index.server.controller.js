@@ -7,18 +7,18 @@
 
 var User = require('../models/user.server.model');
 
-exports.Index = function(req, res) {
+exports.Index = function (req, res) {
     res.render('site/index', {
         title: 'HỆ THỐNG TƯ VẤN TRỰC TUYẾN'
     });
 };
 
-exports.Partial = function(req, res) {
+exports.Partial = function (req, res) {
     var name = req.params.name;
     res.render('partials/' + name);
 };
 
-exports.All = function(req, res) {
+exports.All = function (req, res) {
     res.render('site/index', {
         title: 'HỆ THỐNG TƯ VẤN TRỰC TUYẾN'
     });

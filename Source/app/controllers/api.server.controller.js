@@ -9,9 +9,7 @@ var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
 var bcrypt = require('bcrypt-nodejs');
-var passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
-var localStrategies = require('../strategies/local.server.startegy');
+
 
 exports.QuestionIndex = function (req, res) {
     var limitItemOnePage = 10;
@@ -76,28 +74,19 @@ exports.Register = function (req, res) {
         });
     });
 };
-exports.Login = function (req, res,next) {
+exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
-    passport.authenticate('loginStrategy', function (err, user, info) {
-        console.log("in 1");
-        if (err) {
-            return res.send({err: err});
+    User.checkAccountExists(username, function (err, user) {
+        var AuthUser = User.validPassword(password, user.Password);
+        if (!AuthUser) {
+            res.json({login: false});
         }
-
-        if (!user) {
-            return res.send(info);
+        else {
+            userSession = user.Account;
+            res.json({login: true,url:'/',userSession:userSession});
         }
-
-        // Request login
-        req.login(user, function (err) {
-            if (err) {
-                return res.send(err);
-            }
-
-            return res.redirect('/');
-        });
-    })(req, res, next);
+    });
 };
 
 exports.Logout = function (req, res) {
