@@ -78,10 +78,10 @@ exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
     var existAccount= User.checkAccountExists(username, function (err, user) {
-        if (!existAccount){
-            res.json({login:false});
+        if (user == null) {
+            res.json({login: false});
             return;
-        } 
+        }
         var AuthUser = User.validPassword(password, user.Password);
         if (!AuthUser) {
             res.json({login: false});
