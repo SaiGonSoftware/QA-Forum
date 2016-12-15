@@ -77,7 +77,11 @@ exports.Register = function (req, res) {
 exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
-    User.checkAccountExists(username, function (err, user) {
+    var existAccount= User.checkAccountExists(username, function (err, user) {
+        if (!existAccount){
+            res.json({login:false});
+            return;
+        } 
         var AuthUser = User.validPassword(password, user.Password);
         if (!AuthUser) {
             res.json({login: false});
@@ -87,6 +91,7 @@ exports.Login = function (req, res) {
             res.json({login: true,url:'/',userSession:userSession});
         }
     });
+
 };
 
 exports.Logout = function (req, res) {
