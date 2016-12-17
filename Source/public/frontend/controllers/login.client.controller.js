@@ -39,8 +39,7 @@
                         bootbox.alert("Vui lòng kiểm tra thông tin đăng nhập");
                         return false;
                     }
-                    sessionStorage.userSession = result.data.userSession;
-                    $scope.userSession = result.data.userSession;
+                    localStorage.setItem('currentUser', result.data.userSession);
                     $location.path(result.data.url);
                 });
             }
