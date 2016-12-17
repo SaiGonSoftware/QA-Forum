@@ -8,6 +8,7 @@
 var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
+var Category = require('../models/categories.server.model');
 var bcrypt = require('bcrypt-nodejs');
 
 
@@ -77,7 +78,7 @@ exports.Register = function (req, res) {
 exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
-    User.checkAccountExists(username, function (err, user) {
+    var existAccount = User.checkAccountExists(username, function (err, user) {
         if (user == null) {
             res.json({login: false});
             return;
@@ -87,8 +88,8 @@ exports.Login = function (req, res) {
             res.json({login: false});
         }
         else {
-            userSession = user.Account;
-            res.json({login: true,url:'/',userSession:userSession});
+            var userSession = user.Account;
+            res.json({login: true, url: '/', userSession: userSession});
         }
     });
 
@@ -99,6 +100,23 @@ exports.Logout = function (req, res) {
     return res.redirect('/');
 };
 
+exports.Answer = function (req, res) {
+    var questionId = req.params.id;
+    var newAnswer = [{
+        'UserAnswer': req.params.UserAnswer,
+        'QuestionId': questionId,
+        'Content': req.params.Content,
+        'CreateDate': req.params.CreateDate
+    }];
+
+    Answer.submitAnswer(newAnswer, function (err, answer) {
+        if (err) throw err;
+        if (answer) {
+            return res.json({success: true});
+        }
+    });
+};
+
 //Api for mobile
 exports.QuestionIndexMobile = function (req, res) {
     Question.questionMobileIndex(function (err, questions) {
@@ -106,5 +124,15 @@ exports.QuestionIndexMobile = function (req, res) {
             return res.status(500).send();
         else
             res.send(questions);
+    });
+};
+
+
+exports.Category = function (req, res){
+    Category.getCategories(function(err, categories) {
+        if (err)
+            return res.status(500).send();
+        else
+            res.send(categories);
     });
 };
