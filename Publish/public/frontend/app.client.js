@@ -5,7 +5,7 @@
  * @Last Modified time: 2016-11-14 11:37:18
  */
 
-(function() {
+(function () {
     'use strict';
     angular.module('ChatBotApp', [
         // Angular modules

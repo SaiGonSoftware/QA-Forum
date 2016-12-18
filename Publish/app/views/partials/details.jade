@@ -1,81 +1,75 @@
 .widewrapper.main
-  .container
-    .row
-      .col-md-8.blog-main(ng-controller="DetailController")
-        article.blog-post
-          header
-            h1 {{detail.Title}}
-            .lead-image
-              img.img-responsive(src='img/hands-big.png', alt='Hands')
-              .meta.clearfix
-                .author
-                  i.fa.fa-user
-                  span.data {{detail.UserQuestion}}
-                .date
-                  i.fa.fa-calendar
-                  span.data {{detail.CreateDate | date : format : fullDate}}
-                .comments
-                  i.fa.fa-comments
-                  span.data
-                    a(href='#comments') 26 Comments
-          .body
-            p
-              | {{detail.Content}}
-        aside.social-icons.clearfix
-          a.social-icon.color-one(href='#')
-            .inner-circle
-            i.fa.fa-twitter
-          a.social-icon.color-two(href='#')
-            .inner-circle
-            i.fa.fa-google-plus
-          a.social-icon.color-three(href='#')
-            .inner-circle
-            i.fa.fa-facebook
-        aside#comments.comments
-          hr
-          h2
-            i.fa.fa-comments
-            |  24 Comments
-          article.comment(ng-repeat="answer in answers")
-            header.clearfix
-              img.avatar(src='img/avatar.png', alt='A Smart Guy')
-              .meta
-                h3
-                  a(href='#') {{answer.UserAnswer}}
-                span.date
-                  | {{answer.CreateDate | date : format : fullDate}}
-                span.separator
-                  | -
-                a.reply-link(href='#create-comment') Trả Lời
-            .body
-              | {{answer.Content}}
-          //-article.comment.reply
-            header.clearfix
-              img.avatar(src='img/avatar.png', alt='A Smart Guy')
-              .meta
-                h3
-                  a(href='#') Willy Wonka
-                span.date
-                  | 27 July 2013
-                span.separator
-                  | -
-                a.reply-link(href='#create-comment') Reply
-            .body
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-        aside#create-comment.create-comment
-          hr
-          h2
-            i.fa.fa-heart
-            |  Add Comment
-          form(action='#', method='get', accept-charset='utf-8')
-            .row
-              .col-md-6
-                input#comment-name.form-control.input-lg(type='text', name='name', placeholder='Name')
-              .col-md-6
-                input#comment-email.form-control.input-lg(type='email', name='email', placeholder='Email')
-            input#comment-url.form-control.input-lg(type='url', name='name', placeholder='Website')
-            textarea#comment-body.form-control.input-lg(rows='10', name='message', placeholder='Your thoughts...')
-            .buttons.clearfix
-              button.btn.btn-xlarge.btn-tales-two Cancel
-              button.btn.btn-xlarge.btn-tales-one(type='submit') Submit
-      include ../layout/side_content
+    .container
+        .row
+            .col-md-8.blog-main(ng-controller="DetailController")
+                article.blog-post
+                    header
+                        h1 {{detail.Title}}
+                        .lead-image
+                            img.img-responsive(src='img/hands-big.png', alt='Hands')
+                            .meta.clearfix
+                                .author
+                                    i.fa.fa-user
+                                    span.data {{detail.UserQuestion}}
+                                .date
+                                    i.fa.fa-calendar
+                                    span.data {{detail.CreateDate | date : format : fullDate}}
+                                .comments
+                                    i.fa.fa-comments
+                                    span.data
+                                        a(href='#comments') 26 Comments
+                    .body
+                        p
+                            | {{detail.Content}}
+                aside.social-icons.clearfix
+                    a.social-icon.color-one(href='#')
+                        .inner-circle
+                        i.fa.fa-twitter
+                    a.social-icon.color-two(href='#')
+                        .inner-circle
+                        i.fa.fa-google-plus
+                    a.social-icon.color-three(href='#')
+                        .inner-circle
+                        i.fa.fa-facebook
+                aside#comments.comments
+                    hr
+                    h2
+                        i.fa.fa-comments
+                        |  24 Comments
+                    article.comment(ng-repeat="answer in answers")
+                        header.clearfix
+                            img.avatar(src='img/avatar.png', alt='A Smart Guy')
+                            .meta
+                                h3
+                                    a(href='#') {{answer.UserAnswer}}
+                                span.date
+                                    | {{answer.CreateDate | date : format : fullDate}}
+                                span.separator
+                                    | -
+                                a.reply-link(href='#create-comment') Trả Lời
+                        .body
+                            | {{answer.Content}}
+                    //-article.comment.reply
+                      header.clearfix
+                        img.avatar(src='img/avatar.png', alt='A Smart Guy')
+                        .meta
+                          h3
+                            a(href='#') Willy Wonka
+                          span.date
+                            | 27 July 2013
+                          span.separator
+                            | -
+                          a.reply-link(href='#create-comment') Reply
+                      .body
+                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut  liquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+                aside#create-comment.create-comment(ng-controller='AnswerController')
+                    hr
+                    h2
+                        i.fa.fa-heart
+                        |  Câu Trả Lời
+                    form(name='AnswerForm',ng-submit='PostAnswer()',novalidate='')
+                        textarea#Content.form-control.input-lg(rows='10',ng-model='AnswerData.Content', name='Content', placeholder='Nội dung trả lời',required='')
+                        label(for='Content', ng-show='(AnswerForm.Content.$dirty || AnswerFormSubmmit) && AnswerForm.Content.$error.required') Câu trả lời không được để trống
+                        .buttons.clearfix
+                            button.btn.btn-xlarge.btn-tales-one(type='submit') Đăng câu trả lời
+            include ../layout/side_content

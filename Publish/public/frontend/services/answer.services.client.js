@@ -1,3 +1,6 @@
+/**
+ * Created by ngohungphuc on 17/12/2016.
+ */
 /*
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-06 22:09:26
@@ -8,15 +11,15 @@
     'use strict';
 
     angular.module('ChatBotApp')
-        .factory('LoginService', LoginService);
+        .factory('AnswerService', AnswerService);
 
-    LoginService.$inject = ['$http'];
+    AnswerService.$inject = ['$http'];
 
-    function LoginService($http) {
-        var loginService = {};
-        loginService.LoginAccess = function (result) {
+    function AnswerService($http) {
+        var answerService = {};
+        answerService.PostAnswer = function (result) {
             return $http({
-                url: '/api/Account/Login',
+                url: '/api/Account/PostAnswer',
                 method: 'POST',
                 data: JSON.stringify(result),
                 header: {
@@ -24,6 +27,7 @@
                 }
             });
         };
-        return loginService;
+        return answerService;
     }
 })();
+

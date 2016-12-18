@@ -2,15 +2,15 @@ header
     .widewrapper.masthead
         .container
             a#logo(href='/')
-                | Hệ thống tư vấn trực tuyến
+                | TDT Forum
             #mobile-nav-toggle.pull-right
                 a(href='#', data-toggle='collapse', data-target='.tales-nav .navbar-collapse')
                     i.fa.fa-bars
             nav.pull-right.tales-nav
                 .collapse.navbar-collapse
-                    ul.nav.nav-pills.navbar-nav
+                    ul.nav.nav-pills.navbar-nav(ng-controller='LoginController')
                         li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                            a.dropdown-toggle(ng-hide='HideLoginSection',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 | Tài Khoản
                                 span.caret
                             ul.dropdown-menu
@@ -18,7 +18,14 @@ header
                                     a(href='/dang-nhap') Đăng Nhập
                                 li
                                     a(href='/dang-ky') Đăng Ký
-                        li.dropdown(ng-controller="FacebookController")
+                        li.dropdown(ng-controller='LoginController')
+                            a.dropdown-toggle(ng-show='IsLogin',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Xin chào {{loginUser}}
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/dang-xuat') Đăng Xuất
+                        //-li.dropdown
                             a.dropdown-toggle(ng-show='isFacebookLogin',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 | {{welcomeMsg}}
                                 img(ng-src='{{profileImg}}')
