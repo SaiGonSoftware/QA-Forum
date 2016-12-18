@@ -10,5 +10,10 @@ var categoriesSchema = new mongoose.Schema({
 });
 
 var Categories = mongoose.model('categories', categoriesSchema);
-
-module.exports = Categories;
+var getCategories = function (callback){
+	Categories.find().sort({'Name': 1}).exec(callback);
+};
+module.exports = {
+	Categories: Categories,
+	getCategories :getCategories
+};
