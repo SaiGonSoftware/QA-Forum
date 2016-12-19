@@ -8,6 +8,7 @@
 var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
+var Category = require('../models/categories.server.model');
 var bcrypt = require('bcrypt-nodejs');
 
 
@@ -123,5 +124,15 @@ exports.QuestionIndexMobile = function (req, res) {
             return res.status(500).send();
         else
             res.send(questions);
+    });
+};
+
+
+exports.Category = function (req, res){
+    Category.getCategories(function(err, categories) {
+        if (err)
+            return res.status(500).send();
+        else
+            res.send(categories);
     });
 };
