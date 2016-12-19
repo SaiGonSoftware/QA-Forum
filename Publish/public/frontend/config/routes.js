@@ -4,7 +4,7 @@
         .config(config)
         .run(run);
     config.$inject = ['$locationProvider', '$routeProvider'];
-    run.$inject = ['$rootScope', '$http', '$location'];
+    run.$inject = ['$rootScope'];
     function config($locationProvider, $routeProvider) {
         $routeProvider
             .when('/', {
@@ -39,16 +39,10 @@
         });
     }
 
-    function run($rootScope, $http, $location) {
-        // keep user logged in after page refresh
-        /*if (localStorage.getItem('currentUser') === null) {
-            $location.path('/dang-nhap');
-        }
-
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            if (localStorage.getItem('currentUser') === null) {
-                $location.path('/dang-nhap');
-            }
-        });*/
+    function run($rootScope) {
+        $rootScope.loginUser = localStorage.getItem('currentUser');
+        $rootScope.HideLoginSection = false;
+        $rootScope.IsLogin = false;
+        localStorage.clear();
     }
 })();

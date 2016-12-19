@@ -10,15 +10,13 @@
         .module('ChatBotApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'LoginService'];
+    LoginController.$inject = ['$scope', 'LoginService', '$rootScope', '$location'];
 
-    function LoginController($scope, LoginService) {
+    function LoginController($scope, LoginService, $rootScope, $location) {
         $scope.LoginFormSubmmit = false;
         $scope.IsLoginFormValid = false;
         $scope.HideLoginBtn = false;
         $scope.ShowLoading = false;
-        $scope.HideLoginSection = false;
-        $scope.IsLogin = false;
         $scope.LoginData = {
             UsernameLogin: '',
             PasswordLogin: ''
@@ -36,18 +34,16 @@
                 LoginService.LoginAccess($scope.LoginData).then(function (result) {
                     $scope.HideLoginBtn = false;
                     $scope.ShowLoading = false;
-                    console.log(result);
                     if (!result.data.login) {
                         bootbox.alert("Vui lòng kiểm tra thông tin đăng nhập");
                         return false;
                     }
                     else {
-                        localStorage.setItem('currentUser', result.data.userSession);
-                        $scope.loginUser = localStorage.getItem('currentUser');
-                        console.log($scope.loginUser);
-                        $scope.HideLoginSection = true;
-                        $scope.IsLogin = true;
-                        //$location.path(result.data.url);
+                        $rootScope.loginUser = localStorage.setItem('currentUser', result.data.userSession);
+                        $rootScope.loginUser = localStorage.getItem('currentUser');
+                        $rootScope.HideLoginSection = true;
+                        $rootScope.IsLogin = true;
+                        $location.path(result.data.url);
                     }
                 });
             }

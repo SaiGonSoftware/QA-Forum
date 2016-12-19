@@ -8,7 +8,7 @@ header
                     i.fa.fa-bars
             nav.pull-right.tales-nav
                 .collapse.navbar-collapse
-                    ul.nav.nav-pills.navbar-nav(ng-controller='LoginController')
+                    ul.nav.nav-pills.navbar-nav
                         li.dropdown
                             a.dropdown-toggle(ng-hide='HideLoginSection',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 | Tài Khoản
@@ -18,20 +18,12 @@ header
                                     a(href='/dang-nhap') Đăng Nhập
                                 li
                                     a(href='/dang-ky') Đăng Ký
-                        li.dropdown(ng-controller='LoginController')
+                        li.dropdown
                             a.dropdown-toggle(ng-show='IsLogin',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 | Xin chào {{loginUser}}
                                 span.caret
                             ul.dropdown-menu
                                 li
                                     a(href='/dang-xuat') Đăng Xuất
-                        //-li.dropdown
-                            a.dropdown-toggle(ng-show='isFacebookLogin',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | {{welcomeMsg}}
-                                img(ng-src='{{profileImg}}')
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='#',ng-click='facebookLogout()') Đăng Xuất
                         li
                             a(href='/credit') Tác Giả
