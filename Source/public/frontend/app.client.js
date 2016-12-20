@@ -10,6 +10,7 @@
     angular.module('ChatBotApp', [
         // Angular modules
         'ngAnimate',
+        'LocalStorageModule',
         // Custom modules
         'appRoute'
         // 3rd Party Modules
