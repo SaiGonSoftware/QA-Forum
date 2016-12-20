@@ -23,12 +23,12 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js','public/js/bootbox.min.js','public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js','public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/bootbox.min.js', 'public/js/angular.min.js','public/js/angular-local-storage.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js',  'public/frontend/**/*.js']
                 }
             },
             dev: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js','public/js/bootbox.min.js','public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js','public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/bootbox.min.js', 'public/js/angular.min.js','public/js/angular-local-storage.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js',  'public/frontend/**/*.js']
                 }
             }
         },
@@ -107,5 +107,4 @@ module.exports = function (grunt) {
 
     grunt.log.write('Grunt is running\n');
     grunt.registerTask('default', ['jshint', 'cssmin:combine', 'concat:js', 'uglify', 'concurrent']);
-    grunt.registerTask('minfile', ['uglify']);
 };

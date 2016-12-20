@@ -3,9 +3,9 @@
     angular.module('appRoute', ['ngRoute'])
         .config(config)
         .run(run);
-    config.$inject = ['$locationProvider', '$routeProvider'];
+    config.$inject = ['$locationProvider', '$routeProvider','localStorageServiceProvider'];
     run.$inject = ['$rootScope'];
-    function config($locationProvider, $routeProvider) {
+    function config($locationProvider, $routeProvider,localStorageServiceProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: '/partials/index'
@@ -37,12 +37,15 @@
             enabled: true,
             requireBase: false
         });
+        //localStorageServiceProvider.setStorageType('sessionStorage');
+        localStorageServiceProvider.setDefaultToCookie(true);
     }
 
     function run($rootScope) {
-        $rootScope.loginUser = localStorage.getItem('currentUser');
-        $rootScope.HideLoginSection = false;
-        $rootScope.IsLogin = false;
-        localStorage.clear();
+        /*$rootScope.loginUser = localStorage.getItem('currentUser');
+         $rootScope.HideLoginSection = false;
+         $rootScope.IsLogin = false;
+         localStorage.clear();*/
+
     }
 })();
