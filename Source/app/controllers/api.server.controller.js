@@ -152,3 +152,19 @@ exports.QuestionIndexMobile = function (req, res) {
             res.send(questions);
     });
 };
+
+ exports.QuestionViaCategory = function (req, res){
+    var id = req.params.id;
+    Question.getQuestionViaCategory(id, function(err, categories){
+        if (err) res.json({id:id, found: false, msg: "Not Found"});
+        else {
+           res.json({
+                found: true,
+                msg: "Found",
+                categories: categories,
+                      
+            });
+        }
+        ;
+    });
+ }

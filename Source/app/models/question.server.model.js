@@ -6,7 +6,7 @@
  */
 
 var mongoose = require('mongoose');
-
+var ObjectId = require('mongodb').ObjectId;
 var questionSchema = new mongoose.Schema({
     UserQuestion: {
         type: String,
@@ -45,12 +45,16 @@ var questionMobileIndex = function (callback) {
 var getQuestion = function (limitItem, callback) {
     Question.find().limit(limitItem).sort({'CreateDate': 'descending'}).exec(callback);
 };
-
+var getQuestionViaCategory = function(id, callback){
+    var o_id = new ObjectId(id);
+    Question.find({"CategoryId": ObjectId(id)}).exec(callback);
+};
 module.exports = {
     Question: Question,
     countQuestion: countQuestion,
     getQuestionPaginate: getQuestionPaginate,
     getQuestionDetail: getQuestionDetail,
     questionMobileIndex: questionMobileIndex,
-    getQuestion: getQuestion
+    getQuestion: getQuestion,
+    getQuestionViaCategory: getQuestionViaCategory
 };
