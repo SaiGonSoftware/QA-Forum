@@ -2,7 +2,7 @@
  * Created by phuc.ngo on 12/20/2016.
  */
 
-/*(function () {
+(function () {
     'use strict';
     angular
         .module('ChatBotApp')
@@ -10,9 +10,10 @@
 
     navbar.$inject = ['localStorageService'];
     function navbar(localStorageService) {
+        console.log('loading navbar');
         return {
             restrict: 'E',
-            templateUrl: '/layout/navbar.jade',
+            templateUrl: '/layout/navbar.html',
             scope: true,
             controller: function ($scope) {
                 var loginUser = localStorageService.get('currentUser');
@@ -27,5 +28,5 @@
             }
         };
     }
-})();*/
->>>>>>> 9b2891f52a2b2e27b02cb0e751b293ea9201e973
+})();
+
