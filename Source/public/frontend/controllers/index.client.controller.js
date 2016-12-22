@@ -20,7 +20,6 @@
 
         $scope.LoadMore = function () {
             $scope.requestTime += 1;
-            console.log($scope.requestTime);
             GetNextQuestionService.GetNextQuestions($scope.requestTime).then(function (result) {
                 $scope.questions = result.data.questions;
             });

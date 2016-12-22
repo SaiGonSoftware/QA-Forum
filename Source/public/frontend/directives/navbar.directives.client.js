@@ -1,7 +1,7 @@
 /**
  * Created by phuc.ngo on 12/20/2016.
  */
-(function () {
+/*(function () {
     'use strict';
     angular
         .module('ChatBotApp')
@@ -26,4 +26,4 @@
             }
         };
     }
-})();
+})();*/
