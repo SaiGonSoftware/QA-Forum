@@ -20,9 +20,11 @@
         $scope.AnswerFormFormValid = false;
         $scope.HideAnswerBtn = false;
         $scope.ShowLoading = false;
+        var id = document.getElementById('QuestionId').value;
         $scope.AnswerData = {
-            UserAnswer: localStorage.getItem('currentUser'),
+            UserAnswer: 'phucngo',//localStorage.getItem('currentUser'),
             Content: '',
+            QuestionId: document.getElementById('QuestionId').value,
             CreateDate: new Date().toLocaleDateString()
         };
 
@@ -32,12 +34,12 @@
 
         $scope.PostAnswer = function () {
             $scope.AnswerFormSubmmit = true;
-            if (localStorage.getItem('currentUser') === null) {
-                bootbox.alert("Vui lòng đăng nhập để trả lời");
-                return false;
-            }
-
-            if ($scope.AnswerFormSubmmit) {
+            /*if (localStorage.getItem('currentUser') === null) {
+             bootbox.alert("Vui lòng đăng nhập để trả lời");
+             return false;
+             }*/
+            alert(document.getElementById('QuestionId').value);
+            if ($scope.AnswerFormFormValid) {
                 $scope.ShowLoading = true;
                 $scope.HideAnswerBtn = true;
                 AnswerService.PostAnswer($scope.AnswerData).then(function (result) {

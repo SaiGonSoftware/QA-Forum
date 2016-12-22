@@ -14,7 +14,6 @@ var bcrypt = require('bcrypt-nodejs');
 exports.GetQuestion = function (req, res) {
     var limitItem = 10;
     Question.getQuestion(limitItem, function (err, questions) {
-        console.log(questions);
         if (err) res.json({msg: err});
         else res.json({questions: questions});
     });
@@ -120,20 +119,18 @@ exports.Logout = function (req, res) {
     return res.redirect('/');
 };
 exports.Answer = function (req, res) {
-    var questionId = req.params.id;
+    console.log('QuestionId' + req.body.QuestionId);
     var newAnswer = [{
-        'UserAnswer': req.params.UserAnswer,
-        'QuestionId': questionId,
-        'Content': req.params.Content,
-        'CreateDate': req.params.CreateDate
+        'UserAnswer': req.body.UserAnswer,
+        'QuestionId': req.body.QuestionId,
+        'Content': req.body.Content,
+        'CreateDate': req.body.CreateDate
     }];
-
-    Answer.submitAnswer(newAnswer, function (err, answer) {
-        if (err) throw err;
-        if (answer) {
-            return res.json({success: true});
-        }
-    });
+    console.log(newAnswer);
+    /*Answer.submitAnswer(newAnswer, function (err, answer) {
+     if (err) return res.json({success: false});
+     if (answer) return res.json({success: true});
+     });*/
 };
 exports.Category = function (req, res) {
     Category.getCategories(function (err, categories) {
@@ -143,6 +140,21 @@ exports.Category = function (req, res) {
             res.send(categories);
     });
 };
+exports.QuestionViaCategory = function (req, res) {
+    var id = req.params.id;
+    Question.getQuestionViaCategory(id, function (err, categories) {
+        if (err) res.json({id: id, found: false, msg: "Not Found"});
+        else {
+            res.json({
+                found: true,
+                msg: "Found",
+                categories: categories,
+
+            });
+        }
+        ;
+    });
+}
 //Api for mobile
 exports.QuestionIndexMobile = function (req, res) {
     Question.questionMobileIndex(function (err, questions) {
@@ -152,19 +164,3 @@ exports.QuestionIndexMobile = function (req, res) {
             res.send(questions);
     });
 };
-
- exports.QuestionViaCategory = function (req, res){
-    var id = req.params.id;
-    Question.getQuestionViaCategory(id, function(err, categories){
-        if (err) res.json({id:id, found: false, msg: "Not Found"});
-        else {
-           res.json({
-                found: true,
-                msg: "Found",
-                categories: categories,
-                      
-            });
-        }
-        ;
-    });
- }

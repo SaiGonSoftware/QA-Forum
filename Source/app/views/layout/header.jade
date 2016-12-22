@@ -3,4 +3,27 @@ header
         .container
             a#logo(href='/')
                 | TDT Forum
-            navbar
+            navbar#mobile-nav-toggle.pull-right
+                a(href='#', data-toggle='collapse', data-target='.tales-nav .navbar-collapse')
+                    i.fa.fa-bars
+            nav.pull-right.tales-nav
+                .collapse.navbar-collapse
+                    ul.nav.nav-pills.navbar-nav
+                        li.dropdown
+                            a.dropdown-toggle(ng-hide='HideLoginSection',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Tài Khoản
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/dang-nhap') Đăng Nhập
+                                li
+                                    a(href='/dang-ky') Đăng Ký
+                        li.dropdown
+                            a.dropdown-toggle(ng-show='IsLogin',href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Xin chào {{loginUser}}
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/dang-xuat') Đăng Xuất
+                        li
+                            a(href='/credit') Tác Giả

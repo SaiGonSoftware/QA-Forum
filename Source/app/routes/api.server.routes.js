@@ -16,7 +16,7 @@ router.post('/Account/Register', api.Register);
 router.post('/Account/Login', api.Login);
 router.get('/Account/Logout', api.Logout);
 router.post('/Account/PostAnswer', api.Answer);
-	
+
 //api for mobile
 router.get('/mobile/GetAllQuestion/', api.QuestionIndexMobile);
 router.get('/GetCategory', api.Category);
