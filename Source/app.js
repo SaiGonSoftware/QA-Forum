@@ -42,6 +42,9 @@ var indexRoute = require('./app/routes/index.server.routes'),
 app.get('/partials/:partialPath', function (req, res) {
     res.render('partials/' + req.params.partialPath);
 });
+
+app.use('/layout',express.static(path.join(__dirname, 'app/views/layout')));
+
 app.use('/api', apiRoute);
 app.get('*', indexRoute);
 
