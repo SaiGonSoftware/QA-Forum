@@ -106,5 +106,6 @@ module.exports = function (grunt) {
     });
 
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default', ['jshint', 'cssmin:combine', 'concat:js', 'uglify', 'concurrent']);
+    // 'cssmin:combine', 'concat:js', 'uglify',
+    grunt.registerTask('default', ['jshint','concat:js','concurrent']);
 };
