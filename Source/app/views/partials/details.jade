@@ -68,8 +68,10 @@
                         i.fa.fa-heart
                         |  Câu Trả Lời
                     form(name='AnswerForm',ng-submit='PostAnswer()',novalidate='')
+                        input#QuestionId(name='QuestionId',type='hidden',ng-model='AnswerForm.QuestionId',value='{{detail._id}}')
                         textarea#Content.form-control.input-lg(rows='10',ng-model='AnswerData.Content', name='Content', placeholder='Nội dung trả lời',required='')
                         label(for='Content', ng-show='(AnswerForm.Content.$dirty || AnswerFormSubmmit) && AnswerForm.Content.$error.required') Câu trả lời không được để trống
                         .buttons.clearfix
-                            button.btn.btn-xlarge.btn-tales-one(type='submit') Đăng câu trả lời
+                            button.btn.btn-xlarge.btn-tales-one(type='submit',ng-hide='HideAnswerBtn') Đăng câu trả lời
+                            img(src='/img/icon/loading.gif',ng-show='ShowLoading')
             include ../layout/side_content
