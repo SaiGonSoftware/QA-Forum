@@ -11,6 +11,7 @@ var Answer = require('../models/answer.server.model');
 var Category = require('../models/categories.server.model');
 var bcrypt = require('bcrypt-nodejs');
 var ObjectId = require('mongodb').ObjectId;
+
 exports.GetQuestion = function (req, res) {
     var limitItem = 10;
     Question.getQuestion(limitItem, function (err, questions) {
@@ -29,9 +30,7 @@ exports.GetNextQuestion = function (req, res) {
         if (err) res.json({msg: err});
         else res.json({questions: questions});
     });
-}
-
-
+};
 /*exports.QuestionIndex = function (req, res) {
  var limitItemOnePage = 10;
  var currentPage = req.params.pageRequest || 1;
@@ -114,7 +113,6 @@ exports.Login = function (req, res) {
     });
 
 };
-
 exports.Logout = function (req, res) {
     req.session.destroy();
     return res.redirect('/');
@@ -130,15 +128,10 @@ exports.Answer = function (req, res) {
         'dislike': []
     }];
     console.log(newAnswer);
-    Answer.submitAnswer(newAnswer, function (err){
-        if(err) throw err;
+    Answer.submitAnswer(newAnswer, function (err) {
+        if (err) throw err;
         res.json("post");
     });
-    
-    /*Answer.submitAnswer(newAnswer, function (err, answer) {
-     if (err) return res.json({success: false});
-     if (answer) return res.json({success: true});
-     });*/
 };
 exports.Category = function (req, res) {
     Category.getCategories(function (err, categories) {
