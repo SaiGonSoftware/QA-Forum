@@ -113,10 +113,6 @@ exports.Login = function (req, res) {
     });
 
 };
-exports.Logout = function (req, res) {
-    req.session.destroy();
-    return res.redirect('/');
-};
 exports.Answer = function (req, res) {
 
     var newAnswer = [{

@@ -4,7 +4,7 @@
         .config(config)
         .run(run);
     config.$inject = ['$locationProvider', '$routeProvider', 'localStorageServiceProvider'];
-    run.$inject = ['$rootScope'];
+    run.$inject = ['$rootScope', '$location', 'localStorageService'];
     function config($locationProvider, $routeProvider, localStorageServiceProvider) {
         $routeProvider
             .when('/', {
@@ -44,11 +44,12 @@
         localStorageServiceProvider.setDefaultToCookie(true);
     }
 
-    function run($rootScope) {
-        /*$rootScope.loginUser = localStorage.getItem('currentUser');
-         $rootScope.HideLoginSection = false;
-         $rootScope.IsLogin = false;
-         localStorage.clear();*/
-
+    function run($rootScope, $location, localStorageService) {
+        var loginUser = localStorageService.cookie.get('currentUser');
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            if (loginUser && next.originalPath) {
+                $location.path('/');
+            }
+        });
     }
 })();

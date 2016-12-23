@@ -17,6 +17,8 @@
         $scope.IsLoginFormValid = false;
         $scope.HideLoginBtn = false;
         $scope.ShowLoading = false;
+        $scope.HideLoginSection = false;
+        $scope.IsLogin = false;
         $scope.LoginData = {
             UsernameLogin: '',
             PasswordLogin: ''
@@ -39,7 +41,9 @@
                         return false;
                     }
                     else {
-                        localStorageService.set('currentUser', result.data.userSession);
+                        localStorageService.cookie.set('currentUser', result.data.userSession, 1);
+                        $scope.HideLoginSection = true;
+                        $scope.IsLogin = true;
                         $location.path(result.data.url);
                     }
                 });
