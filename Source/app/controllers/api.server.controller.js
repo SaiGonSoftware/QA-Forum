@@ -23,10 +23,10 @@ exports.GetNextQuestion = function (req, res) {
     var limitItem = 10;
     if (req.params.requestTime != null) {
         limitItem *= req.params.requestTime;
-        console.log(limitItem);
+       
     }
     Question.getQuestion(limitItem, function (err, questions) {
-        console.log(questions);
+        
         if (err) res.json({msg: err});
         else res.json({questions: questions});
     });
