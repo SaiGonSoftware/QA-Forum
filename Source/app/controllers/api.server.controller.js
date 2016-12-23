@@ -22,12 +22,15 @@ exports.GetNextQuestion = function (req, res) {
     var limitItem = 10;
     if (req.params.requestTime != null) {
         limitItem *= req.params.requestTime;
+        console.log(limitItem);
     }
     Question.getQuestion(limitItem, function (err, questions) {
+        console.log(questions);
         if (err) res.json({msg: err});
         else res.json({questions: questions});
     });
 }
+
 
 /*exports.QuestionIndex = function (req, res) {
  var limitItemOnePage = 10;
@@ -117,19 +120,29 @@ exports.Logout = function (req, res) {
     return res.redirect('/');
 };
 exports.Answer = function (req, res) {
+<<<<<<< HEAD
     //console.log('QuestionId' + req.body.QuestionId);
     var newAnswer = [{
         'UserAnswer': req.body.UserAnswer,
         'QuestionId': ObjectId(req.body.QuestionId),
+=======
+    console.log('QuestionId' + req.body.QuestionId);
+    var newAnswer = [{
+        'UserAnswer': req.body.UserAnswer,
+        'QuestionId': req.body.QuestionId,
+>>>>>>> 857105c932ab1912f8dc4ffa2799da4f65f39d17
         'Content': req.body.Content,
         'CreateDate': req.body.CreateDate
     }];
     console.log(newAnswer);
+<<<<<<< HEAD
     Answer.submitAnswer(newAnswer, function (err){
         if(err) throw err;
         res.json("post");
     });
     
+=======
+>>>>>>> 857105c932ab1912f8dc4ffa2799da4f65f39d17
     /*Answer.submitAnswer(newAnswer, function (err, answer) {
      if (err) return res.json({success: false});
      if (answer) return res.json({success: true});
