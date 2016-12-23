@@ -42,8 +42,7 @@
                     }
                     else {
                         localStorageService.cookie.set('currentUser', result.data.userSession, 1);
-                        $scope.HideLoginSection = true;
-                        $scope.IsLogin = true;
+                        $scope.$apply();
                         $location.path(result.data.url);
                     }
                 });

@@ -17,11 +17,9 @@
             controller: function ($scope) {
                 var loginUser = localStorageService.cookie.get('currentUser');
                 if (loginUser) {
-                    $scope.$watch(['HideLoginSection', 'IsLogin'], function () {
-                        $scope.HideLoginSection = true;
-                        $scope.IsLogin = true;
-                    });
                     $scope.loginUser = loginUser;
+                    $scope.HideLoginSection = true;
+                    $scope.IsLogin = true;
                 }
                 else {
                     $scope.HideLoginSection = false;
