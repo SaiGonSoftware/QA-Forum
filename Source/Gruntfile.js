@@ -78,7 +78,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ['public/frontend/**/*.js'],
-                tasks: ['jshint', 'clean:js', 'concat:dev'/*, 'uglify'*/],
+                tasks: ['jshint', 'clean:js', 'concat:dev'],
                 options: {
                     spawn: false,
                     reload: true
@@ -106,5 +106,6 @@ module.exports = function (grunt) {
     });
 
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default', ['jshint', 'cssmin:combine', 'concat:js', /*'uglify'*/ 'concurrent']);
+    grunt.registerTask('default', ['clean:css', 'cssmin:combine', 'clean:js', 'jshint', 'concat:js', 'concurrent']);
+    grunt.registerTask('development', ['cssmin:combine', 'clean:js', 'jshint', 'concat:js', 'uglify']);
 };

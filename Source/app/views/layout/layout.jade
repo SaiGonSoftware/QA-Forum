@@ -7,7 +7,7 @@ html
         include header.jade
         block content
         include footer.jade
-        link(rel='stylesheet', type='text/css', href='/css/style.min.css')
+        link(rel='stylesheet', type='text/css', href='/css/style.min.css',async)
         script(src='/js/forum.min.js',async)
         if 'development' == process.env.NODE_ENV
             script.

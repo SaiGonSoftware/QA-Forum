@@ -10,14 +10,12 @@
 
     navbar.$inject = ['localStorageService'];
     function navbar(localStorageService) {
-        console.log('loading navbar');
         return {
             restrict: 'E',
-            templateUrl: '/layout/navbar.html',
-            scope: true,
+            templateUrl: '/directives/navbar.html',
+            scope: false,
             controller: function ($scope) {
-                var loginUser = localStorageService.get('currentUser');
-                console.log(loginUser);
+                var loginUser = localStorageService.cookie.get('currentUser');
                 if (loginUser) {
                     $scope.loginUser = loginUser;
                     $scope.HideLoginSection = true;
@@ -27,6 +25,11 @@
                     $scope.HideLoginSection = false;
                     $scope.IsLogin = false;
                 }
+
+                $scope.LogOut = function () {
+                    localStorageService.cookie.remove('currentUser');
+                    location.reload();
+                };
             }
         };
     }
