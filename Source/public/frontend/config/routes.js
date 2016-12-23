@@ -47,7 +47,7 @@
     function run($rootScope, $location, localStorageService) {
         var loginUser = localStorageService.cookie.get('currentUser');
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
-            if (loginUser && next.originalPath) {
+            if (loginUser && next.originalPath === '/dang-nhap') {
                 $location.path('/');
             }
         });

@@ -42,7 +42,6 @@
                     }
                     else {
                         localStorageService.cookie.set('currentUser', result.data.userSession, 1);
-                        $scope.$apply();
                         $location.path(result.data.url);
                     }
                 });

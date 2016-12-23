@@ -114,7 +114,7 @@ exports.Login = function (req, res) {
 
 };
 exports.Answer = function (req, res) {
-
+    console.log(req.body.QuestionId);
     var newAnswer = [{
         'UserAnswer': req.body.UserAnswer,
         'QuestionId': ObjectId(req.body.QuestionId),
@@ -123,7 +123,7 @@ exports.Answer = function (req, res) {
         'like': [],
         'dislike': []
     }];
-    console.log(newAnswer);
+
     Answer.submitAnswer(newAnswer, function (err) {
         if (err) throw err;
         res.json("post");
