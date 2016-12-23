@@ -1,7 +1,8 @@
 /**
  * Created by phuc.ngo on 12/20/2016.
  */
-/*(function () {
+
+(function () {
     'use strict';
     angular
         .module('ChatBotApp')
@@ -9,13 +10,16 @@
 
     navbar.$inject = ['localStorageService'];
     function navbar(localStorageService) {
+        console.log('loading navbar');
         return {
             restrict: 'E',
-            templateUrl: '/layout/navbar.jade',
+            templateUrl: '/layout/navbar.html',
             scope: true,
             controller: function ($scope) {
                 var loginUser = localStorageService.get('currentUser');
+                console.log(loginUser);
                 if (loginUser) {
+                    $scope.loginUser = loginUser;
                     $scope.HideLoginSection = true;
                     $scope.IsLogin = true;
                 }
@@ -26,4 +30,5 @@
             }
         };
     }
-})();*/
+})();
+
