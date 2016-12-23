@@ -45,5 +45,5 @@ var submitAnswer = function (answer, callback) {
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,
-    submitAnswer: submitAnswer
+    submitAnswer: submitAnswer,
 };

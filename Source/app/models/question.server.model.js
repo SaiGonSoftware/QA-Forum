@@ -8,6 +8,10 @@
 var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectId;
 var questionSchema = new mongoose.Schema({
+    CategoryId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category"
+    },
     UserQuestion: {
         type: String,
         require: true
@@ -48,6 +52,10 @@ var getQuestion = function (limitItem, callback) {
 var getQuestionViaCategory = function(id, callback){
     Question.find({"CategoryId": ObjectId(id)}).exec(callback);
 };
+
+var submitQuestion = function(question, callback){
+    Question.collection.insert(question,callback);
+};
 module.exports = {
     Question: Question,
     countQuestion: countQuestion,
@@ -55,5 +63,6 @@ module.exports = {
     getQuestionDetail: getQuestionDetail,
     questionMobileIndex: questionMobileIndex,
     getQuestion: getQuestion,
-    getQuestionViaCategory: getQuestionViaCategory
+    getQuestionViaCategory: getQuestionViaCategory,
+    submitQuestion: submitQuestion
 };

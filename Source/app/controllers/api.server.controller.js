@@ -125,7 +125,7 @@ exports.Answer = function (req, res) {
         'UserAnswer': req.body.UserAnswer,
         'QuestionId': ObjectId(req.body.QuestionId),
         'Content': req.body.Content,
-        'CreateDate': req.body.CreateDate,
+        'CreateDate': new Date(),
         'like': [],
         'dislike': []
     }];
@@ -140,6 +140,22 @@ exports.Answer = function (req, res) {
      if (answer) return res.json({success: true});
      });*/
 };
+
+exports.Question =  function (req, res){
+    var newQuestion = [{
+        'CategoryId': ObjectId(req.body.CategoryId),
+        'UserQuestion': req.body.UserQuestion,
+        'Content': req.body.Content,
+        'Title': req.body.Title,
+        'CreateDate': new Date()
+    }];
+    console.log(newQuestion);
+    Question.submitQuestion(newQuestion, function(err){
+        if(err) throw err;
+        res.json("post");
+    });
+};
+
 exports.Category = function (req, res) {
     Category.getCategories(function (err, categories) {
         if (err)
