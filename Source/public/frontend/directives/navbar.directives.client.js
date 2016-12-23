@@ -17,7 +17,9 @@
             scope: true,
             controller: function ($scope) {
                 var loginUser = localStorageService.get('currentUser');
+                console.log(loginUser);
                 if (loginUser) {
+                    $scope.loginUser = loginUser;
                     $scope.HideLoginSection = true;
                     $scope.IsLogin = true;
                 }
