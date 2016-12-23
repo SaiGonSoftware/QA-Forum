@@ -125,7 +125,9 @@ exports.Answer = function (req, res) {
         'UserAnswer': req.body.UserAnswer,
         'QuestionId': ObjectId(req.body.QuestionId),
         'Content': req.body.Content,
-        'CreateDate': req.body.CreateDate
+        'CreateDate': req.body.CreateDate,
+        'like': [],
+        'dislike': []
     }];
     console.log(newAnswer);
     Answer.submitAnswer(newAnswer, function (err){
