@@ -24,12 +24,12 @@ var answerSchema = new mongoose.Schema({
         require: true
     },
     like: {
-        type: Number,
-        default: 0
+        type: Array,
+        default: []
     },
     dislike: {
-        type: Number,
-        default: 0
+        type: Array,
+        default: []
     }
 });
 
@@ -45,5 +45,5 @@ var submitAnswer = function (answer, callback) {
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,
-    submitAnswer: submitAnswer
+    submitAnswer: submitAnswer,
 };

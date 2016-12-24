@@ -12,41 +12,28 @@
 
     angular.module('ChatBotApp')
         .controller('FacebookController', FacebookController);
-    FacebookController.$inject = ['$scope'];
+    FacebookController.$inject = ['$scope', 'localStorageService'];
 
-    function FacebookController($scope) {
-        $scope.isFacebookLogin = false;
+    function FacebookController($scope, localStorageService) {
+        $scope.IsFacebookLogin = false;
         $scope.facebookLogin = function () {
             FB.login(function (response) {
                 if (response.authResponse) {
                     FB.api('/me', function (response) {
-                        $scope.isFacebookLogin = true;
+                        $scope.IsFacebookLogin = true;
                         $scope.welcomeMsg = 'Xin chào ' + response.name;
                         FB.api(response.id + '/picture', function (response) {
-                            $scope.profileImg = response.data.url;
-                            refresh();
+                            localStorageService.cookie.set('profileImg', response.data.url, 1);
+                            localStorageService.cookie.set('facebookUser', response.name, 1);
+                            $scope.profileFbImg = response.data.url;
+                            $location.path('/');
                         });
                     });
                 }
             });
 
         };
-
-        $scope.facebookLogout = function () {
-
-        };
-
-        function refresh() {
-            FB.api('/me', function (response) {
-                $scope.isFacebookLogin = true;
-                $scope.welcomeMsg = 'Xin chào ' + response.name;
-                FB.api(response.id + '/picture', function (response) {
-                    $scope.profileImg = response.data.url;
-                });
-            });
-        }
     }
-
 
     window.fbAsyncInit = function () {
         FB.init({

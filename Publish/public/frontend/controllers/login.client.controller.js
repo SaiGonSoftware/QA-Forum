@@ -10,13 +10,15 @@
         .module('ChatBotApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'LoginService', '$rootScope', '$location'];
+    LoginController.$inject = ['$scope', 'LoginService', '$location', 'localStorageService'];
 
-    function LoginController($scope, LoginService, $rootScope, $location) {
+    function LoginController($scope, LoginService, $location, localStorageService) {
         $scope.LoginFormSubmmit = false;
         $scope.IsLoginFormValid = false;
         $scope.HideLoginBtn = false;
         $scope.ShowLoading = false;
+        $scope.HideLoginSection = false;
+        $scope.IsLogin = false;
         $scope.LoginData = {
             UsernameLogin: '',
             PasswordLogin: ''
@@ -39,16 +41,11 @@
                         return false;
                     }
                     else {
-                        localStorage.setItem('currentUser', result.data.userSession);
-                        $rootScope.loginUser = localStorage.getItem('currentUser');
-                        $rootScope.HideLoginSection = true;
-                        $rootScope.IsLogin = true;
+                        localStorageService.cookie.set('currentUser', result.data.userSession, 1);
                         $location.path(result.data.url);
                     }
                 });
             }
         };
     }
-
-
 })();

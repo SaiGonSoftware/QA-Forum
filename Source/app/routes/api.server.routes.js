@@ -13,7 +13,7 @@ router.get('/GetNextQuestion/:requestTime', api.GetNextQuestion);
 router.get('/GetQuestionDetail/:id', api.QuestionDetail);
 router.post('/Account/Register', api.Register);
 router.post('/Account/Login', api.Login);
-router.post('/Account/PostAnswer', api.Answer);
+router.post('/Account/PostAnswer/:id', api.Answer);
 router.post('/Account/PostQuestion', api.Question);
 router.get('/mobile/GetAllQuestion/', api.QuestionIndexMobile);
 

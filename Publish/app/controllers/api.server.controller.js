@@ -10,21 +10,40 @@ var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
 var Category = require('../models/categories.server.model');
 var bcrypt = require('bcrypt-nodejs');
+var ObjectId = require('mongodb').ObjectId;
 
-
-exports.QuestionIndex = function (req, res) {
-    var limitItemOnePage = 10;
-    var currentPage = req.params.pageRequest || 1;
-    //pagination
-    Question.countQuestion({}, function (err, totalItem) {
-        var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
-        Question.getQuestionPaginate(limitItemOnePage, currentPage,
-            function (err, questions) {
-                if (err) res.json({msg: err});
-                else res.json({questions: questions, pages: numberOfPage});
-            });
+exports.GetQuestion = function (req, res) {
+    var limitItem = 10;
+    Question.getQuestion(limitItem, function (err, questions) {
+        if (err) res.json({msg: err});
+        else res.json({questions: questions});
     });
 };
+exports.GetNextQuestion = function (req, res) {
+    var limitItem = 10;
+    if (req.params.requestTime != null) {
+        limitItem *= req.params.requestTime;
+        console.log(limitItem);
+    }
+    Question.getQuestion(limitItem, function (err, questions) {
+        console.log(questions);
+        if (err) res.json({msg: err});
+        else res.json({questions: questions});
+    });
+};
+/*exports.QuestionIndex = function (req, res) {
+ var limitItemOnePage = 10;
+ var currentPage = req.params.pageRequest || 1;
+ //pagination
+ Question.countQuestion({}, function (err, totalItem) {
+ var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
+ Question.getQuestionPaginate(limitItemOnePage, currentPage,
+ function (err, questions) {
+ if (err) res.json({msg: err});
+ else res.json({questions: questions, pages: numberOfPage});
+ });
+ });
+ };*/
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
     Question.getQuestionDetail(id, function (err, questionDetail) {
@@ -94,29 +113,61 @@ exports.Login = function (req, res) {
     });
 
 };
-
-exports.Logout = function (req, res) {
-    req.session.destroy();
-    return res.redirect('/');
-};
-
 exports.Answer = function (req, res) {
-    var questionId = req.params.id;
+    console.log(req.body.QuestionId);
     var newAnswer = [{
-        'UserAnswer': req.params.UserAnswer,
-        'QuestionId': questionId,
-        'Content': req.params.Content,
-        'CreateDate': req.params.CreateDate
+        'UserAnswer': req.body.UserAnswer,
+        'QuestionId': ObjectId(req.body.QuestionId),
+        'Content': req.body.Content,
+        'CreateDate': new Date(),
+        'like': [],
+        'dislike': []
     }];
 
-    Answer.submitAnswer(newAnswer, function (err, answer) {
+    Answer.submitAnswer(newAnswer, function (err) {
         if (err) throw err;
-        if (answer) {
-            return res.json({success: true});
-        }
+        res.json("post");
     });
 };
 
+exports.Question =  function (req, res){
+    var newQuestion = [{
+        'CategoryId': ObjectId(req.body.CategoryId),
+        'UserQuestion': req.body.UserQuestion,
+        'Content': req.body.Content,
+        'Title': req.body.Title,
+        'CreateDate': new Date()
+    }];
+    console.log(newQuestion);
+    Question.submitQuestion(newQuestion, function(err){
+        if(err) throw err;
+        res.json("post");
+    });
+};
+
+exports.Category = function (req, res) {
+    Category.getCategories(function (err, categories) {
+        if (err)
+            return res.status(500).send();
+        else
+            res.send(categories);
+    });
+};
+exports.QuestionViaCategory = function (req, res) {
+    var id = req.params.id;
+    Question.getQuestionViaCategory(id, function (err, categories) {
+        if (err) res.json({id: id, found: false, msg: "Not Found"});
+        else {
+            res.json({
+                found: true,
+                msg: "Found",
+                categories: categories,
+
+            });
+        }
+        ;
+    });
+}
 //Api for mobile
 exports.QuestionIndexMobile = function (req, res) {
     Question.questionMobileIndex(function (err, questions) {
@@ -124,15 +175,5 @@ exports.QuestionIndexMobile = function (req, res) {
             return res.status(500).send();
         else
             res.send(questions);
-    });
-};
-
-
-exports.Category = function (req, res){
-    Category.getCategories(function(err, categories) {
-        if (err)
-            return res.status(500).send();
-        else
-            res.send(categories);
     });
 };

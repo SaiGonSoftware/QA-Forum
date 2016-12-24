@@ -73,5 +73,6 @@
                         label(for='Content', ng-show='(AnswerForm.Content.$dirty || AnswerFormSubmmit) && AnswerForm.Content.$error.required') Câu trả lời không được để trống
                         .buttons.clearfix
                             button.btn.btn-xlarge.btn-tales-one(type='submit',ng-hide='HideAnswerBtn') Đăng câu trả lời
-                            img(src='/img/icon/loading.gif',ng-show='ShowLoading')
+                            div(style='text-align:center;margin:10%')
+                                img(src='/img/icon/loading.gif')
             include ../layout/side_content

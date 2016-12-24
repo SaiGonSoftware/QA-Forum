@@ -114,23 +114,21 @@ exports.Login = function (req, res) {
 
 };
 exports.Answer = function (req, res) {
-    console.log(req.body.QuestionId);
     var newAnswer = [{
         'UserAnswer': req.body.UserAnswer,
-        'QuestionId': ObjectId(req.body.QuestionId),
+        'QuestionId': ObjectId(req.params.id),
         'Content': req.body.Content,
         'CreateDate': new Date(),
         'like': [],
         'dislike': []
     }];
 
-    Answer.submitAnswer(newAnswer, function (err) {
-        if (err) throw err;
-        res.json("post");
+    Answer.submitAnswer(newAnswer, function (err, answer) {
+        if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
+        res.json({success: true, msg: "Đăng câu trả lời thành công"});
     });
 };
-
-exports.Question =  function (req, res){
+exports.Question = function (req, res) {
     var newQuestion = [{
         'CategoryId': ObjectId(req.body.CategoryId),
         'UserQuestion': req.body.UserQuestion,
@@ -139,9 +137,9 @@ exports.Question =  function (req, res){
         'CreateDate': new Date()
     }];
     console.log(newQuestion);
-    Question.submitQuestion(newQuestion, function(err){
-        if(err) throw err;
-        res.json("post");
+    Question.submitQuestion(newQuestion, function (err) {
+        if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
+        res.json({success: true, msg: "Đăng câu hỏi thành công"});
     });
 };
 

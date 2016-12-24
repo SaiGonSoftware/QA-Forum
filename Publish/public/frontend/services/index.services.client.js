@@ -8,15 +8,24 @@
     'use strict';
 
     angular.module('ChatBotApp')
-        .factory('QuestionService', QuestionService);
-
+        .factory('QuestionService', QuestionService)
+        .factory('GetNextQuestionService', GetNextQuestionService);
     QuestionService.$inject = ['$http'];
+    GetNextQuestionService.$inject = ['$http'];
 
     function QuestionService($http) {
         var getAllQuestionService = {};
-        getAllQuestionService.GetAllQuestions = function (page) {
-            return $http.get('/api/GetAllQuestion/' + page);
+        getAllQuestionService.GetQuestions = function () {
+            return $http.get('/api/GetQuestion/');
         };
         return getAllQuestionService;
+    }
+
+    function GetNextQuestionService($http) {
+        var getNextQuestionService = {};
+        getNextQuestionService.GetNextQuestions = function (requestTime) {
+            return $http.get('/api/GetNextQuestion/' + requestTime);
+        };
+        return getNextQuestionService;
     }
 })();

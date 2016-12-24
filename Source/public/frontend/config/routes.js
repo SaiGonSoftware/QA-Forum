@@ -46,8 +46,13 @@
 
     function run($rootScope, $location, localStorageService) {
         var loginUser = localStorageService.cookie.get('currentUser');
+        var facebookUser = localStorageService.cookie.get('facebookUser');
+        console.log(loginUser);
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
-            if (loginUser && next.originalPath === '/dang-nhap') {
+            if (loginUser && !facebookUser && next.originalPath === '/dang-nhap') {
+                $location.path('/');
+            }
+            if (!loginUser && facebookUser && next.originalPath === '/dang-nhap') {
                 $location.path('/');
             }
         });

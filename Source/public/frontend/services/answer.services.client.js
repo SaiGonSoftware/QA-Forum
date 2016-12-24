@@ -17,9 +17,9 @@
 
     function AnswerService($http) {
         var answerService = {};
-        answerService.PostAnswer = function (result) {
+        answerService.PostAnswer = function (result, id) {
             return $http({
-                url: '/api/Account/PostAnswer',
+                url: '/api/Account/PostAnswer/' + id,
                 method: 'POST',
                 data: JSON.stringify(result),
                 header: {

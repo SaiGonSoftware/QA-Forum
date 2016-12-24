@@ -3,9 +3,9 @@
     angular.module('appRoute', ['ngRoute'])
         .config(config)
         .run(run);
-    config.$inject = ['$locationProvider', '$routeProvider'];
-    run.$inject = ['$rootScope'];
-    function config($locationProvider, $routeProvider) {
+    config.$inject = ['$locationProvider', '$routeProvider', 'localStorageServiceProvider'];
+    run.$inject = ['$rootScope', '$location', 'localStorageService'];
+    function config($locationProvider, $routeProvider, localStorageServiceProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: '/partials/index'
@@ -22,6 +22,9 @@
             .when('/credit', {
                 templateUrl: '/partials/credit'
             })
+            .when('/navbar', {
+                templateUrl: '/layout/navbar'
+            })
             .when('/dang-nhap', {
                 templateUrl: '/partials/login'
             })
@@ -37,12 +40,21 @@
             enabled: true,
             requireBase: false
         });
+        //localStorageServiceProvider.setStorageType('sessionStorage');
+        localStorageServiceProvider.setDefaultToCookie(true);
     }
 
-    function run($rootScope) {
-        $rootScope.loginUser = localStorage.getItem('currentUser');
-        $rootScope.HideLoginSection = false;
-        $rootScope.IsLogin = false;
-        localStorage.clear();
+    function run($rootScope, $location, localStorageService) {
+        var loginUser = localStorageService.cookie.get('currentUser');
+        var facebookUser = localStorageService.cookie.get('facebookUser');
+        console.log(loginUser);
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            if (loginUser && !facebookUser && next.originalPath === '/dang-nhap') {
+                $location.path('/');
+            }
+            if (!loginUser && facebookUser && next.originalPath === '/dang-nhap') {
+                $location.path('/');
+            }
+        });
     }
 })();
