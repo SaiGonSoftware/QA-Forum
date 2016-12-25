@@ -37,7 +37,6 @@ var Answer = mongoose.model('answers', answerSchema);
 var getAnswerViaQuestion = function (id, callback) {
     Answer.find({"QuestionId": {"$in": id}}, callback);
 };
-
 var submitAnswer = function (answer, callback) {
     Answer.collection.insert(answer, callback);
 };

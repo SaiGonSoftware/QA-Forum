@@ -22,7 +22,7 @@
         $scope.ShowLoading = false;
 
         $scope.AnswerData = {
-            UserAnswer: 'phucngo',//localStorage.getItem('currentUser'),
+            UserAnswer: localStorageService.cookie.get('currentUser'),
             Content: '',
             CreateDate: new Date().toLocaleDateString()
         };
@@ -44,7 +44,6 @@
                 AnswerService.PostAnswer($scope.AnswerData, id).then(function (result) {
                     $scope.HideAnswerBtn = false;
                     $scope.ShowLoading = false;
-                    console.log(result);
                     if (!result.data.success) {
                         bootbox.alert(result.data.msg);
                     }
