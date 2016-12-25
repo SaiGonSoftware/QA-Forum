@@ -23,6 +23,10 @@ var answerSchema = new mongoose.Schema({
         type: Date,
         require: true
     },
+    references: {
+        type: Array,
+        default: []
+    },
     like: {
         type: Array,
         default: []

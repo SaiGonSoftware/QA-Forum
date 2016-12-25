@@ -114,15 +114,17 @@ exports.Login = function (req, res) {
 
 };
 exports.Answer = function (req, res) {
+    console.log(res.body);
     var newAnswer = [{
         'UserAnswer': req.body.UserAnswer,
         'QuestionId': ObjectId(req.params.id),
         'Content': req.body.Content,
         'CreateDate': new Date(),
+        'references': req.body.references,
         'like': [],
         'dislike': []
     }];
-
+    
     Answer.submitAnswer(newAnswer, function (err, answer) {
         if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
         res.json({success: true, msg: "Đăng câu trả lời thành công"});
@@ -136,6 +138,7 @@ exports.Question = function (req, res) {
         'Title': req.body.Title,
         'CreateDate': new Date()
     }];
+
     console.log(newQuestion);
     Question.submitQuestion(newQuestion, function (err) {
         if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
