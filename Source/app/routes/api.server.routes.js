@@ -15,11 +15,8 @@ router.post('/Account/Register', api.Register);
 router.post('/Account/Login', api.Login);
 router.post('/Account/PostAnswer/:id', api.Answer);
 router.post('/Account/PostQuestion', api.Question);
-router.get('/mobile/GetAllQuestion/', api.QuestionIndexMobile);
 
 router.get('/GetCategory', api.Category);
 router.get('/GetQuestionViaCategory/:id', api.QuestionViaCategory);
-//router.get('/GetAllQuestion/:pageRequest', api.QuestionIndex);
-//api for mobile
-router.get('/mobile/GetAllQuestion/', api.QuestionIndexMobile);
+router.post('/Answer/AddLike', api.Like);
 module.exports = router;

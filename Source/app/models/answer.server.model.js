@@ -6,6 +6,7 @@
  */
 
 var mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectId;
 var answerSchema = new mongoose.Schema({
     QuestionId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -45,8 +46,12 @@ var submitAnswer = function (answer, callback) {
     Answer.collection.insert(answer, callback);
 };
 
+var addLike = function(answerId,username, callback){
+    Answer.collection.update({_id:ObjectId(answerId)},{ "$push": { "like": username} },callback);
+};
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,
     submitAnswer: submitAnswer,
+    addLike:addLike
 };

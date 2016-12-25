@@ -114,13 +114,12 @@ exports.Login = function (req, res) {
 
 };
 exports.Answer = function (req, res) {
-    console.log(res.body);
     var newAnswer = [{
         'UserAnswer': req.body.UserAnswer,
         'QuestionId': ObjectId(req.params.id),
         'Content': req.body.Content,
         'CreateDate': new Date(),
-        'references': req.body.references,
+        'references': res.body.references,
         'like': [],
         'dislike': []
     }];
@@ -168,7 +167,7 @@ exports.QuestionViaCategory = function (req, res) {
         }
         ;
     });
-}
+};
 //Api for mobile
 exports.QuestionIndexMobile = function (req, res) {
     Question.questionMobileIndex(function (err, questions) {
@@ -177,4 +176,16 @@ exports.QuestionIndexMobile = function (req, res) {
         else
             res.send(questions);
     });
+};
+exports.Like = function (req, res) {
+    var username = req.body.UserLike;
+    var answerId = req.body.AnswerIdLike;
+    console.log(username);
+    
+    Answer.addLike(answerId, username, function(err){
+        if(err) res.json({success: false, msg: "Error"});
+        res.json({success: true, msg: "Like success"});
+    });
+    
+    
 };
