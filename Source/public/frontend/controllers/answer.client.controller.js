@@ -34,7 +34,7 @@
         $scope.PostAnswer = function () {
             $scope.AnswerFormSubmmit = true;
             if (localStorageService.cookie.get('currentUser') === null) {
-                bootbox.alert("Vui lòng đăng nhập để trả lời");
+                toastr.warning("Vui lòng đăng nhập để trả lời");
                 return false;
             }
             if ($scope.AnswerFormFormValid) {
@@ -48,7 +48,7 @@
                         bootbox.alert(result.data.msg);
                     }
                     else {
-                        bootbox.alert("Đăng Câu Trả Lời Thành Công");
+                        toastr.warning("Đăng Câu Trả Lời Thành Công");
                     }
                 });
             }
