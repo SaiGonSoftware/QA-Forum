@@ -11,24 +11,24 @@ module.exports = function (grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css']
+                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
                 }
             },
             dev: {
                 files: {
-                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css']
+                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
                 }
             }
         },
         concat: {
             js: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/bootbox.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/frontend/**/*.js']
                 }
             },
             dev: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/bootbox.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/frontend/**/*.js']
                 }
             }
         },

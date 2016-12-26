@@ -37,15 +37,13 @@
                     $scope.HideLoginBtn = false;
                     $scope.ShowLoading = false;
                     if (!result.data.login) {
-                        bootbox.alert("Vui lòng kiểm tra thông tin đăng nhập");
+                        toastr.warning("Vui lòng kiểm tra thông tin đăng nhập");
                         return false;
                     }
                     else {
                         localStorageService.cookie.set('currentUser', result.data.userSession, 1);
-                        $scope.$apply(function ($scope) {
-                            $scope.HideLoginSection = true;
-                            $scope.IsLogin = true;
-                        });
+                        $scope.HideLoginSection = true;
+                        $scope.IsLogin = true;
                         $location.path(result.data.url);
                     }
                 });
