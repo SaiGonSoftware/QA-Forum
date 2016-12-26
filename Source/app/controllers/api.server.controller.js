@@ -119,7 +119,7 @@ exports.Answer = function (req, res) {
         'QuestionId': ObjectId(req.params.id),
         'Content': req.body.Content,
         'CreateDate': new Date(),
-        'references': res.body.references,
+        'references': req.body.references,
         'like': [],
         'dislike': []
     }];
