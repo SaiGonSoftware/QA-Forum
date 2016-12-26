@@ -49,9 +49,13 @@ var submitAnswer = function (answer, callback) {
 var addLike = function(answerId,username, callback){
     Answer.collection.update({_id:ObjectId(answerId)},{ "$push": { "like": username} },callback);
 };
+var unLike = function(answerId,username, callback){
+    Answer.collection.update({_id:ObjectId(answerId)},{ "$pull": { "like": username} },callback);
+};
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,
     submitAnswer: submitAnswer,
-    addLike:addLike
+    addLike:addLike,
+    unLike:unLike
 };

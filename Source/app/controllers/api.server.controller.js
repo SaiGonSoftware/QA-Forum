@@ -189,3 +189,13 @@ exports.Like = function (req, res) {
     
     
 };
+exports.UnLike = function(req, res){
+    var username = req.body.UserLike;
+    var answerId = req.body.AnswerIdLike;
+    console.log(username);
+    
+    Answer.unLike(answerId, username, function(err){
+        if(err) res.json({success: false, msg: "Error"});
+        res.json({success: true, msg: "UnLike success"});
+    });
+};
