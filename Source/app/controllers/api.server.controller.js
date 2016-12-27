@@ -199,3 +199,12 @@ exports.UnLike = function(req, res){
         res.json({success: true, msg: "UnLike success"});
     });
 };
+exports.FindQuestion= function(req,res){
+    var stringFind = req.body.findString;
+    console.log(stringFind);
+    
+    Question.findQuestion(stringFind,function(err,questions){
+        if (err) res.json({msg: err});
+        else res.json({questions: questions});
+    });
+};
