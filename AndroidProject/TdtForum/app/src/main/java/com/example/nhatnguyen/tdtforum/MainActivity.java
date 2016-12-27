@@ -171,8 +171,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                         break;
                     case R.id.navigation_item_search:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
+                        Intent intentSearchQuestion = new Intent(MainActivity.this,FindQuestionActivity.class);
+                        startActivity(intentSearchQuestion);
                         break;
                     case R.id.navigation_item_category:
                         Intent intentCategory = new Intent(MainActivity.this, CategoryActivity.class);

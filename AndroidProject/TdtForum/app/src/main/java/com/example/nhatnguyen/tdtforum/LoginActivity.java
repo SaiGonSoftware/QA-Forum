@@ -2,13 +2,20 @@ package com.example.nhatnguyen.tdtforum;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -48,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmailSignUp;
     Button buttonSignIn;
     Button buttonSignUp;
-    Button buttonSignOut;
     LoginButton loginButton;
     CallbackManager callbackManager;
     APIService apiService;
@@ -66,8 +72,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initial() {
+        /*
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+                getResources(),R.mipmap.background),size.x,size.y,true);
+
+        ImageView iv_background = (ImageView) findViewById(R.id.image_view_login);
+        iv_background.setImageBitmap(bmp);
+    */
         sessionManager = new SessionManager(this);
-        getSupportActionBar().setTitle(R.string.sign_in);
+       // getSupportActionBar().setTitle(R.string.sign_in);
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setMessage("Đang xử lý...");
 
@@ -78,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPasswordSignUp=(EditText)findViewById(R.id.edit_text_password_sign_up);
         editTextEmailSignUp = (EditText)findViewById(R.id.edit_text_email_sign_up);
 
-        buttonSignOut =(Button)findViewById(R.id.button_sign_out);
+
         buttonSignIn = (Button)findViewById(R.id.button_sign_in);
         buttonSignUp = (Button)findViewById(R.id.button_sign_up);
 
@@ -115,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(radioButtonSignUp.isChecked()){
-                    getSupportActionBar().setTitle(R.string.sign_up);
+
                     ExpandCollapseLayout.collapse(linearLayoutSignIn);
                     ExpandCollapseLayout.expand(linearLayoutSignUp);
                 }
@@ -125,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(radioButtonSignIn.isChecked()){
-                    getSupportActionBar().setTitle(R.string.sign_in);
+
                     ExpandCollapseLayout.collapse(linearLayoutSignUp);
                     ExpandCollapseLayout.expand(linearLayoutSignIn);
                 }
@@ -193,14 +209,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        buttonSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(sessionManager.isLoggedIn()){
-                    sessionManager.logoutUser();
-                }
-            }
-        });
+
     }
 
     @Override

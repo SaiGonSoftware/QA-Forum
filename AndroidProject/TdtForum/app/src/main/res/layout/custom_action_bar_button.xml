@@ -7,7 +7,7 @@
         android:layout_weight="1"
         android:id="@+id/button_send_question"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:drawableRight="@android:drawable/ic_menu_send"
         android:layout_gravity="right"/>
 </LinearLayout>

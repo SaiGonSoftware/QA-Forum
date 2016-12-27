@@ -22,15 +22,16 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".QuestionDetailsActivity"
-
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".QuestionDetailsActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/NoActionBar" />
         <activity android:name=".NewQuestionActivity" />
         <activity android:name=".CategoryActivity" />
-        <activity android:name=".QuestionsInCategoryActivity"
-            >
-        </activity>
+        <activity android:name=".QuestionsInCategoryActivity"></activity>
+        <activity android:name=".FindQuestionActivity"></activity>
     </application>
 
 </manifest>

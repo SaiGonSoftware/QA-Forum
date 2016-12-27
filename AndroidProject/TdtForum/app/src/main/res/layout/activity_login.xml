@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
@@ -9,7 +10,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="#E3F2FD"
+    android:gravity="center"
     tools:context="com.example.nhatnguyen.tdtforum.LoginActivity">
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/logo"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,25 +26,30 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="#E3F2FD"
             android:layout_marginTop="10dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Account"
+                android:textColor="@color/colorPrimary"
                 android:inputType="text"
+
                 android:id="@+id/edit_text_account_sign_in"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="#E3F2FD"
             android:layout_marginTop="10dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+
                 android:id="@+id/edit_text_password_sign_in"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
@@ -134,11 +146,6 @@
         android:id="@+id/button_sign_in_facebook"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/button_sign_out"
-        android:text="Logout"/>
+
 
 </LinearLayout>
