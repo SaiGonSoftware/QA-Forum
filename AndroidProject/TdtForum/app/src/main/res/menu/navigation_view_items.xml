@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/navigation_item_sign_in"
+            android:icon="@mipmap/ic_launcher"
+            android:visible="false"
+            android:title="Đăng nhập" />
+        <item
+            android:title="Người dùng"
+            android:icon="@mipmap/user_icon"
+            android:id="@+id/navigation_item_user"
+            android:visible="false"
+            />
+        <item
+            android:id="@+id/navigation_item_main_page"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Trang chủ" />
+
+    </group>
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/navigation_view_category_2"
+            android:title="Diễn đàn">
+            <menu>
+                <item
+                    android:id="@+id/navigation_item_search"
+                    android:title="Tìm kiếm" />
+                <item
+                    android:id="@+id/navigation_item_category"
+                    android:title="Chủ đề" />
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="all">
+        <item
+            android:title="Quản lý tài khoản"
+            android:id="@+id/navigation_view_category_3"
+            android:visible="false">
+            <menu>
+                <item
+                    android:id="@+id/navigation_item_sign_out"
+                    android:title="Đăng xuất" />
+            </menu>
+
+        </item>
+
+    </group>
+</menu>

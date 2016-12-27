@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TdtForum</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="facebook_app_id">629213847266342</string>
+    <string name="category">Chủ đề</string>
+    <string name="select_category">Chọn chủ đề</string>
+    <string name="content">Nội dung</string>
+    <string name="speech_prompt">Say something</string>
+    <string name="speech_not_supported">Your device does\'nt support</string>
+</resources>
