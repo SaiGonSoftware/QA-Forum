@@ -13,9 +13,9 @@
         .module('ChatBotApp')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$scope', '$location', 'RegisterService', 'localStorageService'];
+    RegisterController.$inject = ['$scope', '$location', 'RegisterService', 'localStorageService', '$rootScope'];
 
-    function RegisterController($scope, $location, RegisterService, localStorageService) {
+    function RegisterController($scope, $location, RegisterService, localStorageService, $rootScope) {
         $scope.RegisFormSubmmit = false;
         $scope.IsRegisFormValid = false;
         $scope.ShowLoading = false;
@@ -62,6 +62,9 @@
                         $scope.HideRegisBtn = false;
                         toastr.success("Đăng kí thành công bạn có thể bắt đầu sử dụng forum");
                         localStorageService.cookie.set('currentUser', $scope.RegisData.UsernameRegis, 1);
+                        $rootScope.loginUser = $scope.RegisData.UsernameRegis;
+                        $rootScope.HideLoginSection = true;
+                        $rootScope.IsLogin = true;
                         $location.path(result.data.url);
                     }
                 });
