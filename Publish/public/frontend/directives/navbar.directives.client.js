@@ -8,8 +8,8 @@
         .module('ChatBotApp')
         .directive('navbar', navbar);
 
-    navbar.$inject = ['localStorageService'];
-    function navbar(localStorageService) {
+    navbar.$inject = ['localStorageService', '$rootScope'];
+    function navbar(localStorageService, $rootScope) {
         return {
             restrict: 'E',
             templateUrl: '/directives/navbar.html',
@@ -17,24 +17,22 @@
             controller: function ($scope) {
                 var loginUser = localStorageService.cookie.get('currentUser');
                 var facebookUser = localStorageService.cookie.get('facebookUser');
-                var profileFbImg = localStorageService.cookie.get('profileImg');
                 if (loginUser && !facebookUser) {
-                    $scope.loginUser = loginUser;
-                    $scope.HideLoginSection = true;
-                    $scope.IsLogin = true;
-                    $scope.isFacebookLogin = false;
+                    $rootScope.loginUser = loginUser;
+                    $rootScope.HideLoginSection = true;
+                    $rootScope.IsLogin = true;
+                    $rootScope.IsFacebookLogin = false;
                 }
                 if (facebookUser && !loginUser) {
-                    $scope.profileFbImg = profileFbImg;
-                    $scope.facebookUser = facebookUser;
-                    $scope.HideLoginSection = true;
-                    $scope.isFacebookLogin = true;
-                    $scope.IsLogin = false;
+                    $rootScope.facebookUser = facebookUser;
+                    $rootScope.HideLoginSection = true;
+                    $rootScope.IsFacebookLogin = true;
+                    $rootScope.IsLogin = false;
                 }
                 if (!loginUser && !facebookUser) {
-                    $scope.HideLoginSection = false;
-                    $scope.IsLogin = false;
-                    $scope.isFacebookLogin = false;
+                    $rootScope.HideLoginSection = false;
+                    $rootScope.IsLogin = false;
+                    $rootScope.IsFacebookLogin = false;
                 }
                 $scope.LogOut = function () {
                     localStorageService.cookie.remove('currentUser');

@@ -9,7 +9,6 @@ var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
 var Category = require('../models/categories.server.model');
-var bcrypt = require('bcrypt-nodejs');
 var ObjectId = require('mongodb').ObjectId;
 
 exports.GetQuestion = function (req, res) {
@@ -108,10 +107,10 @@ exports.Login = function (req, res) {
         }
         else {
             var userSession = user.Account;
+            req.session.user = user;
             res.json({login: true, url: '/', userSession: userSession});
         }
     });
-
 };
 exports.Answer = function (req, res) {
     var newAnswer = [{
@@ -123,7 +122,7 @@ exports.Answer = function (req, res) {
         'like': [],
         'dislike': []
     }];
-    
+
     Answer.submitAnswer(newAnswer, function (err, answer) {
         if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
         res.json({success: true, msg: "Đăng câu trả lời thành công"});
@@ -144,7 +143,6 @@ exports.Question = function (req, res) {
         res.json({success: true, msg: "Đăng câu hỏi thành công"});
     });
 };
-
 exports.Category = function (req, res) {
     Category.getCategories(function (err, categories) {
         if (err)
@@ -168,34 +166,25 @@ exports.QuestionViaCategory = function (req, res) {
         ;
     });
 };
-//Api for mobile
-exports.QuestionIndexMobile = function (req, res) {
-    Question.questionMobileIndex(function (err, questions) {
-        if (err)
-            return res.status(500).send();
-        else
-            res.send(questions);
-    });
-};
 exports.Like = function (req, res) {
     var username = req.body.UserLike;
     var answerId = req.body.AnswerIdLike;
     console.log(username);
-    
-    Answer.addLike(answerId, username, function(err){
-        if(err) res.json({success: false, msg: "Error"});
+
+    Answer.addLike(answerId, username, function (err) {
+        if (err) res.json({success: false, msg: "Error"});
         res.json({success: true, msg: "Like success"});
     });
-    
-    
+
+
 };
-exports.UnLike = function(req, res){
+exports.UnLike = function (req, res) {
     var username = req.body.UserLike;
     var answerId = req.body.AnswerIdLike;
     console.log(username);
-    
-    Answer.unLike(answerId, username, function(err){
-        if(err) res.json({success: false, msg: "Error"});
+
+    Answer.unLike(answerId, username, function (err) {
+        if (err) res.json({success: false, msg: "Error"});
         res.json({success: true, msg: "UnLike success"});
     });
 };

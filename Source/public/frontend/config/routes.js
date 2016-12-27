@@ -13,13 +13,10 @@
             .when('/main-page', {
                 templateUrl: '/partials/index'
             })
-            .when('/view1', {
-                templateUrl: '/partials/view1'
-            })
-            .when('/details/:id', {
+            .when('/bai-viet/:id', {
                 templateUrl: '/partials/details'
             })
-            .when('/credit', {
+            .when('/tac-gia', {
                 templateUrl: '/partials/credit'
             })
             .when('/navbar', {
@@ -30,6 +27,9 @@
             })
             .when('/dang-ky', {
                 templateUrl: '/partials/register'
+            })
+            .when('/tao-cau-hoi', {
+                templateUrl: '/partials/post_question'
             })
             .otherwise({
                 redirectTo: '/page-not-found',
@@ -42,12 +42,47 @@
         });
         //localStorageServiceProvider.setStorageType('sessionStorage');
         localStorageServiceProvider.setDefaultToCookie(true);
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1211287998940961',
+                xfbml: true,
+                version: 'v2.8'
+            });
+            FB.Event.subscribe('auth.login', function(response) {
+                window.location.reload();
+            });
+            FB.Event.subscribe('auth.logout', function(response) {
+                window.location.reload();
+            });
+            (function() {
+                var e = document.createElement('script'); e.async = true;
+                e.src = document.location.protocol +
+                    '//connect.facebook.net/en_US/all.js';
+                document.getElementById('fb-root').appendChild(e);
+            }());
+            function facebookLogin() {
+                FB.login(function(response) {
+                    // handle the response
+                }, {scope: 'email, publish_stream, read_friendlists'});
+            }
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     }
 
     function run($rootScope, $location, localStorageService) {
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
-        console.log(loginUser);
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
             if (loginUser && !facebookUser && next.originalPath === '/dang-nhap') {
                 $location.path('/');

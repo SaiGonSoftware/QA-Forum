@@ -10,7 +10,7 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     http = require('http'),
     server = http.createServer(app),
-    env = process.env.NODE_ENV || 'production';
+    env = process.env.NODE_ENV || 'development';
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -42,6 +42,7 @@ var indexRoute = require('./app/routes/index.server.routes'),
 app.get('/partials/:partialPath', function (req, res) {
     res.render('partials/' + req.params.partialPath);
 });
+app.use('/directives', express.static(path.join(__dirname, 'app/views/directives')));
 app.use('/api', apiRoute);
 app.get('*', indexRoute);
 

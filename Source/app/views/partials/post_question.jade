@@ -1,0 +1,22 @@
+//
+   Created by ngohungphuc on 27/12/2016.
+.widewrapper.main
+    .container
+        .row
+            .col-md-8.blog-main(ng-controller="PostQuestionController")
+                form(name='QuestionForm',ng-submit='PostQuestion()',novalidate='')
+                    p
+                        input#Title.form-control(name='Title',type='text',ng-model='QuestionData.Title',placeholder='Tiêu đề câu hỏi',required='')
+                        label(for='Title', ng-show='(QuestionForm.Title.$dirty || QuestionFormSubmmit) && QuestionForm.Title.$error.required') Tiêu đề không được để trống
+                    p
+                        select#CategoryId.form-control(name='CategoryId',ng-model='QuestionData.CategoryId',ng-options='category for category in categories',required='')
+                            option(value='') Vui lòng chọn loại câu hỏi
+                        label(for='Title', ng-show='(QuestionForm.CategoryId.$dirty || QuestionFormSubmmit) && QuestionForm.CategoryId.$error.required') Vui lòng chọn loại câu hỏi
+                    p
+                        textarea#Content.form-control.input-lg(rows='10',ng-model='QuestionData.Content', name='Content', placeholder='Nội dung trả lời',required='')
+                        label(for='Content', ng-show='(QuestionForm.Content.$dirty || QuestionFormSubmmit) && QuestionForm.Content.$error.required') Nội dung câu hỏi không được để trống
+                    .buttons.clearfix
+                        button.btn.btn-xlarge.btn-tales-one(type='submit',ng-hide='HideQuestionBtn') Đăng câu hỏi
+                        div(style='text-align:center;margin:10%')
+                            img(src='/img/icon/loading.gif',ng-show='ShowLoading')
+            include ../layout/side_content

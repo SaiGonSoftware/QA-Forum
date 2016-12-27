@@ -3,12 +3,12 @@ html
     head
         title= title
         link(rel="icon", type="image/x-icon", href='/favicon.ico')
+        link(rel='stylesheet', type='text/css', href='/css/style.min.css')
         body(ng-app="ChatBotApp")
         include header.jade
         block content
         include footer.jade
-        link(rel='stylesheet', type='text/css', href='/css/style.min.css',async)
-        script(src='/js/forum.min.js',async)
+        script(src='/js/forum.min.js')
         if 'development' == process.env.NODE_ENV
             script.
                 document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')

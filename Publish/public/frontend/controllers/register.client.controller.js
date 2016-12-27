@@ -13,9 +13,9 @@
         .module('ChatBotApp')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$scope', '$location', 'RegisterService'];
+    RegisterController.$inject = ['$scope', '$location', 'RegisterService', 'localStorageService', '$rootScope'];
 
-    function RegisterController($scope, $location, RegisterService) {
+    function RegisterController($scope, $location, RegisterService, localStorageService, $rootScope) {
         $scope.RegisFormSubmmit = false;
         $scope.IsRegisFormValid = false;
         $scope.ShowLoading = false;
@@ -33,7 +33,7 @@
         $scope.Register = function () {
             $scope.RegisFormSubmmit = true;
             if (typeof $scope.RegisData.EmailRegis === "undefined") {
-                alert("Vui lòng kiểm tra lại email");
+                toastr.warning("Vui lòng kiểm tra lại email");
                 $scope.ShowLoading = false;
                 return false;
             }
@@ -42,26 +42,30 @@
                 $scope.HideRegisBtn = true;
                 $scope.ShowLoading = true;
                 RegisterService.RegisterAccount($scope.RegisData).then(function (result) {
-                    if(result.data.foundAccount) {
-                        bootbox.alert("Tài Khoản đã được đăng kí");
+                    if (result.data.foundAccount) {
+                        toastr.warning("Tài Khoản đã được đăng kí");
                         $scope.ShowLoading = false;
                         $scope.HideRegisBtn = false;
                     }
-                    if(result.data.foundEmail) {
-                        bootbox.alert("Email đã được đăng kí");
+                    if (result.data.foundEmail) {
+                        toastr.warning("Email đã được đăng kí");
                         $scope.ShowLoading = false;
                         $scope.HideRegisBtn = false;
                     }
-                    if(result.data.foundBoth) {
-                        bootbox.alert("Tài Khoản và Email đã được đăng kí");
+                    if (result.data.foundBoth) {
+                        toastr.warning("Tài Khoản và Email đã được đăng kí");
                         $scope.ShowLoading = false;
                         $scope.HideRegisBtn = false;
                     }
-                    if(result.data.success){
+                    if (result.data.success) {
                         $scope.ShowLoading = false;
                         $scope.HideRegisBtn = false;
+                        toastr.success("Đăng kí thành công bạn có thể bắt đầu sử dụng forum");
+                        localStorageService.cookie.set('currentUser', $scope.RegisData.UsernameRegis, 1);
+                        $rootScope.loginUser = $scope.RegisData.UsernameRegis;
+                        $rootScope.HideLoginSection = true;
+                        $rootScope.IsLogin = true;
                         $location.path(result.data.url);
-                        bootbox.alert("Đăng kí thành công bạn có thể bắt đầu sử dụng forum");
                     }
                 });
             }

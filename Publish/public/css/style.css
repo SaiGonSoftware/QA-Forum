@@ -5,9 +5,15 @@ body {
     color: #404b55;
     background-color: #feffff
 }
-footer{
-    margin-top:91px;
+
+footer {
+    margin-top: 91px;
 }
+
+textarea {
+    resize: none;
+}
+
 a {
     color: #5b6268
 }
@@ -713,12 +719,14 @@ hr {
     margin-bottom: 10px;
     color: #343a3f;
 }
-.blog-teaser #bodycontent-index{
+
+.blog-teaser #bodycontent-index {
     height: 40px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .blog-teaser .btn {
     float: right;
     margin-right: 45px;

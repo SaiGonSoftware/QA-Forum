@@ -12,46 +12,27 @@
 
     angular.module('ChatBotApp')
         .controller('FacebookController', FacebookController);
-    FacebookController.$inject = ['$scope', 'localStorageService'];
+    FacebookController.$inject = ['$scope', 'localStorageService', '$rootScope', '$location'];
 
-    function FacebookController($scope, localStorageService) {
-        $scope.IsFacebookLogin = false;
+    function FacebookController($scope, localStorageService, $rootScope, $location) {
+        $rootScope.IsFacebookLogin = false;
         $scope.facebookLogin = function () {
+            refresh();
+            $rootScope.IsFacebookLogin = true;
+            $rootScope.HideLoginSection = true;
+            $rootScope.IsLogin = false;
+            window.location.reload();
+        };
+
+        function refresh() {
             FB.login(function (response) {
                 if (response.authResponse) {
                     FB.api('/me', function (response) {
-                        $scope.IsFacebookLogin = true;
-                        $scope.welcomeMsg = 'Xin chào ' + response.name;
-                        FB.api(response.id + '/picture', function (response) {
-                            localStorageService.cookie.set('profileImg', response.data.url, 1);
-                            localStorageService.cookie.set('facebookUser', response.name, 1);
-                            $scope.profileFbImg = response.data.url;
-                            $location.path('/');
-                        });
+                        localStorageService.cookie.set('facebookUser', response.name, 1);
+                        $rootScope.facebookUser = response.name;
                     });
                 }
             });
-
-        };
-    }
-
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '629213847266342',
-            xfbml: true,
-            version: 'v2.8'
-        });
-    };
-
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
         }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
+    }
 })();

@@ -6,6 +6,7 @@
  */
 
 var mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectId;
 var answerSchema = new mongoose.Schema({
     QuestionId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -23,6 +24,10 @@ var answerSchema = new mongoose.Schema({
         type: Date,
         require: true
     },
+    references: {
+        type: Array,
+        default: []
+    },
     like: {
         type: Array,
         default: []
@@ -37,13 +42,20 @@ var Answer = mongoose.model('answers', answerSchema);
 var getAnswerViaQuestion = function (id, callback) {
     Answer.find({"QuestionId": {"$in": id}}, callback);
 };
-
 var submitAnswer = function (answer, callback) {
     Answer.collection.insert(answer, callback);
 };
 
+var addLike = function(answerId,username, callback){
+    Answer.collection.update({_id:ObjectId(answerId)},{ "$push": { "like": username} },callback);
+};
+var unLike = function(answerId,username, callback){
+    Answer.collection.update({_id:ObjectId(answerId)},{ "$pull": { "like": username} },callback);
+};
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,
     submitAnswer: submitAnswer,
+    addLike:addLike,
+    unLike:unLike
 };

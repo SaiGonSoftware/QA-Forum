@@ -11,28 +11,31 @@ module.exports = function (grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css']
+                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
                 }
             },
             dev: {
                 files: {
-                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/style.css']
+                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
                 }
             }
         },
         concat: {
             js: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/bootbox.min.js', 'public/js/angular.min.js', 'public/js/angular-local-storage.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/frontend/**/*.js']
                 }
             },
             dev: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/bootbox.min.js', 'public/js/angular.min.js', 'public/js/angular-local-storage.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/frontend/**/*.js']
                 }
             }
         },
         uglify: {
+            options: {
+                mangle: false
+            },
             my_target: {
                 files: {
                     'public/js/forum.min.js': 'public/js/forum.min.js'
@@ -78,7 +81,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ['public/frontend/**/*.js'],
-                tasks: ['jshint', 'clean:js', 'concat:dev'],
+                tasks: ['jshint', 'clean:js', 'concat:dev', 'uglify'],
                 options: {
                     spawn: false,
                     reload: true
@@ -106,6 +109,6 @@ module.exports = function (grunt) {
     });
 
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default', ['clean:css', 'cssmin:combine', 'clean:js', 'jshint', 'concat:js', 'concurrent']);
+    grunt.registerTask('default', ['clean:css', 'cssmin:combine', 'clean:js', 'jshint', 'concat:js', 'uglify', 'concurrent']);
     grunt.registerTask('development', ['cssmin:combine', 'clean:js', 'jshint', 'concat:js', 'uglify']);
 };

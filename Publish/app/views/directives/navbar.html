@@ -12,6 +12,14 @@
                     <li><a href="/dang-ky">Đăng Ký</a></li>
                 </ul>
             </li>
+            <li class="dropdown"><a class="dropdown-toggle" ng-show="IsFacebookLogin" href="#" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">Xin chào
+                {{facebookUser}}<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" ng-click="FacebookLogOut()">Đăng Xuất</a></li>
+                </ul>
+            </li>
             <li class="dropdown"><a class="dropdown-toggle" ng-show="IsLogin" href="#" data-toggle="dropdown"
                                     role="button" aria-haspopup="true" aria-expanded="false">Xin chào {{loginUser}}<span
                     class="caret"></span></a>
@@ -19,15 +27,7 @@
                     <li><a href="#" ng-click="LogOut()">Đăng Xuất</a></li>
                 </ul>
             </li>
-            <li><a href="/credit">Tác Giả</a></li>
+            <li><a href="/tac-gia">Tác Giả</a></li>
         </ul>
     </div>
 </nav>
-<li class="dropdown"><a class="dropdown-toggle" ng-show="isFacebookLogin" href="#" data-toggle="dropdown"
-                        role="button" aria-haspopup="true" aria-expanded="false"><img
-        ng-src="{{profileFbImg}}">{{welcomeMsg}}<span
-        class="caret"></span></a>
-    <ul class="dropdown-menu">
-        <li><a href="#" ng-click="FacebookLogOut()">Đăng Xuất</a></li>
-    </ul>
-</li>
