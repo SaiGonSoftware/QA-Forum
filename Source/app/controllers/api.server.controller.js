@@ -99,7 +99,6 @@ exports.Login = function (req, res) {
     User.checkAccountExists(username, function (err, user) {
         if (user == null) {
             res.json({login: false});
-            return;
         }
         var AuthUser = User.validPassword(password, user.Password);
         if (!AuthUser) {
@@ -116,38 +115,43 @@ exports.Answer = function (req, res) {
     if (req.session.user == null) {
         res.json({authorize: false});
     }
-    var newAnswer = [{
-        'UserAnswer': req.body.UserAnswer,
-        'QuestionId': ObjectId(req.params.id),
-        'Content': req.body.Content,
-        'CreateDate': new Date(),
-        'references': req.body.references,
-        'like': [],
-        'dislike': []
-    }];
+    else {
+        var newAnswer = [{
+            'UserAnswer': req.body.UserAnswer,
+            'QuestionId': ObjectId(req.params.id),
+            'Content': req.body.Content,
+            'CreateDate': new Date(),
+            'references': req.body.references,
+            'like': [],
+            'dislike': []
+        }];
 
-    Answer.submitAnswer(newAnswer, function (err, answer) {
-        if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
-        res.json({success: true, msg: "Đăng câu trả lời thành công"});
-    });
+        Answer.submitAnswer(newAnswer, function (err, answer) {
+            if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
+            res.json({success: true, msg: "Đăng câu trả lời thành công"});
+        });
+    }
+
 };
 exports.Question = function (req, res) {
     if (req.session.user == null) {
         res.json({authorize: false});
     }
-    var newQuestion = [{
-        'CategoryId': ObjectId(req.body.CategoryId),
-        'UserQuestion': req.body.UserQuestion,
-        'Content': req.body.Content,
-        'Title': req.body.Title,
-        'CreateDate': new Date()
-    }];
+    else {
+        var newQuestion = [{
+            'CategoryId': ObjectId(req.body.CategoryId),
+            'UserQuestion': req.body.UserQuestion,
+            'Content': req.body.Content,
+            'Title': req.body.Title,
+            'CreateDate': new Date()
+        }];
 
-    console.log(newQuestion);
-    Question.submitQuestion(newQuestion, function (err) {
-        if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
-        res.json({success: true, msg: "Đăng câu hỏi thành công"});
-    });
+        Question.submitQuestion(newQuestion, function (err) {
+            if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
+            res.json({success: true, msg: "Đăng câu hỏi thành công"});
+        });
+    }
+
 };
 exports.Category = function (req, res) {
     Category.getCategories(function (err, categories) {
