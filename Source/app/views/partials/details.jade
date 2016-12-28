@@ -36,9 +36,9 @@
                     h2
                         i.fa.fa-comments
                         |  24 Comments
-                    article.comment(ng-repeat="answer in answers")
+                    article#answer-list.comment(ng-repeat="answer in answers")
                         header.clearfix
-                            img.avatar(src='img/avatar.png', alt='A Smart Guy')
+                            //-img.avatar(src='img/avatar.png', alt='A Smart Guy')
                             .meta
                                 h3
                                     a(href='#') {{answer.UserAnswer}}
@@ -67,7 +67,7 @@
                     h2
                         i.fa.fa-heart
                         |  Câu Trả Lời
-                    form(name='AnswerForm',ng-submit='PostAnswer()',novalidate='')
+                    form#AnswerForm(name='AnswerForm',ng-submit='PostAnswer()',novalidate='')
                         input#QuestionId(name='QuestionId',type='hidden',ng-model='AnswerForm.QuestionId',value='{{detail._id}}')
                         textarea#Content.form-control.input-lg(rows='10',ng-model='AnswerData.Content', name='Content', placeholder='Nội dung trả lời',required='')
                         label(for='Content', ng-show='(AnswerForm.Content.$dirty || AnswerFormSubmmit) && AnswerForm.Content.$error.required') Câu trả lời không được để trống

@@ -1311,6 +1311,19 @@ aside.comments .comment .body {
     opacity: 1
 }
 
+#answer-list.ng-enter{
+    transition: 0.2s linear all;
+    opacity: 0;
+}
+#answer-list.ng-enter{
+    transition: 0.2s linear all;
+    transform: translateY(30px);
+    opacity: 0;
+}
+#answer-list.ng-enter.ng-enter-active{
+    transform: translateY(0);
+    opacity: 1;
+}
 #fof {
     display: block;
     width: 100%;

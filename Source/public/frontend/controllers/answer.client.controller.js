@@ -42,10 +42,11 @@
                 $scope.HideAnswerBtn = true;
                 var id = $('#QuestionId').val();
                 AnswerService.PostAnswer($scope.AnswerData, id).then(function (result) {
+                    console.log(result);
                     $scope.HideAnswerBtn = false;
                     $scope.ShowLoading = false;
                     if (!result.data.success) {
-                        bootbox.alert(result.data.msg);
+                        toastr.warning(result.data.msg);
                     }
                     else {
                         toastr.warning("Đăng Câu Trả Lời Thành Công");

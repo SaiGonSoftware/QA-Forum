@@ -26,7 +26,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     duration: 30 * 60 * 1000,
-    activeDuration: 5 * 60 * 1000
+    activeDuration: 5 * 60 * 1000,
+    cookie: {maxAge: 6000}
 }));
 
 // view engine setup
