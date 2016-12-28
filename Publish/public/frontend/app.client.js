@@ -11,6 +11,7 @@
         // Angular modules
         'ngAnimate',
         'LocalStorageModule',
+        'ngFacebook',
         // Custom modules
         'appRoute'
         // 3rd Party Modules

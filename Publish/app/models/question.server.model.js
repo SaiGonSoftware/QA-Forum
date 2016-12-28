@@ -56,6 +56,11 @@ var getQuestionViaCategory = function(id, callback){
 var submitQuestion = function(question, callback){
     Question.collection.insert(question,callback);
 };
+var findQuestion = function(findString, callback){
+    //var regex = new RegExp('[ẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+', '');
+    Question.find({"Title":{$regex: findString, $options: 'is'}}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
+   // Question.find({"Title": regex}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
+};
 module.exports = {
     Question: Question,
     countQuestion: countQuestion,
@@ -64,5 +69,6 @@ module.exports = {
     questionMobileIndex: questionMobileIndex,
     getQuestion: getQuestion,
     getQuestionViaCategory: getQuestionViaCategory,
-    submitQuestion: submitQuestion
+    submitQuestion: submitQuestion,
+    findQuestion:findQuestion
 };
