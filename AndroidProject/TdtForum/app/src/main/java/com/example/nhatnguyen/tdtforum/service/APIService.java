@@ -13,6 +13,7 @@ import com.example.nhatnguyen.tdtforum.entity.RegisData;
 import com.example.nhatnguyen.tdtforum.entity.ResultLogin;
 import com.example.nhatnguyen.tdtforum.entity.ResultPost;
 import com.example.nhatnguyen.tdtforum.entity.ResultRegister;
+import com.example.nhatnguyen.tdtforum.ultilities.HeaderInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -24,6 +25,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -34,9 +36,10 @@ import retrofit2.http.Path;
 
 public interface APIService {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").setLenient().create();
-
-    public static final   Retrofit retrofit = new Retrofit.Builder()
+    HeaderInterceptor headerInterceptor = new HeaderInterceptor().create();
+    Retrofit retrofit = new Retrofit.Builder()
               .baseUrl("http://192.168.1.44:3000/api/")
+            .client(HeaderInterceptor.client)
             // .baseUrl("http://tdtforum.herokuapp.com/api/")
             // .baseUrl("http://10.0.0.156:3000/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -77,6 +80,12 @@ public interface APIService {
 
     @POST("Answer/UnLike")
     Call<ResultPost> unLike(@Body LikeData likeData);
+
+    @POST("Answer/AddDislike")
+    Call<ResultPost> addDislike(@Body LikeData likeData);
+
+    @POST("Answer/UnDislike")
+    Call<ResultPost> unDislike(@Body LikeData likeData);
 
     @POST("Question/FindQuestion")
     Call<Questions> findQuestion(@Body QuestionFind questionFind);

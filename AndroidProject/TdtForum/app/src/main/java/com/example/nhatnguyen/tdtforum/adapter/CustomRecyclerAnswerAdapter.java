@@ -173,6 +173,59 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
                 }
             });
             imageViewDisLike = (ImageView)itemView.findViewById(R.id.image_view_dislike);
+            imageViewDisLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    LikeData likeData = new LikeData();
+                    likeData.setUserLike(sessionManager.getUserSession().getUsernameLogin());
+                    likeData.setAnswerIdLike(listAnswer.get(getAdapterPosition()-1).get_id());
+                    if(listAnswer.get(getAdapterPosition()-1).getDislike().contains(sessionManager.getUserSession().getUsernameLogin())){
+                        //listAnswer.get(getAdapterPosition()-1).getLike().remove(getAdapterPosition()-1);
+                        for(String removeLike: listAnswer.get(getAdapterPosition()-1).getDislike()){
+                            if(removeLike.equals(sessionManager.getUserSession().getUsernameLogin())){
+                                listAnswer.get(getAdapterPosition()-1).getDislike().remove(removeLike);
+                            }
+                        }
+                        int likeNumber = Integer.parseInt(textViewDislikes.getText().toString())-1;
+                        textViewDislikes.setText(likeNumber+"");
+                        imageViewDisLike.setImageResource(R.mipmap.undislike_icon);
+                        Call<ResultPost> call = apiService.unDislike(likeData);
+                        call.enqueue(new Callback<ResultPost>() {
+                            @Override
+                            public void onResponse(Call<ResultPost> call, Response<ResultPost> response) {
+                                // Toast.makeText(view.getContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResultPost> call, Throwable t) {
+                                // Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    }
+                    else {
+                        listAnswer.get(getAdapterPosition()-1).getDislike().add(sessionManager.getUserSession().getUsernameLogin());
+                        int likeNumber = Integer.parseInt(textViewDislikes.getText().toString())+1;
+                        textViewDislikes.setText(likeNumber+"");
+                        imageViewDisLike.setImageResource(R.mipmap.dislike_icon);
+                        Call<ResultPost> call = apiService.addDislike(likeData);
+                        call.enqueue(new Callback<ResultPost>() {
+                            @Override
+                            public void onResponse(Call<ResultPost> call, Response<ResultPost> response) {
+                                // Toast.makeText(view.getContext(), response.body().getMsg(), Toast.LENGTH_LONG).show();
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResultPost> call, Throwable t) {
+                                //  Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                    }
+                }
+            });
         }
     }
     public class QuestionViewHolder extends RecyclerView.ViewHolder{

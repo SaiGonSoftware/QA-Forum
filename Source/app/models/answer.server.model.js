@@ -52,10 +52,18 @@ var addLike = function(answerId,username, callback){
 var unLike = function(answerId,username, callback){
     Answer.collection.update({_id:ObjectId(answerId)},{ "$pull": { "like": username} },callback);
 };
+var addDislike = function(answerId,username, callback){
+    Answer.collection.update({_id:ObjectId(answerId)},{ "$push": { "dislike": username} },callback);
+};
+var unDislike = function(answerId,username, callback){
+    Answer.collection.update({_id:ObjectId(answerId)},{ "$pull": { "dislike": username} },callback);
+};
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,
     submitAnswer: submitAnswer,
     addLike:addLike,
-    unLike:unLike
+    unLike:unLike,
+    addDislike:addDislike,
+    unDislike: unDislike
 };

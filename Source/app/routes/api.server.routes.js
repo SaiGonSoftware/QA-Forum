@@ -20,5 +20,7 @@ router.get('/GetCategory', api.Category);
 router.get('/GetQuestionViaCategory/:id', api.QuestionViaCategory);
 router.post('/Answer/AddLike', api.Like);
 router.post('/Answer/UnLike', api.UnLike);
+router.post('/Answer/AddDislike', api.Dislike);
+router.post('/Answer/UnDislike', api.UnDislike);
 router.post('/Question/FindQuestion', api.FindQuestion);
 module.exports = router;

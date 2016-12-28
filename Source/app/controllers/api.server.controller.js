@@ -199,6 +199,24 @@ exports.UnLike = function (req, res) {
         res.json({success: true, msg: "UnLike success"});
     });
 };
+exports.Dislike = function (req, res) {
+    var username = req.body.UserLike;
+    var answerId = req.body.AnswerIdLike;
+    Answer.addDislike(answerId, username, function (err) {
+        if (err) res.json({success: false, msg: "Error"});
+        res.json({success: true, msg: "Dislike success"});
+    });
+};
+exports.UnDislike = function (req, res) {
+    var username = req.body.UserLike;
+    var answerId = req.body.AnswerIdLike;
+    console.log(username);
+
+    Answer.unDislike(answerId, username, function (err) {
+        if (err) res.json({success: false, msg: "Error"});
+        res.json({success: true, msg: "UnDislike success"});
+    });
+};
 exports.FindQuestion = function (req, res) {
     var stringFind = req.body.findString;
     console.log(stringFind);
