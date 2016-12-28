@@ -146,9 +146,10 @@ exports.Question = function (req, res) {
         'CreateDate': new Date()
     }];
 
-    Question.submitQuestion(newQuestion, function (err) {
+    Question.submitQuestion(newQuestion, function (err, newInsertQuestion) {
+        var questionInsertId = newInsertQuestion["ops"][0]["_id"];
         if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
-        res.json({success: true, msg: "Đăng câu hỏi thành công"});
+        res.json({success: true, url: '/bai-viet/' + questionInsertId, msg: "Đăng câu hỏi thành công"});
     });
     //}
 
