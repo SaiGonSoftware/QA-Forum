@@ -113,6 +113,9 @@ exports.Login = function (req, res) {
     });
 };
 exports.Answer = function (req, res) {
+    if (req.session.user == null) {
+        res.json({authorize: false});
+    }
     var newAnswer = [{
         'UserAnswer': req.body.UserAnswer,
         'QuestionId': ObjectId(req.params.id),
@@ -129,6 +132,9 @@ exports.Answer = function (req, res) {
     });
 };
 exports.Question = function (req, res) {
+    if (req.session.user == null) {
+        res.json({authorize: false});
+    }
     var newQuestion = [{
         'CategoryId': ObjectId(req.body.CategoryId),
         'UserQuestion': req.body.UserQuestion,
@@ -188,11 +194,11 @@ exports.UnLike = function (req, res) {
         res.json({success: true, msg: "UnLike success"});
     });
 };
-exports.FindQuestion= function(req,res){
+exports.FindQuestion = function (req, res) {
     var stringFind = req.body.findString;
     console.log(stringFind);
-    
-    Question.findQuestion(stringFind,function(err,questions){
+
+    Question.findQuestion(stringFind, function (err, questions) {
         if (err) res.json({msg: err});
         else res.json({questions: questions});
     });
