@@ -9,8 +9,9 @@
                         input#Title.form-control(name='Title',type='text',ng-model='QuestionData.Title',placeholder='Tiêu đề câu hỏi',required='')
                         label(for='Title', ng-show='(QuestionForm.Title.$dirty || QuestionFormSubmmit) && QuestionForm.Title.$error.required') Tiêu đề không được để trống
                     p
-                        select#CategoryId.form-control(name='CategoryId',ng-model='QuestionData.CategoryId',ng-options='category for category in categories',required='')
+                        select#CategoryId.form-control(name='CategoryId',ng-model='QuestionData.CategoryId',required='')
                             option(value='') Vui lòng chọn loại câu hỏi
+                            option(ng-repeat='category in categories',value='{{category._id}}') {{category.Name}}
                         label(for='Title', ng-show='(QuestionForm.CategoryId.$dirty || QuestionFormSubmmit) && QuestionForm.CategoryId.$error.required') Vui lòng chọn loại câu hỏi
                     p
                         textarea#Content.form-control.input-lg(rows='10',ng-model='QuestionData.Content', name='Content', placeholder='Nội dung trả lời',required='')

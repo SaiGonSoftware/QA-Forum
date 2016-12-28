@@ -51,8 +51,9 @@
         };
 
         CategoriesService.GetCategories().then(function (result) {
-            console.log(result);
-            $scope.categories = result.data.categories;
+            $scope.categories = Object.keys(result.data).map(function (key) {
+                return result.data[key];
+            });
         });
     }
 })();
