@@ -8,7 +8,7 @@
 var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectId;
 var questionSchema = new mongoose.Schema({
-    CategoryId:{
+    CategoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category"
     },
@@ -23,6 +23,10 @@ var questionSchema = new mongoose.Schema({
     Content: {
         type: String,
         require: true
+    },
+    References: {
+        type: Array,
+        default: []
     },
     CreateDate: {
         type: Date,
@@ -49,17 +53,22 @@ var questionMobileIndex = function (callback) {
 var getQuestion = function (limitItem, callback) {
     Question.find().limit(limitItem).sort({'CreateDate': 'descending'}).exec(callback);
 };
-var getQuestionViaCategory = function(id, callback){
+var getQuestionViaCategory = function (id, callback) {
     Question.find({"CategoryId": ObjectId(id)}).exec(callback);
 };
 
-var submitQuestion = function(question, callback){
-    Question.collection.insert(question,callback);
+var submitQuestion = function (question, callback) {
+    Question.collection.insert(question, callback);
 };
-var findQuestion = function(findString, callback){
+var findQuestion = function (findString, callback) {
     //var regex = new RegExp('[ẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+', '');
-    Question.find({"Title":{$regex: findString, $options: 'is'}}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
-   // Question.find({"Title": regex}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
+    Question.find({
+        "Title": {
+            $regex: findString,
+            $options: 'is'
+        }
+    }).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
+    // Question.find({"Title": regex}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
 };
 module.exports = {
     Question: Question,
@@ -70,5 +79,5 @@ module.exports = {
     getQuestion: getQuestion,
     getQuestionViaCategory: getQuestionViaCategory,
     submitQuestion: submitQuestion,
-    findQuestion:findQuestion
+    findQuestion: findQuestion
 };

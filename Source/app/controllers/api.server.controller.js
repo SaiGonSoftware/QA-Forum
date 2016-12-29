@@ -253,9 +253,9 @@ exports.QuestionViaCategory = function (req, res) {
 };
 exports.Like = function (req, res) {
     var username = req.body.UserLike;
-    var answerId = req.body.AnswerIdLike;
+    var answerId = req.body.AnswerId;
     console.log(username);
-
+    console.log(answerId);
     Answer.addLike(answerId, username, function (err) {
         if (err) res.json({
             success: false,

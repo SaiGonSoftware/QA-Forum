@@ -45,7 +45,7 @@
                     $scope.HideAnswerBtn = false;
                     $scope.ShowLoading = false;
                     if (!result.data.success) {
-                        bootbox.alert(result.data.msg);
+                        toastr.warning(result.data.msg);
                     }
                     else {
                         toastr.warning("Đăng Câu Trả Lời Thành Công");

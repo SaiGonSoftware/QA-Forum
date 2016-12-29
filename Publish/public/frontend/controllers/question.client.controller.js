@@ -7,9 +7,9 @@
         .module('ChatBotApp')
         .controller('PostQuestionController', PostQuestionController);
 
-    PostQuestionController.$inject = ['$scope', 'localStorageService', 'PostQuestionService', 'CategoriesService'];
+    PostQuestionController.$inject = ['$scope', '$location', 'localStorageService', 'PostQuestionService', 'CategoriesService'];
 
-    function PostQuestionController($scope, localStorageService, PostQuestionService, CategoriesService) {
+    function PostQuestionController($scope, $location, localStorageService, PostQuestionService, CategoriesService) {
         $scope.QuestionFormSubmmit = false;
         $scope.QuestionFormFormValid = false;
         $scope.HideQuestionBtn = false;
@@ -24,10 +24,11 @@
         };
 
         $scope.$watch('QuestionForm.$valid', function (newValue) {
-            $scope.AnswerFormFormValid = newValue;
+            $scope.QuestionFormFormValid = newValue;
         });
 
         $scope.PostQuestion = function () {
+            console.log('ok');
             $scope.QuestionFormSubmmit = true;
             if (localStorageService.cookie.get('currentUser') === null) {
                 toastr.warning("Vui lòng đăng nhập để đăng câu hỏi");
@@ -35,18 +36,20 @@
             }
 
             if ($scope.QuestionFormFormValid) {
+                console.log('valid');
                 $scope.ShowLoading = true;
                 $scope.HideQuestionBtn = true;
-                /*AnswerService.PostAnswer($scope.AnswerData, id).then(function (result) {
-                 $scope.HideAnswerBtn = false;
-                 $scope.ShowLoading = false;
-                 if (!result.data.success) {
-                 bootbox.alert(result.data.msg);
-                 }
-                 else {
-                 toastr.warning("Đăng Câu Trả Lời Thành Công");
-                 }
-                 });*/
+                PostQuestionService.PostQuestion($scope.QuestionData).then(function (result) {
+                    $scope.HideQuestionBtn = false;
+                    $scope.ShowLoading = false;
+                    if (!result.data.success) {
+                        toastr.warning("Có lỗi xảy ra vui lòng thử lại");
+                    }
+                    else {
+                        toastr.success("Đăng Câu Hỏi Thành Công");
+                        $location.path(result.data.url);
+                    }
+                });
             }
         };
 

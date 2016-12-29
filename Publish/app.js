@@ -10,7 +10,7 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     http = require('http'),
     server = http.createServer(app),
-    env = process.env.NODE_ENV || 'development';
+    env = process.env.NODE_ENV || 'production';
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -26,7 +26,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     duration: 30 * 60 * 1000,
-    activeDuration: 5 * 60 * 1000
+    activeDuration: 5 * 60 * 1000,
+    cookie: {maxAge: 6000}
 }));
 
 // view engine setup

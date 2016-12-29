@@ -24,7 +24,7 @@
 
     function PostQuestionService($http) {
         var questionService = {};
-        questionService.PostQuestionServices = function (result) {
+        questionService.PostQuestion = function (result) {
             return $http({
                 url: '/api/Account/PostQuestion',
                 method: 'POST',

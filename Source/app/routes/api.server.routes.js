@@ -18,7 +18,7 @@ router.post('/Account/Register', api.Register);
 router.post('/Account/Login', api.Login);
 router.post('/Account/PostAnswer/:id', api.Answer);
 router.post('/Account/PostQuestion', api.Question);
-router.post('/Answer/AddLike', api.Like);
+router.post('/Account/LikeAnswer/', api.Like);
 router.post('/Answer/UnLike', api.UnLike);
 router.post('/Answer/AddDislike', api.Dislike);
 router.post('/Answer/UnDislike', api.UnDislike);

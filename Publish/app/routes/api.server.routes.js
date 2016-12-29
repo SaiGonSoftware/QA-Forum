@@ -11,14 +11,17 @@ var api = require('../controllers/api.server.controller');
 router.get('/GetQuestion/', api.GetQuestion);
 router.get('/GetNextQuestion/:requestTime', api.GetNextQuestion);
 router.get('/GetQuestionDetail/:id', api.QuestionDetail);
+router.get('/GetCategory', api.Category);
+router.get('/GetQuestionViaCategory/:id', api.QuestionViaCategory);
+
 router.post('/Account/Register', api.Register);
 router.post('/Account/Login', api.Login);
 router.post('/Account/PostAnswer/:id', api.Answer);
 router.post('/Account/PostQuestion', api.Question);
-
-router.get('/GetCategory', api.Category);
-router.get('/GetQuestionViaCategory/:id', api.QuestionViaCategory);
 router.post('/Answer/AddLike', api.Like);
 router.post('/Answer/UnLike', api.UnLike);
+router.post('/Answer/AddDislike', api.Dislike);
+router.post('/Answer/UnDislike', api.UnDislike);
 router.post('/Question/FindQuestion', api.FindQuestion);
+
 module.exports = router;

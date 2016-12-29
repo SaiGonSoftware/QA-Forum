@@ -1,7 +1,7 @@
 .widewrapper.main
     .container
-        .row
-            .col-md-8.blog-main(ng-controller="DetailController")
+        .row(ng-controller="DetailController")
+            .col-md-8.blog-main
                 article.blog-post
                     header
                         h1 {{detail.Title}}
@@ -36,9 +36,12 @@
                     h2
                         i.fa.fa-comments
                         |  24 Comments
-                    article.comment(ng-repeat="answer in answers")
+                    article#answer-list.comment(ng-repeat="answer in answers")
                         header.clearfix
-                            img.avatar(src='img/avatar.png', alt='A Smart Guy')
+                            i.fa.fa-caret-up.fa-4x
+                            input(type='hidden',value='{{answer._id}}',name='answerId')
+                            i.fa.fa-caret-down.fa-4x
+                            //-img.avatar(src='img/avatar.png', alt='A Smart Guy')
                             .meta
                                 h3
                                     a(href='#') {{answer.UserAnswer}}
@@ -46,7 +49,7 @@
                                     | {{answer.CreateDate | date : format : fullDate}}
                                 span.separator
                                     | -
-                                a.reply-link(href='#create-comment') Trả Lời
+                                span Đã Trả Lời
                         .body
                             | {{answer.Content}}
                     //-article.comment.reply
@@ -67,7 +70,7 @@
                     h2
                         i.fa.fa-heart
                         |  Câu Trả Lời
-                    form(name='AnswerForm',ng-submit='PostAnswer()',novalidate='')
+                    form#AnswerForm(name='AnswerForm',ng-submit='PostAnswer()',novalidate='')
                         input#QuestionId(name='QuestionId',type='hidden',ng-model='AnswerForm.QuestionId',value='{{detail._id}}')
                         textarea#Content.form-control.input-lg(rows='10',ng-model='AnswerData.Content', name='Content', placeholder='Nội dung trả lời',required='')
                         label(for='Content', ng-show='(AnswerForm.Content.$dirty || AnswerFormSubmmit) && AnswerForm.Content.$error.required') Câu trả lời không được để trống
@@ -75,4 +78,13 @@
                             button.btn.btn-xlarge.btn-tales-one(type='submit',ng-hide='HideAnswerBtn') Đăng câu trả lời
                             div(style='text-align:center;margin:10%')
                                 img(src='/img/icon/loading.gif',ng-show='ShowLoading')
-            include ../layout/side_content
+            aside.col-md-4.blog-aside
+                .aside-widget
+                    header
+                        h3 Tài liệu tham khảo
+                    .body
+                        ul.tales-list
+                            li(ng-repeat='ref in refs')
+                                a(href='{{ref.Link}}',target='_blank') {{ref.Title}}
+
+
