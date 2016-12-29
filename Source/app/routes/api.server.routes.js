@@ -23,5 +23,5 @@ router.post('/Answer/UnLike', api.UnLike);
 router.post('/Answer/AddDislike', api.Dislike);
 router.post('/Answer/UnDislike', api.UnDislike);
 router.post('/Question/FindQuestion', api.FindQuestion);
-
+router.post('/Answer/RemoveAnswer', api.RemoveAnswer);
 module.exports = router;

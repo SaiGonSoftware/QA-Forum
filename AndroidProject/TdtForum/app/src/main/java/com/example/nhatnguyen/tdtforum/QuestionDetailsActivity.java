@@ -9,7 +9,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
@@ -191,4 +194,7 @@ public class QuestionDetailsActivity extends AppCompatActivity implements SwipeR
         Date local = new Date(date.getTime() + TimeZone.getTimeZone(timeZone).getOffset(date.getTime()));
         return local;
     }
+
+
+
 }

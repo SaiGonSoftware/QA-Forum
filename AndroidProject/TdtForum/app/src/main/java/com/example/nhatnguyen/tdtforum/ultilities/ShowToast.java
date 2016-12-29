@@ -26,6 +26,7 @@ public class ShowToast {
         toast.setView(toastLayout);
         textViewCustomToast.setText(text);
     }
+
     public void show(){
         toast.show();
     }

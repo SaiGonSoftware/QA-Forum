@@ -1,6 +1,7 @@
 package com.example.nhatnguyen.tdtforum.service;
 
 import com.example.nhatnguyen.tdtforum.entity.Answer;
+import com.example.nhatnguyen.tdtforum.entity.AnswerRemove;
 import com.example.nhatnguyen.tdtforum.entity.Category;
 import com.example.nhatnguyen.tdtforum.entity.LikeData;
 import com.example.nhatnguyen.tdtforum.entity.LoginData;
@@ -39,9 +40,10 @@ public interface APIService {
     HeaderInterceptor headerInterceptor = new HeaderInterceptor().create();
     Retrofit retrofit = new Retrofit.Builder()
               .baseUrl("http://192.168.1.44:3000/api/")
-            .client(HeaderInterceptor.client)
+
             // .baseUrl("http://tdtforum.herokuapp.com/api/")
             // .baseUrl("http://10.0.0.156:3000/api/")
+            .client(HeaderInterceptor.client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
@@ -89,4 +91,7 @@ public interface APIService {
 
     @POST("Question/FindQuestion")
     Call<Questions> findQuestion(@Body QuestionFind questionFind);
+
+    @POST("Answer/RemoveAnswer")
+    Call<ResultPost> removeAnswer(@Body AnswerRemove answerRemove);
 }

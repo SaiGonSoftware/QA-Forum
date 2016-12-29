@@ -1,8 +1,13 @@
 package com.example.nhatnguyen.tdtforum.adapter;
 
+import android.app.Dialog;
 import android.media.Image;
+import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.nhatnguyen.tdtforum.R;
 import com.example.nhatnguyen.tdtforum.entity.Answer;
+import com.example.nhatnguyen.tdtforum.entity.AnswerRemove;
 import com.example.nhatnguyen.tdtforum.entity.LikeData;
 import com.example.nhatnguyen.tdtforum.entity.Question;
 import com.example.nhatnguyen.tdtforum.entity.ResultPost;
@@ -89,6 +95,9 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
                 if(listAnswer.get(newPosition).getDislike().contains(sessionManager.getUserSession().getUsernameLogin())){
                     answerViewHolder.imageViewDisLike.setImageResource(R.mipmap.dislike_icon);
                 }
+                if(listAnswer.get(newPosition).getUserAnswer().equals(sessionManager.getUserSession().getUsernameLogin())){
+                    answerViewHolder.imageViewConfigAnswer.setVisibility(View.VISIBLE);
+                }
                 break;
         }
     }
@@ -100,7 +109,7 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
         return 1+listAnswer.size();
     }
 
-    public class AnswerViewHolder extends RecyclerView.ViewHolder{
+    public class AnswerViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewUserAnswer;
         public TextView textViewContentAnswer;
         public TextView textViewLikes;
@@ -108,6 +117,8 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
         public TextView textViewCreateDateAnswer;
         public ImageView imageViewLike;
         public ImageView imageViewDisLike;
+        public ImageView imageViewConfigAnswer;
+        public boolean isLogin = false;
         public AnswerViewHolder(View itemView) {
 
             super(itemView);
@@ -213,7 +224,7 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
                         call.enqueue(new Callback<ResultPost>() {
                             @Override
                             public void onResponse(Call<ResultPost> call, Response<ResultPost> response) {
-                                // Toast.makeText(view.getContext(), response.body().getMsg(), Toast.LENGTH_LONG).show();
+
 
                             }
 
@@ -224,6 +235,48 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
                             }
                         });
                     }
+                }
+            });
+            imageViewConfigAnswer = (ImageView)itemView.findViewById(R.id.image_view_config_answer);
+            imageViewConfigAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+                    popupMenu.inflate(R.menu.popup_items);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+
+                            switch (item.getItemId()) {
+                                case R.id.item_edit_answer:
+                                    Toast.makeText(view.getContext(),item.getTitle() + listAnswer.get(getAdapterPosition()-1).get_id(), Toast.LENGTH_SHORT).show();
+                                    return true;
+                                case R.id.item_remove_answer:
+                                    AnswerRemove answerRemove = new AnswerRemove();
+                                    answerRemove.setAnswerId(listAnswer.get(getAdapterPosition()-1).get_id());
+                                    Call<ResultPost> call = apiService.removeAnswer(answerRemove);
+                                    call.enqueue(new Callback<ResultPost>() {
+                                        @Override
+                                        public void onResponse(Call<ResultPost> call, Response<ResultPost> response) {
+                                            listAnswer.remove(getAdapterPosition()-1);
+                                            notifyDataSetChanged();
+                                            Toast.makeText(view.getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResultPost> call, Throwable t) {
+                                            Toast.makeText(view.getContext(),"Error: "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                    return true;
+                            }
+                            return false;
+                        }
+                    });
+
+
+                    popupMenu.show();
+
                 }
             });
         }

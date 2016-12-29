@@ -86,6 +86,9 @@ var unDislike = function(answerId, username, callback) {
         }
     }, callback);
 };
+var removeAnswer = function(answerId, callback){
+    Answer.collection.remove({_id:ObjectId(answerId)},callback);
+};
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,
@@ -93,5 +96,6 @@ module.exports = {
     addLike: addLike,
     unLike: unLike,
     addDislike: addDislike,
-    unDislike: unDislike
+    unDislike: unDislike,
+    removeAnswer: removeAnswer
 };

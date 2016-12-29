@@ -328,3 +328,11 @@ exports.FindQuestion = function (req, res) {
         });
     });
 };
+exports.RemoveAnswer = function(req, res){
+    var answerId = req.body.answerId;
+    console.log(answerId);
+    Answer.removeAnswer(answerId, function(err){
+        if (err) res.json({success: false, msg: "Error"});
+        res.json({success: true, msg: "Remove answer success"});
+    });
+};
