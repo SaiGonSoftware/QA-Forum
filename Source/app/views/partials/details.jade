@@ -78,4 +78,12 @@
                             button.btn.btn-xlarge.btn-tales-one(type='submit',ng-hide='HideAnswerBtn') Đăng câu trả lời
                             div(style='text-align:center;margin:10%')
                                 img(src='/img/icon/loading.gif',ng-show='ShowLoading')
-            include ../layout/side_content
+            aside.col-md-4.blog-aside(ng-controller="DetailController")
+                .aside-widget
+                    header
+                        h3 Tài liệu tham khảo
+                    .body
+                        ul.tales-list
+                            li(ng-repeat='ref in refs')
+                                a(href='{{ref.Link}}') {{ref.Title}}
+

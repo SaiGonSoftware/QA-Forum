@@ -10,7 +10,8 @@ var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
 var Category = require('../models/categories.server.model');
 var ObjectId = require('mongodb').ObjectId;
-
+var google = require('google');
+var async = require('async');
 exports.GetQuestion = function (req, res) {
     var limitItem = 10;
     Question.getQuestion(limitItem, function (err, questions) {
@@ -138,19 +139,44 @@ exports.Question = function (req, res) {
      res.json({authorize: false});
      }
      else {*/
-    var newQuestion = [{
-        'CategoryId': ObjectId(req.body.CategoryId),
-        'UserQuestion': req.body.UserQuestion,
-        'Content': req.body.Content,
-        'Title': req.body.Title,
-        'CreateDate': new Date()
-    }];
+    var refArray = [];
+    google.resultsPerPage = 4;
+    var searchForRef = new Promise(
+        function (resolve, reject) {
+            google(req.body.Title + ' Đại học tôn đức thắng', function (err, res) {
+                if (err) console.error(err);
 
-    Question.submitQuestion(newQuestion, function (err, newInsertQuestion) {
-        var questionInsertId = newInsertQuestion["ops"][0]["_id"];
-        if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
-        res.json({success: true, url: '/bai-viet/' + questionInsertId, msg: "Đăng câu hỏi thành công"});
-    });
+                for (var i = 0; i < res.links.length; ++i) {
+                    var link = res.links[i];
+                    refArray =
+                        [{
+                            'Title': link.title,
+                            'Link': link.href
+                        }];
+                    console.log(refArray);
+                    resolve(refArray);
+                }
+            });
+        }
+    );
+    searchForRef.then(
+        function () {
+            var newQuestion = [{
+                'CategoryId': ObjectId(req.body.CategoryId),
+                'UserQuestion': req.body.UserQuestion,
+                'Content': req.body.Content,
+                'Title': req.body.Title,
+                'References': refArray,
+                'CreateDate': new Date()
+            }];
+
+            Question.submitQuestion(newQuestion, function (err, newInsertQuestion) {
+                console.log(newInsertQuestion);
+                var questionInsertId = newInsertQuestion["ops"][0]["_id"];
+                if (err) res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
+                res.json({success: true, url: '/bai-viet/' + questionInsertId, msg: "Đăng câu hỏi thành công"});
+            });
+        });
     //}
 
 };
