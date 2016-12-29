@@ -1,7 +1,7 @@
 .widewrapper.main
     .container
-        .row
-            .col-md-8.blog-main(ng-controller="DetailController")
+        .row(ng-controller="DetailController")
+            .col-md-8.blog-main
                 article.blog-post
                     header
                         h1 {{detail.Title}}
@@ -78,7 +78,7 @@
                             button.btn.btn-xlarge.btn-tales-one(type='submit',ng-hide='HideAnswerBtn') Đăng câu trả lời
                             div(style='text-align:center;margin:10%')
                                 img(src='/img/icon/loading.gif',ng-show='ShowLoading')
-            aside.col-md-4.blog-aside(ng-controller="DetailController")
+            aside.col-md-4.blog-aside
                 .aside-widget
                     header
                         h3 Tài liệu tham khảo
@@ -86,4 +86,5 @@
                         ul.tales-list
                             li(ng-repeat='ref in refs')
                                 a(href='{{ref.Link}}') {{ref.Title}}
+
 

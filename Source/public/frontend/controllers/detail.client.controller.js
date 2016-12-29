@@ -17,7 +17,7 @@
         var id = $routeParams.id;
         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
             if (result.data.found === true) {
-                console.log(result.data.questionDetail);
+                console.log(result.data.questionDetail.References);
                 $scope.detail = result.data.questionDetail;
                 $scope.refs = result.data.questionDetail.References;
                 $scope.answers = result.data.answers;
