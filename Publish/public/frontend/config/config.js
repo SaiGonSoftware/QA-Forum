@@ -42,8 +42,8 @@
         });
         //localStorageServiceProvider.setStorageType('sessionStorage');
         localStorageServiceProvider.setDefaultToCookie(true);
-        $facebookProvider.setAppId('1211287998940961');
-        $facebookProvider.setPermissions("email,public_profile, user_posts, publish_actions, user_photos");
+        $facebookProvider.setAppId('629213847266342');
+        $facebookProvider.setPermissions("email,public_profile, user_photos");
     }
 
     function run($rootScope, $location, localStorageService) {
@@ -54,6 +54,12 @@
                 $location.path('/');
             }
             if (!loginUser && facebookUser && next.originalPath === '/dang-nhap') {
+                $location.path('/');
+            }
+            if (!loginUser && facebookUser && next.originalPath === '/dang-ky') {
+                $location.path('/');
+            }
+            if (loginUser && !facebookUser && next.originalPath === '/dang-ky') {
                 $location.path('/');
             }
         });

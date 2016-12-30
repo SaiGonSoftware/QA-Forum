@@ -39,27 +39,33 @@ var answerSchema = new mongoose.Schema({
 });
 
 var Answer = mongoose.model('answers', answerSchema);
-var getAnswerViaQuestion = function(id, callback) {
+var getAnswerViaQuestion = function (id, callback) {
     Answer.find({
         "QuestionId": {
             "$in": id
         }
     }, callback);
 };
-var submitAnswer = function(answer, callback) {
+var submitAnswer = function (answer, callback) {
     Answer.collection.insert(answer, callback);
 };
 
-var addLike = function(answerId, username, callback) {
+var addLike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$push": {
+        "$addToSet": {
             "like": username
         }
     }, callback);
 };
-var unLike = function(answerId, username, callback) {
+var countLike = function (answerId, callback) {
+    Answer.aggregate({
+        $group: {_id: answerId, totalLike: {$sum: 1}}
+    }, callback);
+};
+
+var unLike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
@@ -68,7 +74,7 @@ var unLike = function(answerId, username, callback) {
         }
     }, callback);
 };
-var addDislike = function(answerId, username, callback) {
+var addDislike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
@@ -77,7 +83,7 @@ var addDislike = function(answerId, username, callback) {
         }
     }, callback);
 };
-var unDislike = function(answerId, username, callback) {
+var unDislike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
@@ -85,6 +91,12 @@ var unDislike = function(answerId, username, callback) {
             "dislike": username
         }
     }, callback);
+};
+var removeAnswer = function (answerId, callback) {
+    Answer.collection.remove({_id: ObjectId(answerId)}, callback);
+};
+var editAnswer = function (answerId, answerContent, callback) {
+    Answer.collection.update({_id: ObjectId(answerId)}, {"$set": {"Content": answerContent}}, callback);
 };
 module.exports = {
     Answer: Answer,
@@ -93,5 +105,8 @@ module.exports = {
     addLike: addLike,
     unLike: unLike,
     addDislike: addDislike,
-    unDislike: unDislike
+    unDislike: unDislike,
+    removeAnswer: removeAnswer,
+    editAnswer: editAnswer,
+    countLike: countLike
 };
