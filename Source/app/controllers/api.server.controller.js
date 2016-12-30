@@ -25,7 +25,7 @@ exports.GetQuestion = function (req, res) {
 };
 exports.GetNextQuestion = function (req, res) {
     var limitItem = 10;
-    if (req.params.requestTime) {
+    if (req.params.requestTime !== null) {
         limitItem *= req.params.requestTime;
     }
     Question.getQuestion(limitItem, function (err, questions) {
@@ -52,7 +52,7 @@ exports.GetNextQuestion = function (req, res) {
  };*/
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
-    if (id) {
+    if (id !== null) {
         Question.getQuestionDetail(id, function (err, questionDetail) {
             if (err) {
                 res.json({
@@ -83,22 +83,22 @@ exports.Register = function (req, res) {
     var usernameRegis = req.body.UsernameRegis;
     var emailRegis = req.body.EmailRegis;
     var passwordRegis = req.body.PasswordRegis;
-    if (usernameRegis && emailRegis && passwordRegis) {
+    if (usernameRegis !== null && emailRegis !== null && passwordRegis !== null) {
         User.checkAccountExists(usernameRegis, function (err, account) {
             User.checkEmailExists(emailRegis, function (err, email) {
                 if (err) throw err;
-                if (account && email) {
+                if (account !== null && email !== null) {
                     res.json({
                         foundBoth: true
                     });
                 }
-                if (account) {
-                    if (!email) res.json({
+                if (account !== null) {
+                    if (email === null) res.json({
                         foundAccount: true
                     });
                 }
-                if (email) {
-                    if (!account) res.json({
+                if (email !== null) {
+                    if (account === null) res.json({
                         foundEmail: true
                     });
                 } else {
@@ -128,9 +128,9 @@ exports.Register = function (req, res) {
 exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
-    if (username && password) {
+    if (username !== null && password !== null) {
         User.checkAccountExists(username, function (err, user) {
-            if (user) {
+            if (user === null) {
                 res.json({
                     login: false
                 });
@@ -156,47 +156,30 @@ exports.Login = function (req, res) {
     }
 };
 exports.Answer = function (req, res) {
-    /*if (req.session.user == null) {
-     res.json({authorize: false});
-     }
-     else {*/
-    if (req.body) {
-        var newAnswer = [{
-            'UserAnswer': req.body.UserAnswer,
-            'QuestionId': ObjectId(req.params.id),
-            'Content': req.body.Content,
-            'CreateDate': new Date(),
-            'references': req.body.references,
-            'like': [],
-            'dislike': []
-        }];
+    var newAnswer = [{
+        'UserAnswer': req.body.UserAnswer,
+        'QuestionId': ObjectId(req.params.id),
+        'Content': req.body.Content,
+        'CreateDate': new Date(),
+        'references': req.body.references,
+        'like': [],
+        'dislike': []
+    }];
 
-        Answer.submitAnswer(newAnswer, function (err, answer) {
-            if (err) {
-                res.json({
-                    success: false,
-                    msg: "Có lỗi xảy ra vui lòng thử lại"
-                });
-            }
+    Answer.submitAnswer(newAnswer, function (err, answer) {
+        if (err) {
             res.json({
-                success: true,
-                msg: "Đăng câu trả lời thành công"
+                success: false,
+                msg: "Có lỗi xảy ra vui lòng thử lại"
             });
-        });
-    }
-    else {
+        }
         res.json({
-            success: false,
-            msg: "Có lỗi xảy ra vui lòng thử lại"
+            success: true,
+            msg: "Đăng câu trả lời thành công"
         });
-    }
-    //}
+    });
 };
 exports.Question = function (req, res) {
-    /*if (req.session.user == null) {
-     res.json({authorize: false});
-     }
-     else {*/
     var refArray = [];
     var resultArray = [];
     google.resultsPerPage = 4;
@@ -220,7 +203,6 @@ exports.Question = function (req, res) {
                     }
                 });
             }
-            reject("Title is null");
         }
     );
     searchForRef.then(
@@ -247,8 +229,6 @@ exports.Question = function (req, res) {
                 });
             });
         });
-    //}
-
 };
 exports.Category = function (req, res) {
     Category.getCategories(function (err, categories) {
@@ -279,7 +259,7 @@ exports.QuestionViaCategory = function (req, res) {
 exports.Like = function (req, res) {
     var username = req.body.UserLike;
     var answerId = req.body.AnswerId;
-    if (username && answerId) {
+    if (username !== null && answerId !== null) {
         Answer.addLike(answerId, username, function (err, like) {
             if (err) {
                 console.log(err);
@@ -290,7 +270,6 @@ exports.Like = function (req, res) {
             }
 
             else {
-
                 if (like.result.nModified === 0) {
                     Answer.countLike(answerId, function (err, total) {
                         console.log(total);
@@ -301,7 +280,6 @@ exports.Like = function (req, res) {
                             msg: "Bạn đã thích câu trả lời này"
                         });
                     });
-
                 }
                 else {
                     res.json({
@@ -313,10 +291,6 @@ exports.Like = function (req, res) {
             }
         });
     }
-    else {
-        res.json({success: false, msg: "Error"});
-    }
-
 };
 exports.UnLike = function (req, res) {
     var username = req.body.UserLike;
