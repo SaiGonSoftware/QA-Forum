@@ -48,7 +48,13 @@
                                     | {{answer.CreateDate | date : format : fullDate}}
                                 span.separator
                                     | -
-                                span Đã Trả Lời
+                                span  Đã Trả Lời
+                                p
+                                    span(id='like-{{answer._id}}')  {{answer.like.length}}
+                                    | &nbsp;lượt like
+                                p
+                                    span(id='dislike-{{answer._id}}') {{answer.dislike.length}}
+                                    | &nbsp;lượt dislike
                         .body
                             | {{answer.Content}}
                     //-article.comment.reply

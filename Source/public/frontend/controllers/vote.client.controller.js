@@ -10,8 +10,8 @@
     LikeController.$inject = ['$scope', 'localStorageService', 'LikeService'];
 
     function LikeController($scope, localStorageService, LikeService) {
-
         $scope.LikeAnswer = function (answerId) {
+            var totalLike = $("#like-" + answerId).text();
             $scope.LikeData = {
                 UserLike: localStorageService.cookie.get('currentUser'),
                 AnswerId: answerId
@@ -21,7 +21,8 @@
                 return false;
             }
             LikeService.LikeAnswer($scope.LikeData).then(function (result) {
-                console.log(result);
+                toastr.warning(result.data.msg);
+                $("#like-" + answerId).text(result.data.totalLike);
             });
         };
     }

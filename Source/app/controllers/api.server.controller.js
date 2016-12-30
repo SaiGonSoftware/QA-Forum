@@ -25,7 +25,7 @@ exports.GetQuestion = function (req, res) {
 };
 exports.GetNextQuestion = function (req, res) {
     var limitItem = 10;
-    if (req.params.requestTime !== null) {
+    if (req.params.requestTime) {
         limitItem *= req.params.requestTime;
     }
     Question.getQuestion(limitItem, function (err, questions) {
@@ -52,120 +52,145 @@ exports.GetNextQuestion = function (req, res) {
  };*/
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
-    Question.getQuestionDetail(id, function (err, questionDetail) {
-        if (err) res.json({
-            found: false,
-            msg: "Not Found"
-        });
-        else {
-            Answer.getAnswerViaQuestion(id, function (err, answers) {
-                if (err) res.json({
-                    success: false,
-                    msg: "Error"
+    if (id) {
+        Question.getQuestionDetail(id, function (err, questionDetail) {
+            if (err) {
+                res.json({
+                    found: false,
+                    msg: "Not Found"
                 });
-                else {
+            }
+            else {
+                Answer.getAnswerViaQuestion(id, function (err, answers) {
+                    if (err) res.json({
+                        success: false,
+                        msg: "Error"
+                    });
+                    else {
+                        res.json({
+                            found: true,
+                            msg: "Found",
+                            questionDetail: questionDetail,
+                            answers: answers
+                        });
+                    }
+                });
+            }
+        });
+    }
+};
+exports.Register = function (req, res) {
+    var usernameRegis = req.body.UsernameRegis;
+    var emailRegis = req.body.EmailRegis;
+    var passwordRegis = req.body.PasswordRegis;
+    if (usernameRegis && emailRegis && passwordRegis) {
+        User.checkAccountExists(usernameRegis, function (err, account) {
+            User.checkEmailExists(emailRegis, function (err, email) {
+                if (err) throw err;
+                if (account && email) {
                     res.json({
-                        found: true,
-                        msg: "Found",
-                        questionDetail: questionDetail,
-                        answers: answers
+                        foundBoth: true
+                    });
+                }
+                if (account) {
+                    if (!email) res.json({
+                        foundAccount: true
+                    });
+                }
+                if (email) {
+                    if (!account) res.json({
+                        foundEmail: true
+                    });
+                } else {
+                    var hashPassword = User.generateHash(passwordRegis);
+                    var newUser = [{
+                        'Account': usernameRegis,
+                        'Password': hashPassword,
+                        'Email': emailRegis,
+                        'Level': 2
+                    }];
+
+                    User.createUser(newUser, function (err) {
+                        if (err) throw err;
+                        res.json({
+                            success: true,
+                            url: '/'
+                        });
                     });
                 }
             });
-        }
-
-    });
-};
-exports.Register = function (req, res) {
-    User.checkAccountExists(req.body.UsernameRegis, function (err, account) {
-        User.checkEmailExists(req.body.EmailRegis, function (err, email) {
-            if (err) throw err;
-            if (account !== null && email !== null) {
-                res.json({
-                    foundBoth: true
-                });
-            }
-            if (account !== null) {
-                if (email === null) res.json({
-                    foundAccount: true
-                });
-            }
-            if (email !== null) {
-                if (account === null) res.json({
-                    foundEmail: true
-                });
-            } else {
-                var hashPassword = User.generateHash(req.body.PasswordRegis);
-                var newUser = [{
-                    'Account': req.body.UsernameRegis,
-                    'Password': hashPassword,
-                    'Email': req.body.EmailRegis,
-                    'Level': 2
-                }];
-
-                User.createUser(newUser, function (err) {
-                    if (err) throw err;
-                    res.json({
-                        success: true,
-                        url: '/'
-                    });
-                });
-            }
         });
-    });
+    }
+    else {
+        res.json({msg: "Error"});
+    }
 };
 exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
-    User.checkAccountExists(username, function (err, user) {
-        if (user === null) {
-            res.json({
-                login: false
-            });
-        }
-        var AuthUser = User.validPassword(password, user.Password);
-        if (!AuthUser) {
-            res.json({
-                login: false
-            });
-        } else {
-            var userSession = user.Account;
-            req.session.user = user;
-            res.json({
-                login: true,
-                url: '/',
-                userSession: userSession
-            });
-        }
-    });
+    if (username && password) {
+        User.checkAccountExists(username, function (err, user) {
+            if (user) {
+                res.json({
+                    login: false
+                });
+            }
+            var AuthUser = User.validPassword(password, user.Password);
+            if (!AuthUser) {
+                res.json({
+                    login: false
+                });
+            } else {
+                var userSession = user.Account;
+                req.session.user = user;
+                res.json({
+                    login: true,
+                    url: '/',
+                    userSession: userSession
+                });
+            }
+        });
+    }
+    else {
+        res.json({login: false});
+    }
 };
 exports.Answer = function (req, res) {
     /*if (req.session.user == null) {
      res.json({authorize: false});
      }
      else {*/
-    var newAnswer = [{
-        'UserAnswer': req.body.UserAnswer,
-        'QuestionId': ObjectId(req.params.id),
-        'Content': req.body.Content,
-        'CreateDate': new Date(),
-        'references': req.body.references,
-        'like': [],
-        'dislike': []
-    }];
+    if (req.body) {
+        var newAnswer = [{
+            'UserAnswer': req.body.UserAnswer,
+            'QuestionId': ObjectId(req.params.id),
+            'Content': req.body.Content,
+            'CreateDate': new Date(),
+            'references': req.body.references,
+            'like': [],
+            'dislike': []
+        }];
 
-    Answer.submitAnswer(newAnswer, function (err, answer) {
-        if (err) res.json({
+        Answer.submitAnswer(newAnswer, function (err, answer) {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: "Có lỗi xảy ra vui lòng thử lại"
+                });
+            }
+            res.json({
+                success: true,
+                msg: "Đăng câu trả lời thành công"
+            });
+        });
+    }
+    else {
+        res.json({
             success: false,
             msg: "Có lỗi xảy ra vui lòng thử lại"
         });
-        res.json({
-            success: true,
-            msg: "Đăng câu trả lời thành công"
-        });
-    });
+    }
     //}
-
 };
 exports.Question = function (req, res) {
     /*if (req.session.user == null) {
@@ -177,22 +202,25 @@ exports.Question = function (req, res) {
     google.resultsPerPage = 4;
     var searchForRef = new Promise(
         function (resolve, reject) {
-            google(req.body.Title + ' Đại học tôn đức thắng', function (err, res) {
-                if (err) console.error(err);
+            if (req.body.Title) {
+                google(req.body.Title + ' Đại học tôn đức thắng', function (err, res) {
+                    if (err) console.error(err);
 
-                for (var i = 0; i < res.links.length; i++) {
-                    var link = res.links[i];
-                    refArray =
-                        {
-                            'Title': link.title,
-                            'Link': link.href
-                        };
-                    if (refArray.Title !== null && refArray.Link !== null) {
-                        resultArray.push(refArray);
-                        resolve(refArray);
+                    for (var i = 0; i < res.links.length; i++) {
+                        var link = res.links[i];
+                        refArray =
+                            {
+                                'Title': link.title,
+                                'Link': link.href
+                            };
+                        if (refArray.Title && refArray.Link) {
+                            resultArray.push(refArray);
+                            resolve(refArray);
+                        }
                     }
-                }
-            });
+                });
+            }
+            reject("Title is null");
         }
     );
     searchForRef.then(
@@ -207,7 +235,6 @@ exports.Question = function (req, res) {
             }];
 
             Question.submitQuestion(newQuestion, function (err, newInsertQuestion) {
-                console.log(newInsertQuestion);
                 var questionInsertId = newInsertQuestion.ops[0]._id;
                 if (err) res.json({
                     success: false,
@@ -252,19 +279,43 @@ exports.QuestionViaCategory = function (req, res) {
 exports.Like = function (req, res) {
     var username = req.body.UserLike;
     var answerId = req.body.AnswerId;
-    console.log(username);
-    console.log(answerId);
-    Answer.addLike(answerId, username, function (err) {
-        if (err) res.json({
-            success: false,
-            msg: "Error"
-        });
-        res.json({
-            success: true,
-            msg: "Like success"
-        });
-    });
+    if (username && answerId) {
+        Answer.addLike(answerId, username, function (err, like) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    success: false,
+                    msg: "Error"
+                });
+            }
 
+            else {
+
+                if (like.result.nModified === 0) {
+                    Answer.countLike(answerId, function (err, total) {
+                        console.log(total);
+                        res.json({
+                            success: true,
+                            alreadyLike: true,
+                            totalLike: total,
+                            msg: "Bạn đã thích câu trả lời này"
+                        });
+                    });
+
+                }
+                else {
+                    res.json({
+                        success: true,
+                        alreadyLike: false,
+                        msg: "Đã thích câu trả lời"
+                    });
+                }
+            }
+        });
+    }
+    else {
+        res.json({success: false, msg: "Error"});
+    }
 
 };
 exports.UnLike = function (req, res) {
@@ -326,19 +377,19 @@ exports.FindQuestion = function (req, res) {
         });
     });
 };
-exports.RemoveAnswer = function(req, res){
+exports.RemoveAnswer = function (req, res) {
     var answerId = req.body.answerId;
     console.log(answerId);
-    Answer.removeAnswer(answerId, function(err){
+    Answer.removeAnswer(answerId, function (err) {
         if (err) res.json({success: false, msg: "Error"});
         res.json({success: true, msg: "Remove answer success"});
     });
 };
-exports.EditAnswer = function(req,res){
+exports.EditAnswer = function (req, res) {
     var answerId = req.params.id;
     var answerContent = req.body.answerContent;
-    Answer.editAnswer(answerId, answerContent, function(err){
-         if (err) res.json({success: false, msg: "Error"});
+    Answer.editAnswer(answerId, answerContent, function (err) {
+        if (err) res.json({success: false, msg: "Error"});
         res.json({success: true, msg: "Update answer success"});
     });
 };
