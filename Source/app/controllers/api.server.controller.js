@@ -27,10 +27,8 @@ exports.GetNextQuestion = function (req, res) {
     var limitItem = 10;
     if (req.params.requestTime !== null) {
         limitItem *= req.params.requestTime;
-        console.log(limitItem);
     }
     Question.getQuestion(limitItem, function (err, questions) {
-        console.log(questions);
         if (err) res.json({
             msg: err
         });
@@ -271,7 +269,7 @@ exports.Like = function (req, res) {
 };
 exports.UnLike = function (req, res) {
     var username = req.body.UserLike;
-    var answerId = req.body.AnswerIdLike;
+    var answerId = req.body.AnswerId;
     console.log(username);
 
     Answer.unLike(answerId, username, function (err) {
@@ -287,7 +285,7 @@ exports.UnLike = function (req, res) {
 };
 exports.Dislike = function (req, res) {
     var username = req.body.UserLike;
-    var answerId = req.body.AnswerIdLike;
+    var answerId = req.body.AnswerId;
     Answer.addDislike(answerId, username, function (err) {
         if (err) res.json({
             success: false,
@@ -301,7 +299,7 @@ exports.Dislike = function (req, res) {
 };
 exports.UnDislike = function (req, res) {
     var username = req.body.UserLike;
-    var answerId = req.body.AnswerIdLike;
+    var answerId = req.body.AnswerId;
     console.log(username);
 
     Answer.unDislike(answerId, username, function (err) {
@@ -334,5 +332,13 @@ exports.RemoveAnswer = function(req, res){
     Answer.removeAnswer(answerId, function(err){
         if (err) res.json({success: false, msg: "Error"});
         res.json({success: true, msg: "Remove answer success"});
+    });
+};
+exports.EditAnswer = function(req,res){
+    var answerId = req.params.id;
+    var answerContent = req.body.answerContent;
+    Answer.editAnswer(answerId, answerContent, function(err){
+         if (err) res.json({success: false, msg: "Error"});
+        res.json({success: true, msg: "Update answer success"});
     });
 };

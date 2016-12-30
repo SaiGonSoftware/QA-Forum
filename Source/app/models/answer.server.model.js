@@ -89,6 +89,9 @@ var unDislike = function(answerId, username, callback) {
 var removeAnswer = function(answerId, callback){
     Answer.collection.remove({_id:ObjectId(answerId)},callback);
 };
+var editAnswer = function(answerId, answerContent, callback){
+    Answer.collection.update({_id:ObjectId(answerId)},{"$set": {"Content": answerContent}}, callback);
+};
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,
@@ -97,5 +100,6 @@ module.exports = {
     unLike: unLike,
     addDislike: addDislike,
     unDislike: unDislike,
-    removeAnswer: removeAnswer
+    removeAnswer: removeAnswer,
+    editAnswer: editAnswer
 };

@@ -1,6 +1,7 @@
 package com.example.nhatnguyen.tdtforum.service;
 
 import com.example.nhatnguyen.tdtforum.entity.Answer;
+import com.example.nhatnguyen.tdtforum.entity.AnswerEdit;
 import com.example.nhatnguyen.tdtforum.entity.AnswerRemove;
 import com.example.nhatnguyen.tdtforum.entity.Category;
 import com.example.nhatnguyen.tdtforum.entity.LikeData;
@@ -77,7 +78,7 @@ public interface APIService {
     @POST("Account/PostQuestion")
     Call<ResultPost> postQuestion(@Body Question question);
 
-    @POST("Answer/AddLike")
+    @POST("Account/LikeAnswer")
     Call<ResultPost> addLike(@Body LikeData likeData);
 
     @POST("Answer/UnLike")
@@ -94,4 +95,7 @@ public interface APIService {
 
     @POST("Answer/RemoveAnswer")
     Call<ResultPost> removeAnswer(@Body AnswerRemove answerRemove);
+
+    @POST("Answer/EditAnswer/{id}")
+    Call<ResultPost> editAnswer(@Path("id")String id, @Body AnswerEdit answerEdit);
 }

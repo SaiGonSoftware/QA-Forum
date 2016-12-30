@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class LikeData {
-    @SerializedName("AnswerIdLike")
+    @SerializedName("AnswerId")
     @Expose
     private String AnswerIdLike;
     @SerializedName("UserLike")

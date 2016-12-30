@@ -10,12 +10,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nhatnguyen.tdtforum.R;
 import com.example.nhatnguyen.tdtforum.entity.Answer;
+import com.example.nhatnguyen.tdtforum.entity.AnswerEdit;
 import com.example.nhatnguyen.tdtforum.entity.AnswerRemove;
 import com.example.nhatnguyen.tdtforum.entity.LikeData;
 import com.example.nhatnguyen.tdtforum.entity.Question;
@@ -249,7 +254,37 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
 
                             switch (item.getItemId()) {
                                 case R.id.item_edit_answer:
-                                    Toast.makeText(view.getContext(),item.getTitle() + listAnswer.get(getAdapterPosition()-1).get_id(), Toast.LENGTH_SHORT).show();
+                                    final Dialog dialog = new Dialog(view.getContext());
+                                    dialog.setContentView(R.layout.dialog_edit_answer);
+                                    dialog.setTitle("Sửa câu trả lời");
+                                    final EditText editTextEditAnswer = (EditText)dialog.findViewById(R.id.edit_text_edit_answer);
+                                    Button buttonEditAnswer = (Button)dialog.findViewById(R.id.button_edit_answer);
+                                    editTextEditAnswer.setText(listAnswer.get(getAdapterPosition()-1).getContent());
+                                    buttonEditAnswer.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            AnswerEdit answerEdit = new AnswerEdit();
+                                            answerEdit.setAnswerContent(editTextEditAnswer.getText().toString());
+                                            Call<ResultPost> call = apiService.editAnswer(listAnswer.get(getAdapterPosition()-1).get_id(), answerEdit);
+                                            call.enqueue(new Callback<ResultPost>() {
+                                                @Override
+                                                public void onResponse(Call<ResultPost> call, Response<ResultPost> response) {
+                                                    Toast.makeText(view.getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                                                    listAnswer.get(getAdapterPosition()-1).setContent(editTextEditAnswer.getText().toString());
+                                                    notifyDataSetChanged();
+                                                    dialog.dismiss();
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<ResultPost> call, Throwable t) {
+                                                    Toast.makeText(view.getContext(),"Error: "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    });
+                                    dialog.show();
+                                    Window window = dialog.getWindow();
+                                    window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
                                     return true;
                                 case R.id.item_remove_answer:
                                     AnswerRemove answerRemove = new AnswerRemove();
