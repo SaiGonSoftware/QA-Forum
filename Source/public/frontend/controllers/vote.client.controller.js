@@ -21,8 +21,15 @@
                 return false;
             }
             LikeService.LikeAnswer($scope.LikeData).then(function (result) {
-                toastr.warning(result.data.msg);
-                $("#like-" + answerId).text(result.data.totalLike);
+                console.log(result);
+                if (result.data.checkLikeAndDislike) {
+                    $("#like-" + answerId).text(result.data.totalLike);
+                    $("#dislike-" + answerId).text(result.data.totalDislike);
+                }
+                else {
+                    toastr.warning(result.data.msg);
+                    $("#like-" + answerId).text(result.data.totalLike);
+                }
             });
         };
     }
@@ -38,8 +45,15 @@
                 return false;
             }
             DislikeService.DislikeAnswer($scope.DislikeData).then(function (result) {
-                toastr.warning(result.data.msg);
-                $("#dislike-" + answerId).text(result.data.totalDislike);
+                console.log(result);
+                if (result.data.checkLikeAndDislike) {
+                    $("#like-" + answerId).text(result.data.totalLike);
+                    $("#dislike-" + answerId).text(result.data.totalDislike);
+                }
+                else {
+                    toastr.warning(result.data.msg);
+                    $("#dislike-" + answerId).text(result.data.totalDislike);
+                }
             });
         };
     }

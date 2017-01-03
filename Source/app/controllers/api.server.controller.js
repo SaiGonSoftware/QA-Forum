@@ -260,38 +260,113 @@ exports.Like = function (req, res) {
     var username = req.body.UserLike;
     var answerId = req.body.AnswerId;
     if (username !== null && answerId !== null) {
-        Answer.addLike(answerId, username, function (err, like) {
-            if (err) {
-                console.log(err);
-                res.json({
-                    success: false,
-                    msg: "Error"
+        Answer.checkLikeExists(answerId, username, function (err, exists) {
+            if (exists.length > 0) {
+                Answer.removeLike(answerId, username, function (err, result) {
+                    Answer.countLike(answerId, function (err, totalLike) {
+                        Answer.countDislike(answerId, function (err, totalDislike) {
+                            res.json({
+                                success: true,
+                                checkLikeAndDislike: true,
+                                totalLike: totalLike.Like.length,
+                                totalDislike: totalDislike.Dislike.length
+                            });
+                        });
+                    });
                 });
             }
-
             else {
-                if (like.result.nModified === 0) {
-                    Answer.countLike(answerId, function (err, total) {
+                Answer.addLike(answerId, username, function (err, like) {
+                    if (err) {
+                        console.log(err);
                         res.json({
-                            success: true,
-                            alreadyLike: true,
-                            totalLike: total.Like.length,
-                            msg: "Bạn đã thích câu trả lời này"
+                            success: false,
+                            msg: "Error"
                         });
-                    });
-                }
-                else {
-                    Answer.countLike(answerId, function (err, total) {
-                        res.json({
-                            success: true,
-                            alreadyLike: false,
-                            totalLike: total.Like.length,
-                            msg: "Đã thích câu trả lời"
-                        });
-                    });
-                }
+                    }
+
+                    else {
+                        if (like.result.nModified === 0) {
+                            Answer.countLike(answerId, function (err, total) {
+                                res.json({
+                                    success: true,
+                                    alreadyLike: true,
+                                    totalLike: total.Like.length,
+                                    msg: "Bạn đã thích câu trả lời này"
+                                });
+                            });
+                        }
+                        else {
+                            Answer.countLike(answerId, function (err, total) {
+                                res.json({
+                                    success: true,
+                                    alreadyLike: false,
+                                    totalLike: total.Like.length,
+                                    msg: "Đã thích câu trả lời"
+                                });
+                            });
+                        }
+                    }
+                });
             }
         });
+    }
+};
+exports.Dislike = function (req, res) {
+    var username = req.body.UserDislike;
+    var answerId = req.body.AnswerId;
+    if (username !== null && answerId !== null) {
+        Answer.checkDislikeExists(answerId, username, function (err, exists) {
+            if (exists.length > 0) {
+                Answer.removeDislike(answerId, username, function (err, result) {
+                    Answer.countLike(answerId, function (err, totalLike) {
+                        Answer.countDislike(answerId, function (err, toalDislike) {
+                            res.json({
+                                success: true,
+                                checkLikeAndDislike: true,
+                                totalLike: totalLike.Like.length,
+                                totalDislike: toalDislike.Dislike.length
+                            });
+                        });
+                    });
+                });
+            }
+            else {
+                Answer.addDislike(answerId, username, function (err, like) {
+                    if (err) {
+                        console.log(err);
+                        res.json({
+                            success: false,
+                            msg: "Error"
+                        });
+                    }
+
+                    else {
+                        if (like.result.nModified === 0) {
+                            Answer.countDislike(answerId, function (err, total) {
+                                res.json({
+                                    success: true,
+                                    alreadyDislike: true,
+                                    totalDislike: total.Dislike.length,
+                                    msg: "Bạn đã dislike câu trả lời này"
+                                });
+                            });
+                        }
+                        else {
+                            Answer.countDislike(answerId, function (err, total) {
+                                res.json({
+                                    success: true,
+                                    alreadyDislike: false,
+                                    totalDislike: total.Dislike.length,
+                                    msg: "Đã dislike câu trả lời"
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
     }
 };
 exports.UnLike = function (req, res) {
@@ -309,44 +384,6 @@ exports.UnLike = function (req, res) {
             msg: "UnLike success"
         });
     });
-};
-exports.Dislike = function (req, res) {
-    var username = req.body.UserDislike;
-    var answerId = req.body.AnswerId;
-    if (username !== null && answerId !== null) {
-        Answer.addDislike(answerId, username, function (err, like) {
-            if (err) {
-                console.log(err);
-                res.json({
-                    success: false,
-                    msg: "Error"
-                });
-            }
-
-            else {
-                if (like.result.nModified === 0) {
-                    Answer.countDislike(answerId, function (err, total) {
-                        res.json({
-                            success: true,
-                            alreadyDislike: true,
-                            totalDislike: total.Dislike.length,
-                            msg: "Bạn đã dislike câu trả lời này"
-                        });
-                    });
-                }
-                else {
-                    Answer.countDislike(answerId, function (err, total) {
-                        res.json({
-                            success: true,
-                            alreadyDislike: false,
-                            totalDislike: total.Dislike.length,
-                            msg: "Đã dislike câu trả lời"
-                        });
-                    });
-                }
-            }
-        });
-    }
 };
 exports.UnDislike = function (req, res) {
     var username = req.body.UserLike;

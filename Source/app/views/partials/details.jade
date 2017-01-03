@@ -73,8 +73,8 @@
                 aside#create-comment.create-comment(ng-controller='AnswerController')
                     hr
                     h2
-                        i.fa.fa-heart
-                        |  Câu Trả Lời
+                        i.fa.fa-pencil
+                        | Trả Lời
                     form#AnswerForm(name='AnswerForm',ng-submit='PostAnswer()',novalidate='')
                         input#QuestionId(name='QuestionId',type='hidden',ng-model='AnswerForm.QuestionId',value='{{detail._id}}')
                         textarea#Content.form-control.input-lg(rows='10',ng-model='AnswerData.Content', name='Content', placeholder='Nội dung trả lời',required='')

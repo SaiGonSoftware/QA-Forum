@@ -49,7 +49,6 @@ var getAnswerViaQuestion = function (id, callback) {
 var submitAnswer = function (answer, callback) {
     Answer.collection.insert(answer, callback);
 };
-
 var addLike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
@@ -92,6 +91,42 @@ var unDislike = function (answerId, username, callback) {
         }
     }, callback);
 };
+var checkLikeExists = function (answerId, username, callback) {
+    Answer.find({_id: ObjectId(answerId), Like: username}, callback);
+}
+var checkDislikeExists = function (answerId, username, callback) {
+    Answer.find({_id: ObjectId(answerId), Dislike: username}, callback);
+}
+var removeLike = function (answerId, username, callback) {
+    Answer.collection.update({
+        _id: ObjectId(answerId)
+    }, {
+        "$pull": {
+            Like: username
+        }
+    }, Answer.collection.update({
+        _id: ObjectId(answerId)
+    }, {
+        "$addToSet": {
+            Like: username
+        }
+    }, callback));
+};
+var removeDislike = function (answerId, username, callback) {
+    Answer.collection.update({
+        _id: ObjectId(answerId)
+    }, {
+        "$pull": {
+            Like: username
+        }
+    }, Answer.collection.update({
+        _id: ObjectId(answerId)
+    }, {
+        "$addToSet": {
+            Like: username
+        }
+    }, callback));
+};
 var removeAnswer = function (answerId, callback) {
     Answer.collection.remove({_id: ObjectId(answerId)}, callback);
 };
@@ -109,5 +144,9 @@ module.exports = {
     removeAnswer: removeAnswer,
     editAnswer: editAnswer,
     countLike: countLike,
-    countDislike: countDislike
+    countDislike: countDislike,
+    checkLikeExists: checkLikeExists,
+    checkDislikeExists: checkDislikeExists,
+    removeLike: removeLike,
+    removeDislike: removeDislike
 };
