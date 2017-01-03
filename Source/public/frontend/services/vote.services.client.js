@@ -14,10 +14,11 @@
     'use strict';
 
     angular.module('ChatBotApp')
-        .factory('LikeService', LikeService);
+        .factory('LikeService', LikeService)
+        .factory('DislikeService', DislikeService);
 
     LikeService.$inject = ['$http'];
-
+    DislikeService.$inject = ['$http'];
     function LikeService($http) {
         var likeService = {};
         likeService.LikeAnswer = function (data) {
@@ -31,6 +32,21 @@
             });
         };
         return likeService;
+    }
+
+    function DislikeService($http) {
+        var disLikeService = {};
+        disLikeService.DislikeAnswer = function (data) {
+            return $http({
+                url: '/api/Account/DislikeAnswer/',
+                method: 'POST',
+                data: JSON.stringify(data),
+                header: {
+                    'content-type': 'application/json'
+                }
+            });
+        };
+        return disLikeService;
     }
 })();
 

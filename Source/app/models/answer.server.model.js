@@ -55,22 +55,22 @@ var addLike = function (answerId, username, callback) {
         _id: ObjectId(answerId)
     }, {
         "$addToSet": {
-            "like": username
+            "Like": username
         }
     }, callback);
 };
 var countLike = function (answerId, callback) {
-    Answer.aggregate({
-        $group: {_id: answerId, totalLike: {$sum: 1}}
-    }, callback);
+    Answer.findById(answerId, callback);
 };
-
+var countDislike = function (answerId, callback) {
+    Answer.findById(answerId, callback);
+};
 var unLike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
         "$pull": {
-            "like": username
+            "Like": username
         }
     }, callback);
 };
@@ -78,8 +78,8 @@ var addDislike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$push": {
-            "dislike": username
+        "$addToSet": {
+            "Dislike": username
         }
     }, callback);
 };
@@ -88,7 +88,7 @@ var unDislike = function (answerId, username, callback) {
         _id: ObjectId(answerId)
     }, {
         "$pull": {
-            "dislike": username
+            "Dislike": username
         }
     }, callback);
 };
@@ -108,5 +108,6 @@ module.exports = {
     unDislike: unDislike,
     removeAnswer: removeAnswer,
     editAnswer: editAnswer,
-    countLike: countLike
+    countLike: countLike,
+    countDislike: countDislike
 };
