@@ -17,29 +17,19 @@
                                 .comments
                                     i.fa.fa-comments
                                     span.data
-                                        a(href='#comments') 26 Comments
+                                        a(href='#comments') 26 Câu Trả Lời
                     .body
                         p
                             | {{detail.Content}}
-                aside.social-icons.clearfix
-                    a.social-icon.color-one(href='#')
-                        .inner-circle
-                        i.fa.fa-twitter
-                    a.social-icon.color-two(href='#')
-                        .inner-circle
-                        i.fa.fa-google-plus
-                    a.social-icon.color-three(href='#')
-                        .inner-circle
-                        i.fa.fa-facebook
                 aside#comments.comments
                     hr
                     h2
                         i.fa.fa-comments
-                        |  24 Comments
+                        |  24 Câu Trả Lời
                     article#answer-list.comment(ng-repeat="answer in answers")
                         header.clearfix
-                            i.fa.fa-caret-up.fa-4x(ng-controller='LikeController',ng-click='LikeAnswer(answer._id)')
-                            i.fa.fa-caret-down.fa-4x(ng-controller='DislikeController',ng-click='DislikeAnswer(answer._id)')
+                            .glyphicon.glyphicon-thumbs-up(ng-controller='LikeController',ng-click='LikeAnswer(answer._id)') &nbsp;
+                            .glyphicon.glyphicon-thumbs-down(ng-controller='DislikeController',ng-click='DislikeAnswer(answer._id)')
                             //-img.avatar(src='img/avatar.png', alt='A Smart Guy')
                             .meta
                                 h3
@@ -74,7 +64,7 @@
                     hr
                     h2
                         i.fa.fa-pencil
-                        | Trả Lời
+                        |  Trả Lời
                     form#AnswerForm(name='AnswerForm',ng-submit='PostAnswer()',novalidate='')
                         input#QuestionId(name='QuestionId',type='hidden',ng-model='AnswerForm.QuestionId',value='{{detail._id}}')
                         textarea#Content.form-control.input-lg(rows='10',ng-model='AnswerData.Content', name='Content', placeholder='Nội dung trả lời',required='')

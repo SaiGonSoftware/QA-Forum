@@ -18,20 +18,17 @@
         $rootScope.IsFacebookLogin = false;
         $scope.facebookLogin = function () {
             $facebook.login().then(function () {
-                refresh();
+                $facebook.api("/me").then(function (response) {
+                    $rootScope.facebookUser = response.name;
+                    localStorageService.cookie.set('facebookUser', response.name, 1);
+                    $rootScope.IsFacebookLogin = true;
+                    $rootScope.HideLoginSection = true;
+                    $rootScope.IsLogin = false;
+                });
                 $location.path('/');
             });
 
         };
 
-        function refresh() {
-            $facebook.api("/me").then(function (response) {
-                localStorageService.cookie.set('facebookUser', response.name, 1);
-                $rootScope.facebookUser = response.name;
-                $rootScope.IsFacebookLogin = true;
-                $rootScope.HideLoginSection = true;
-                $rootScope.IsLogin = false;
-            });
-        }
     }
 })();

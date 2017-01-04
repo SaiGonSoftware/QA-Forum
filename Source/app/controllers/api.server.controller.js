@@ -9,11 +9,13 @@ var User = require('../models/user.server.model');
 var Question = require('../models/question.server.model');
 var Answer = require('../models/answer.server.model');
 var Category = require('../models/categories.server.model');
+var CONSTANT = require('../helpers/constant.helper.server');
 var ObjectId = require('mongodb').ObjectId;
 var google = require('google');
 var async = require('async');
+
 exports.GetQuestion = function (req, res) {
-    var limitItem = 10;
+    var limitItem = CONSTANT.LIMIT_ITEM;
     Question.getQuestion(limitItem, function (err, questions) {
         if (err) res.json({
             msg: err
@@ -24,7 +26,7 @@ exports.GetQuestion = function (req, res) {
     });
 };
 exports.GetNextQuestion = function (req, res) {
-    var limitItem = 10;
+    var limitItem = CONSTANT.LIMIT_ITEM;
     if (req.params.requestTime !== null) {
         limitItem *= req.params.requestTime;
     }
@@ -107,7 +109,7 @@ exports.Register = function (req, res) {
                         'Account': usernameRegis,
                         'Password': hashPassword,
                         'Email': emailRegis,
-                        'Level': 2
+                        'Level': CONSTANT.DEFAULT_LEVEL
                     }];
 
                     User.createUser(newUser, function (err) {
@@ -182,11 +184,11 @@ exports.Answer = function (req, res) {
 exports.Question = function (req, res) {
     var refArray = [];
     var resultArray = [];
-    google.resultsPerPage = 4;
+    google.resultsPerPage = CONSTANT.SEARCH_RESULT;
     var searchForRef = new Promise(
         function (resolve, reject) {
             if (req.body.Title) {
-                google(req.body.Title + ' Đại học tôn đức thắng', function (err, res) {
+                google(req.body.Title + CONSTANT.SEARCH_STRING, function (err, res) {
                     if (err) console.error(err);
 
                     for (var i = 0; i < res.links.length; i++) {
@@ -261,16 +263,16 @@ exports.Like = function (req, res) {
     var answerId = req.body.AnswerId;
     if (username !== null && answerId !== null) {
         Answer.checkLikeExists(answerId, username, function (err, exists) {
-            if (exists.length > 0) {
-                Answer.removeLike(answerId, username, function (err, result) {
-                    Answer.countLike(answerId, function (err, totalLike) {
-                        Answer.countDislike(answerId, function (err, totalDislike) {
-                            res.json({
-                                success: true,
-                                checkLikeAndDislike: true,
-                                totalLike: totalLike.Like.length,
-                                totalDislike: totalDislike.Dislike.length
-                            });
+            if (exists.length > CONSTANT.EXIST_ITEM) {
+                Answer.unLike(answerId, username, function (err, result) {
+                    Answer.getAnswerViaId(answerId, function (err, total) {
+                        console.log(total.Like);
+                        console.log(total.Dislike);
+                        res.json({
+                            success: true,
+                            checkLikeAndDislike: true,
+                            totalLike: total.Like.length,
+                            totalDislike: total.Dislike.length
                         });
                     });
                 });
@@ -286,7 +288,7 @@ exports.Like = function (req, res) {
                     }
 
                     else {
-                        if (like.result.nModified === 0) {
+                        if (like.result.nModified === CONSTANT.EXIST_ITEM) {
                             Answer.countLike(answerId, function (err, total) {
                                 res.json({
                                     success: true,
@@ -317,16 +319,16 @@ exports.Dislike = function (req, res) {
     var answerId = req.body.AnswerId;
     if (username !== null && answerId !== null) {
         Answer.checkDislikeExists(answerId, username, function (err, exists) {
-            if (exists.length > 0) {
-                Answer.removeDislike(answerId, username, function (err, result) {
-                    Answer.countLike(answerId, function (err, totalLike) {
-                        Answer.countDislike(answerId, function (err, toalDislike) {
-                            res.json({
-                                success: true,
-                                checkLikeAndDislike: true,
-                                totalLike: totalLike.Like.length,
-                                totalDislike: toalDislike.Dislike.length
-                            });
+            if (exists.length > CONSTANT.EXIST_ITEM) {
+                Answer.unDislike(answerId, username, function (err, result) {
+                    Answer.getAnswerViaId(answerId, function (err, total) {
+                        console.log(total.Like);
+                        console.log(total.Dislike);
+                        res.json({
+                            success: true,
+                            checkLikeAndDislike: true,
+                            totalLike: total.Like.length,
+                            totalDislike: total.Dislike.length
                         });
                     });
                 });
@@ -342,7 +344,7 @@ exports.Dislike = function (req, res) {
                     }
 
                     else {
-                        if (like.result.nModified === 0) {
+                        if (like.result.nModified === CONSTANT.EXIST_ITEM) {
                             Answer.countDislike(answerId, function (err, total) {
                                 res.json({
                                     success: true,

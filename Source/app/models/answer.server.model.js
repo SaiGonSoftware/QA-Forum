@@ -130,6 +130,13 @@ var removeDislike = function (answerId, username, callback) {
 var removeAnswer = function (answerId, callback) {
     Answer.collection.remove({_id: ObjectId(answerId)}, callback);
 };
+var getAnswerViaId = function (answerId, callback) {
+    Answer.find({
+        "_id": {
+            "$in": answerId
+        }
+    }, callback);
+}
 var editAnswer = function (answerId, answerContent, callback) {
     Answer.collection.update({_id: ObjectId(answerId)}, {"$set": {"Content": answerContent}}, callback);
 };
@@ -148,5 +155,6 @@ module.exports = {
     checkLikeExists: checkLikeExists,
     checkDislikeExists: checkDislikeExists,
     removeLike: removeLike,
-    removeDislike: removeDislike
+    removeDislike: removeDislike,
+    getAnswerViaId: getAnswerViaId
 };

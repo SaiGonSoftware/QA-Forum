@@ -42,7 +42,7 @@
         });
         //localStorageServiceProvider.setStorageType('sessionStorage');
         localStorageServiceProvider.setDefaultToCookie(true);
-        $facebookProvider.setAppId('629213847266342');
+        $facebookProvider.setAppId('604809803041199');
         $facebookProvider.setPermissions("email,public_profile, user_photos");
     }
 

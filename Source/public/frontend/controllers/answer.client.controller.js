@@ -20,16 +20,19 @@
         $scope.AnswerFormFormValid = false;
         $scope.HideAnswerBtn = false;
         $scope.ShowLoading = false;
-        if (localStorageService.cookie.get('currentUser') !== null) {
+        var loginUser = localStorageService.cookie.get('currentUser');
+        var facebookUser = localStorageService.cookie.get('facebookUser');
+        console.log(facebookUser);
+        if (loginUser) {
             $scope.AnswerData = {
-                UserAnswer: localStorageService.cookie.get('currentUser'),
+                UserAnswer: loginUser,
                 Content: '',
                 CreateDate: new Date().toLocaleDateString()
             };
         }
-        if (localStorageService.cookie.get('facebookUser') !== null) {
+        if (facebookUser) {
             $scope.AnswerData = {
-                UserAnswer: localStorageService.cookie.get('facebookUser'),
+                UserAnswer: facebookUser,
                 Content: '',
                 CreateDate: new Date().toLocaleDateString()
             };
@@ -40,14 +43,11 @@
 
         $scope.PostAnswer = function () {
             $scope.AnswerFormSubmmit = true;
-            if (localStorageService.cookie.get('currentUser') === null) {
-                toastr.warning("Vui lòng đăng nhập để đăng câu hỏi");
+            if (!loginUser && !facebookUser) {
+                toastr.warning("Vui lòng đăng nhập để đăng câu trả lời");
                 return false;
             }
-            if (localStorageService.cookie.get('facebookUser') === null) {
-                toastr.warning("Vui lòng đăng nhập để đăng câu hỏi");
-                return false;
-            }
+
             if ($scope.AnswerFormFormValid) {
                 $scope.ShowLoading = true;
                 $scope.HideAnswerBtn = true;
