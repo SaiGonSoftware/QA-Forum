@@ -6,7 +6,7 @@
                     header
                         h1 {{detail.Title}}
                         .lead-image
-                            img.img-responsive(src='img/hands-big.png', alt='Hands')
+                            img.img-responsive(src='/img/background-details.png', alt='{{detail.Title}}',style='width:80%')
                             .meta.clearfix
                                 .author
                                     i.fa.fa-user
@@ -17,15 +17,16 @@
                                 .comments
                                     i.fa.fa-comments
                                     span.data
-                                        a(href='#comments') 26 Câu Trả Lời
+                                        a(href='#create-comment') {{answers.length}} Câu Trả Lời
                     .body
-                        p
+                        br
+                        p(style='font-size: 35px;')
                             | {{detail.Content}}
                 aside#comments.comments
                     hr
                     h2
                         i.fa.fa-comments
-                        |  24 Câu Trả Lời
+                        |  {{answers.length}} Câu Trả Lời
                     article#answer-list.comment(ng-repeat="answer in answers")
                         header.clearfix
                             .glyphicon.glyphicon-thumbs-up(ng-controller='LikeController',ng-click='LikeAnswer(answer._id)') &nbsp;

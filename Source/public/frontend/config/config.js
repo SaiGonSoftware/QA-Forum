@@ -16,6 +16,9 @@
             .when('/bai-viet/:id', {
                 templateUrl: '/partials/details'
             })
+            .when('/dien-dan', {
+                templateUrl: '/partials/forum'
+            })
             .when('/tac-gia', {
                 templateUrl: '/partials/credit'
             })
