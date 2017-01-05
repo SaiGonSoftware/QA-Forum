@@ -131,12 +131,8 @@ var removeAnswer = function (answerId, callback) {
     Answer.collection.remove({_id: ObjectId(answerId)}, callback);
 };
 var getAnswerViaId = function (answerId, callback) {
-    Answer.find({
-        "_id": {
-            "$in": answerId
-        }
-    }, callback);
-}
+    Answer.findById(answerId, callback);
+};
 var editAnswer = function (answerId, answerContent, callback) {
     Answer.collection.update({_id: ObjectId(answerId)}, {"$set": {"Content": answerContent}}, callback);
 };

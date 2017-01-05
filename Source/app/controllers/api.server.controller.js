@@ -266,8 +266,6 @@ exports.Like = function (req, res) {
             if (exists.length > CONSTANT.EXIST_ITEM) {
                 Answer.unLike(answerId, username, function (err, result) {
                     Answer.getAnswerViaId(answerId, function (err, total) {
-                        console.log(total.Like);
-                        console.log(total.Dislike);
                         res.json({
                             success: true,
                             checkLikeAndDislike: true,
@@ -322,8 +320,6 @@ exports.Dislike = function (req, res) {
             if (exists.length > CONSTANT.EXIST_ITEM) {
                 Answer.unDislike(answerId, username, function (err, result) {
                     Answer.getAnswerViaId(answerId, function (err, total) {
-                        console.log(total.Like);
-                        console.log(total.Dislike);
                         res.json({
                             success: true,
                             checkLikeAndDislike: true,
