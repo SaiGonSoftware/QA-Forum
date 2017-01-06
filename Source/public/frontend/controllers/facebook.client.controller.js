@@ -20,7 +20,7 @@
             $facebook.login().then(function () {
                 $facebook.api("/me").then(function (response) {
                     $rootScope.facebookUser = response.name;
-                    localStorageService.cookie.set('facebookUser', response.name, 1);
+                    localStorageService.cookie.set('facebookUser', response.name, 7);
                     $rootScope.IsFacebookLogin = true;
                     $rootScope.HideLoginSection = true;
                     $rootScope.IsLogin = false;

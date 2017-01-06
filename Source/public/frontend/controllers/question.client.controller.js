@@ -16,24 +16,15 @@
         $scope.ShowLoading = false;
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
-        if (loginUser) {
-            $scope.QuestionData = {
-                UserQuestion: loginUser,
-                CategoryId: '',
-                Content: '',
-                Title: '',
-                CreateDate: new Date().toLocaleDateString()
-            };
-        }
-        if (facebookUser) {
-            $scope.QuestionData = {
-                UserQuestion: facebookUser,
-                CategoryId: '',
-                Content: '',
-                Title: '',
-                CreateDate: new Date().toLocaleDateString()
-            };
-        }
+        var currentUser = loginUser = !null ? loginUser : facebookUser;
+
+        $scope.QuestionData = {
+            UserQuestion: currentUser,
+            CategoryId: '',
+            Content: '',
+            Title: '',
+            CreateDate: new Date().toLocaleDateString()
+        };
 
 
         $scope.$watch('QuestionForm.$valid', function (newValue) {
@@ -49,7 +40,6 @@
             }
 
             if ($scope.QuestionFormFormValid) {
-                console.log('valid');
                 $scope.ShowLoading = true;
                 $scope.HideQuestionBtn = true;
                 PostQuestionService.PostQuestion($scope.QuestionData).then(function (result) {

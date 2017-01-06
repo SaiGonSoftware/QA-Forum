@@ -41,7 +41,7 @@
                         return false;
                     }
                     else {
-                        localStorageService.cookie.set('currentUser', result.data.userSession, 1);
+                        localStorageService.cookie.set('currentUser', result.data.userSession, 7);
                         $rootScope.loginUser = result.data.userSession;
                         $rootScope.HideLoginSection = true;
                         $rootScope.IsLogin = true;
