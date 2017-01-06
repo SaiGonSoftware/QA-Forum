@@ -1498,3 +1498,8 @@ aside.comments .comment .body {
 .fa-caret-down, .fa-caret-up {
     display: block;
 }
+
+#question-detail {
+    font-size: 35px;
+    line-height: 35px;
+}
