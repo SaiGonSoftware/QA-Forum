@@ -19,6 +19,9 @@
             .when('/dien-dan', {
                 templateUrl: '/partials/forum'
             })
+            .when('/chuyen-muc/:id', {
+                templateUrl: '/partials/forum_list'
+            })
             .when('/tac-gia', {
                 templateUrl: '/partials/credit'
             })

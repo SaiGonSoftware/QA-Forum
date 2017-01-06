@@ -1,0 +1,19 @@
+//
+   Created by ngohungphuc on 06/01/2017.
+.widewrapper.main
+    .container
+        .row
+            .col-md-8.blog-main(ng-controller='ForumContainController')
+                .row
+                    .col-md-6.col-sm-6(ng-repeat='question in questions')
+                        article.blog-teaser
+                            header
+                                h3
+                                    a(href='/bai-viet/{{question._id}}') {{question.Title}}
+                                span.meta {{question.CreateDate | date : format : fullDate}}
+                                hr
+                            .body#bodycontent-index
+                                | {{question.Content}}
+                            .clearfix
+                                a.btn.btn-tales-one(href='/bai-viet/{{question._id}}') Đọc thêm
+            include ../layout/side_content

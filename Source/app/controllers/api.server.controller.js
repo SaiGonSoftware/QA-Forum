@@ -242,7 +242,7 @@ exports.Category = function (req, res) {
 };
 exports.QuestionViaCategory = function (req, res) {
     var id = req.params.id;
-    Question.getQuestionViaCategory(id, function (err, categories) {
+    Question.getQuestionViaCategory(id, function (err, questions) {
         if (err) res.json({
             id: id,
             found: false,
@@ -252,8 +252,7 @@ exports.QuestionViaCategory = function (req, res) {
             res.json({
                 found: true,
                 msg: "Found",
-                categories: categories,
-
+                questions: questions,
             });
         }
     });

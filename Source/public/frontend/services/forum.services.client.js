@@ -6,15 +6,15 @@
     'use strict';
 
     angular.module('ChatBotApp')
-        .factory('GetCatForumService', GetCatForumService);
-    GetCatForumService.$inject = ['$http'];
+        .factory('GetQuestionViaCategory', GetQuestionViaCategory);
+    GetQuestionViaCategory.$inject = ['$http'];
 
-    function GetCatForumService($http) {
-        var getCatService = {};
-        getCatService.GetCatForumService = function () {
-            return $http.get('/api/GetCategory/');
+    function GetQuestionViaCategory($http) {
+        var getQuestionViaCategory = {};
+        getQuestionViaCategory.GetQuestionViaCategory = function (id) {
+            return $http.get('/api/GetQuestionViaCategory/' + id);
         };
-        return getCatService;
+        return getQuestionViaCategory;
     }
 
 })();

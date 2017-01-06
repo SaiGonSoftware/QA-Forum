@@ -1,9 +1,15 @@
 //
    Created by ngohungphuc on 05/01/2017.
+
 .widewrapper.main
     .container
         .row
             .col-md-8.blog-main(ng-controller='ForumController')
-
+                .bs-callout.bs-callout-info(ng-repeat='category in categories')
+                    a(href='/chuyen-muc/{{category._id}}',class='cat-name-content ')
+                        h4 {{category.Name}}
+                        p
+                            // để đọc thêm
             include ../layout/side_content
+
 
