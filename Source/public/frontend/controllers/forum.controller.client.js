@@ -7,12 +7,14 @@
     angular.module('ChatBotApp')
         .controller('ForumController', ForumController);
 
-    ForumController.$inject = ['$scope', 'ForumService'];
+    ForumController.$inject = ['$scope', 'CategoriesService'];
 
-    function ForumController($scope, ForumService) {
-        ForumService.GetCatForumService().then(function (result) {
+    function ForumController($scope, CategoriesService) {
+        CategoriesService.GetCategories().then(function (result) {
             console.log(result);
-            $scope.categories = result.data.categories;
+            $scope.categories = Object.keys(result.data).map(function (key) {
+                return result.data[key];
+            });
         });
     }
 })();

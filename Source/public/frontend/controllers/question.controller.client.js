@@ -32,7 +32,6 @@
         });
 
         $scope.PostQuestion = function () {
-            console.log('ok');
             $scope.QuestionFormSubmmit = true;
             if (!loginUser && !facebookUser) {
                 toastr.warning("Vui lòng đăng nhập để đăng câu trả lời");

@@ -81,7 +81,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ['public/frontend/**/*.js'],
-                tasks: ['jshint', 'clean:js', 'concat:dev', 'uglify'],
+                tasks: ['clean:js', 'concat:dev', 'jshint', 'uglify'],
                 options: {
                     spawn: false,
                     reload: true

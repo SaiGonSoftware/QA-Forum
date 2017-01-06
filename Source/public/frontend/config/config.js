@@ -52,24 +52,8 @@
     function run($rootScope, $location, localStorageService) {
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
-        console.log(loginUser);
-        console.log(facebookUser);
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
-            /*if (loginUser && !facebookUser && next.originalPath === '/dang-nhap') {
-             $location.path('/');
-             }
-             if (!loginUser && facebookUser && next.originalPath === '/dang-nhap') {
-             $location.path('/');
-             }
-             if (!loginUser && facebookUser && next.originalPath === '/dang-ky') {
-             $location.path('/');
-             }
-             if (loginUser && !facebookUser && next.originalPath === '/dang-ky') {
-             $location.path('/');
-             }*/
-            if ((loginUser || facebookUser) &&
-                ( next.originalPath === '/dang-nhap'
-                || next.originalPath === '/dang-ky')) {
+            if ((loginUser || facebookUser) && (next.originalPath === '/dang-nhap' || next.originalPath === '/dang-ky')) {
                 $location.path('/');
             }
         });
