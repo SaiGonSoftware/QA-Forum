@@ -12,6 +12,7 @@
 
     function ForumController($scope, CategoriesService) {
         CategoriesService.GetCategories().then(function (result) {
+            console.log(result);
             $scope.categories = result.data;
         });
     }

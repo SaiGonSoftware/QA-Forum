@@ -64,6 +64,7 @@ exports.QuestionDetail = function (req, res) {
             }
             else {
                 Answer.getAnswerViaQuestion(id, function (err, answers) {
+                    console.log(answers);
                     if (err) res.json({
                         success: false,
                         msg: "Error"
@@ -163,7 +164,7 @@ exports.Answer = function (req, res) {
         'QuestionId': ObjectId(req.params.id),
         'Content': req.body.Content,
         'CreateDate': new Date(),
-        'references': req.body.references,
+        'references': req.body.References,
         'like': [],
         'dislike': []
     }];
@@ -233,11 +234,38 @@ exports.Question = function (req, res) {
         });
 };
 exports.Category = function (req, res) {
+    var listCount = [];
+    var indexCount = 0 ;
     Category.getCategories(function (err, categories) {
-        if (err)
-            return res.status(500).send();
-        else
-            res.send(categories);
+        categories.forEach(function(category){
+            Question.countTotalQuestionViaCategory(category._id,function(err,total){
+                listCount.push(total);
+                if(indexCount == categories.length-1){
+                   // console.log(indexCount);
+                   // console.log(categories.length-1);
+                    console.log(listCount);
+        
+                }
+                indexCount++;
+            });
+
+
+        });
+        
+        
+            /*if (err){
+                return res.status(500).send();
+            }
+            else
+            {
+                res.json({
+                   categories:categories,
+                   total:total     
+                });
+            }*/
+
+
+         
     });
 };
 exports.QuestionViaCategory = function (req, res) {
