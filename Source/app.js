@@ -37,13 +37,13 @@ app.set('view engine', 'jade');
 
 //require route for app
 var indexRoute = require('./app/routes/index.server.routes'),
-    apiRoute = require('./app/routes/api.server.routes');
+    apiRoute = require('./app/routes/client/api.server.routes');
 
 //set route for specific request
 app.get('/partials/:partialPath', function (req, res) {
-    res.render('partials/' + req.params.partialPath);
+    res.render('partials/client/' + req.params.partialPath);
 });
-app.use('/directives', express.static(path.join(__dirname, 'app/views/directives')));
+app.use('/directives', express.static(path.join(__dirname, 'app/views/directives/client')));
 app.use('/api', apiRoute);
 app.get('*', indexRoute);
 

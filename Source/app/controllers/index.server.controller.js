@@ -5,8 +5,6 @@
  * @Last Modified time: 2016-11-18 20:07:53
  */
 
-var User = require('../models/user.server.model');
-
 exports.Index = function (req, res) {
     res.render('site/index', {
         title: 'HỆ THỐNG TƯ VẤN TRỰC TUYẾN'
@@ -19,7 +17,7 @@ exports.Partial = function (req, res) {
 };
 
 exports.All = function (req, res) {
-    res.render('site/index', {
+    res.render('site/client/index', {
         title: 'HỆ THỐNG TƯ VẤN TRỰC TUYẾN'
     });
 };

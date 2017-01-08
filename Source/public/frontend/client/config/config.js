@@ -22,9 +22,6 @@
             .when('/chuyen-muc/:id', {
                 templateUrl: '/partials/forum_list'
             })
-            .when('/tac-gia', {
-                templateUrl: '/partials/credit'
-            })
             .when('/navbar', {
                 templateUrl: '/layout/navbar'
             })

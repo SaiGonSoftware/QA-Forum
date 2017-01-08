@@ -5,11 +5,12 @@
  * @Last Modified time: 2016-12-29 15:31:52
  */
 
-var User = require('../models/user.server.model');
-var Question = require('../models/question.server.model');
-var Answer = require('../models/answer.server.model');
-var Category = require('../models/categories.server.model');
-var CONSTANT = require('../helpers/constant.helper.server');
+var User = require('../../models/client/user.server.model');
+var Question = require('../../models/client/question.server.model');
+var Answer = require('../../models/client/answer.server.model');
+var Category = require('../../models/client/categories.server.model');
+var CONSTANT = require('../../helpers/constant.helper.server');
+
 var ObjectId = require('mongodb').ObjectId;
 var google = require('google');
 var async = require('async');
@@ -234,38 +235,29 @@ exports.Question = function (req, res) {
         });
 };
 exports.Category = function (req, res) {
-    var listCount = [];
-    var indexCount = 0 ;
     Category.getCategories(function (err, categories) {
-        categories.forEach(function(category){
-            Question.countTotalQuestionViaCategory(category._id,function(err,total){
+        if (err)
+            return res.status(500).send();
+        else
+            res.send(categories);
+    });
+};
+exports.GetDetailCategory = function (req, res) {
+    var listCount = [];
+    var indexCount = 0;
+    Category.getCategories(function (err, categories) {
+        categories.forEach(function (category) {
+            Question.countTotalQuestionViaCategory(category._id, function (err, total) {
                 listCount.push(total);
-                if(indexCount == categories.length-1){
-                   // console.log(indexCount);
-                   // console.log(categories.length-1);
+                if (indexCount == categories.length - 1) {
+                    // console.log(indexCount);
+                    // console.log(categories.length-1);
                     console.log(listCount);
-        
+
                 }
                 indexCount++;
             });
-
-
         });
-        
-        
-            /*if (err){
-                return res.status(500).send();
-            }
-            else
-            {
-                res.json({
-                   categories:categories,
-                   total:total     
-                });
-            }*/
-
-
-         
     });
 };
 exports.QuestionViaCategory = function (req, res) {

@@ -1,9 +1,9 @@
+//
+   Created by ngohungphuc on 06/01/2017.
 .widewrapper.main
     .container
         .row
-            .col-md-8.blog-main(ng-controller="IndexController")
-                p
-                    a.btn.btn-info.btn-block(href='/tao-cau-hoi') Bạn có câu hỏi ?
+            .col-md-8.blog-main(ng-controller='ForumContainController')
                 .row
                     .col-md-6.col-sm-6(ng-repeat='question in questions')
                         article.blog-teaser
@@ -16,5 +16,4 @@
                                 | {{question.Content}}
                             .clearfix
                                 a.btn.btn-tales-one(href='/bai-viet/{{question._id}}') Đọc thêm
-                include ../layout/paging
-            include ../layout/side_content
+            include ../../layout/client/side_content
