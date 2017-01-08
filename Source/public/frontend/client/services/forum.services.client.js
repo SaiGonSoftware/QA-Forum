@@ -6,8 +6,10 @@
     'use strict';
 
     angular.module('ChatBotApp')
-        .factory('GetQuestionViaCategory', GetQuestionViaCategory);
+        .factory('GetQuestionViaCategory', GetQuestionViaCategory)
+        .factory('GetQuestionInfoCategory', GetQuestionInfoCategory);
     GetQuestionViaCategory.$inject = ['$http'];
+    GetQuestionInfoCategory.$inject = ['$http'];
 
     function GetQuestionViaCategory($http) {
         var getQuestionViaCategory = {};
@@ -17,4 +19,11 @@
         return getQuestionViaCategory;
     }
 
+    function GetQuestionInfoCategory($http) {
+        var getQuestionInfoCategory = {};
+        getQuestionInfoCategory.GetQuestionInfoCategory = function () {
+            return $http.get('/api/GetCategoryInfo/');
+        };
+        return getQuestionInfoCategory;
+    }
 })();

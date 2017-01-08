@@ -242,7 +242,7 @@ exports.Category = function (req, res) {
             res.send(categories);
     });
 };
-exports.GetDetailCategory = function (req, res) {
+exports.GetCategoryInfo = function (req, res) {
     var listCount = [];
     var indexCount = 0;
     Category.getCategories(function (err, categories) {
@@ -250,10 +250,10 @@ exports.GetDetailCategory = function (req, res) {
             Question.countTotalQuestionViaCategory(category._id, function (err, total) {
                 listCount.push(total);
                 if (indexCount == categories.length - 1) {
-                    // console.log(indexCount);
-                    // console.log(categories.length-1);
-                    console.log(listCount);
-
+                    res.json({
+                        postCount: listCount,
+                        categories: categories
+                    });
                 }
                 indexCount++;
             });

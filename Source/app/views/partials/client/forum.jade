@@ -5,11 +5,10 @@
     .container
         .row
             .col-md-8.blog-main(ng-controller='ForumController')
-                .bs-callout.bs-callout-info(ng-repeat='category in categories')
-                    a(href='/chuyen-muc/{{category._id}}',class='cat-name-content ')
-                        h4 {{category.Name}}
-                        p
-                            // để đọc thêm
+                .bs-callout.bs-callout-info(ng-init="categories = categories;postCount=postCount",ng-repeat='data in categories track by $index')
+                    a(href='/chuyen-muc/{{data.categories._id}}',class='cat-name-content')
+                        h4 {{data.Name}}
+                        h5 {{postCount[$index]}} Bài Viết
             include ../../layout/client/side_content
 
 
