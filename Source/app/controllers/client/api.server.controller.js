@@ -132,41 +132,20 @@ exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
     if (username !== null && password !== null) {
-        /*User.checkAccountExists(username, function (err, user) {
-         if (user === null) {
-         res.json({
-         login: false
-         });
-         }
-         var AuthUser = User.validPassword(password, user.Password);
-         if (!AuthUser) {
-         res.json({
-         login: false
-         });
-         } else {
-         var userSession = user.Account;
-         req.session.user = user;
-         res.json({
-         login: true,
-         url: '/',
-         userSession: userSession
-         });
-         }
-         });*/
-        async.waterfall([
-            function (callback) {
-                User.checkAccountExists(username, callback)
-            },
-            function (user, callback) {
-                var authUser = User.validPassword(password, user.Password)
-            }, function (user, callback) {
+        User.checkAccountExists(username, function (err, user) {
+            if (user === null) {
+                res.json({
+                    login: false
+                });
+            }
+            var AuthUser = User.validPassword(password, user.Password);
+            if (!AuthUser) {
+                res.json({
+                    login: false
+                });
+            } else {
                 var userSession = user.Account;
-            }
-        ], function (err, result) {
-            if (err) {
-                res.json({login: false});
-            }
-            else {
+                req.session.user = user;
                 res.json({
                     login: true,
                     url: '/',
@@ -174,6 +153,27 @@ exports.Login = function (req, res) {
                 });
             }
         });
+        /* async.waterfall([
+         function (callback) {
+         User.checkAccountExists(username, callback)
+         },
+         function (user, callback) {
+         var authUser = User.validPassword(password, user.Password)
+         }, function (user, callback) {
+         var userSession = user.Account;
+         }
+         ], function (err, result) {
+         if (err) {
+         res.json({login: false});
+         }
+         else {
+         res.json({
+         login: true,
+         url: '/',
+         userSession: userSession
+         });
+         }
+         });*/
     }
     else {
         res.json({login: false});

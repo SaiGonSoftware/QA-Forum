@@ -11,9 +11,9 @@
     angular.module('ChatBotApp')
         .controller('DetailController', DetailController);
 
-    DetailController.$inject = ['$scope', '$routeParams', 'QuestionDetailService', '$location', '$route'];
+    DetailController.$inject = ['$scope', '$routeParams', 'QuestionDetailService'];
 
-    function DetailController($scope, $routeParams, QuestionDetailService, $location) {
+    function DetailController($scope, $routeParams, QuestionDetailService) {
         var id = $routeParams.id;
         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
             if (result.data.found === true) {

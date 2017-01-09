@@ -6,7 +6,7 @@
         .row
             .col-md-8.blog-main(ng-controller='ForumController')
                 .bs-callout.bs-callout-info(ng-init="categories = categories;postCount=postCount",ng-repeat='data in categories track by $index')
-                    a(href='/chuyen-muc/{{data.categories._id}}',class='cat-name-content')
+                    a(href='/chuyen-muc/{{data._id}}',class='cat-name-content')
                         h4 {{data.Name}}
                         h5 {{postCount[$index]}} Bài Viết
             include ../../layout/client/side_content

@@ -13,9 +13,14 @@
         .module('ChatBotApp')
         .controller('AnswerController', AnswerController);
 
-    AnswerController.$inject = ['$scope', 'localStorageService', 'AnswerService'];
+    AnswerController.$inject = ['$scope', 'localStorageService', '$location', 'AnswerService', 'QuestionDetailService'];
 
-    function AnswerController($scope, localStorageService, AnswerService) {
+    function AnswerController($scope, localStorageService, $location, AnswerService, QuestionDetailService) {
+        var id = $location.absUrl().split('/')[4];
+        QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
+            $scope.currentAnswerList = result.data.answers;
+            console.log($scope.currentAnswerList);
+        });
         $scope.AnswerFormSubmmit = false;
         $scope.AnswerFormFormValid = false;
         $scope.HideAnswerBtn = false;
@@ -54,6 +59,7 @@
                     }
                     else {
                         toastr.success("Đăng Câu Trả Lời Thành Công");
+                        $scope.currentAnswerList.push($scope.AnswerData);
                     }
                 });
             }

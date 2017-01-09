@@ -10,7 +10,7 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     http = require('http'),
     server = http.createServer(app),
-    env = process.env.NODE_ENV || 'development';
+    env = process.env.NODE_ENV || 'production';
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -36,7 +36,7 @@ app.set('view engine', 'jade');
 
 
 //require route for app
-var indexRoute = require('./app/routes/index.server.routes'),
+var indexRoute = require('./app/routes/client/index.server.routes'),
     apiRoute = require('./app/routes/client/api.server.routes');
 
 //set route for specific request
