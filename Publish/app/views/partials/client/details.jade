@@ -13,14 +13,14 @@
                                     span.data {{detail.UserQuestion}}
                                 .date
                                     i.fa.fa-calendar
-                                    span.data {{detail.CreateDate | date : format : fullDate}}
+                                    span.data {{detail.CreateDate | date : "dd.MM.y" }}
                                 .comments
                                     i.fa.fa-comments
                                     span.data
                                         a(href='#create-comment') {{answers.length}} Câu Trả Lời
                     .body
                         br
-                        p(style='font-size: 35px;')
+                        p#question-detail
                             | {{detail.Content}}
                 aside#comments.comments
                     hr

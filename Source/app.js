@@ -36,7 +36,7 @@ app.set('view engine', 'jade');
 
 
 //require route for app
-var indexRoute = require('./app/routes/index.server.routes'),
+var indexRoute = require('./app/routes/client/index.server.routes'),
     apiRoute = require('./app/routes/client/api.server.routes');
 
 //set route for specific request

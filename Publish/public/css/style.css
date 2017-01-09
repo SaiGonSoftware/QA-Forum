@@ -92,7 +92,7 @@ hr {
 
 .widewrapper.masthead {
     background-color: #242b32;
-    color: #f8f8f9
+    color: #f8f8f9;
 }
 
 .widewrapper.subheader {
@@ -104,16 +104,16 @@ hr {
 
 .widewrapper.footer {
     background-color: #242b32;
-    color: #b3b5b7;
+    color: #fff;
     font-size: 14px
 }
 
 .widewrapper.footer a {
-    color: #7b8690
+    color: #fff;
 }
 
 .widewrapper.footer h1, .widewrapper.footer h2, .widewrapper.footer h3, .widewrapper.footer h4, .widewrapper.footer h5 {
-    color: #e6e6e6
+    color: #fff;
 }
 
 .widewrapper.copyright {
@@ -499,7 +499,7 @@ hr {
 }
 
 .footer .tales-list li a {
-    color: #b3b5b7;
+    color: #fff;
     padding-bottom: 5px
 }
 
@@ -584,7 +584,7 @@ hr {
 }
 
 .blog-aside {
-    padding-top: 125px
+    padding-top: 60px
 }
 
 @media (max-width: 767px) {
@@ -1497,4 +1497,38 @@ aside.comments .comment .body {
 
 .fa-caret-down, .fa-caret-up {
     display: block;
+}
+
+#question-detail {
+    font-size: 35px;
+    line-height: 35px;
+}
+#main-site .bs-callout{
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+    height: 220px;
+}
+.bs-callout-info {
+    border-left-color: #1557b5 !important;
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+.bs-callout-info h3, h4 {
+    color: #1b809e;
+}
+
+.btn-primary {
+    color: #fff !important;
+    background-color: #1557b5 !important;
+    border-color: #1557b5 !important;
 }

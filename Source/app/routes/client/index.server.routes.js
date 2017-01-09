@@ -7,7 +7,7 @@
 
 var express = require('express');
 var router = express.Router();
-var indexController = require('../controllers/index.server.controller');
+var indexController = require('../../controllers/client/index.server.controller');
 
 router.get('*', indexController.All);
 

@@ -5,11 +5,12 @@
  * @Last Modified time: 2016-12-29 15:31:52
  */
 
-var User = require('../models/user.server.model');
-var Question = require('../models/question.server.model');
-var Answer = require('../models/answer.server.model');
-var Category = require('../models/categories.server.model');
-var CONSTANT = require('../helpers/constant.helper.server');
+var User = require('../../models/client/user.server.model');
+var Question = require('../../models/client/question.server.model');
+var Answer = require('../../models/client/answer.server.model');
+var Category = require('../../models/client/categories.server.model');
+var CONSTANT = require('../../helpers/constant.helper.server');
+
 var ObjectId = require('mongodb').ObjectId;
 var google = require('google');
 var async = require('async');
@@ -64,6 +65,7 @@ exports.QuestionDetail = function (req, res) {
             }
             else {
                 Answer.getAnswerViaQuestion(id, function (err, answers) {
+                    console.log(answers);
                     if (err) res.json({
                         success: false,
                         msg: "Error"
@@ -163,7 +165,7 @@ exports.Answer = function (req, res) {
         'QuestionId': ObjectId(req.params.id),
         'Content': req.body.Content,
         'CreateDate': new Date(),
-        'references': req.body.references,
+        'references': req.body.References,
         'like': [],
         'dislike': []
     }];
@@ -240,9 +242,27 @@ exports.Category = function (req, res) {
             res.send(categories);
     });
 };
+exports.GetCategoryInfo = function (req, res) {
+    var listCount = [];
+    var indexCount = 0;
+    Category.getCategories(function (err, categories) {
+        categories.forEach(function (category) {
+            Question.countTotalQuestionViaCategory(category._id, function (err, total) {
+                listCount.push(total);
+                if (indexCount == categories.length - 1) {
+                    res.json({
+                        postCount: listCount,
+                        categories: categories
+                    });
+                }
+                indexCount++;
+            });
+        });
+    });
+};
 exports.QuestionViaCategory = function (req, res) {
     var id = req.params.id;
-    Question.getQuestionViaCategory(id, function (err, categories) {
+    Question.getQuestionViaCategory(id, function (err, questions) {
         if (err) res.json({
             id: id,
             found: false,
@@ -252,8 +272,7 @@ exports.QuestionViaCategory = function (req, res) {
             res.json({
                 found: true,
                 msg: "Found",
-                categories: categories,
-
+                questions: questions,
             });
         }
     });

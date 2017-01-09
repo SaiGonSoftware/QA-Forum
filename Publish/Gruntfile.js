@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/js/ngFacebook.js', 'public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js','public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/js/ngFacebook.js', 'public/frontend/**/*.js']
                 }
             },
             dev: {
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ['public/frontend/**/*.js'],
-                tasks: ['jshint', 'clean:js', 'concat:dev', 'uglify'],
+                tasks: ['clean:js', 'concat:dev', 'jshint', 'uglify'],
                 options: {
                     spawn: false,
                     reload: true

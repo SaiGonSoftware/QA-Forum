@@ -6,12 +6,13 @@
  */
 var express = require('express');
 var router = express.Router();
-var api = require('../controllers/api.server.controller');
+var api = require('../../controllers/client/api.server.controller');
 
 router.get('/GetQuestion/', api.GetQuestion);
 router.get('/GetNextQuestion/:requestTime', api.GetNextQuestion);
 router.get('/GetQuestionDetail/:id', api.QuestionDetail);
 router.get('/GetCategory', api.Category);
+router.get('/GetCategoryInfo', api.GetCategoryInfo);
 router.get('/GetQuestionViaCategory/:id', api.QuestionViaCategory);
 
 router.post('/Account/Register', api.Register);

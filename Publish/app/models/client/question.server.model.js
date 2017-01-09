@@ -70,6 +70,12 @@ var findQuestion = function (findString, callback) {
     }).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
     // Question.find({"Title": regex}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
 };
+
+var countTotalQuestionViaCategory = function(categoryId,callback){
+    //db.orders.find( { ord_dt: { $gt: new Date('01/01/2012') } } ).count()
+    Question.find({CategoryId:ObjectId(categoryId)}).count(callback);
+};
+
 module.exports = {
     Question: Question,
     countQuestion: countQuestion,
@@ -79,5 +85,6 @@ module.exports = {
     getQuestion: getQuestion,
     getQuestionViaCategory: getQuestionViaCategory,
     submitQuestion: submitQuestion,
-    findQuestion: findQuestion
+    findQuestion: findQuestion,
+    countTotalQuestionViaCategory:countTotalQuestionViaCategory
 };

@@ -10,7 +10,7 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     http = require('http'),
     server = http.createServer(app),
-    env = process.env.NODE_ENV || 'production';
+    env = process.env.NODE_ENV || 'development';
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -37,13 +37,13 @@ app.set('view engine', 'jade');
 
 //require route for app
 var indexRoute = require('./app/routes/index.server.routes'),
-    apiRoute = require('./app/routes/api.server.routes');
+    apiRoute = require('./app/routes/client/api.server.routes');
 
 //set route for specific request
 app.get('/partials/:partialPath', function (req, res) {
-    res.render('partials/' + req.params.partialPath);
+    res.render('partials/client/' + req.params.partialPath);
 });
-app.use('/directives', express.static(path.join(__dirname, 'app/views/directives')));
+app.use('/directives', express.static(path.join(__dirname, 'app/views/directives/client')));
 app.use('/api', apiRoute);
 app.get('*', indexRoute);
 
