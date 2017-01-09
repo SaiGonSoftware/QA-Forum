@@ -6,15 +6,15 @@
 
     angular.module('ChatBotApp')
         .controller('ForumController', ForumController)
-        .controller('ForumContainController', ForumContainController)
-        .controller('TagsController', TagsController);
+        .controller('TagsController', TagsController)
+        .controller('ForumContainController', ForumContainController);
 
-    ForumController.$inject = ['$scope', 'GetQuestionInfoCategory', '$routeParams'];
-    ForumContainController.$inject = ['$scope', 'GetQuestionViaCategory', '$routeParams'];
+    ForumController.$inject = ['$scope', 'GetQuestionInfoCategoryService'];
+    ForumContainController.$inject = ['$scope', '$routeParams', 'GetQuestionViaCategory'];
     TagsController.$inject = ['$scope', 'CategoriesService'];
 
-    function ForumController($scope, GetQuestionInfoCategory) {
-        GetQuestionInfoCategory.GetQuestionInfoCategory().then(function (result) {
+    function ForumController($scope, GetQuestionInfoCategoryService) {
+        GetQuestionInfoCategoryService.GetQuestionInfoCategory().then(function (result) {
             $scope.categories = result.data.categories;
             $scope.postCount = result.data.postCount;
         });
@@ -27,7 +27,7 @@
     }
 
 
-    function ForumContainController($routeParams, $scope, GetQuestionViaCategory) {
+    function ForumContainController($scope, $routeParams, GetQuestionViaCategory) {
         var id = $routeParams.id;
         GetQuestionViaCategory.GetQuestionViaCategory(id).then(function (result) {
             if (result.data.found === true) {
