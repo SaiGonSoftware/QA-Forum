@@ -7,10 +7,11 @@
 
     angular.module('ChatBotApp')
         .factory('GetQuestionViaCategory', GetQuestionViaCategory)
-        .factory('GetQuestionInfoCategoryService', GetQuestionInfoCategoryService);
-
+        .factory('GetQuestionInfoCategoryService', GetQuestionInfoCategoryService)
+        .factory('GetNextQuestionViaCategoryService', GetNextQuestionViaCategoryService);
     GetQuestionViaCategory.$inject = ['$http'];
     GetQuestionInfoCategoryService.$inject = ['$http'];
+    GetNextQuestionViaCategoryService.$inject = ['$http'];
 
     function GetQuestionViaCategory($http) {
         var getQuestionViaCategory = {};
@@ -26,5 +27,16 @@
             return $http.get('/api/GetCategoryInfo/');
         };
         return getQuestionInfoCategory;
+    }
+
+    function GetNextQuestionViaCategoryService($http) {
+        var getNextQuestionViaCategory = {};
+        getNextQuestionViaCategory.GetNextQuestionViaCategory = function (id,requestTime) {
+            return $http({
+                url: '/api/GetNextQuestionViaCategory/' + id + '/requestTime=' + requestTime,
+                method: 'GET'
+            });
+        };
+        return getNextQuestionViaCategory;
     }
 })();

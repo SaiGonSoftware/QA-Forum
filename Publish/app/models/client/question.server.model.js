@@ -53,8 +53,8 @@ var questionMobileIndex = function (callback) {
 var getQuestion = function (limitItem, callback) {
     Question.find().limit(limitItem).sort({'CreateDate': 'descending'}).exec(callback);
 };
-var getQuestionViaCategory = function (id, callback) {
-    Question.find({"CategoryId": ObjectId(id)}).exec(callback);
+var getQuestionViaCategory = function (id, limitItem, callback) {
+    Question.find({"CategoryId": ObjectId(id)}).limit(limitItem).exec(callback);
 };
 
 var submitQuestion = function (question, callback) {
@@ -71,9 +71,9 @@ var findQuestion = function (findString, callback) {
     // Question.find({"Title": regex}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
 };
 
-var countTotalQuestionViaCategory = function(categoryId,callback){
+var countTotalQuestionViaCategory = function (categoryId, callback) {
     //db.orders.find( { ord_dt: { $gt: new Date('01/01/2012') } } ).count()
-    Question.find({CategoryId:ObjectId(categoryId)}).count(callback);
+    Question.find({CategoryId: ObjectId(categoryId)}).count(callback);
 };
 
 module.exports = {
@@ -86,5 +86,5 @@ module.exports = {
     getQuestionViaCategory: getQuestionViaCategory,
     submitQuestion: submitQuestion,
     findQuestion: findQuestion,
-    countTotalQuestionViaCategory:countTotalQuestionViaCategory
+    countTotalQuestionViaCategory: countTotalQuestionViaCategory
 };

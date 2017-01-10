@@ -10,7 +10,7 @@
         .controller('ForumContainController', ForumContainController);
 
     ForumController.$inject = ['$scope', 'GetQuestionInfoCategoryService'];
-    ForumContainController.$inject = ['$scope', '$routeParams', 'GetQuestionViaCategory'];
+    ForumContainController.$inject = ['$scope', '$routeParams', 'GetQuestionViaCategory', 'GetNextQuestionViaCategoryService'];
     TagsController.$inject = ['$scope', 'CategoriesService'];
 
     function ForumController($scope, GetQuestionInfoCategoryService) {
@@ -27,13 +27,22 @@
     }
 
 
-    function ForumContainController($scope, $routeParams, GetQuestionViaCategory) {
+    function ForumContainController($scope, $routeParams, GetQuestionViaCategory, GetNextQuestionViaCategoryService) {
         var id = $routeParams.id;
+        $scope.requestTime = 1;
+
         GetQuestionViaCategory.GetQuestionViaCategory(id).then(function (result) {
             if (result.data.found === true) {
                 $scope.questions = result.data.questions;
             }
             else $location.path('/page-not-found');
         });
+
+        $scope.LoadMoreQuestionCategory = function () {
+            $scope.requestTime += 1;
+            GetNextQuestionViaCategoryService.GetNextQuestionViaCategory(id,$scope.requestTime).then(function (result) {
+                $scope.questions = result.data.questions;
+            });
+        }
     }
 })();

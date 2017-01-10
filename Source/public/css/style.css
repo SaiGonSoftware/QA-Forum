@@ -3,7 +3,6 @@ body {
     line-height: 27px;
     font-family: 'Open Sans', sans-serif;
     color: #404b55;
-    background-color: #feffff
 }
 
 textarea {
@@ -77,14 +76,15 @@ hr {
     width: 45%;
 }
 
-.widewrapper {
+/*.widewrapper {
     background-color: #feffff
-}
+}*/
 
 .widewrapper.main {
     -webkit-box-shadow: inset 1px 10px 8px -8px #ababab;
     -moz-box-shadow: inset 1px 10px 8px -8px #ababab;
-    box-shadow: inset 1px 10px 8px -8px #ababab
+    box-shadow: inset 1px 10px 8px -8px #ababab;
+    background-color: #f7f7f7;
 }
 
 .widewrapper.masthead {
@@ -1504,7 +1504,7 @@ aside.comments .comment .body {
 #main-site .bs-callout {
     padding: 20px;
     margin: 20px 0;
-    border: 1px solid #eee;
+    border: 1px solid #dddddd;
     border-left-width: 5px;
     border-radius: 3px;
     height: 220px;
@@ -1517,7 +1517,7 @@ aside.comments .comment .body {
 .bs-callout {
     padding: 20px;
     margin: 20px 0;
-    border: 1px solid #eee;
+    border: 1px solid #dddddd;
     border-left-width: 5px;
     border-radius: 3px;
 }

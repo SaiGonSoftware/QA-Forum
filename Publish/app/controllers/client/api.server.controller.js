@@ -15,6 +15,7 @@ var ObjectId = require('mongodb').ObjectId;
 var google = require('google');
 var async = require('async');
 
+//index page
 exports.GetQuestion = function (req, res) {
     var limitItem = CONSTANT.LIMIT_ITEM;
     Question.getQuestion(limitItem, function (err, questions) {
@@ -40,6 +41,7 @@ exports.GetNextQuestion = function (req, res) {
         });
     });
 };
+
 /*exports.QuestionIndex = function (req, res) {
  var limitItemOnePage = 10;
  var currentPage = req.params.pageRequest || 1;
@@ -53,6 +55,7 @@ exports.GetNextQuestion = function (req, res) {
  });
  });
  };*/
+//details page
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
     if (id !== null) {
@@ -81,127 +84,6 @@ exports.QuestionDetail = function (req, res) {
             }
         });
     }
-};
-exports.Register = function (req, res) {
-    var usernameRegis = req.body.UsernameRegis;
-    var emailRegis = req.body.EmailRegis;
-    var passwordRegis = req.body.PasswordRegis;
-    if (usernameRegis !== null && emailRegis !== null && passwordRegis !== null) {
-        User.checkAccountExists(usernameRegis, function (err, account) {
-            User.checkEmailExists(emailRegis, function (err, email) {
-                if (err) throw err;
-                if (account !== null && email !== null) {
-                    res.json({
-                        foundBoth: true
-                    });
-                }
-                if (account !== null) {
-                    if (email === null) res.json({
-                        foundAccount: true
-                    });
-                }
-                if (email !== null) {
-                    if (account === null) res.json({
-                        foundEmail: true
-                    });
-                } else {
-                    var hashPassword = User.generateHash(passwordRegis);
-                    var newUser = [{
-                        'Account': usernameRegis,
-                        'Password': hashPassword,
-                        'Email': emailRegis,
-                        'Level': CONSTANT.DEFAULT_LEVEL
-                    }];
-
-                    User.createUser(newUser, function (err) {
-                        if (err) throw err;
-                        res.json({
-                            success: true,
-                            url: '/'
-                        });
-                    });
-                }
-            });
-        });
-    }
-    else {
-        res.json({msg: "Error"});
-    }
-};
-exports.Login = function (req, res) {
-    var username = req.body.UsernameLogin;
-    var password = req.body.PasswordLogin;
-    if (username !== null && password !== null) {
-        /*User.checkAccountExists(username, function (err, user) {
-         if (user === null) {
-         res.json({
-         login: false
-         });
-         }
-         var AuthUser = User.validPassword(password, user.Password);
-         if (!AuthUser) {
-         res.json({
-         login: false
-         });
-         } else {
-         var userSession = user.Account;
-         req.session.user = user;
-         res.json({
-         login: true,
-         url: '/',
-         userSession: userSession
-         });
-         }
-         });*/
-        async.waterfall([
-            function (callback) {
-                User.checkAccountExists(username, callback)
-            },
-            function (user, callback) {
-                var authUser = User.validPassword(password, user.Password)
-            }, function (user, callback) {
-                var userSession = user.Account;
-            }
-        ], function (err, result) {
-            if (err) {
-                res.json({login: false});
-            }
-            else {
-                res.json({
-                    login: true,
-                    url: '/',
-                    userSession: userSession
-                });
-            }
-        });
-    }
-    else {
-        res.json({login: false});
-    }
-};
-exports.Answer = function (req, res) {
-    var newAnswer = [{
-        'UserAnswer': req.body.UserAnswer,
-        'QuestionId': ObjectId(req.params.id),
-        'Content': req.body.Content,
-        'CreateDate': new Date(),
-        'references': req.body.References,
-        'like': [],
-        'dislike': []
-    }];
-
-    Answer.submitAnswer(newAnswer, function (err, answer) {
-        if (err) {
-            res.json({
-                success: false,
-                msg: "Có lỗi xảy ra vui lòng thử lại"
-            });
-        }
-        res.json({
-            success: true,
-            msg: "Đăng câu trả lời thành công"
-        });
-    });
 };
 exports.Question = function (req, res) {
     var refArray = [];
@@ -254,47 +136,28 @@ exports.Question = function (req, res) {
             });
         });
 };
-exports.Category = function (req, res) {
-    Category.getCategories(function (err, categories) {
-        if (err)
-            return res.status(500).send();
-        else
-            res.send(categories);
-    });
-};
-exports.GetCategoryInfo = function (req, res) {
-    var listCount = [];
-    var indexCount = 0;
-    Category.getCategories(function (err, categories) {
-        categories.forEach(function (category) {
-            Question.countTotalQuestionViaCategory(category._id, function (err, total) {
-                listCount.push(total);
-                if (indexCount == categories.length - 1) {
-                    res.json({
-                        postCount: listCount,
-                        categories: categories
-                    });
-                }
-                indexCount++;
-            });
-        });
-    });
-};
-exports.QuestionViaCategory = function (req, res) {
-    var id = req.params.id;
-    Question.getQuestionViaCategory(id, function (err, questions) {
-        if (err) res.json({
-            id: id,
-            found: false,
-            msg: "Not Found"
-        });
-        else {
+exports.Answer = function (req, res) {
+    var newAnswer = [{
+        'UserAnswer': req.body.UserAnswer,
+        'QuestionId': ObjectId(req.params.id),
+        'Content': req.body.Content,
+        'CreateDate': new Date(),
+        'references': req.body.References,
+        'like': [],
+        'dislike': []
+    }];
+
+    Answer.submitAnswer(newAnswer, function (err, answer) {
+        if (err) {
             res.json({
-                found: true,
-                msg: "Found",
-                questions: questions,
+                success: false,
+                msg: "Có lỗi xảy ra vui lòng thử lại"
             });
         }
+        res.json({
+            success: true,
+            msg: "Đăng câu trả lời thành công"
+        });
     });
 };
 exports.Like = function (req, res) {
@@ -438,19 +301,6 @@ exports.UnDislike = function (req, res) {
         });
     });
 };
-exports.FindQuestion = function (req, res) {
-    var stringFind = req.body.findString;
-    console.log(stringFind);
-
-    Question.findQuestion(stringFind, function (err, questions) {
-        if (err) res.json({
-            msg: err
-        });
-        else res.json({
-            questions: questions
-        });
-    });
-};
 exports.RemoveAnswer = function (req, res) {
     var answerId = req.body.answerId;
     console.log(answerId);
@@ -465,5 +315,179 @@ exports.EditAnswer = function (req, res) {
     Answer.editAnswer(answerId, answerContent, function (err) {
         if (err) res.json({success: false, msg: "Error"});
         res.json({success: true, msg: "Update answer success"});
+    });
+};
+
+//account relative
+exports.Register = function (req, res) {
+    var usernameRegis = req.body.UsernameRegis;
+    var emailRegis = req.body.EmailRegis;
+    var passwordRegis = req.body.PasswordRegis;
+    if (usernameRegis !== null && emailRegis !== null && passwordRegis !== null) {
+        User.checkAccountExists(usernameRegis, function (err, account) {
+            User.checkEmailExists(emailRegis, function (err, email) {
+                if (err) throw err;
+                if (account !== null && email !== null) {
+                    res.json({
+                        foundBoth: true
+                    });
+                }
+                if (account !== null) {
+                    if (email === null) res.json({
+                        foundAccount: true
+                    });
+                }
+                if (email !== null) {
+                    if (account === null) res.json({
+                        foundEmail: true
+                    });
+                } else {
+                    var hashPassword = User.generateHash(passwordRegis);
+                    var newUser = [{
+                        'Account': usernameRegis,
+                        'Password': hashPassword,
+                        'Email': emailRegis,
+                        'Level': CONSTANT.DEFAULT_LEVEL
+                    }];
+
+                    User.createUser(newUser, function (err) {
+                        if (err) throw err;
+                        res.json({
+                            success: true,
+                            url: '/'
+                        });
+                    });
+                }
+            });
+        });
+    }
+    else {
+        res.json({msg: "Error"});
+    }
+};
+exports.Login = function (req, res) {
+    var username = req.body.UsernameLogin;
+    var password = req.body.PasswordLogin;
+    if (username !== null && password !== null) {
+        User.checkAccountExists(username, function (err, user) {
+            if (user === null) {
+                res.json({
+                    login: false
+                });
+            }
+            var AuthUser = User.validPassword(password, user.Password);
+            if (!AuthUser) {
+                res.json({
+                    login: false
+                });
+            } else {
+                var userSession = user.Account;
+                req.session.user = user;
+                res.json({
+                    login: true,
+                    url: '/',
+                    userSession: userSession
+                });
+            }
+        });
+        /* async.waterfall([
+         function (callback) {
+         User.checkAccountExists(username, callback)
+         },
+         function (user, callback) {
+         var authUser = User.validPassword(password, user.Password)
+         }, function (user, callback) {
+         var userSession = user.Account;
+         }
+         ], function (err, result) {
+         if (err) {
+         res.json({login: false});
+         }
+         else {
+         res.json({
+         login: true,
+         url: '/',
+         userSession: userSession
+         });
+         }
+         });*/
+    }
+    else {
+        res.json({login: false});
+    }
+};
+
+//category relative
+exports.Category = function (req, res) {
+    Category.getCategories(function (err, categories) {
+        if (err)
+            return res.status(500).send();
+        else
+            res.send(categories);
+    });
+};
+exports.GetCategoryInfo = function (req, res) {
+    var listCount = [];
+    var indexCount = 0;
+    Category.getCategories(function (err, categories) {
+        categories.forEach(function (category) {
+            Question.countTotalQuestionViaCategory(category._id, function (err, total) {
+                listCount.push(total);
+                if (indexCount == categories.length - 1) {
+                    res.json({
+                        postCount: listCount,
+                        categories: categories
+                    });
+                }
+                indexCount++;
+            });
+        });
+    });
+};
+exports.QuestionViaCategory = function (req, res) {
+    var id = req.params.id;
+    var limitItem = CONSTANT.LIMIT_ITEM;
+    Question.getQuestionViaCategory(id, limitItem, function (err, questions) {
+        if (err) res.json({
+            id: id,
+            found: false,
+            msg: "Not Found"
+        });
+        else {
+            res.json({
+                found: true,
+                msg: "Found",
+                questions: questions,
+            });
+        }
+    });
+};
+exports.GetNextQuestionViaCategory = function (req, res) {
+    var limitItem = CONSTANT.LIMIT_ITEM;
+    var categoryId = req.params.id;
+    if (req.body.requestTime !== null) {
+        limitItem *= req.params.requestTime;
+    }
+    Question.getQuestionViaCategory(categoryId, limitItem, function (err, questions) {
+        if (err) res.json({
+            msg: err
+        });
+        else res.json({
+            questions: questions
+        });
+    });
+};
+
+exports.FindQuestion = function (req, res) {
+    var stringFind = req.body.findString;
+    console.log(stringFind);
+
+    Question.findQuestion(stringFind, function (err, questions) {
+        if (err) res.json({
+            msg: err
+        });
+        else res.json({
+            questions: questions
+        });
     });
 };

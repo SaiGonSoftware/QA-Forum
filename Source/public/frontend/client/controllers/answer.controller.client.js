@@ -13,14 +13,10 @@
         .module('ChatBotApp')
         .controller('AnswerController', AnswerController);
 
-    AnswerController.$inject = ['$scope', 'localStorageService', '$location', 'AnswerService', 'QuestionDetailService'];
+    AnswerController.$inject = ['$scope', '$rootScope', 'localStorageService', '$location', 'AnswerService', 'QuestionDetailService'];
 
-    function AnswerController($scope, localStorageService, $location, AnswerService, QuestionDetailService) {
+    function AnswerController($scope, $rootScope, localStorageService, $location, AnswerService, QuestionDetailService) {
         var id = $location.absUrl().split('/')[4];
-        QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
-            $scope.currentAnswerList = result.data.answers;
-            console.log($scope.currentAnswerList);
-        });
         $scope.AnswerFormSubmmit = false;
         $scope.AnswerFormFormValid = false;
         $scope.HideAnswerBtn = false;
@@ -41,6 +37,7 @@
         });
 
         $scope.PostAnswer = function () {
+            $rootScope.IsLoadingAnswer = true;
             $scope.AnswerFormSubmmit = true;
             if (!loginUser && !facebookUser) {
                 toastr.warning("Vui lòng đăng nhập để đăng câu trả lời");
@@ -59,7 +56,10 @@
                     }
                     else {
                         toastr.success("Đăng Câu Trả Lời Thành Công");
-                        $scope.currentAnswerList.push($scope.AnswerData);
+                        QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
+                            $rootScope.answers = result.data.answers;
+                        });
+                        //$rootScope.answers.push($scope.AnswerData);
                     }
                 });
             }
