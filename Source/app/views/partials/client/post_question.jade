@@ -17,7 +17,7 @@
                         textarea#Content.form-control.input-lg(rows='10',ng-model='QuestionData.Content', name='Content', placeholder='Nội dung trả lời',required='')
                         label(for='Content', ng-show='(QuestionForm.Content.$dirty || QuestionFormSubmmit) && QuestionForm.Content.$error.required') Nội dung câu hỏi không được để trống
                     .buttons.clearfix
-                        button.btn.btn-xlarge.btn-tales-one(type='submit',ng-hide='HideQuestionBtn') Đăng câu hỏi
+                        button.btn.btn-primary.btn-block(type='submit',ng-hide='HideQuestionBtn') Đăng câu hỏi
                         div(style='text-align:center;margin:10%')
                             img(src='/img/icon/loading.gif',ng-show='ShowLoading')
             include ../../layout/client/side_content

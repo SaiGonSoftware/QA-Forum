@@ -4,10 +4,10 @@ aside.col-md-4.blog-aside
             p
                 a.btn.btn-primary.btn-md(href='/tao-cau-hoi',style='width:305px') Bạn có thắc mắc ?
             p
-                .input-group
-                    input.form-control(type='text', placeholder='Tìm câu hỏi')
+                .input-group(ng-controller='SearchController')
+                    input#QueryString.form-control(type='text',name='QueryString',ng-model='SearchData.QueryString',placeholder='Tìm câu hỏi')
                     span.input-group-btn
-                        button.btn.btn-default(type='button') Go!
+                        button.btn.btn-default(type='button',ng-click='Search()') Go!
         header
             h3 Read next...
         .body

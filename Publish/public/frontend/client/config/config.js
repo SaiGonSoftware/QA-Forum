@@ -22,6 +22,9 @@
             .when('/chuyen-muc/:id', {
                 templateUrl: '/partials/forum_list'
             })
+            .when('/tim-kiem/:queryString', {
+                templateUrl: '/partials/search'
+            })
             .when('/navbar', {
                 templateUrl: '/layout/navbar'
             })

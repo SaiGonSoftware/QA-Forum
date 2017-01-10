@@ -479,10 +479,10 @@ exports.GetNextQuestionViaCategory = function (req, res) {
 };
 
 exports.FindQuestion = function (req, res) {
-    var stringFind = req.body.findString;
-    console.log(stringFind);
+    var queryString = req.params.queryString;
+    console.log(queryString);
 
-    Question.findQuestion(stringFind, function (err, questions) {
+    Question.findQuestion(queryString, function (err, questions) {
         if (err) res.json({
             msg: err
         });
