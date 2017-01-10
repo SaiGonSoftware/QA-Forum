@@ -1,5 +1,5 @@
 .container
-    .row#login-signinContent(ng-controller="RegisterController")
+    .row#signinContent(ng-controller="RegisterController")
         .col-md-6.col-md-offset-3
             .panel.panel-login
                 .panel-heading
@@ -23,5 +23,5 @@
                                 .form-group
                                     .row
                                         .col-sm-6.col-sm-offset-3.text-center
-                                            button#register-submit.form-control.btn.btn-register(type='submit', name='register-submit', tabindex='4',ng-hide="HideRegisBtn") Đăng Ký
+                                            button#register-submit.btn.btn-primary.form-control.btn.btn-register(type='submit', name='register-submit', tabindex='4',ng-hide="HideRegisBtn") Đăng Ký
                                             img(src='/img/icon/loading.gif',ng-show='ShowLoading')

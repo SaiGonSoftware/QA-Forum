@@ -1064,8 +1064,7 @@ aside.comments .comment .body {
 }
 
 .create-comment .btn, .contact-form .btn {
-    margin: 15px 0 0 30px;
-    float: right
+    margin: 15px 0 0 0;
 }
 
 .content, .about {
@@ -1484,8 +1483,14 @@ aside.comments .comment .body {
     border-color: #1CA347;
 }
 
-#login-signinContent {
-    margin: 5% 0;
+#loginContent {
+    margin-top: 100px;
+    margin-bottom: 110px;
+}
+
+#signinContent {
+    margin-top: 100px;
+    margin-bottom: 142px;
 }
 
 .fa-4x {
