@@ -43,6 +43,6 @@
             GetNextQuestionViaCategoryService.GetNextQuestionViaCategory(id,$scope.requestTime).then(function (result) {
                 $scope.questions = result.data.questions;
             });
-        }
+        };
     }
 })();
