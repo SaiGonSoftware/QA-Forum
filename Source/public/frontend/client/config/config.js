@@ -23,7 +23,8 @@
                 templateUrl: '/partials/forum_list'
             })
             .when('/tim-kiem/:queryString', {
-                templateUrl: '/partials/search'
+                templateUrl: '/partials/search',
+                controller: 'SearchController'
             })
             .when('/navbar', {
                 templateUrl: '/layout/navbar'
