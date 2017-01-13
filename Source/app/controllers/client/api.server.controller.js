@@ -480,9 +480,7 @@ exports.GetNextQuestionViaCategory = function (req, res) {
 
 exports.FindQuestion = function (req, res) {
     var queryString = req.params.queryString;
-    console.log(queryString);
-    /*var filter = Filter.RemoveCharacter(queryString);
-    console.log(filter);*/
+    var filter = Filter.RemoveCharacter(queryString);
     Question.findQuestion(queryString, function (err, questions) {
         if (err) res.json({
             msg: err

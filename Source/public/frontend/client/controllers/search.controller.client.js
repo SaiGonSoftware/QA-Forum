@@ -13,10 +13,10 @@
         var searchString = $routeParams.queryString;
         if (searchString) {
             SearchService.SearchForQuestion(searchString).then(function (result) {
-                $rootScope.questionsSearch = result.data.questions;
+                $scope.questionsSearch = result.data.questions;
             });
         }
-        
+
         $scope.Search = function () {
             var queryString = document.getElementById('QueryString').value;
             SearchService.SearchForQuestion(queryString).then(function (result) {
