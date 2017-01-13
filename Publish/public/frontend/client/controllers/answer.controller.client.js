@@ -39,7 +39,7 @@
         $scope.PostAnswer = function () {
             $rootScope.IsLoadingAnswer = true;
             $scope.AnswerFormSubmmit = true;
-            if (!loginUser && !facebookUser) {
+            if (!currentUser) {
                 toastr.warning("Vui lòng đăng nhập để đăng câu trả lời");
                 return false;
             }
@@ -57,7 +57,12 @@
                     else {
                         toastr.success("Đăng Câu Trả Lời Thành Công");
                         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
-                            $rootScope.answers = result.data.answers;
+                            console.log(result);
+                            $rootScope.listOfAnswers.push({
+                                UserAnswer: currentUser,
+                                Content: $scope.AnswerData.Content,
+                                CreateDate: new Date().toLocaleDateString()
+                            });
                         });
                         //$rootScope.answers.push($scope.AnswerData);
                     }

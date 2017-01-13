@@ -19,7 +19,7 @@
             if (result.data.found === true) {
                 $scope.detail = result.data.questionDetail;
                 $scope.refs = result.data.questionDetail.References;
-                $scope.answers = result.data.answers;
+                $scope.listOfAnswers = result.data.answers;
             }
             else $location.path('/page-not-found');
         });

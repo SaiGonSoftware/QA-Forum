@@ -33,7 +33,7 @@ var questionSchema = new mongoose.Schema({
         require: true
     }
 });
-
+questionSchema.index({Title: 'text', Content: 'text'});
 var Question = mongoose.model('questions', questionSchema);
 
 var countQuestion = function (option, callback) {
@@ -63,10 +63,7 @@ var submitQuestion = function (question, callback) {
 var findQuestion = function (findString, callback) {
     //var regex = new RegExp('[ẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+', '');
     Question.find({
-        "Title": {
-            $regex: findString,
-            $options: 'is'
-        }
+        $text: {$search: findString}
     }).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
     // Question.find({"Title": regex}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
 };

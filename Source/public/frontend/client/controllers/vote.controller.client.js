@@ -13,15 +13,18 @@
     function LikeController($scope, localStorageService, LikeService) {
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
+        var currentUser = loginUser ? loginUser : facebookUser;
         $scope.LikeAnswer = function (answerId) {
-            $scope.LikeData = {
-                UserLike: localStorageService.cookie.get('currentUser'),
-                AnswerId: answerId
-            };
-            if (!loginUser || !facebookUser) {
+            if (!currentUser) {
                 toastr.warning("Vui lòng đăng nhập để like bài viết");
                 return false;
             }
+
+            $scope.LikeData = {
+                UserLike: currentUser,
+                AnswerId: answerId
+            };
+            console.log($scope.LikeData);
             LikeService.LikeAnswer($scope.LikeData).then(function (result) {
                 if (result.data.checkLikeAndDislike) {
                     $("#like-" + answerId).text(result.data.totalLike);
@@ -38,15 +41,18 @@
     function DislikeController($scope, localStorageService, DislikeService) {
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
+        var currentUser = loginUser ? loginUser : facebookUser;
         $scope.DislikeAnswer = function (answerId) {
-            $scope.DislikeData = {
-                UserDislike: localStorageService.cookie.get('currentUser'),
-                AnswerId: answerId
-            };
-            if (!loginUser || !facebookUser) {
+            if (!currentUser) {
                 toastr.warning("Vui lòng đăng nhập để dislike bài viết");
                 return false;
             }
+
+            $scope.DislikeData = {
+                UserDislike: currentUser,
+                AnswerId: answerId
+            };
+            console.log($scope.DislikeData);
             DislikeService.DislikeAnswer($scope.DislikeData).then(function (result) {
                 if (result.data.checkLikeAndDislike) {
                     $("#like-" + answerId).text(result.data.totalLike);

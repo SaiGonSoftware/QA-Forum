@@ -39,7 +39,7 @@
         $scope.PostAnswer = function () {
             $rootScope.IsLoadingAnswer = true;
             $scope.AnswerFormSubmmit = true;
-            if (!loginUser && !facebookUser) {
+            if (!currentUser) {
                 toastr.warning("Vui lòng đăng nhập để đăng câu trả lời");
                 return false;
             }

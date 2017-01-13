@@ -10,7 +10,6 @@ var Question = require('../../models/client/question.server.model');
 var Answer = require('../../models/client/answer.server.model');
 var Category = require('../../models/client/categories.server.model');
 var CONSTANT = require('../../helpers/constant.helper.server');
-var Filter = require('../../helpers/filterChar.helper.server');
 var ObjectId = require('mongodb').ObjectId;
 var google = require('google');
 var async = require('async');
@@ -480,9 +479,6 @@ exports.GetNextQuestionViaCategory = function (req, res) {
 
 exports.FindQuestion = function (req, res) {
     var queryString = req.params.queryString;
-    console.log(queryString);
-    var filter = Filter.RemoveCharacter(queryString);
-    console.log(filter);
     Question.findQuestion(queryString, function (err, questions) {
         if (err) res.json({
             msg: err
