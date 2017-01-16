@@ -368,48 +368,51 @@ exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
     if (username !== null && password !== null) {
-        User.checkAccountExists(username, function (err, user) {
-            if (user === null) {
-                res.json({
-                    login: false
-                });
+        async.waterfall([
+            function (callback) {
+                try {
+                    User.checkAccountExists(username, callback);
+                }
+                catch (ex) {
+                    res.json({
+                        login: false
+                    });
+                }
+            },
+            function (username, callback) {
+                try {
+                    var authUser = User.validPassword(password, username.Password);
+                    if (authUser) {
+                        callback(null, username);
+                    }
+                    else {
+                        res.json({
+                            login: false
+                        });
+                    }
+                }
+                catch (ex) {
+                    res.json({
+                        login: false
+                    });
+                }
+            },
+            function (authUser, callback) {
+                var userSession = authUser.Account;
+                callback(null, userSession);
             }
-            var AuthUser = User.validPassword(password, user.Password);
-            if (!AuthUser) {
-                res.json({
-                    login: false
-                });
-            } else {
-                var userSession = user.Account;
-                req.session.user = user;
+        ], function (err, result) {
+            if (err) {
+                res.json({login: false});
+            }
+            else {
                 res.json({
                     login: true,
                     url: '/',
-                    userSession: userSession
+                    userSession: result
                 });
             }
         });
-        /* async.waterfall([
-         function (callback) {
-         User.checkAccountExists(username, callback)
-         },
-         function (user, callback) {
-         var authUser = User.validPassword(password, user.Password)
-         }, function (user, callback) {
-         var userSession = user.Account;
-         }
-         ], function (err, result) {
-         if (err) {
-         res.json({login: false});
-         }
-         else {
-         res.json({
-         login: true,
-         url: '/',
-         userSession: userSession
-         });
-         }
-         });*/
     }
     else {
         res.json({login: false});

@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -14,16 +14,16 @@ module.exports = function (grunt) {
                     'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
                 }
             },
-            dev: {
+            target: {
                 files: {
-                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
+                    'public/css/style.min.css': 'public/css/style.min.css'
                 }
             }
         },
         concat: {
             js: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js','public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/js/ngFacebook.js', 'public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/js/ngFacebook.js', 'public/frontend/**/*.js']
                 }
             },
             dev: {
@@ -64,14 +64,14 @@ module.exports = function (grunt) {
                     },
                     // omit this property if you aren't serving HTML files and
                     // don't want to open a browser tab on start
-                    callback: function (nodemon) {
+                    callback: function(nodemon) {
                         // opens browser on initial server start
-                        nodemon.on('config:update', function () {
+                        nodemon.on('config:update', function() {
                             // Delay before server listens on port
                             require('open')('http://localhost:8000');
                         });
                         // refreshes browser when server reboots
-                        nodemon.on('restart', function () {
+                        nodemon.on('restart', function() {
                             require('fs').writeFileSync('.rebooted', 'rebooted');
                         });
                     }
@@ -89,7 +89,7 @@ module.exports = function (grunt) {
             },
             css: {
                 files: ['public/css/*.css', '!public/css/*.min.css'],
-                tasks: ['clean:css', 'cssmin:dev'],
+                tasks: ['clean:css', 'cssmin:combine', 'cssmin:target'],
                 options: {
                     reload: true
                 }
@@ -109,6 +109,6 @@ module.exports = function (grunt) {
     });
 
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default', ['clean:css', 'cssmin:combine', 'clean:js', 'jshint', 'concat:js', 'uglify', 'concurrent']);
+    grunt.registerTask('default', ['clean:css', 'cssmin:combine', 'cssmin:target', 'clean:js', 'jshint', 'concat:js', 'uglify', 'concurrent']);
     grunt.registerTask('development', ['cssmin:combine', 'clean:js', 'jshint', 'concat:js', 'uglify']);
 };
