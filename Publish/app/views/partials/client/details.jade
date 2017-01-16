@@ -29,8 +29,8 @@
                         |  {{listOfAnswers.length}} Câu Trả Lời
                     article#answer-list.comment(ng-repeat="answer in listOfAnswers")
                         header.clearfix
-                            .glyphicon.glyphicon-thumbs-up(ng-controller='LikeController',ng-click='LikeAnswer(answer._id)') &nbsp;
-                            .glyphicon.glyphicon-thumbs-down(ng-controller='DislikeController',ng-click='DislikeAnswer(answer._id)')
+                            .glyphicon.glyphicon-thumbs-up(id="likeBtn-{{answer._id}}",ng-controller='LikeController',ng-click='LikeAnswer(answer._id)') &nbsp;
+                            .glyphicon.glyphicon-thumbs-down(id="dislikeBtn-{{answer._id}}",ng-controller='DislikeController',ng-click='DislikeAnswer(answer._id)')
                             //-img.avatar(src='img/avatar.png', alt='A Smart Guy')
                             .meta
                                 h3

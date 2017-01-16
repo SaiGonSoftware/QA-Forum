@@ -1536,3 +1536,11 @@ aside.comments .comment .body {
     background-color: #1557b5 !important;
     border-color: #1557b5 !important;
 }
+
+.glyphicon-thumbs-up, .glyphicon-thumbs-down {
+    font-size: 20px !important;
+}
+
+.active-vote {
+    color: #de412e;
+}

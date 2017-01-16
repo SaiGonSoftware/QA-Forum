@@ -16,6 +16,7 @@
     function DetailController($scope, $routeParams, QuestionDetailService) {
         var id = $routeParams.id;
         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
+            console.log(result.data.answers);
             if (result.data.found === true) {
                 $scope.detail = result.data.questionDetail;
                 $scope.refs = result.data.questionDetail.References;

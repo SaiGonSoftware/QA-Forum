@@ -15,16 +15,21 @@
         var facebookUser = localStorageService.cookie.get('facebookUser');
         var currentUser = loginUser ? loginUser : facebookUser;
         $scope.LikeAnswer = function (answerId) {
+
             if (!currentUser) {
                 toastr.warning("Vui lòng đăng nhập để like bài viết");
                 return false;
             }
-
+            if (!$("#likeBtn-" + answerId).hasClass("active-vote")) {
+                $("#likeBtn-" + answerId).addClass("active-vote");
+            }
+            else {
+                $("#likeBtn-" + answerId).removeClass("active-vote");
+            }
             $scope.LikeData = {
                 UserLike: currentUser,
                 AnswerId: answerId
             };
-            console.log($scope.LikeData);
             LikeService.LikeAnswer($scope.LikeData).then(function (result) {
                 if (result.data.checkLikeAndDislike) {
                     $("#like-" + answerId).text(result.data.totalLike);
@@ -52,7 +57,13 @@
                 UserDislike: currentUser,
                 AnswerId: answerId
             };
-            console.log($scope.DislikeData);
+            if (!$("#dislikeBtn-" + answerId).hasClass("active-vote")) {
+                $("#dislikeBtn-" + answerId).addClass("active-vote");
+            }
+            else {
+                $("#dislikeBtn-" + answerId).removeClass("active-vote");
+            }
+
             DislikeService.DislikeAnswer($scope.DislikeData).then(function (result) {
                 if (result.data.checkLikeAndDislike) {
                     $("#like-" + answerId).text(result.data.totalLike);

@@ -1,8 +1,8 @@
 /*
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-18 20:06:26
- * @Last Modified by:   hoangphucvu
- * @Last Modified time: 2016-12-29 15:31:52
+ * @Last Modified by:   Ngo Hung Phuc
+ * @Last Modified time: 2017-01-16 21:26:21
  */
 
 var User = require('../../models/client/user.server.model');
@@ -64,8 +64,7 @@ exports.QuestionDetail = function (req, res) {
                     found: false,
                     msg: "Not Found"
                 });
-            }
-            else {
+            } else {
                 Answer.getAnswerViaQuestion(id, function (err, answers) {
                     if (err) res.json({
                         success: false,
@@ -96,11 +95,10 @@ exports.Question = function (req, res) {
 
                     for (var i = 0; i < res.links.length; i++) {
                         var link = res.links[i];
-                        refArray =
-                            {
-                                'Title': link.title,
-                                'Link': link.href
-                            };
+                        refArray = {
+                            'Title': link.title,
+                            'Link': link.href
+                        };
                         if (refArray.Title && refArray.Link) {
                             resultArray.push(refArray);
                             resolve(refArray);
@@ -175,8 +173,7 @@ exports.Like = function (req, res) {
                         });
                     });
                 });
-            }
-            else {
+            } else {
                 Answer.addLike(answerId, username, function (err, like) {
                     if (err) {
                         console.log(err);
@@ -184,9 +181,7 @@ exports.Like = function (req, res) {
                             success: false,
                             msg: "Error"
                         });
-                    }
-
-                    else {
+                    } else {
                         if (like.result.nModified === CONSTANT.EXIST_ITEM) {
                             Answer.countLike(answerId, function (err, total) {
                                 res.json({
@@ -196,8 +191,7 @@ exports.Like = function (req, res) {
                                     msg: "Bạn đã thích câu trả lời này"
                                 });
                             });
-                        }
-                        else {
+                        } else {
                             Answer.countLike(answerId, function (err, total) {
                                 res.json({
                                     success: true,
@@ -229,8 +223,7 @@ exports.Dislike = function (req, res) {
                         });
                     });
                 });
-            }
-            else {
+            } else {
                 Answer.addDislike(answerId, username, function (err, like) {
                     if (err) {
                         console.log(err);
@@ -238,9 +231,7 @@ exports.Dislike = function (req, res) {
                             success: false,
                             msg: "Error"
                         });
-                    }
-
-                    else {
+                    } else {
                         if (like.result.nModified === CONSTANT.EXIST_ITEM) {
                             Answer.countDislike(answerId, function (err, total) {
                                 res.json({
@@ -250,8 +241,7 @@ exports.Dislike = function (req, res) {
                                     msg: "Bạn đã dislike câu trả lời này"
                                 });
                             });
-                        }
-                        else {
+                        } else {
                             Answer.countDislike(answerId, function (err, total) {
                                 res.json({
                                     success: true,
@@ -304,19 +294,32 @@ exports.RemoveAnswer = function (req, res) {
     var answerId = req.body.answerId;
     console.log(answerId);
     Answer.removeAnswer(answerId, function (err) {
-        if (err) res.json({success: false, msg: "Error"});
-        res.json({success: true, msg: "Remove answer success"});
+        if (err) res.json({
+            success: false,
+            msg: "Error"
+        });
+        res.json({
+            success: true,
+            msg: "Remove answer success"
+        });
     });
 };
 exports.EditAnswer = function (req, res) {
     var answerId = req.params.id;
     var answerContent = req.body.answerContent;
     Answer.editAnswer(answerId, answerContent, function (err) {
-        if (err) res.json({success: false, msg: "Error"});
-        res.json({success: true, msg: "Update answer success"});
+        if (err) res.json({
+            success: false,
+            msg: "Error"
+        });
+        res.json({
+            success: true,
+            msg: "Update answer success"
+        });
     });
 };
 
+//account relative
 //account relative
 exports.Register = function (req, res) {
     var usernameRegis = req.body.UsernameRegis;
@@ -326,21 +329,22 @@ exports.Register = function (req, res) {
         User.checkAccountExists(usernameRegis, function (err, account) {
             User.checkEmailExists(emailRegis, function (err, email) {
                 if (err) throw err;
-                if (account !== null && email !== null) {
-                    res.json({
+                if (account && email) {
+                    return res.json({
                         foundBoth: true
                     });
                 }
-                if (account !== null) {
-                    if (email === null) res.json({
+                if (account && !email) {
+                    return res.json({
                         foundAccount: true
                     });
                 }
-                if (email !== null) {
-                    if (account === null) res.json({
+                if (email && !account) {
+                    return res.json({
                         foundEmail: true
                     });
-                } else {
+                }
+                if (!account && !email) {
                     var hashPassword = User.generateHash(passwordRegis);
                     var newUser = [{
                         'Account': usernameRegis,
@@ -351,7 +355,7 @@ exports.Register = function (req, res) {
 
                     User.createUser(newUser, function (err) {
                         if (err) throw err;
-                        res.json({
+                        return res.json({
                             success: true,
                             url: '/'
                         });
@@ -372,8 +376,7 @@ exports.Login = function (req, res) {
             function (callback) {
                 try {
                     User.checkAccountExists(username, callback);
-                }
-                catch (ex) {
+                } catch (ex) {
                     res.json({
                         login: false
                     });
@@ -384,28 +387,27 @@ exports.Login = function (req, res) {
                     var authUser = User.validPassword(password, username.Password);
                     if (authUser) {
                         callback(null, username);
-                    }
-                    else {
+                    } else {
                         res.json({
                             login: false
                         });
                     }
-                }
-                catch (ex) {
+                } catch (ex) {
                     res.json({
                         login: false
                     });
                 }
             },
-            function (authUser, callback) {
-                var userSession = authUser.Account;
+            function (username, callback) {
+                var userSession = username.Account;
                 callback(null, userSession);
             }
         ], function (err, result) {
             if (err) {
-                res.json({login: false});
-            }
-            else {
+                res.json({
+                    login: false
+                });
+            } else {
                 res.json({
                     login: true,
                     url: '/',
@@ -413,9 +415,10 @@ exports.Login = function (req, res) {
                 });
             }
         });
-    }
-    else {
-        res.json({login: false});
+    } else {
+        res.json({
+            login: false
+        });
     }
 };
 
