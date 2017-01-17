@@ -371,7 +371,8 @@ exports.Register = function (req, res) {
 exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
-    if (username !== null && password !== null) {
+    var socailAccount = req.body.SocialAccount;
+    if (!username && !password) {
         async.waterfall([
             function (callback) {
                 try {
@@ -415,7 +416,23 @@ exports.Login = function (req, res) {
                 });
             }
         });
-    } else {
+    }
+    if (socailAccount) {
+        var facebookUser = [{
+            'Account': req.body.SocialAccount,
+            'SocialId': req.body.SocialAccount,
+            'Level': CONSTANT.DEFAULT_LEVEL
+        }];
+        console.log(facebookUser);
+        User.createUser(facebookUser, function (err) {
+            if (err) throw err;
+            return res.json({
+                success: true,
+                url: '/'
+            });
+        });
+    }
+    else {
         res.json({
             login: false
         });

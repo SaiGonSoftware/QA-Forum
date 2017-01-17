@@ -12,18 +12,26 @@
 
     angular.module('ChatBotApp')
         .controller('FacebookController', FacebookController);
-    FacebookController.$inject = ['$scope', 'localStorageService', '$rootScope', '$location', '$facebook'];
+    FacebookController.$inject = ['$scope', 'localStorageService', '$rootScope', '$location', '$facebook', 'FacebookService'];
 
-    function FacebookController($scope, localStorageService, $rootScope, $location, $facebook) {
+    function FacebookController($scope, localStorageService, $rootScope, $location, $facebook, FacebookService) {
         $rootScope.IsFacebookLogin = false;
         $scope.facebookLogin = function () {
             $facebook.login().then(function () {
                 $facebook.api("/me").then(function (response) {
                     $rootScope.facebookUser = response.name;
+                    $scope.FacebookData = {
+                        SocialAccount: response.name,
+                        SocialId: response.id,
+                    };
                     localStorageService.cookie.set('facebookUser', response.name, 7);
-                    $rootScope.IsFacebookLogin = true;
-                    $rootScope.HideLoginSection = true;
-                    $rootScope.IsLogin = false;
+                    FacebookService.SaveFacebookAccount($scope.FacebookData).then(function (result) {
+                        if (result.data) {
+                            $rootScope.IsFacebookLogin = true;
+                            $rootScope.HideLoginSection = true;
+                            $rootScope.IsLogin = false;
+                        }
+                    });
                 });
                 $location.path('/');
             });

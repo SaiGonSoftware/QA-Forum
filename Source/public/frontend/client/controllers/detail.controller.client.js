@@ -19,7 +19,6 @@
         var currentUser = loginUser ? loginUser : facebookUser;
         var id = $routeParams.id;
         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
-            console.log(result.data.answers);
             if (result.data.found === true) {
                 $scope.detail = result.data.questionDetail;
                 $scope.refs = result.data.questionDetail.References;
@@ -35,7 +34,7 @@
                                 }
                             }
                             if (result.data.answers[x].Dislike.includes(currentUser)) {
-                                angular.element(document.querySelector("#dislikeBtn"));
+                                var target = document.getElementById('dislikeBtn-' + result.data.answers[x]._id);
                                 if (target) {
                                     clearInterval(checkElementExist);
                                     $("#dislikeBtn-" + result.data.answers[x]._id).addClass("active-vote");
@@ -44,8 +43,6 @@
                         }
                     }
                 }, 1000);
-
-
             }
             else $location.path('/page-not-found');
         });

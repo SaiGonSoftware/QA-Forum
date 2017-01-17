@@ -27,10 +27,9 @@
                     h2
                         i.fa.fa-comments
                         |  {{listOfAnswers.length}} Câu Trả Lời
-                    article#answer-list.comment(ng-repeat="answer in listOfAnswers")
+                    article.comment(ng-repeat="answer in listOfAnswers")
                         header.clearfix
-                            .glyphicon.glyphicon-thumbs-up(id="likeBtn-{{answer._id}}",ng-controller='LikeController',ng-click='LikeAnswer(answer._id)') &nbsp;
-                            .glyphicon.glyphicon-thumbs-down(id="dislikeBtn-{{answer._id}}",ng-controller='DislikeController',ng-click='DislikeAnswer(answer._id)')
+                            vote
                             //-img.avatar(src='img/avatar.png', alt='A Smart Guy')
                             .meta
                                 h3

@@ -38,6 +38,9 @@
             .when('/tao-cau-hoi', {
                 templateUrl: '/partials/post_question'
             })
+            .when('/tai-khoan', {
+                templateUrl: '/partials/account_info'
+            })
             .otherwise({
                 redirectTo: '/page-not-found',
                 templateUrl: '/partials/404'

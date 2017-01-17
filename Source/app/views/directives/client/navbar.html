@@ -17,13 +17,16 @@
                                     role="button" aria-haspopup="true" aria-expanded="false">Xin
                 chào{{facebookUser}}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                    <li><a href="/tai-khoan">Quản Lý Tài Khoản</a></li>
                     <li><a href="#" ng-click="FacebookLogOut()">Đăng Xuất</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" ng-show="IsLogin" href="#" data-toggle="dropdown"
-                                    role="button" aria-haspopup="true" aria-expanded="false">Xin chào {{loginUser}}<span
-                    class="caret"></span></a>
+                                    role="button" aria-haspopup="true" aria-expanded="false">Xin chào &nbsp;
+                {{loginUser}}<span
+                        class="caret"></span></a>
                 <ul class="dropdown-menu">
+                    <li><a href="/tai-khoan">Quản Lý Tài Khoản</a></li>
                     <li><a href="#" ng-click="LogOut()">Đăng Xuất</a></li>
                 </ul>
             </li>
