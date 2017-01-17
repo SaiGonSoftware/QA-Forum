@@ -24,16 +24,27 @@
                 $scope.detail = result.data.questionDetail;
                 $scope.refs = result.data.questionDetail.References;
                 $scope.listOfAnswers = result.data.answers;
-                for (var x = 0; x < result.data.answers.length; x++) {
-                    if (result.data.answers[x].Like.includes(currentUser)) {
-                        console.log(result.data.answers[x]._id);
-                        $("#likeBtn-" + result.data.answers[x]._id).addClass("active-vote");
+                var checkElementExist = setInterval(function () {
+                    if ($(".comment").length) {
+                        for (var x = 0; x < result.data.answers.length; x++) {
+                            if (result.data.answers[x].Like.includes(currentUser)) {
+                                var target = document.getElementById('likeBtn-' + result.data.answers[x]._id);
+                                if (target) {
+                                    clearInterval(checkElementExist);
+                                    $("#likeBtn-" + result.data.answers[x]._id).addClass("active-vote");
+                                }
+                            }
+                            if (result.data.answers[x].Dislike.includes(currentUser)) {
+                                angular.element(document.querySelector("#dislikeBtn"));
+                                if (target) {
+                                    clearInterval(checkElementExist);
+                                    $("#dislikeBtn-" + result.data.answers[x]._id).addClass("active-vote");
+                                }
+                            }
+                        }
                     }
-                    if (result.data.answers[x].Dislike.includes(currentUser)) {
-                        console.log(result.data.answers[x]._id);
-                        $("#dislikeBtn-" + result.data.answers[x]._id).addClass("active-vote");
-                    }
-                }
+                }, 1000);
+
 
             }
             else $location.path('/page-not-found');
