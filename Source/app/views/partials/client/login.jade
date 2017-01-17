@@ -15,7 +15,7 @@
                 .panel-body
                     .row
                         .col-lg-12(ng-controller="LoginController")
-                            form#login-form(name="LoginForm",ng-submit="Login()",novalidate='',style='display: block;')
+                            form#login-form(name="LoginForm",ng-submit="Login()",novalidate='')
                                 .form-group
                                     input.form-control(type='text', name='UsernameLogin', tabindex='1', placeholder='Tài Khoản',ng-model="LoginData.UsernameLogin",required='')
                                     label(for='UsernameLogin', ng-show='(LoginForm.UsernameLogin.$dirty || LoginFormSubmmit) && LoginForm.UsernameLogin.$error.required') Tài khoản không được để trống

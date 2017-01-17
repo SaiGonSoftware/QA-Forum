@@ -10,7 +10,7 @@
                 .panel-body
                     .row
                         .col-lg-12
-                            form#register-form(name='RegisForm', novalidate='', ng-submit="Register()",style='display: block;')
+                            form#register-form(name='RegisForm', novalidate='', ng-submit="Register()",style='')
                                 .form-group
                                     input#UsernameRegis.form-control(type='text', name='UsernameRegis', tabindex='1', placeholder='Tài Khoản',ng-model="RegisData.UsernameRegis", ng-class="RegisFormSubmmit?'ng-dirty':''", required='', autofocus='')
                                     label(for='UsernameRegis', ng-show='(RegisForm.UsernameRegis.$dirty || RegisFormSubmmit) && RegisForm.UsernameRegis.$error.required') Tài khoản không được để trống

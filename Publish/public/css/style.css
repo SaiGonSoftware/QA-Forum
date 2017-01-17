@@ -1493,6 +1493,10 @@ aside.comments .comment .body {
     margin-bottom: 155px;
 }
 
+#register-form, #login-form {
+    display: block;
+}
+
 .fa-4x {
     font-size: 4em;
 }
@@ -1543,4 +1547,12 @@ aside.comments .comment .body {
 
 .active-vote {
     color: #de412e;
+}
+
+#searchContent {
+    margin-left: 10%;
+}
+
+#imgQuestionDetail {
+    width: 80%;
 }

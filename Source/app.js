@@ -10,7 +10,10 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     http = require('http'),
     server = http.createServer(app),
-    env = process.env.NODE_ENV || 'development';
+    env = process.env.NODE_ENV || 'development',
+    io = require('socket.io').listen(server),
+    users = [],
+    connections = [];
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -54,6 +57,15 @@ if (env === 'development') {
 if (env === 'production') {
     // TODO
 }
+
+io.sockets.on('connection', function (socket) {
+    connections.push(socket);
+    console.log('Connected: %s sockets connected', connections.length);
+
+    //disconnect
+    connections.splice(connections.indexOf(socket), 1);
+    console.log('Disconnected: %s sockets connected', connections.length);
+});
 server.listen(port, function () {
     console.log("Web server listening on port " + port);
 });

@@ -27,15 +27,15 @@
                     if ($(".comment").length) {
                         for (var x = 0; x < result.data.answers.length; x++) {
                             if (result.data.answers[x].Like.includes(currentUser)) {
-                                var target = document.getElementById('likeBtn-' + result.data.answers[x]._id);
-                                if (target) {
+                                var likeDom = document.getElementById('likeBtn-' + result.data.answers[x]._id);
+                                if (likeDom) {
                                     clearInterval(checkElementExist);
                                     $("#likeBtn-" + result.data.answers[x]._id).addClass("active-vote");
                                 }
                             }
                             if (result.data.answers[x].Dislike.includes(currentUser)) {
-                                var target = document.getElementById('dislikeBtn-' + result.data.answers[x]._id);
-                                if (target) {
+                                var dislikeDom = document.getElementById('dislikeBtn-' + result.data.answers[x]._id);
+                                if (dislikeDom) {
                                     clearInterval(checkElementExist);
                                     $("#dislikeBtn-" + result.data.answers[x]._id).addClass("active-vote");
                                 }

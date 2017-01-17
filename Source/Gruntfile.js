@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -9,14 +9,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.initConfig({
         cssmin: {
-            combine: {
-                files: {
-                    'public/css/style.min.css': ['public/css/bootstrap-theme.min.css', 'public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
-                }
+            options: {
+                report: 'gzip'
             },
             target: {
                 files: {
-                    'public/css/style.min.css': 'public/css/style.min.css'
+                    'public/css/style.min.css': ['public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
                 }
             }
         },
@@ -34,7 +32,8 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                mangle: false
+                mangle: false,
+                report: 'gzip'
             },
             my_target: {
                 files: {
@@ -64,14 +63,14 @@ module.exports = function(grunt) {
                     },
                     // omit this property if you aren't serving HTML files and
                     // don't want to open a browser tab on start
-                    callback: function(nodemon) {
+                    callback: function (nodemon) {
                         // opens browser on initial server start
-                        nodemon.on('config:update', function() {
+                        nodemon.on('config:update', function () {
                             // Delay before server listens on port
                             require('open')('http://localhost:8000');
                         });
                         // refreshes browser when server reboots
-                        nodemon.on('restart', function() {
+                        nodemon.on('restart', function () {
                             require('fs').writeFileSync('.rebooted', 'rebooted');
                         });
                     }
@@ -89,7 +88,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ['public/css/*.css', '!public/css/*.min.css'],
-                tasks: ['clean:css', 'cssmin:combine', 'cssmin:target'],
+                tasks: ['clean:css', 'cssmin'],
                 options: {
                     reload: true
                 }
@@ -100,7 +99,6 @@ module.exports = function(grunt) {
                     livereload: true
                 }
             }
-
         },
         clean: {
             js: ['public/js/forum.min.js'],
@@ -109,6 +107,6 @@ module.exports = function(grunt) {
     });
 
     grunt.log.write('Grunt is running\n');
-    grunt.registerTask('default', ['clean:css', 'cssmin:combine', 'cssmin:target', 'clean:js', 'jshint', 'concat:js', 'uglify', 'concurrent']);
+    grunt.registerTask('default', ['clean:css', 'cssmin', 'clean:js', 'jshint', 'concat:js', 'uglify', 'concurrent']);
     grunt.registerTask('development', ['cssmin:combine', 'clean:js', 'jshint', 'concat:js', 'uglify']);
 };
