@@ -18,7 +18,8 @@
     "mongodb": "^2.2.16",
     "mongoose": "^4.7.2",
     "morgan": "^1.7.0",
-    "serve-favicon": "^2.3.2"
+    "serve-favicon": "^2.3.2",
+    "socket.io": "*"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
@@ -30,7 +31,6 @@
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-nodemon": "^0.4.2",
-    "open": "0.0.5",
-    "socket.io": "*"
+    "open": "0.0.5"
   }
 }
