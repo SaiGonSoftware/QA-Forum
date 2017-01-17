@@ -420,7 +420,7 @@ exports.Login = function (req, res) {
     if (socailAccount) {
         var facebookUser = [{
             'Account': req.body.SocialAccount,
-            'SocialId': req.body.SocialAccount,
+            'SocialId': req.body.SocialId,
             'Level': CONSTANT.DEFAULT_LEVEL
         }];
         console.log(facebookUser);
