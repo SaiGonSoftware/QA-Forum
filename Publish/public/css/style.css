@@ -1556,3 +1556,12 @@ aside.comments .comment .body {
 #imgQuestionDetail {
     width: 80%;
 }
+
+#accountMangeContent {
+    margin: 5%;
+}
+
+.list-group-item.active, .panel-primary > .panel-heading {
+    background-color: #1557b5 !important;
+    border-color: #1557b5 !important;
+}

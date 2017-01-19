@@ -9,9 +9,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.initConfig({
         cssmin: {
-            options: {
-                report: 'gzip'
-            },
             target: {
                 files: {
                     'public/css/style.min.css': ['public/css/bootstrap.min.css', 'public/css/font-awesome.min.css', 'public/css/toastr.min.css', 'public/css/style.css']
@@ -21,19 +18,22 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/js/ngFacebook.js', 'public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/js/ngFacebook.js', 'public/frontend/**/*.js', 'public/js/socket.io.js']
                 }
             },
             dev: {
                 files: {
-                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/js/ngFacebook.js', 'public/frontend/**/*.js']
+                    'public/js/forum.min.js': ['public/js/jquery.min.js', 'public/js/bootstrap.min.js', 'public/js/toastr.min.js', 'public/js/angular.min.js', 'public/js/angular-route.min.js', 'public/js/angular-animate.min.js', 'public/js/angular-local-storage.min.js', 'public/js/ngFacebook.js', 'public/frontend/**/*.js', 'public/js/socket.io.js']
                 }
             }
         },
         uglify: {
             options: {
                 mangle: false,
-                report: 'gzip'
+                sourceMap: false,
+                compress: true,
+                report: 'gzip',
+                drop_console: true
             },
             my_target: {
                 files: {
