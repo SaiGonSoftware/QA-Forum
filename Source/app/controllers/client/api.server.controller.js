@@ -371,7 +371,7 @@ exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
     var socialAccount = req.body.SocialAccount;
-    if (username !== null && password !== null) {
+    if (username !== undefined && password !== undefined) {
         User.checkAccountExists(username, function (err, user) {
             var authUser = User.validPassword(password, user.Password);
             if (user === null || authUser === false) {
@@ -390,18 +390,18 @@ exports.Login = function (req, res) {
         }];
         User.checkSocialAccountExists(req.body.SocialId, function (err, account) {
             if (account === null) {
-                return res.json({
-                    success: true,
-                    url: '/'
-                });
-            }
-            else {
                 User.createUser(facebookUser, function (err) {
                     if (err) throw err;
                     return res.json({
                         success: true,
                         url: '/'
                     });
+                });
+            }
+            else {
+                return res.json({
+                    success: true,
+                    url: '/'
                 });
             }
         });
