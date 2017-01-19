@@ -32,6 +32,11 @@ var User = mongoose.model('members', userSchema);
 var checkAccountExists = function (username, callback) {
     User.findOne({'Account': username}, callback);
 };
+
+var checkSocialAccountExists = function (id, callback) {
+    User.findOne({'SocialId': id}, callback);
+};
+
 var checkEmailExists = function (email, callback) {
     User.findOne({'Email': email}, callback);
 };
@@ -54,5 +59,6 @@ module.exports = {
     checkEmailExists: checkEmailExists,
     generateHash: generateHash,
     createUser: createUser,
-    validPassword: validPassword
+    validPassword: validPassword,
+    checkSocialAccountExists: checkSocialAccountExists
 };

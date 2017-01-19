@@ -12,7 +12,6 @@ var Category = require('../../models/client/categories.server.model');
 var CONSTANT = require('../../helpers/constant.helper.server');
 var ObjectId = require('mongodb').ObjectId;
 var google = require('google');
-var async = require('async');
 
 //index page
 exports.GetQuestion = function (req, res) {
@@ -371,70 +370,40 @@ exports.Register = function (req, res) {
 exports.Login = function (req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
-    var socailAccount = req.body.SocialAccount;
-    if (!username && !password) {
-        async.waterfall([
-            function (callback) {
-                try {
-                    User.checkAccountExists(username, callback);
-                } catch (ex) {
-                    res.json({
-                        login: false
-                    });
-                }
-            },
-            function (username, callback) {
-                try {
-                    var authUser = User.validPassword(password, username.Password);
-                    if (authUser) {
-                        callback(null, username);
-                    } else {
-                        res.json({
-                            login: false
-                        });
-                    }
-                } catch (ex) {
-                    res.json({
-                        login: false
-                    });
-                }
-            },
-            function (username, callback) {
-                var userSession = username.Account;
-                callback(null, userSession);
+    var socialAccount = req.body.SocialAccount;
+    if (username !== null && password !== null) {
+        User.checkAccountExists(username, function (err, user) {
+            var authUser = User.validPassword(password, user.Password);
+            if (user === null || authUser === false) {
+                return res.json({login: false});
             }
-        ], function (err, result) {
-            if (err) {
-                res.json({
-                    login: false
-                });
-            } else {
-                res.json({
-                    login: true,
-                    url: '/',
-                    userSession: result
-                });
-            }
+            var userSession = user.Account;
+            req.session.user = user;
+            res.json({login: true, url: '/', userSession: userSession});
         });
     }
-    if (socailAccount) {
+    if (socialAccount !== undefined) {
         var facebookUser = [{
             'Account': req.body.SocialAccount,
             'SocialId': req.body.SocialId,
             'Level': CONSTANT.DEFAULT_LEVEL
         }];
-        console.log(facebookUser);
-        User.createUser(facebookUser, function (err) {
-            if (err) throw err;
-            return res.json({
-                success: true,
-                url: '/'
-            });
-        });
-    }
-    else {
-        res.json({
-            login: false
+        User.checkSocialAccountExists(req.body.SocialId, function (err, account) {
+            if (account === null) {
+                return res.json({
+                    success: true,
+                    url: '/'
+                });
+            }
+            else {
+                User.createUser(facebookUser, function (err) {
+                    if (err) throw err;
+                    return res.json({
+                        success: true,
+                        url: '/'
+                    });
+                });
+            }
         });
     }
 };
