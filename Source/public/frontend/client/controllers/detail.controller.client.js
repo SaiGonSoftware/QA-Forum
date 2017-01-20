@@ -11,9 +11,9 @@
     angular.module('ChatBotApp')
         .controller('DetailController', DetailController);
 
-    DetailController.$inject = ['$scope', '$routeParams', 'QuestionDetailService', 'localStorageService'];
+    DetailController.$inject = ['$scope','$rootScope', '$routeParams', 'QuestionDetailService', 'localStorageService'];
 
-    function DetailController($scope, $routeParams, QuestionDetailService, localStorageService) {
+    function DetailController($scope,$rootScope, $routeParams, QuestionDetailService, localStorageService) {
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
         var currentUser = loginUser ? loginUser : facebookUser;
@@ -22,7 +22,7 @@
             if (result.data.found === true) {
                 $scope.detail = result.data.questionDetail;
                 $scope.refs = result.data.questionDetail.References;
-                $scope.listOfAnswers = result.data.answers;
+                $rootScope.listOfAnswersData = result.data.answers;
                 var checkElementExist = setInterval(function () {
                     if ($(".comment").length) {
                         for (var x = 0; x < result.data.answers.length; x++) {
