@@ -138,9 +138,9 @@ exports.Answer = function (req, res) {
         'QuestionId': ObjectId(req.params.id),
         'Content': req.body.Content,
         'CreateDate': new Date(),
-        'references': req.body.References,
-        'like': [],
-        'dislike': []
+        'References': req.body.References,
+        'Like': [],
+        'Dislike': []
     }];
 
     Answer.submitAnswer(newAnswer, function (err, answer) {

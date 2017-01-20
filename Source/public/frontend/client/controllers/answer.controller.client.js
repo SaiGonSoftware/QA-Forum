@@ -56,13 +56,14 @@
                     else {
                         toastr.success("Đăng Câu Trả Lời Thành Công");
                         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
-                            console.log(result);
+                            var lastElement = result.data.answers.slice(-1)[0];
                             $rootScope.listOfAnswersData.push({
                                 Content: document.getElementById('Content').value,
                                 CreateDate: new Date().toLocaleDateString(),
                                 Dislike: [],
                                 Like: [],
                                 QuestionId: id,
+                                _id: lastElement._id,
                                 References: [],
                                 UserAnswer: currentUser
                             });

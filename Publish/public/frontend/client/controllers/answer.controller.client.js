@@ -31,7 +31,6 @@
             CreateDate: new Date().toLocaleDateString()
         };
 
-
         $scope.$watch('AnswerForm.$valid', function (newValue) {
             $scope.AnswerFormFormValid = newValue;
         });
@@ -57,14 +56,18 @@
                     else {
                         toastr.success("Đăng Câu Trả Lời Thành Công");
                         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
-                            console.log(result);
-                            $rootScope.listOfAnswers.push({
-                                UserAnswer: currentUser,
-                                Content: $scope.AnswerData.Content,
-                                CreateDate: new Date().toLocaleDateString()
+                            var lastElement = result.data.answers.slice(-1)[0];
+                            $rootScope.listOfAnswersData.push({
+                                Content: document.getElementById('Content').value,
+                                CreateDate: new Date().toLocaleDateString(),
+                                Dislike: [],
+                                Like: [],
+                                QuestionId: id,
+                                _id: lastElement._id,
+                                References: [],
+                                UserAnswer: currentUser
                             });
                         });
-                        //$rootScope.answers.push($scope.AnswerData);
                     }
                 });
             }

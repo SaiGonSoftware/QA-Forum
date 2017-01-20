@@ -26,27 +26,23 @@
                     hr
                     h2
                         i.fa.fa-comments
-                        |  {{listOfAnswers.length}} Câu Trả Lời
-                    article.comment(ng-repeat="answer in listOfAnswers")
-                        header.clearfix
-                            vote
-                            //-img.avatar(src='img/avatar.png', alt='A Smart Guy')
-                            .meta
-                                h3
-                                    a(href='#') {{answer.UserAnswer}}
-                                span.date
-                                    | {{answer.CreateDate | date : format : fullDate}}
-                                span.separator
-                                    | -
-                                span  Đã Trả Lời
-                                p
-                                    span(id='like-{{answer._id}}')  {{answer.Like.length}}
-                                    | &nbsp;lượt like
-                                p
-                                    span(id='dislike-{{answer._id}}') {{answer.Dislike.length}}
-                                    | &nbsp;lượt dislike
-                        .body
-                            | {{answer.Content}}
+                        |  {{listOfAnswersData.length}} Câu Trả Lời
+                    .comment-wrapper
+                        article.comment(ng-repeat="answerListData in listOfAnswersData")
+
+                            header.clearfix
+                                vote
+                                //-img.avatar(src='img/avatar.png', alt='A Smart Guy')
+                                .meta
+                                    h3
+                                        a(href='#') {{answerListData.UserAnswer}}
+                                    span.date
+                                        | {{answerListData.CreateDate | date : "dd.MM.y"}}
+                                    span.separator
+                                        | -
+                                    span  Đã Trả Lời
+                            .body
+                                | {{answerListData.Content}}
                     //-article.comment.reply
                       header.clearfix
                         img.avatar(src='img/avatar.png', alt='A Smart Guy')
