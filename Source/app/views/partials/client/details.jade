@@ -37,16 +37,10 @@
                                     h3
                                         a(href='#') {{answerListData.UserAnswer}}
                                     span.date
-                                        | {{answerListData.CreateDate | date : format : fullDate}}
+                                        | {{answerListData.CreateDate | date : "dd.MM.y"}}
                                     span.separator
                                         | -
                                     span  Đã Trả Lời
-                                    p
-                                        span(id='like-{{answer._id}}')  {{answerListData.Like.length}}
-                                        | &nbsp;lượt like
-                                    p
-                                        span(id='dislike-{{answer._id}}') {{answerListData.Dislike.length}}
-                                        | &nbsp;lượt dislike
                             .body
                                 | {{answerListData.Content}}
                     //-article.comment.reply
