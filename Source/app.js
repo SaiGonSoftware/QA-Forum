@@ -30,7 +30,9 @@ app.use(session({
     saveUninitialized: true,
     duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000,
-    cookie: {maxAge: 6000}
+    cookie: {
+        maxAge: 6000
+    }
 }));
 
 // view engine setup
@@ -43,7 +45,7 @@ var indexRoute = require('./app/routes/client/index.server.routes'),
     apiRoute = require('./app/routes/client/api.server.routes');
 
 //set route for specific request
-app.get('/partials/:partialPath', function (req, res) {
+app.get('/partials/:partialPath', function(req, res) {
     res.render('partials/client/' + req.params.partialPath);
 });
 app.use('/directives', express.static(path.join(__dirname, 'app/views/directives/client')));
@@ -58,7 +60,7 @@ if (env === 'production') {
     // TODO
 }
 
-io.sockets.on('connection', function (socket) {
+io.sockets.on('connection', function(socket) {
     connections.push(socket);
     console.log('Connected: %s sockets connected', connections.length);
 
@@ -66,6 +68,6 @@ io.sockets.on('connection', function (socket) {
     connections.splice(connections.indexOf(socket), 1);
     console.log('Disconnected: %s sockets connected', connections.length);
 });
-server.listen(port, function () {
+server.listen(port, function() {
     console.log("Web server listening on port " + port);
 });

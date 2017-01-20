@@ -14,9 +14,9 @@ var ObjectId = require('mongodb').ObjectId;
 var google = require('google');
 
 //index page
-exports.GetQuestion = function (req, res) {
+exports.GetQuestion = function(req, res) {
     var limitItem = CONSTANT.LIMIT_ITEM;
-    Question.getQuestion(limitItem, function (err, questions) {
+    Question.getQuestion(limitItem, function(err, questions) {
         if (err) res.json({
             msg: err
         });
@@ -25,12 +25,12 @@ exports.GetQuestion = function (req, res) {
         });
     });
 };
-exports.GetNextQuestion = function (req, res) {
+exports.GetNextQuestion = function(req, res) {
     var limitItem = CONSTANT.LIMIT_ITEM;
     if (req.params.requestTime !== null) {
         limitItem *= req.params.requestTime;
     }
-    Question.getQuestion(limitItem, function (err, questions) {
+    Question.getQuestion(limitItem, function(err, questions) {
         if (err) res.json({
             msg: err
         });
@@ -54,17 +54,17 @@ exports.GetNextQuestion = function (req, res) {
  });
  };*/
 //details page
-exports.QuestionDetail = function (req, res) {
+exports.QuestionDetail = function(req, res) {
     var id = req.params.id;
     if (id !== null) {
-        Question.getQuestionDetail(id, function (err, questionDetail) {
+        Question.getQuestionDetail(id, function(err, questionDetail) {
             if (err) {
                 res.json({
                     found: false,
                     msg: "Not Found"
                 });
             } else {
-                Answer.getAnswerViaQuestion(id, function (err, answers) {
+                Answer.getAnswerViaQuestion(id, function(err, answers) {
                     if (err) res.json({
                         success: false,
                         msg: "Error"
@@ -82,14 +82,14 @@ exports.QuestionDetail = function (req, res) {
         });
     }
 };
-exports.Question = function (req, res) {
+exports.Question = function(req, res) {
     var refArray = [];
     var resultArray = [];
     google.resultsPerPage = CONSTANT.SEARCH_RESULT;
     var searchForRef = new Promise(
-        function (resolve, reject) {
+        function(resolve, reject) {
             if (req.body.Title) {
-                google(req.body.Title + CONSTANT.SEARCH_STRING, function (err, res) {
+                google(req.body.Title + CONSTANT.SEARCH_STRING, function(err, res) {
                     if (err) console.error(err);
 
                     for (var i = 0; i < res.links.length; i++) {
@@ -108,7 +108,7 @@ exports.Question = function (req, res) {
         }
     );
     searchForRef.then(
-        function () {
+        function() {
             var newQuestion = [{
                 'CategoryId': ObjectId(req.body.CategoryId),
                 'UserQuestion': req.body.UserQuestion,
@@ -118,7 +118,7 @@ exports.Question = function (req, res) {
                 'CreateDate': new Date()
             }];
 
-            Question.submitQuestion(newQuestion, function (err, newInsertQuestion) {
+            Question.submitQuestion(newQuestion, function(err, newInsertQuestion) {
                 var questionInsertId = newInsertQuestion.ops[0]._id;
                 if (err) res.json({
                     success: false,
@@ -132,7 +132,7 @@ exports.Question = function (req, res) {
             });
         });
 };
-exports.Answer = function (req, res) {
+exports.Answer = function(req, res) {
     var newAnswer = [{
         'UserAnswer': req.body.UserAnswer,
         'QuestionId': ObjectId(req.params.id),
@@ -143,7 +143,7 @@ exports.Answer = function (req, res) {
         'Dislike': []
     }];
 
-    Answer.submitAnswer(newAnswer, function (err, answer) {
+    Answer.submitAnswer(newAnswer, function(err, answer) {
         if (err) {
             res.json({
                 success: false,
@@ -156,14 +156,14 @@ exports.Answer = function (req, res) {
         });
     });
 };
-exports.Like = function (req, res) {
+exports.Like = function(req, res) {
     var username = req.body.UserLike;
     var answerId = req.body.AnswerId;
     if (username !== null && answerId !== null) {
-        Answer.checkLikeExists(answerId, username, function (err, exists) {
+        Answer.checkLikeExists(answerId, username, function(err, exists) {
             if (exists.length > CONSTANT.EXIST_ITEM) {
-                Answer.unLike(answerId, username, function (err, result) {
-                    Answer.getAnswerViaId(answerId, function (err, total) {
+                Answer.unLike(answerId, username, function(err, result) {
+                    Answer.getAnswerViaId(answerId, function(err, total) {
                         res.json({
                             success: true,
                             checkLikeAndDislike: true,
@@ -173,7 +173,7 @@ exports.Like = function (req, res) {
                     });
                 });
             } else {
-                Answer.addLike(answerId, username, function (err, like) {
+                Answer.addLike(answerId, username, function(err, like) {
                     if (err) {
                         console.log(err);
                         res.json({
@@ -182,7 +182,7 @@ exports.Like = function (req, res) {
                         });
                     } else {
                         if (like.result.nModified === CONSTANT.EXIST_ITEM) {
-                            Answer.countLike(answerId, function (err, total) {
+                            Answer.countLike(answerId, function(err, total) {
                                 res.json({
                                     success: true,
                                     alreadyLike: true,
@@ -191,7 +191,7 @@ exports.Like = function (req, res) {
                                 });
                             });
                         } else {
-                            Answer.countLike(answerId, function (err, total) {
+                            Answer.countLike(answerId, function(err, total) {
                                 res.json({
                                     success: true,
                                     alreadyLike: false,
@@ -206,14 +206,14 @@ exports.Like = function (req, res) {
         });
     }
 };
-exports.Dislike = function (req, res) {
+exports.Dislike = function(req, res) {
     var username = req.body.UserDislike;
     var answerId = req.body.AnswerId;
     if (username !== null && answerId !== null) {
-        Answer.checkDislikeExists(answerId, username, function (err, exists) {
+        Answer.checkDislikeExists(answerId, username, function(err, exists) {
             if (exists.length > CONSTANT.EXIST_ITEM) {
-                Answer.unDislike(answerId, username, function (err, result) {
-                    Answer.getAnswerViaId(answerId, function (err, total) {
+                Answer.unDislike(answerId, username, function(err, result) {
+                    Answer.getAnswerViaId(answerId, function(err, total) {
                         res.json({
                             success: true,
                             checkLikeAndDislike: true,
@@ -223,7 +223,7 @@ exports.Dislike = function (req, res) {
                     });
                 });
             } else {
-                Answer.addDislike(answerId, username, function (err, like) {
+                Answer.addDislike(answerId, username, function(err, like) {
                     if (err) {
                         console.log(err);
                         res.json({
@@ -232,7 +232,7 @@ exports.Dislike = function (req, res) {
                         });
                     } else {
                         if (like.result.nModified === CONSTANT.EXIST_ITEM) {
-                            Answer.countDislike(answerId, function (err, total) {
+                            Answer.countDislike(answerId, function(err, total) {
                                 res.json({
                                     success: true,
                                     alreadyDislike: true,
@@ -241,7 +241,7 @@ exports.Dislike = function (req, res) {
                                 });
                             });
                         } else {
-                            Answer.countDislike(answerId, function (err, total) {
+                            Answer.countDislike(answerId, function(err, total) {
                                 res.json({
                                     success: true,
                                     alreadyDislike: false,
@@ -257,12 +257,12 @@ exports.Dislike = function (req, res) {
 
     }
 };
-exports.UnLike = function (req, res) {
+exports.UnLike = function(req, res) {
     var username = req.body.UserLike;
     var answerId = req.body.AnswerId;
     console.log(username);
 
-    Answer.unLike(answerId, username, function (err) {
+    Answer.unLike(answerId, username, function(err) {
         if (err) res.json({
             success: false,
             msg: "Error"
@@ -273,12 +273,12 @@ exports.UnLike = function (req, res) {
         });
     });
 };
-exports.UnDislike = function (req, res) {
+exports.UnDislike = function(req, res) {
     var username = req.body.UserLike;
     var answerId = req.body.AnswerId;
     console.log(username);
 
-    Answer.unDislike(answerId, username, function (err) {
+    Answer.unDislike(answerId, username, function(err) {
         if (err) res.json({
             success: false,
             msg: "Error"
@@ -289,10 +289,10 @@ exports.UnDislike = function (req, res) {
         });
     });
 };
-exports.RemoveAnswer = function (req, res) {
+exports.RemoveAnswer = function(req, res) {
     var answerId = req.body.answerId;
     console.log(answerId);
-    Answer.removeAnswer(answerId, function (err) {
+    Answer.removeAnswer(answerId, function(err) {
         if (err) res.json({
             success: false,
             msg: "Error"
@@ -303,10 +303,10 @@ exports.RemoveAnswer = function (req, res) {
         });
     });
 };
-exports.EditAnswer = function (req, res) {
+exports.EditAnswer = function(req, res) {
     var answerId = req.params.id;
     var answerContent = req.body.answerContent;
-    Answer.editAnswer(answerId, answerContent, function (err) {
+    Answer.editAnswer(answerId, answerContent, function(err) {
         if (err) res.json({
             success: false,
             msg: "Error"
@@ -319,14 +319,13 @@ exports.EditAnswer = function (req, res) {
 };
 
 //account relative
-//account relative
-exports.Register = function (req, res) {
+exports.Register = function(req, res) {
     var usernameRegis = req.body.UsernameRegis;
     var emailRegis = req.body.EmailRegis;
     var passwordRegis = req.body.PasswordRegis;
     if (usernameRegis !== null && emailRegis !== null && passwordRegis !== null) {
-        User.checkAccountExists(usernameRegis, function (err, account) {
-            User.checkEmailExists(emailRegis, function (err, email) {
+        User.checkAccountExists(usernameRegis, function(err, account) {
+            User.checkEmailExists(emailRegis, function(err, email) {
                 if (err) throw err;
                 if (account && email) {
                     return res.json({
@@ -352,7 +351,7 @@ exports.Register = function (req, res) {
                         'Level': CONSTANT.DEFAULT_LEVEL
                     }];
 
-                    User.createUser(newUser, function (err) {
+                    User.createUser(newUser, function(err) {
                         if (err) throw err;
                         return res.json({
                             success: true,
@@ -362,24 +361,31 @@ exports.Register = function (req, res) {
                 }
             });
         });
-    }
-    else {
-        res.json({msg: "Error"});
+    } else {
+        res.json({
+            msg: "Error"
+        });
     }
 };
-exports.Login = function (req, res) {
+exports.Login = function(req, res) {
     var username = req.body.UsernameLogin;
     var password = req.body.PasswordLogin;
     var socialAccount = req.body.SocialAccount;
     if (username !== undefined && password !== undefined) {
-        User.checkAccountExists(username, function (err, user) {
+        User.checkAccountExists(username, function(err, user) {
             var authUser = User.validPassword(password, user.Password);
             if (user === null || authUser === false) {
-                return res.json({login: false});
+                return res.json({
+                    login: false
+                });
             }
             var userSession = user.Account;
             req.session.user = user;
-            res.json({login: true, url: '/', userSession: userSession});
+            res.json({
+                login: true,
+                url: '/',
+                userSession: userSession
+            });
         });
     }
     if (socialAccount !== undefined) {
@@ -388,17 +394,16 @@ exports.Login = function (req, res) {
             'SocialId': req.body.SocialId,
             'Level': CONSTANT.DEFAULT_LEVEL
         }];
-        User.checkSocialAccountExists(req.body.SocialId, function (err, account) {
+        User.checkSocialAccountExists(req.body.SocialId, function(err, account) {
             if (account === null) {
-                User.createUser(facebookUser, function (err) {
+                User.createUser(facebookUser, function(err) {
                     if (err) throw err;
                     return res.json({
                         success: true,
                         url: '/'
                     });
                 });
-            }
-            else {
+            } else {
                 return res.json({
                     success: true,
                     url: '/'
@@ -407,22 +412,33 @@ exports.Login = function (req, res) {
         });
     }
 };
+exports.GetAllContrib = function(req, res) {
+    var currentUser = req.params.currentUser;
+    Question.getAllContrib(currentUser, function(err, user_contrib) {
+        if (err) return res.json({err: err});
+        return res.json({
+            user_contrib: user_contrib
+        });
+    });
+}
+
+
 
 //category relative
-exports.Category = function (req, res) {
-    Category.getCategories(function (err, categories) {
+exports.Category = function(req, res) {
+    Category.getCategories(function(err, categories) {
         if (err)
             return res.status(500).send();
         else
             res.send(categories);
     });
 };
-exports.GetCategoryInfo = function (req, res) {
+exports.GetCategoryInfo = function(req, res) {
     var listCount = [];
     var indexCount = 0;
-    Category.getCategories(function (err, categories) {
-        categories.forEach(function (category) {
-            Question.countTotalQuestionViaCategory(category._id, function (err, total) {
+    Category.getCategories(function(err, categories) {
+        categories.forEach(function(category) {
+            Question.countTotalQuestionViaCategory(category._id, function(err, total) {
                 listCount.push(total);
                 if (indexCount == categories.length - 1) {
                     res.json({
@@ -435,10 +451,10 @@ exports.GetCategoryInfo = function (req, res) {
         });
     });
 };
-exports.QuestionViaCategory = function (req, res) {
+exports.QuestionViaCategory = function(req, res) {
     var id = req.params.id;
     var limitItem = CONSTANT.LIMIT_ITEM;
-    Question.getQuestionViaCategory(id, limitItem, function (err, questions) {
+    Question.getQuestionViaCategory(id, limitItem, function(err, questions) {
         if (err) res.json({
             id: id,
             found: false,
@@ -453,13 +469,13 @@ exports.QuestionViaCategory = function (req, res) {
         }
     });
 };
-exports.GetNextQuestionViaCategory = function (req, res) {
+exports.GetNextQuestionViaCategory = function(req, res) {
     var limitItem = CONSTANT.LIMIT_ITEM;
     var categoryId = req.params.id;
     if (req.body.requestTime !== null) {
         limitItem *= req.params.requestTime;
     }
-    Question.getQuestionViaCategory(categoryId, limitItem, function (err, questions) {
+    Question.getQuestionViaCategory(categoryId, limitItem, function(err, questions) {
         if (err) res.json({
             msg: err
         });
@@ -469,9 +485,9 @@ exports.GetNextQuestionViaCategory = function (req, res) {
     });
 };
 
-exports.FindQuestion = function (req, res) {
+exports.FindQuestion = function(req, res) {
     var queryString = req.params.queryString;
-    Question.findQuestion(queryString, function (err, questions) {
+    Question.findQuestion(queryString, function(err, questions) {
         if (err) res.json({
             msg: err
         });

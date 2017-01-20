@@ -1,27 +1,27 @@
 .container
-    .row#signinContent(ng-controller="RegisterController")
-        .col-md-6.col-md-offset-3
-            .panel.panel-login
-                .panel-heading
-                    .row
-                        .col-xs-12
-                            span#login-form-link.active Đăng Ký
-                    hr
-                .panel-body
-                    .row
-                        .col-lg-12
-                            form#register-form(name='RegisForm', novalidate='', ng-submit="Register()",style='')
-                                .form-group
-                                    input#UsernameRegis.form-control(type='text', name='UsernameRegis', tabindex='1', placeholder='Tài Khoản',ng-model="RegisData.UsernameRegis", ng-class="RegisFormSubmmit?'ng-dirty':''", required='', autofocus='')
-                                    label(for='UsernameRegis', ng-show='(RegisForm.UsernameRegis.$dirty || RegisFormSubmmit) && RegisForm.UsernameRegis.$error.required') Tài khoản không được để trống
-                                .form-group
-                                    input#EmailRegis.form-control(type='email', name='EmailRegis', tabindex='1', placeholder='Email',ng-model="RegisData.EmailRegis", ng-class="RegisFormSubmmit?'ng-dirty':''", required='', autofocus='')
-                                    label(for='EmailRegis', ng-show='(RegisForm.EmailRegis.$dirty || RegisFormSubmmit) && RegisForm.EmailRegis.$error.required') Email không được để trống
-                                .form-group
-                                    input#PasswordRegis.form-control(type='password', name='PasswordRegis', tabindex='2', placeholder='Mật Khẩu',ng-model="RegisData.PasswordRegis", ng-class="RegisFormSubmmit?'ng-dirty':''", required='', autofocus='')
-                                    label(for='PasswordRegis', ng-show='(RegisForm.PasswordRegis.$dirty || RegisFormSubmmit) && RegisForm.PasswordRegis.$error.required') Mật khẩu không được để trống
-                                .form-group
-                                    .row
-                                        .col-sm-6.col-sm-offset-3.text-center
-                                            button#register-submit.btn.btn-primary.form-control.btn.btn-register(type='submit', name='register-submit', tabindex='4',ng-hide="HideRegisBtn") Đăng Ký
-                                            img(src='/img/icon/loading.gif',ng-show='ShowLoading')
+	.row#signinContent(ng-controller="RegisterController")
+		.col-md-6.col-md-offset-3
+			.panel.panel-login
+				.panel-heading
+					.row
+						.col-xs-12
+							span#login-form-link.active Đăng Ký
+					hr
+				.panel-body
+					.row
+						.col-lg-12
+							form#register-form(name='RegisForm', novalidate='', ng-submit="Register()",style='')
+								.form-group
+									input#UsernameRegis.form-control(type='text', name='UsernameRegis', tabindex='1', placeholder='Tài Khoản',ng-model="RegisData.UsernameRegis", ng-class="RegisFormSubmmit?'ng-dirty':''", required='', autofocus='')
+									label(for='UsernameRegis', ng-show='(RegisForm.UsernameRegis.$dirty || RegisFormSubmmit) && RegisForm.UsernameRegis.$error.required') Tài khoản không được để trống
+								.form-group
+									input#EmailRegis.form-control(type='email', name='EmailRegis', tabindex='1', placeholder='Email',ng-model="RegisData.EmailRegis", ng-class="RegisFormSubmmit?'ng-dirty':''", required='', autofocus='')
+									label(for='EmailRegis', ng-show='(RegisForm.EmailRegis.$dirty || RegisFormSubmmit) && RegisForm.EmailRegis.$error.required') Email không được để trống
+								.form-group
+									input#PasswordRegis.form-control(type='password', name='PasswordRegis', tabindex='2', placeholder='Mật Khẩu',ng-model="RegisData.PasswordRegis", ng-class="RegisFormSubmmit?'ng-dirty':''", required='', autofocus='')
+									label(for='PasswordRegis', ng-show='(RegisForm.PasswordRegis.$dirty || RegisFormSubmmit) && RegisForm.PasswordRegis.$error.required') Mật khẩu không được để trống
+								.form-group
+									.row
+										.col-sm-6.col-sm-offset-3.text-center
+											button#register-submit.btn.btn-primary.form-control.btn.btn-register(type='submit', name='register-submit', tabindex='4',ng-hide="HideRegisBtn") Đăng Ký
+											img(src='/img/icon/loading.gif',ng-show='ShowLoading')

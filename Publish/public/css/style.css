@@ -76,6 +76,7 @@ hr {
     width: 45%;
 }
 
+
 /*.widewrapper {
     background-color: #feffff
 }*/
@@ -130,22 +131,22 @@ hr {
     font-size: 16px
 }
 
-.tales-nav .nav-pills > li {
+.tales-nav .nav-pills>li {
     margin-left: 10px
 }
 
-.tales-nav .nav-pills > li > a {
+.tales-nav .nav-pills>li>a {
     color: #f8f8f9;
     padding: 11px 16px;
     line-height: 14px
 }
 
-.tales-nav .nav-pills > li > a:hover, .tales-nav .nav-pills > li > a:focus {
+.tales-nav .nav-pills>li>a:hover, .tales-nav .nav-pills>li>a:focus {
     color: #f8f8f9;
     background-color: #37424c
 }
 
-.tales-nav .nav-pills > li.dropdown.open.active > a:hover, .tales-nav .nav-pills > li.dropdown.open.active > a:focus {
+.tales-nav .nav-pills>li.dropdown.open.active>a:hover, .tales-nav .nav-pills>li.dropdown.open.active>a:focus {
     background-color: #37424c
 }
 
@@ -153,11 +154,11 @@ hr {
     background-color: #37424c
 }
 
-.tales-nav .nav-pills > .active > a {
+.tales-nav .nav-pills>.active>a {
     background-color: #37424c
 }
 
-.tales-nav .nav-pills > .active > a:hover, .tales-nav .nav-pills > .active > a:focus {
+.tales-nav .nav-pills>.active>a:hover, .tales-nav .nav-pills>.active>a:focus {
     background-color: #37424c
 }
 
@@ -187,13 +188,13 @@ hr {
     padding: 5px 0
 }
 
-.tales-nav .dropdown-menu > li > a {
+.tales-nav .dropdown-menu>li>a {
     color: #f8f8f9;
     line-height: 30px;
     white-space: nowrap
 }
 
-.tales-nav .dropdown-menu > li > a:hover, .tales-nav .dropdown-menu > li > a:focus {
+.tales-nav .dropdown-menu>li>a:hover, .tales-nav .dropdown-menu>li>a:focus {
     background-color: #636c74;
     background-color: rgba(255, 255, 255, 0.15);
     background-image: none;
@@ -205,7 +206,7 @@ hr {
     box-shadow: none
 }
 
-.tales-nav .navbar-nav > li > .dropdown-menu {
+.tales-nav .navbar-nav>li>.dropdown-menu {
     margin-top: 2px
 }
 
@@ -232,7 +233,6 @@ hr {
     .masthead {
         padding-bottom: 0px
     }
-
     .tales-nav {
         box-shadow: none;
         background-color: #37424c;
@@ -244,22 +244,18 @@ hr {
         -moz-border-radius: 6px;
         border-radius: 6px
     }
-
     .tales-nav .navbar-collapse {
         max-height: none
     }
-
-    .tales-nav .nav-pills > li {
+    .tales-nav .nav-pills>li {
         margin-left: 0;
         float: none
     }
-
-    .tales-nav .nav-pills > li > a {
+    .tales-nav .nav-pills>li>a {
         margin-left: 40px;
         margin-right: 40px
     }
-
-    .tales-nav .nav-pills > li a {
+    .tales-nav .nav-pills>li a {
         font-weight: normal;
         font-size: 20px;
         line-height: 30px;
@@ -269,48 +265,38 @@ hr {
         -moz-border-radius: 0px;
         border-radius: 0px
     }
-
-    .tales-nav .nav-pills > li:first-child > a {
+    .tales-nav .nav-pills>li:first-child>a {
         border-top: none
     }
-
-    .tales-nav .nav-pills > li > a:hover, .tales-nav .nav-pills > li > a:focus {
+    .tales-nav .nav-pills>li>a:hover, .tales-nav .nav-pills>li>a:focus {
         background: transparent
     }
-
-    .tales-nav .nav-pills > li.dropdown.open.active > a:hover, .tales-nav .nav-pills > li.dropdown.open.active > a:focus {
+    .tales-nav .nav-pills>li.dropdown.open.active>a:hover, .tales-nav .nav-pills>li.dropdown.open.active>a:focus {
         background: transparent
     }
-
-    .tales-nav .nav-pills .active > a, .tales-nav .nav-pills .active > a:hover, .tales-nav .nav-pills .active > a:focus {
+    .tales-nav .nav-pills .active>a, .tales-nav .nav-pills .active>a:hover, .tales-nav .nav-pills .active>a:focus {
         background: transparent
     }
-
     .tales-nav .nav-pills .open .dropdown-toggle {
         background-color: transparent;
         border-color: #3e4953;
         padding-bottom: 7px
     }
-
     .tales-nav .nav-pills .dropdown-toggle .caret {
         float: right;
         margin-top: 14px
     }
-
     .tales-nav .nav-pills .dropdown-menu {
         background-color: #49545d
     }
-
     .tales-nav .nav-pills .dropdown.open {
         background-color: #49545d
     }
-
     .tales-nav .caret {
         border-color: #f8f8f9 transparent transparent transparent !important;
         border-width: 6px;
         display: block
     }
-
     .tales-nav .dropdown-menu {
         margin-top: 0;
         padding-top: 0;
@@ -319,23 +305,19 @@ hr {
         box-shadow: none;
         border: none
     }
-
-    .tales-nav .dropdown-menu > li {
+    .tales-nav .dropdown-menu>li {
         margin-left: 35px
     }
-
-    .tales-nav .dropdown-menu > li > a {
+    .tales-nav .dropdown-menu>li>a {
         padding-top: 9px;
         padding-bottom: 9px !important;
         font-size: 18px;
         line-height: 27px
     }
-
-    .tales-nav .dropdown-menu > li > a:hover, .tales-nav .dropdown-menu > li > a:focus {
+    .tales-nav .dropdown-menu>li>a:hover, .tales-nav .dropdown-menu>li>a:focus {
         background-color: transparent
     }
-
-    .tales-nav .navbar-nav .open .dropdown-menu > li > a {
+    .tales-nav .navbar-nav .open .dropdown-menu>li>a {
         padding-top: 9px;
         padding-bottom: 9px;
         line-height: 27px
@@ -895,11 +877,9 @@ hr {
         width: 122px;
         height: 122px
     }
-
     .span6 .social-icon {
         margin-left: -8px
     }
-
     .social-icon .inner-circle {
         position: absolute;
         top: 11px;
@@ -908,18 +888,15 @@ hr {
         height: 100px;
         width: 100px
     }
-
     .social-icon:hover .inner-circle {
         width: 122px;
         height: 122px
     }
-
     .social-icon i {
         font-size: 50px;
         top: 36px;
         left: 37px
     }
-
     .social-icon i.fa-facebook {
         left: 50px
     }
@@ -932,7 +909,6 @@ hr {
         height: 81px;
         margin-bottom: 40px
     }
-
     .social-icon .inner-circle {
         position: absolute;
         top: 8px;
@@ -941,24 +917,20 @@ hr {
         height: 65px;
         width: 65px
     }
-
     .social-icon:hover .inner-circle {
         height: 65px;
         width: 65px;
         top: 8px;
         left: 8px
     }
-
     .social-icon i {
         font-size: 35px;
         top: 25px;
         left: 25px
     }
-
     .social-icon i.fa-facebook {
         left: 32px
     }
-
     .social-icon i.fa-github-alt {
         top: 22px
     }
@@ -1032,13 +1004,14 @@ aside.comments .comment.reply {
 
 aside.comments .comment header img {
     float: left;
-    border-radius: 100px
+    border-radius: 100px;
+    width: 65px;
 }
 
 aside.comments .comment header .meta {
     margin-left: 100px;
     font-size: 14px;
-    margin-top: -110px;
+    margin-top: -150px;
 }
 
 aside.comments .comment header .meta h3 {
@@ -1141,7 +1114,6 @@ aside.comments .comment .body {
     .credits {
         text-align: center
     }
-
     .credits img {
         margin-left: auto;
         margin-right: auto
@@ -1382,14 +1354,14 @@ aside.comments .comment .body {
     box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 }
 
-.panel-login > .panel-heading {
+.panel-login>.panel-heading {
     color: #00415d;
     background-color: #fff;
     border-color: #fff;
     text-align: center;
 }
 
-.panel-login > .panel-heading a {
+.panel-login>.panel-heading a {
     text-decoration: none;
     color: #666;
     font-weight: bold;
@@ -1399,12 +1371,12 @@ aside.comments .comment .body {
     transition: all 0.1s linear;
 }
 
-.panel-login > .panel-heading a.active {
+.panel-login>.panel-heading a.active {
     color: #029f5b;
     font-size: 18px;
 }
 
-.panel-login > .panel-heading hr {
+.panel-login>.panel-heading hr {
     margin-top: 10px;
     margin-bottom: 0px;
     clear: both;
@@ -1425,8 +1397,7 @@ aside.comments .comment .body {
     transition: all 0.1s linear;
 }
 
-.panel-login input:hover,
-.panel-login input:focus {
+.panel-login input:hover, .panel-login input:focus {
     outline: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -1446,8 +1417,7 @@ aside.comments .comment .body {
     border-color: #59B2E6;
 }
 
-.btn-login:hover,
-.btn-login:focus {
+.btn-login:hover, .btn-login:focus {
     color: #fff;
     background-color: #53A3CD;
     border-color: #53A3CD;
@@ -1458,8 +1428,7 @@ aside.comments .comment .body {
     color: #888;
 }
 
-.forgot-password:hover,
-.forgot-password:focus {
+.forgot-password:hover, .forgot-password:focus {
     text-decoration: underline;
     color: #666;
 }
@@ -1476,8 +1445,7 @@ aside.comments .comment .body {
     border-color: #1CB94A;
 }
 
-.btn-register:hover,
-.btn-register:focus {
+.btn-register:hover, .btn-register:focus {
     color: #fff;
     background-color: #1CA347;
     border-color: #1CA347;
@@ -1561,7 +1529,11 @@ aside.comments .comment .body {
     margin: 5%;
 }
 
-.list-group-item.active, .panel-primary > .panel-heading {
+.list-group-item.active, .panel-primary>.panel-heading {
     background-color: #1557b5 !important;
     border-color: #1557b5 !important;
+}
+
+.vote-wrapper {
+    padding-bottom: 35px;
 }

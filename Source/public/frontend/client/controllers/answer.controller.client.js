@@ -46,7 +46,7 @@
             if ($scope.AnswerFormFormValid) {
                 $scope.ShowLoading = true;
                 $scope.HideAnswerBtn = true;
-                var id = $('#QuestionId').val();
+                var id = document.getElementById('QuestionId').value;
                 AnswerService.PostAnswer($scope.AnswerData, id).then(function (result) {
                     $scope.HideAnswerBtn = false;
                     $scope.ShowLoading = false;

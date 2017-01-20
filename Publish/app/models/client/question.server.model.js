@@ -33,46 +33,66 @@ var questionSchema = new mongoose.Schema({
         require: true
     }
 });
-questionSchema.index({Title: 'text', Content: 'text'});
+questionSchema.index({
+    Title: 'text',
+    Content: 'text'
+});
 var Question = mongoose.model('questions', questionSchema);
 
-var countQuestion = function (option, callback) {
+var countQuestion = function(option, callback) {
     Question.count(option, callback);
 };
-var getQuestionPaginate = function (limitItemOnePage, currentPage, callback) {
+var getQuestionPaginate = function(limitItemOnePage, currentPage, callback) {
     var numberOfSkipItem = limitItemOnePage * (currentPage - 1);
-    Question.find().limit(limitItemOnePage).skip(numberOfSkipItem).sort({'CreateDate': 'descending'}).exec(callback);
+    Question.find().limit(limitItemOnePage).skip(numberOfSkipItem).sort({
+        'CreateDate': 'descending'
+    }).exec(callback);
 };
-var getQuestionDetail = function (id, callback) {
+var getQuestionDetail = function(id, callback) {
     Question.findById(id).populate('QuestionId').exec(callback);
 };
 //api for mobile
-var questionMobileIndex = function (callback) {
-    Question.find({}).sort({'CreateDate': -1}).exec(callback);
+var questionMobileIndex = function(callback) {
+    Question.find({}).sort({
+        'CreateDate': -1
+    }).exec(callback);
 };
-var getQuestion = function (limitItem, callback) {
-    Question.find().limit(limitItem).sort({'CreateDate': 'descending'}).exec(callback);
+var getQuestion = function(limitItem, callback) {
+    Question.find().limit(limitItem).sort({
+        'CreateDate': 'descending'
+    }).exec(callback);
 };
-var getQuestionViaCategory = function (id, limitItem, callback) {
-    Question.find({"CategoryId": ObjectId(id)}).limit(limitItem).exec(callback);
+var getQuestionViaCategory = function(id, limitItem, callback) {
+    Question.find({
+        "CategoryId": ObjectId(id)
+    }).limit(limitItem).exec(callback);
 };
 
-var submitQuestion = function (question, callback) {
+var submitQuestion = function(question, callback) {
     Question.collection.insert(question, callback);
 };
-var findQuestion = function (findString, callback) {
-    //var regex = new RegExp('[ẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+', '');
+var findQuestion = function(findString, callback) {
     Question.find({
-        $text: {$search: findString}
-    }).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
-    // Question.find({"Title": regex}).limit(5).sort({'CreateDate': 'descending'}).exec(callback);
+        $text: {
+            $search: findString
+        }
+    }).limit(5).sort({
+        'CreateDate': 'descending'
+    }).exec(callback);
 };
 
-var countTotalQuestionViaCategory = function (categoryId, callback) {
-    //db.orders.find( { ord_dt: { $gt: new Date('01/01/2012') } } ).count()
-    Question.find({CategoryId: ObjectId(categoryId)}).count(callback);
+var countTotalQuestionViaCategory = function(categoryId, callback) {
+    Question.find({
+        CategoryId: ObjectId(categoryId)
+    }).count(callback);
 };
 
+
+var getAllContrib = function(currentUser,callback) {
+    Question.find({
+        UserQuestion: currentUser
+    }).exec(callback);
+}
 module.exports = {
     Question: Question,
     countQuestion: countQuestion,
@@ -83,5 +103,6 @@ module.exports = {
     getQuestionViaCategory: getQuestionViaCategory,
     submitQuestion: submitQuestion,
     findQuestion: findQuestion,
-    countTotalQuestionViaCategory: countTotalQuestionViaCategory
+    countTotalQuestionViaCategory: countTotalQuestionViaCategory,
+    getAllContrib:getAllContrib
 };

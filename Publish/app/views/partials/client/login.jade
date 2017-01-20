@@ -1,34 +1,34 @@
 .container
-    .row#loginContent
-        .col-md-6.col-md-offset-3
-            .panel.panel-login
-                .panel-heading
-                    .row
-                        .col-xs-12
-                            span#login-form-link.active Đăng Nhập
-                        p(ng-controller="FacebookController")
-                            col-xs-6
-                                button.btn.btn-primary.btn-md(ng-click='facebookLogin()')
-                                    i.fa.fa-facebook-official  Đăng Nhập Bằng Facebook
-                            img(ng-src='{{profileImg}}')
-                    hr
-                .panel-body
-                    .row
-                        .col-lg-12(ng-controller="LoginController")
-                            form#login-form(name="LoginForm",ng-submit="Login()",novalidate='')
-                                .form-group
-                                    input.form-control(type='text', name='UsernameLogin', tabindex='1', placeholder='Tài Khoản',ng-model="LoginData.UsernameLogin",required='')
-                                    label(for='UsernameLogin', ng-show='(LoginForm.UsernameLogin.$dirty || LoginFormSubmmit) && LoginForm.UsernameLogin.$error.required') Tài khoản không được để trống
-                                .form-group
-                                    input.form-control(type='password', name='PasswordLogin', tabindex='2', placeholder='Mật Khẩu',ng-model="LoginData.PasswordLogin",required='')
-                                    label(for='PasswordLogin', ng-show='(LoginForm.PasswordLogin.$dirty || LoginFormSubmmit) && LoginForm.PasswordLogin.$error.required') Mật khẩu không được để trống
-                                .form-group
-                                    .row
-                                        .col-sm-6.col-sm-offset-3.text-center
-                                            button#login-submit.btn.btn-primary.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4',ng-hide="HideLoginBtn")  Đăng Nhập
-                                            img(src='/img/icon/loading.gif',ng-show='ShowLoading')
-                                .form-group
-                                    .row
-                                        .col-lg-12
-                                            .text-center
-                                                a.forgot-password(href='/quen-mat-khau', tabindex='5') Quên Mật Khẩu?
+	.row#loginContent
+		.col-md-6.col-md-offset-3
+			.panel.panel-login
+				.panel-heading
+					.row
+						.col-xs-12
+							span#login-form-link.active Đăng Nhập
+						p(ng-controller="FacebookController")
+							col-xs-6
+								button.btn.btn-primary.btn-md(ng-click='facebookLogin()')
+									i.fa.fa-facebook-official  Đăng Nhập Bằng Facebook
+							img(ng-src='{{profileImg}}')
+					hr
+				.panel-body
+					.row
+						.col-lg-12(ng-controller="LoginController")
+							form#login-form(name="LoginForm",ng-submit="Login()",novalidate='')
+								.form-group
+									input.form-control(type='text', name='UsernameLogin', tabindex='1', placeholder='Tài Khoản',ng-model="LoginData.UsernameLogin",required='')
+									label(for='UsernameLogin', ng-show='(LoginForm.UsernameLogin.$dirty || LoginFormSubmmit) && LoginForm.UsernameLogin.$error.required') Tài khoản không được để trống
+								.form-group
+									input.form-control(type='password', name='PasswordLogin', tabindex='2', placeholder='Mật Khẩu',ng-model="LoginData.PasswordLogin",required='')
+									label(for='PasswordLogin', ng-show='(LoginForm.PasswordLogin.$dirty || LoginFormSubmmit) && LoginForm.PasswordLogin.$error.required') Mật khẩu không được để trống
+								.form-group
+									.row
+										.col-sm-6.col-sm-offset-3.text-center
+											button#login-submit.btn.btn-primary.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4',ng-hide="HideLoginBtn")  Đăng Nhập
+											img(src='/img/icon/loading.gif',ng-show='ShowLoading')
+								.form-group
+									.row
+										.col-lg-12
+											.text-center
+												a.forgot-password(href='/quen-mat-khau', tabindex='5') Quên Mật Khẩu?

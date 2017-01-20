@@ -1,12 +1,21 @@
-<div class="glyphicon glyphicon-thumbs-up{{isActive}}" id="likeBtn-{{answerListData._id}}"
-     ng-controller="LikeController"
-     ng-click="LikeAnswer(answerListData._id)">
-    <br/>
-    <span id="like-{{answerListData._id}}"> {{answerListData.Like.length}}</span>
-</div>&nbsp;
-<div class="glyphicon glyphicon-thumbs-down" id="dislikeBtn-{{answerListData._id}}"
-     ng-controller="DislikeController"
-     ng-click="DislikeAnswer(answerListData._id)">
-    <br/>
-    <span id="dislike-{{answerListData._id}}"> {{answerListData.Dislike.length}}</span>
+<div class="vote-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <img class="avatar" src='/img/{{answerListData.Avatar}}', alt='{{answerListData.UserAnswer}}' />
+    </div>
+    <div class="col-md-12">
+      <div class="glyphicon glyphicon-thumbs-up{{isActive}}" id="likeBtn-{{answerListData._id}}"
+           ng-controller="LikeController"
+           ng-click="LikeAnswer(answerListData._id)">
+          <br/>
+          <span id="like-{{answerListData._id}}"> {{answerListData.Like.length}}</span>
+      </div>&nbsp;
+      <div class="glyphicon glyphicon-thumbs-down" id="dislikeBtn-{{answerListData._id}}"
+           ng-controller="DislikeController"
+           ng-click="DislikeAnswer(answerListData._id)">
+          <br/>
+          <span id="dislike-{{answerListData._id}}"> {{answerListData.Dislike.length}}</span>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,36 +1,36 @@
 {
-  "name": "ChatBot",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "async": "^2.1.4",
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.15.2",
-    "cookie-parser": "^1.4.3",
-    "debug": "^2.2.0",
-    "express": "^4.13.4",
-    "express-session": "^1.14.2",
-    "google": "^2.1.0",
-    "jade": "^1.11.0",
-    "mongodb": "^2.2.16",
-    "mongoose": "^4.7.2",
-    "morgan": "^1.7.0",
-    "serve-favicon": "^2.3.2",
-    "socket.io": "*"
-  },
-  "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-concurrent": "^2.3.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-cssmin": "^1.0.2",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-nodemon": "^0.4.2",
-    "open": "0.0.5"
-  }
+    "name": "ChatBot",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "async": "^2.1.4",
+        "bcrypt-nodejs": "0.0.3",
+        "body-parser": "^1.15.2",
+        "cookie-parser": "^1.4.3",
+        "debug": "^2.2.0",
+        "express": "^4.13.4",
+        "express-session": "^1.14.2",
+        "google": "^2.1.0",
+        "jade": "^1.11.0",
+        "mongodb": "^2.2.16",
+        "mongoose": "^4.7.2",
+        "morgan": "^1.7.0",
+        "serve-favicon": "^2.3.2",
+        "socket.io": "*"
+    },
+    "devDependencies": {
+        "grunt": "^1.0.1",
+        "grunt-concurrent": "^2.3.1",
+        "grunt-contrib-clean": "^1.0.0",
+        "grunt-contrib-concat": "^1.0.1",
+        "grunt-contrib-cssmin": "^1.0.2",
+        "grunt-contrib-jshint": "^1.0.0",
+        "grunt-contrib-uglify": "^2.0.0",
+        "grunt-contrib-watch": "^1.0.0",
+        "grunt-nodemon": "^0.4.2",
+        "open": "0.0.5"
+    }
 }

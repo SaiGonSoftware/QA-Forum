@@ -11,6 +11,9 @@ var userSchema = new mongoose.Schema({
     Account: {
         type: String
     },
+    Avatar: {
+        type: String
+    },
     SocialAccount: {
         type: String
     },
@@ -29,27 +32,33 @@ var userSchema = new mongoose.Schema({
 });
 var User = mongoose.model('members', userSchema);
 
-var checkAccountExists = function (username, callback) {
-    User.findOne({'Account': username}, callback);
+var checkAccountExists = function(username, callback) {
+    User.findOne({
+        'Account': username
+    }, callback);
 };
 
-var checkSocialAccountExists = function (id, callback) {
-    User.findOne({'SocialId': id}, callback);
+var checkSocialAccountExists = function(id, callback) {
+    User.findOne({
+        'SocialId': id
+    }, callback);
 };
 
-var checkEmailExists = function (email, callback) {
-    User.findOne({'Email': email}, callback);
+var checkEmailExists = function(email, callback) {
+    User.findOne({
+        'Email': email
+    }, callback);
 };
 // generating a hash
-var generateHash = function (password) {
+var generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 //check password valid or not
-var validPassword = function (password, sourcePassword) {
+var validPassword = function(password, sourcePassword) {
     return bcrypt.compareSync(password, sourcePassword);
 };
 
-var createUser = function (user, callback) {
+var createUser = function(user, callback) {
     User.collection.insert(user, callback);
 };
 
