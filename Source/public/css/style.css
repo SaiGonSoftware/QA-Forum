@@ -1478,29 +1478,31 @@ aside.comments .comment .body {
     line-height: 35px;
 }
 
-#main-site .bs-callout {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #dddddd;
+.bs-callout {
+    height: 140px;
+    padding: 10px 0 0 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
     border-left-width: 5px;
     border-radius: 3px;
-    height: 220px;
 }
 
 .bs-callout-info {
     border-left-color: #1557b5 !important;
 }
 
-.bs-callout {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #dddddd;
+.forum-cat.bs-callout {
+    height: 100px;
+    padding: 5px 0 0 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
     border-left-width: 5px;
     border-radius: 3px;
 }
 
-.bs-callout-info h3, h4 {
+.bs-callout-info h3, .forum-cat.bs-callout h3 {
     color: #1b809e;
+    font-size: 20px
 }
 
 .btn-primary {

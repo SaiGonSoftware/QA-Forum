@@ -1,12 +1,13 @@
 //
-	Created by ngohungphuc on 05/01/2017.
+    Created by ngohungphuc on 05/01/2017.
 
 .widewrapper.main
-	.container
-		.row
-			.col-md-8.blog-main(ng-controller='ForumController')
-				.bs-callout.bs-callout-info(ng-init="categories = categories;postCount=postCount",ng-repeat='data in categories track by $index')
-					a(href='/chuyen-muc/{{data._id}}',class='cat-name-content')
-						h4 {{data.Name}}
-						h5 {{postCount[$index]}} Bài Viết
-			include ../../layout/client/side_content
+    .container
+        .row
+            .col-md-8.blog-main(ng-controller='ForumController')
+                include ../../layout/client/search
+                .forum-cat.bs-callout.bs-callout-info(ng-init="categories = categories;postCount=postCount",ng-repeat='data in categories track by $index')
+                    a(href='/chuyen-muc/{{data._id}}',class='cat-name-content')
+                        h3 {{data.Name}}
+                        h4 {{postCount[$index]}} Bài Viết
+            include ../../layout/client/side_content
