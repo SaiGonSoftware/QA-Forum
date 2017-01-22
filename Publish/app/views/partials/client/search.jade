@@ -1,14 +1,19 @@
 //
-	Created by phuc.ngo on 10/01/2017.
+    Created by phuc.ngo on 10/01/2017.
 .widewrapper.main
-	.container
-		.row
-			.col-md-8.blog-main
-				.row
-					.bs-callout.bs-callout-info(ng-repeat='question in questionsSearch')
-						h3 {{question.Title}}
-						h4 Hỏi vào lúc {{question.CreateDate | date : "short" }}
-						h5 Đăng bởi {{question.UserQuestion}}
-						a(href='/bai-viet/{{question._id}}',class='btn btn-primary') Đọc thêm
-				button.btn.btn-primary.btn-block(type='button',ng-click='LoadMoreQuestionCategory()') Click để xem tiếp
-			include ../../layout/client/side_content
+    .container
+        .row
+            .col-md-8.blog-main
+                p
+                    a.btn.btn-primary.btn-md.btn-block(href='/tao-cau-hoi') Chưa hài lòng với kết quả tìm kiếm ? Bạn có thể đặt câu hỏi
+                .row
+                    .col-md-6.col-sm-6(ng-repeat='question in questionsSearch')
+                        .bs-callout.bs-callout-info
+                            h3 {{question.Title}}
+                            h4 Hỏi vào lúc {{question.CreateDate | date : "short" }}
+                            h5 Đăng bởi {{question.UserQuestion}}
+                            a(href='/bai-viet/{{question._id}}',class='btn btn-primary') Đọc thêm
+                button.btn.btn-primary.btn-block(type='button',ng-click='LoadMoreQuestionCategory()') Click để xem tiếp
+            include ../../layout/client/side_content
+        button.btn.btn-primary.btn-block(type='button',ng-click='LoadMoreQuestionCategory()') Click để xem tiếp
+            include ../../layout/client/side_content

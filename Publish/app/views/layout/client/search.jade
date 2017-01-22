@@ -1,0 +1,5 @@
+p
+    .input-group(ng-controller='SearchController')
+        input#QueryString.form-control(type='text',name='QueryString',ng-model='SearchData.QueryString',placeholder='Tìm câu hỏi',ng-keydown="$event.which == 13 && Search()")
+        span.input-group-btn
+            button.btn.btn-default(type='button',ng-click='Search()') Go!

@@ -10,14 +10,17 @@
                             .meta.clearfix
                                 .author
                                     i.fa.fa-user
-                                    span.data {{detail.UserQuestion}}
+                                    span.data {{detail.UserQuestion}}    
                                 .date
                                     i.fa.fa-calendar
-                                    span.data {{detail.CreateDate | date : "dd.MM.y" }}
+                                    span.data {{detail.CreateDate | date : "short" }}
                                 .comments
                                     i.fa.fa-comments
                                     span.data
                                         a(href='#create-comment') {{listOfAnswersData.length}} Câu Trả Lời
+                                .views
+                                    i.fa.fa-eye
+                                    span.data  {{detail.ViewTime}} Lượt Xem        
                     .body
                         br
                         p#question-detail
@@ -54,34 +57,4 @@
                             button.btn.btn-primary.btn-lg(type='submit',ng-hide='HideAnswerBtn') Đăng câu trả lời
                             div(style='text-align:center;margin:10%')
                                 img(src='/img/icon/loading.gif',ng-show='ShowLoading')
-            aside.col-md-4.blog-aside
-                .aside-widget
-                    div(style='margin-left: 10%;')
-                        p
-                            a.btn.btn-primary.btn-md(href='/tao-cau-hoi',style='width:305px') Bạn có thắc mắc ?
-                        p
-                            .input-group(ng-controller='SearchController')
-                                input#QueryString.form-control(type='text',name='QueryString',ng-model='SearchData.QueryString',placeholder='Tìm câu hỏi')
-                                span.input-group-btn
-                                    button.btn.btn-default(type='button',ng-click='Search()') Go!
-                    header
-                        h3 Read next...
-                    .body
-                        ul.tales-list
-                            li
-                                a(href='index.html') Email Encryption Explained
-                            li
-                                a(href='#') Selling is a Function of Design.
-                            li
-                                a(href='#') It’s Hard To Come Up With Dummy Titles
-                            li
-                                a(href='#') Why the Internet is Full of Cats
-                            li
-                                a(href='#') Last Made-Up Headline, I Swear!
-                .aside-widget
-                    header
-                        h3 Tài liệu tham khảo
-                    .body
-                        ul.tales-list
-                            li(ng-repeat='ref in refs')
-                                a(href='{{ref.Link}}',target='_blank') {{ref.Title}}
+            include ../../layout/client/side_content

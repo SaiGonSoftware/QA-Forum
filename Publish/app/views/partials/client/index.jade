@@ -1,13 +1,14 @@
 .widewrapper.main
-	.container
-		.row#main-site
-			.col-md-8.blog-main(ng-controller="IndexController")
-				.row
-					.col-md-6.col-sm-6(ng-repeat='question in questions')
-						.bs-callout.bs-callout-info
-							h3 {{question.Title}}
-							h4 Hỏi vào lúc {{question.CreateDate | date : "short" }}
-							h5 Đăng bởi {{question.UserQuestion}}
-							a(href='/bai-viet/{{question._id}}',class='btn btn-primary') Đọc thêm
-				include ../../layout/client/paging
-			include ../../layout/client/side_content
+    .container
+        .row#main-site
+            .col-md-8.blog-main(ng-controller="IndexController")
+                include ../../layout/client/search
+                .row
+                    .col-md-6.col-sm-6(ng-repeat='question in questions')
+                        .bs-callout.bs-callout-info
+                            a(href='/bai-viet/{{question._id}}')
+                                h3 {{question.Title}} 
+                                h5 Hỏi vào lúc {{question.CreateDate | date : "short" }}
+                                h5 Đăng bởi {{question.UserQuestion}} | {{question.ViewTime}} lượt xem
+                include ../../layout/client/paging
+            include ../../layout/client/side_content
