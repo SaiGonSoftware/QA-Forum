@@ -20,12 +20,16 @@
 				toastr.warning("Vui lòng đăng nhập để tham gia phòng chat");
 				return false;
 			}
-			socket.emit('send message', message);
+			var messageInfo = {
+				username: currentUser,
+				message: message
+			}
+			socket.emit('send message', messageInfo);
 			$("#chatMessageSend").val('');
 		};
 
 		socket.on('new message', function(data) {
-			chat.append('<p>' + data.msg + '</p>');
+			chat.append('<p>' + data.username + data.message + '</p>');
 		});
 
 		socket.on('get users', function(data) {

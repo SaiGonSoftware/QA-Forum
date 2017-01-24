@@ -73,7 +73,7 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('send message', function(data) {
-		io.sockets.emit('new message', { msg: data });
+		io.sockets.emit('new message', { username: data.username, message: data.message });
 	});
 
 	socket.on('new user', function(data) {
