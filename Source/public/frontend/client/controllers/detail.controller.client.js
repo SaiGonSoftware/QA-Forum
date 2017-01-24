@@ -19,8 +19,6 @@
 		var currentUser = loginUser ? loginUser : facebookUser;
 		var id = $routeParams.id;
 		QuestionDetailService.GetQuestionsDetail(id).then(function(result) {
-			console.log(result);
-
 			if(result.data.found === true) {
 				$scope.isDetailPage = true;
 				$scope.detail = result.data.questionDetail;
