@@ -1539,3 +1539,24 @@ aside.comments .comment .body {
 .vote-wrapper {
     padding-bottom: 35px;
 }
+
+.current-chat {
+    padding: 10%;
+}
+
+.chats-row {
+    margin-top: 10%;
+}
+
+#chat-wrapper {
+    width: 100%;
+}
+
+#chatMessageSend {
+    height: 100px;
+}
+
+.current-chat-area {
+    height: 500px;
+    overflow-y: scroll;
+}

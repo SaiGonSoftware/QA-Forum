@@ -1,0 +1,18 @@
+.container-fluid
+    .row(ng-controller="ChatController")
+        .col-md-9.current-chat
+            .row.current-chat-area
+                .col-md-12
+                    ul.media-list
+            .row.current-chat-footer
+                .panel-footer
+                    .input-group#chat-wrapper
+                        textarea.form-control(id="chatMessageSend",ng-keydown="$event.which == 13 && SendMessage()")
+        .col-md-3.chats-row
+            .row
+                .col-md-12
+                    a.list-group-item(href='#')
+                        p Online:
+                        p.list-online
+                .col-md-12
+                    a.list-group-item(href='#') Các bạn trò truyện lịch sự nhé

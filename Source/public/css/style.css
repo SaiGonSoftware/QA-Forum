@@ -1558,5 +1558,6 @@ aside.comments .comment .body {
 
 .current-chat-area {
     height: 500px;
-    overflow-y: scroll;
+    overflow: scroll;
+    border: 1px solid #ccc;
 }

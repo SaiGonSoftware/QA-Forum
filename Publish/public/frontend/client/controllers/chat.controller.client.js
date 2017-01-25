@@ -4,9 +4,9 @@
 	angular.module('ChatBotApp')
 		.controller('ChatController', ChatController);
 
-	ChatController.$inject = ['$scope', 'localStorageService', '$document'];
+	ChatController.$inject = ['$scope', 'localStorageService'];
 
-	function ChatController($scope, localStorageService, $document) {
+	function ChatController($scope, localStorageService) {
 		var socket = io.connect();
 		var loginUser = localStorageService.cookie.get('currentUser');
 		var facebookUser = localStorageService.cookie.get('facebookUser');
@@ -14,30 +14,24 @@
 		socket.emit('new user', currentUser);
 		var chat = $('.media-list');
 		var onlineList = $('.list-online');
-		var currentTime = new Date().toLocaleString();
 		$scope.SendMessage = function() {
+			var message = $("#chatMessageSend").val();
 			if(!currentUser) {
 				toastr.warning("Vui lòng đăng nhập để tham gia phòng chat");
-				return false;
-			}
-			var message = $("#chatMessageSend").val();
-			if($.trim($("#chatMessageSend").val()) === '') {
-				toastr.warning("Vui lòng nhập tin nhắn");
 				return false;
 			}
 			var messageInfo = {
 				username: currentUser,
 				message: message
-			};
+			}
 			socket.emit('send message', messageInfo);
 			$("#chatMessageSend").val('');
 		};
 
 		socket.on('new message', function(data) {
-			chat.append('<p><div class="media-body" id="chat-element">' + data.message + '<br><small class="text-muted">' + data.username + ' | ' + currentTime + '</small></div></p>');
-			var myDiv = document.getElementById('chat-element');
-			myDiv.scrollTop = myDiv.scrollHeight;
+			chat.append('<p>' + data.username + data.message + '</p>');
 		});
+
 		socket.on('get users', function(data) {
 			var listUserOnline = '';
 			for(var i = 0; i < data.length; i++) {
