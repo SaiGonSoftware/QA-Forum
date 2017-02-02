@@ -12,6 +12,7 @@
         'ngAnimate',
         'LocalStorageModule',
         'ngFacebook',
+        'ngSanitize',
         // Custom modules
         'appRoute'
         // 3rd Party Modules

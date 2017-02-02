@@ -10,7 +10,7 @@
                             .meta.clearfix
                                 .author
                                     i.fa.fa-user
-                                    span.data {{detail.UserQuestion}}    
+                                    span.data {{detail.UserQuestion}} 
                                 .date
                                     i.fa.fa-calendar
                                     span.data {{detail.CreateDate | date : "short" }}
@@ -20,11 +20,11 @@
                                         a(href='#create-comment') {{listOfAnswersData.length}} Câu Trả Lời
                                 .views
                                     i.fa.fa-eye
-                                    span.data  {{detail.ViewTime}} Lượt Xem        
+                                    span.data  {{detail.ViewTime}} Lượt Xem
                     .body
                         br
                         p#question-detail
-                            | {{detail.Content}}
+                            div(ng-bind-html="rawText(detail.Content)")
                 aside#comments.comments
                     hr
                     h2
@@ -43,7 +43,7 @@
                                         | -
                                     span  Đã Trả Lời
                             .body
-                                | {{answerListData.Content}}
+                                div(ng-bind-html="rawText(answerListData.Content)")
                 aside#create-comment.create-comment(ng-controller='AnswerController')
                     hr
                     h2
