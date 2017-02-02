@@ -22,13 +22,13 @@ aside.col-md-4.blog-aside
             ul.tales-list
                 li(ng-repeat='ref in refs')
                     a(href='{{ref.Link}}',target='_blank') {{ref.Title}}
-    .aside-widget
+    .aside-widget(ng-controller='UnAnswerQuestionController')
         header
             h3 Câu Hỏi Chưa Được Trả Lời
         .body
-            ul.tales-list
+            ul.tales-list(ng-repeat='unAnswerQuestion in unAnswerQuestions')
                 li
-                    a(href='index.html') Email Encryption Explained
+                    a(href='/bai-viet/{{unAnswerQuestion._id}}') {{unAnswerQuestion.Title}} | {{unAnswerQuestion.ViewTime}}
     .aside-widget
         header
             h3 Tags
