@@ -5,7 +5,7 @@ html
         link(rel="icon", type="image/x-icon", href='/favicon.ico')
         link(rel='stylesheet', href='/css/style.min.css' lazyload)
 
-    body(ng-app="ChatBotApp")
+    body(ng-app="ChatBotApp",ng-cloak)
         include header.jade
         block content
         include footer.jade
