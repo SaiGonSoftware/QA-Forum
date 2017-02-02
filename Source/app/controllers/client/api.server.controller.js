@@ -399,18 +399,10 @@ exports.GetHotTopic = function (req, res) {
     );
 };
 exports.GetUnAnswerQuestion = function (req, res) {
-    var questionIdList = [];
-    Question.getAllQuestion(function (err, questions) {
-        questions.forEach(function (question) {
-            Answer.getAllUnaswer(question._id, function (err, result) {
-                if (!result) {
-                    //console.log(result);
-                    Question.getQuestionById(question._id, function (err, data) {
-                        console.log(data);
-                        res.json({unAnswerQuestions: data});
-                    });
-                }
-            });
+    Answer.getDistinctId(function (err, idArray) {
+        Question.getUnAnswerQuestion(idArray, function (err, unAnswerQuestions) {
+            if (err) res.json({msg: err});
+            else res.json({unAnswerQuestions: unAnswerQuestions});
         });
     });
 };

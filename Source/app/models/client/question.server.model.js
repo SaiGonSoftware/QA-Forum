@@ -107,8 +107,8 @@ var getAllContrib = function (currentUser, callback) {
 var getAllQuestion = function (callback) {
     Question.find({}).exec(callback);
 };
-var getQuestionById = function (questionId, callback) {
-    Question.find({_id: questionId}).exec(callback);
+var getUnAnswerQuestion = function (idArray, callback) {
+    Question.find({_id: {$nin: idArray}}, callback);
 };
 module.exports = {
     Question: Question,
@@ -125,5 +125,5 @@ module.exports = {
     getHotTopic: getHotTopic,
     updateViewTime: updateViewTime,
     getAllQuestion: getAllQuestion,
-    getQuestionById: getQuestionById
+    getUnAnswerQuestion: getUnAnswerQuestion
 };

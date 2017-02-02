@@ -151,10 +151,8 @@ var editAnswer = function (answerId, answerContent, callback) {
     }, callback);
 };
 
-var getAllUnaswer = function (questionId, callback) {
-    Answer.find({
-        QuestionId: ObjectId(questionId),
-    }, callback);
+var getDistinctId = function (callback) {
+    Answer.find({}).distinct('QuestionId', callback);
 };
 module.exports = {
     Answer: Answer,
@@ -173,5 +171,5 @@ module.exports = {
     removeLike: removeLike,
     removeDislike: removeDislike,
     getAnswerViaId: getAnswerViaId,
-    getAllUnaswer: getAllUnaswer
+    getDistinctId: getDistinctId
 };

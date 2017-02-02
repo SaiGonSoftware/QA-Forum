@@ -10,9 +10,10 @@
     angular.module('ChatBotApp')
         .controller('IndexController', IndexController);
 
-    IndexController.$inject = ['$scope', 'QuestionService', 'GetNextQuestionService'];
+    IndexController.$inject = ['$scope', '$rootScope', 'QuestionService', 'GetNextQuestionService'];
 
-    function IndexController($scope, QuestionService, GetNextQuestionService) {
+    function IndexController($scope, $rootScope, QuestionService, GetNextQuestionService) {
+        $rootScope.isIndexPage = true;
         $scope.requestTime = 1;
         QuestionService.GetQuestions().then(function (result) {
             $scope.questions = result.data.questions;

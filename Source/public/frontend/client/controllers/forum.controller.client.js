@@ -9,11 +9,12 @@
         .controller('TagsController', TagsController)
         .controller('ForumContainController', ForumContainController);
 
-    ForumController.$inject = ['$scope', 'GetQuestionInfoCategoryService'];
+    ForumController.$inject = ['$scope', '$rootScope', 'GetQuestionInfoCategoryService'];
     ForumContainController.$inject = ['$scope', '$routeParams', 'GetQuestionViaCategory', 'GetNextQuestionViaCategoryService'];
     TagsController.$inject = ['$scope', 'CategoriesService'];
 
-    function ForumController($scope, GetQuestionInfoCategoryService) {
+    function ForumController($scope, $rootScope, GetQuestionInfoCategoryService) {
+        $rootScope.isForumPage = true;
         GetQuestionInfoCategoryService.GetQuestionInfoCategory().then(function (result) {
             $scope.categories = result.data.categories;
             $scope.postCount = result.data.postCount;
@@ -40,7 +41,7 @@
 
         $scope.LoadMoreQuestionCategory = function () {
             $scope.requestTime += 1;
-            GetNextQuestionViaCategoryService.GetNextQuestionViaCategory(id,$scope.requestTime).then(function (result) {
+            GetNextQuestionViaCategoryService.GetNextQuestionViaCategory(id, $scope.requestTime).then(function (result) {
                 $scope.questions = result.data.questions;
             });
         };

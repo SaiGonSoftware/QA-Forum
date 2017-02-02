@@ -22,7 +22,6 @@
             SearchService.SearchForQuestion(queryString).then(function (result) {
                 $location.path('/tim-kiem/' + queryString);
                 $rootScope.questionsSearch = result.data.questions;
-                $rootScope.isSearchPage = true;
                 $rootScope.QueryString = queryString;
             });
         };
