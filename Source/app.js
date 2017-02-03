@@ -78,15 +78,23 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('new user', function (data) {
         console.log(data);
-        if (data !== null) {
+        console.log(users);
+
+        //if (data !== null) {
             socket.username = data;
-            users.push(socket.username);
+            users[socket.username] = data;
+            var userObj = {
+                username: data,
+                socketid: socket.id
+            };
+            users.push(userObj);
             updateUsername();
-        }
+        //}
     });
 
     function updateUsername() {
-        io.sockets.emit('get users', users);
+        //io.sockets.emit('get users', users);
+        io.emit('get users', users);
     }
 });
 

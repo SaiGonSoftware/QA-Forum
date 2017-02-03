@@ -13,4 +13,6 @@
                 .col-md-12
                     a.list-group-item(href='#')
                         p Online:
-                        p.list-online
+                        //-p.list-online
+                        p
+                            span(ng-repeat='onlineList in onlineLists track by $index') {{onlineList.username}}

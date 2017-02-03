@@ -44,11 +44,12 @@
         });
 
         socket.on('get users', function (data) {
-            var listUserOnline = '';
-            for (var i = 0; i < data.length; i++) {
-                listUserOnline += '<p>' + data[i] + '</p>';
-            }
-            onlineList.html(listUserOnline);
+            $scope.onlineLists = data;
+            /*var listUserOnline = '';
+             for (var i = 0; i < data.length; i++) {
+             listUserOnline += '<p>' + data[i] + '</p>';
+             }
+             onlineList.html(listUserOnline);*/
         });
     }
 })();
