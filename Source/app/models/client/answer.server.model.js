@@ -96,13 +96,13 @@ var checkLikeExists = function (answerId, username, callback) {
         _id: ObjectId(answerId),
         Like: username
     }, callback);
-}
+};
 var checkDislikeExists = function (answerId, username, callback) {
     Answer.find({
         _id: ObjectId(answerId),
         Dislike: username
     }, callback);
-}
+};
 var removeLike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
@@ -154,6 +154,7 @@ var editAnswer = function (answerId, answerContent, callback) {
 var getDistinctId = function (callback) {
     Answer.find({}).distinct('QuestionId', callback);
 };
+
 module.exports = {
     Answer: Answer,
     getAnswerViaQuestion: getAnswerViaQuestion,

@@ -2,7 +2,9 @@
     .container
         .row(ng-controller="DetailController")
             .col-md-8.blog-main
-                article.blog-post
+                div.loading-img
+                    img(src='/img/icon/detail-loading.gif',ng-show='isLoadingDetailPage')
+                article.blog-post(ng-hide='isLoadingDetailPage')
                     header
                         h1 {{detail.Title}}
                         .lead-image
@@ -55,6 +57,6 @@
                         label(for='Content', ng-show='(AnswerForm.Content.$dirty || AnswerFormSubmmit) && AnswerForm.Content.$error.required') Câu trả lời không được để trống
                         .buttons.clearfix
                             button.btn.btn-primary.btn-lg(type='submit',ng-hide='HideAnswerBtn') Đăng câu trả lời
-                            div(style='text-align:center;margin:10%')
+                            div.loading-img
                                 img(src='/img/icon/loading.gif',ng-show='ShowLoading')
             include ../../layout/client/side_content

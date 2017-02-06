@@ -61,7 +61,12 @@ exports.QuestionDetail = function (req, res) {
                         if (err)
                             res.json({success: false, msg: "Error"});
                         else {
-                            res.json({found: true, msg: "Found", questionDetail: questionDetail, answers: answers});
+                            res.json({
+                                found: true,
+                                msg: "Found",
+                                questionDetail: questionDetail,
+                                answers: answers
+                            });
                         }
                     });
                 }
@@ -266,7 +271,8 @@ exports.Register = function (req, res) {
                             'Account': usernameRegis,
                             'Password': hashPassword,
                             'Email': emailRegis,
-                            'Level': CONSTANT.DEFAULT_LEVEL
+                            'Level': CONSTANT.DEFAULT_LEVEL,
+                            'Avatar': null
                         }
                     ];
                     User.createUser(newUser, function (err) {
@@ -305,7 +311,8 @@ exports.Login = function (req, res) {
             {
                 'Account': req.body.SocialAccount,
                 'SocialId': req.body.SocialId,
-                'Level': CONSTANT.DEFAULT_LEVEL
+                'Level': CONSTANT.DEFAULT_LEVEL,
+                'Avatar': null
             }
         ];
         User.checkSocialAccountExists(req.body.SocialId, function (err, account) {
@@ -324,9 +331,11 @@ exports.Login = function (req, res) {
 exports.GetAllContrib = function (req, res) {
     var currentUser = req.params.currentUser;
     Question.getAllContrib(currentUser, function (err, user_contrib) {
-        if (err)
-            return res.json({err: err});
-        return res.json({user_contrib: user_contrib});
+        User.getUserInfo(currentUser, function (err, userInfo) {
+            if (err)
+                return res.json({err: err});
+            return res.json({user_contrib: user_contrib, userInfo: userInfo});
+        });
     });
 }
 //category relative

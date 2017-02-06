@@ -15,12 +15,13 @@
         'localStorageService'
     ];
     function DetailController($scope, $rootScope, $routeParams, QuestionDetailService, localStorageService) {
+        $scope.isLoadingDetailPage = true;
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
         var currentUser = loginUser ? loginUser : facebookUser;
         var id = $routeParams.id;
         $scope.addText = '{0}';
-        $scope.rawText = function(obj){
+        $scope.rawText = function (obj) {
             return $scope.addText.replace("{0}", obj).replace(/\n/g, "<br />");
         };
         QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
@@ -28,7 +29,6 @@
                     $scope.isDetailPage = true;
                     $scope.detail = result.data.questionDetail;
                     $scope.refs = result.data.questionDetail.References;
-                    console.log(result.data.answers);
                     $rootScope.listOfAnswersData = result.data.answers;
                     var checkElementExist = setInterval(function () {
                         if ($(".comment").length) {
@@ -52,6 +52,7 @@
                             }
                         }
                     }, 1000);
+                    $scope.isLoadingDetailPage = false;
                 } else
                     $location.path('/page-not-found');
             }

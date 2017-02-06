@@ -1664,6 +1664,7 @@ fieldset[disabled] .btn-tales-two:hover {
 
 #accountMangeContent {
     margin: 5%;
+    min-height: 410px;
 }
 
 .list-group-item.active,
@@ -1700,4 +1701,13 @@ fieldset[disabled] .btn-tales-two:hover {
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
+}
+
+.loading-img {
+    text-align: center;
+    margin: 10%;
+}
+
+.user-avatar {
+    width: 150px;
 }

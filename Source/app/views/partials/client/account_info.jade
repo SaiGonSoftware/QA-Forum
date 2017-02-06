@@ -1,20 +1,25 @@
 div(id="accountMangeContent")
-	.row(ng-controller="AccountInfoController")
-		.col-md-4
-			.list-group
-				a.list-group-item.active(href='#')
-					| Quản Lý Thông Tin Tài Khoản
-				a.list-group-item(href='#',ng-click="showme=true") Thông Tin Cá  Nhân
-				a.list-group-item(href='#',ng-click="showme=false") Câu Hỏi
-		.col-md-8
-			.panel.panel-primary(ng-show="showme")
-				.panel-heading
-					h3.panel-title Thông Tin Cá  Nhân
-				.panel-body  Panel content
-			.panel.panel-primary(ng-hide="showme")
-				.panel-heading
-					h3.panel-title Câu Hỏi
-				.panel-body
-					.panel.panel-default(ng-repeat="user_contrib in user_contribs")
-						.panel-body
-							a(href='/bai-viet/{{user_contrib._id}}',target='_blank'){{user_contrib.Title}}
+    .row(ng-controller="AccountInfoController")
+        .col-md-4
+            .list-group
+                a.list-group-item.active(href='#')
+                    | Quản Lý Thông Tin Tài Khoản
+                a.list-group-item(href='#',ng-click="showme=false") Thông Tin Cá  Nhân
+                a.list-group-item(href='#',ng-click="showme=true") Câu Hỏi
+        .col-md-8
+            .panel.panel-primary(ng-hide="showme")
+                .panel-heading
+                    h3.panel-title Thông Tin Cá  Nhân
+                .panel-body(ng-repeat='userInfo in userInfos')
+                    p Tài khoản : {{userInfo.Account}}
+                    p Email :{{userInfo.Email}}
+                    p Ảnh đại diện
+                        img.img-responsive.user-avatar(ng-if='userInfo.Avatar')(ng-src='/img/{{userInfo.Avatar}}')
+                        img.img-responsive.user-avatar(ng-if='!userInfo.Avatar')(ng-src='/img/user-icon.png')
+            .panel.panel-primary(ng-show="showme")
+                .panel-heading
+                    h3.panel-title Câu Hỏi
+                .panel-body
+                    .panel.panel-default(ng-repeat="user_contrib in user_contribs")
+                        .panel-body
+                            a(href='/bai-viet/{{user_contrib._id}}',target='_blank') {{user_contrib.Title}}
