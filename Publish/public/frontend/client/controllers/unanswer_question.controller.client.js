@@ -11,6 +11,7 @@
 
     function UnAnswerQuestionController($scope, UnAnswerQuestionService) {
         UnAnswerQuestionService.GetUnAnswerQuestion().then(function (result) {
+            console.log(result);
             $scope.unAnswerQuestions = result.data.unAnswerQuestions;
         });
     }

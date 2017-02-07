@@ -110,6 +110,7 @@ var getAllQuestion = function (callback) {
 var getUnAnswerQuestion = function (idArray, callback) {
     Question.find({_id: {$nin: idArray}}, callback);
 };
+
 module.exports = {
     Question: Question,
     countQuestion: countQuestion,

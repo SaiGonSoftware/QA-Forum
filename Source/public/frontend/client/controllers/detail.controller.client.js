@@ -4,7 +4,7 @@
  * @Last Modified by:   Ngo Hung Phuc
  * @Last Modified time: 2016-11-26 22:02:57
  */
-(function() {
+(function () {
     'use strict';
     angular.module('ChatBotApp').controller('DetailController', DetailController);
     DetailController.$inject = ['$scope', '$rootScope', '$routeParams', 'QuestionDetailService', 'localStorageService'];
@@ -15,42 +15,42 @@
         var currentUser = loginUser ? loginUser : facebookUser;
         var id = $routeParams.id;
         $scope.addText = '{0}';
-        $scope.rawText = function(obj) {
+        $scope.rawText = function (obj) {
             return $scope.addText.replace("{0}", obj).replace(/\n/g, "<br />");
         };
-        QuestionDetailService.GetQuestionsDetail(id).then(function(result) {
-            if (result.data.found === true) {
-                $scope.isDetailPage = true;
-                $scope.detail = result.data.questionDetail;
-                $scope.refs = result.data.questionDetail.References;
-                $rootScope.listOfAnswersData = result.data.answers;
-                $scope.avatarLists = result.data.avatarLists;
-                console.log( result.data.avatarLists);
-                var checkElementExist = setInterval(function() {
-                    if ($(".comment").length) {
-                        for (var x = 0; x < result.data.answers.length; x++) {
-                            if (result.data.answers[x].Like.includes(currentUser)) {
-                                var likeDom = document.getElementById('likeBtn-' + result.data.answers[x]._id);
-                                if (likeDom) {
-                                    clearInterval(checkElementExist);
-                                    $("#likeBtn-" + result.data.answers[x]._id).addClass("active-vote");
-                                    $("#dislikeBtn-" + result.data.answers[x]._id).attr("disabled", "disabled").off('click');
+        QuestionDetailService.GetQuestionsDetail(id).then(function (result) {
+                console.log(result);
+                if (result.data.found === true) {
+                    $scope.isDetailPage = true;
+                    $scope.detail = result.data.questionDetail;
+                    $scope.refs = result.data.questionDetail.References;
+                    $rootScope.listOfAnswersData = result.data.answers;
+                    $scope.avatarLists = result.data.avatarLists;
+                    var checkElementExist = setInterval(function () {
+                        if ($(".comment").length) {
+                            for (var x = 0; x < result.data.answers.length; x++) {
+                                if (result.data.answers[x].Like.includes(currentUser)) {
+                                    var likeDom = document.getElementById('likeBtn-' + result.data.answers[x]._id);
+                                    if (likeDom) {
+                                        clearInterval(checkElementExist);
+                                        $("#likeBtn-" + result.data.answers[x]._id).addClass("active-vote");
+                                        $("#dislikeBtn-" + result.data.answers[x]._id).attr("disabled", "disabled").off('click');
+                                    }
                                 }
-                            }
-                            if (result.data.answers[x].Dislike.includes(currentUser)) {
-                                var dislikeDom = document.getElementById('dislikeBtn-' + result.data.answers[x]._id);
-                                if (dislikeDom) {
-                                    clearInterval(checkElementExist);
-                                    $("#dislikeBtn-" + result.data.answers[x]._id).addClass("active-vote");
-                                    $("#likeBtn-" + result.data.answers[x]._id).attr("disabled", "disabled").off('click');
+                                if (result.data.answers[x].Dislike.includes(currentUser)) {
+                                    var dislikeDom = document.getElementById('dislikeBtn-' + result.data.answers[x]._id);
+                                    if (dislikeDom) {
+                                        clearInterval(checkElementExist);
+                                        $("#dislikeBtn-" + result.data.answers[x]._id).addClass("active-vote");
+                                        $("#likeBtn-" + result.data.answers[x]._id).attr("disabled", "disabled").off('click');
+                                    }
                                 }
                             }
                         }
-                    }
-                }, 1000);
-                $scope.isLoadingDetailPage = false;
-            } else
-                $location.path('/page-not-found');
+                    }, 1000);
+                    $scope.isLoadingDetailPage = false;
+                } else
+                    $location.path('/page-not-found');
             }
         );
     }

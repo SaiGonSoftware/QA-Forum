@@ -40,7 +40,7 @@ var answerSchema = new mongoose.Schema({
 
 var Answer = mongoose.model('answers', answerSchema);
 var getAnswerViaQuestion = function (id, callback) {
-    Answer.find({"QuestionId":id}).sort({
+    Answer.find({"QuestionId": id}).sort({
         'CreateDate': 'descending'
     }).exec(callback);
 };
@@ -153,8 +153,12 @@ var getDistinctId = function (callback) {
     Answer.find({}).distinct('QuestionId', callback);
 };
 
-var getUserAnswer = function(questionId,callback){
-    Answer.find({QuestionId:questionId},'UserAnswer',callback);
+/*var getUserAnswer = function(questionId,callback){
+ Answer.find({QuestionId:questionId},'UserAnswer',callback);
+ };*/
+
+var getUserAnswer = function (questionId, callback) {
+    Answer.find({QuestionId: {$in: questionId}}, '-_id UserAnswer', callback);
 };
 module.exports = {
     Answer: Answer,
@@ -174,5 +178,5 @@ module.exports = {
     removeDislike: removeDislike,
     getAnswerViaId: getAnswerViaId,
     getDistinctId: getDistinctId,
-    getUserAnswer:getUserAnswer
+    getUserAnswer: getUserAnswer
 };
