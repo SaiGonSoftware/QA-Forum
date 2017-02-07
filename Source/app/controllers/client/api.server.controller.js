@@ -60,21 +60,19 @@ exports.QuestionDetail = function(req, res) {
                     res.json({found: false, msg: "Not Found"});
                 } else {
                     Answer.getAnswerViaQuestion(id, function(err, answers) {
-                        Answer.getUserAnswer(id, function(err, userAnswers) {
-                            userAnswers.forEach(function(userAnswer, index) {
-                                User.getUserAvatar(userAnswers[index].UserAnswer, function(err, result) {
-                                    avatarList.push(result);
-                                    if (count == userAnswers.length - 1) {
+                           answers.forEach(function(userAnswer) {
+                             User.getUserAvatar(userAnswer.UserAnswer, function(err, result) {
+                                 avatarList.push(result);
+                                 if (count == answers.length - 1) {
                                         if (err) {
                                             return res.json({success: false, msg: "Error"});
                                         } else {
                                             return res.json({found: true, msg: "Found", questionDetail: questionDetail, answers: answers, avatarLists: avatarList});
                                         }
                                     }
-                                    count++;
-                                });
-                            });
-                        });
+                                count++;
+                             });
+                           });
                     });
                 }
             });

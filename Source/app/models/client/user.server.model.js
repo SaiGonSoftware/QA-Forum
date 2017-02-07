@@ -72,7 +72,7 @@ var getUserInfo = function (currentUser, callback) {
 };
 
 var getUserAvatar = function(user,callback){
-    User.find({Account:user},'Avatar',callback);
+    User.find({Account:user},'-_id Avatar',callback);
 };
 
 module.exports = {

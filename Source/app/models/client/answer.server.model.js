@@ -40,11 +40,9 @@ var answerSchema = new mongoose.Schema({
 
 var Answer = mongoose.model('answers', answerSchema);
 var getAnswerViaQuestion = function (id, callback) {
-    Answer.find({
-        "QuestionId": {
-            "$in": id
-        }
-    }, callback);
+    Answer.find({"QuestionId":id}).sort({
+        'CreateDate': 'descending'
+    }).exec(callback);
 };
 var submitAnswer = function (answer, callback) {
     Answer.collection.insert(answer, callback);

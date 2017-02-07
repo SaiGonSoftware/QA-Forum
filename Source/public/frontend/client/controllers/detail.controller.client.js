@@ -12,9 +12,7 @@
         $scope.isLoadingDetailPage = true;
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
-        var currentUser = loginUser
-            ? loginUser
-            : facebookUser;
+        var currentUser = loginUser ? loginUser : facebookUser;
         var id = $routeParams.id;
         $scope.addText = '{0}';
         $scope.rawText = function(obj) {
@@ -27,6 +25,7 @@
                 $scope.refs = result.data.questionDetail.References;
                 $rootScope.listOfAnswersData = result.data.answers;
                 $scope.avatarLists = result.data.avatarLists;
+                console.log( result.data.avatarLists);
                 var checkElementExist = setInterval(function() {
                     if ($(".comment").length) {
                         for (var x = 0; x < result.data.answers.length; x++) {
