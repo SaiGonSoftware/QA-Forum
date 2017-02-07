@@ -63,7 +63,8 @@ exports.QuestionDetail = function(req, res) {
                            answers.forEach(function(userAnswer) {
                              User.getUserAvatar(userAnswer.UserAnswer, function(err, result) {
                                  avatarList.push(result);
-                                 if (count == answers.length - 1) {
+                                 console.log(avatarList+'\r\n');
+                                 if (count == answers.length) {
                                         if (err) {
                                             return res.json({success: false, msg: "Error"});
                                         } else {
