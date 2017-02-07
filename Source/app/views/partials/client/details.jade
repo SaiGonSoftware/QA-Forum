@@ -33,7 +33,7 @@
                         i.fa.fa-comments
                         |  {{listOfAnswersData.length}} Câu Trả Lời
                     .comment-wrapper
-                        article.comment(ng-repeat="answerListData in listOfAnswersData")
+                        article.comment(ng-init="listOfAnswersData = listOfAnswersData;avatarLists=avatarLists",ng-repeat='answerListData in listOfAnswersData track by $index')
                             header.clearfix
                                 vote
                                 .meta

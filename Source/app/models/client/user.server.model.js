@@ -70,6 +70,11 @@ var getUserInfo = function (currentUser, callback) {
         Account: currentUser
     }).exec(callback);
 };
+
+var getUserAvatar = function(user,callback){
+    User.find({Account:user},'Avatar',callback);
+};
+
 module.exports = {
     User: User,
     checkAccountExists: checkAccountExists,
@@ -78,5 +83,6 @@ module.exports = {
     createUser: createUser,
     validPassword: validPassword,
     checkSocialAccountExists: checkSocialAccountExists,
-    getUserInfo: getUserInfo
+    getUserInfo: getUserInfo,
+    getUserAvatar:getUserAvatar
 };
