@@ -4,6 +4,11 @@
             .row.current-chat-area
                 .col-md-12
                     ul.media-list
+                        li.media-list(ng-repeat="message in messageData")
+                            {{message.Message}}
+                            br
+                            small.text-muted {{message.User}} | {{message.SentDate}}
+
             .row.current-chat-footer
                 .panel-footer
                     .input-group#chat-wrapper
