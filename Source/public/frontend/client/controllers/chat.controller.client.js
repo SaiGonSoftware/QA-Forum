@@ -4,15 +4,18 @@
 	angular.module('ChatBotApp')
 		.controller('ChatController', ChatController);
 
-	ChatController.$inject = ['$scope', '$location', 'localStorageService', '$document', 'GetMessageService', 'SaveMessageService'];
+	ChatController.$inject = ['$scope', '$location', 'localStorageService', 'GetMessageService', 'SaveMessageService'];
 
-	function ChatController($scope, $location, localStorageService, $document, GetMessageService, SaveMessageService) {
+	function ChatController($scope, $location, localStorageService, GetMessageService, SaveMessageService) {
 		var loginUser = localStorageService.cookie.get('currentUser');
 		var facebookUser = localStorageService.cookie.get('facebookUser');
 		var currentUser = loginUser ? loginUser : facebookUser;
 		if(currentUser === null) {
 			$location.path('/dang-nhap');
 		}
+		$('.current-chat-area').animate({
+			scrollTop: $('.current-chat-area')[0].scrollHeight
+		}, 2000);
 		GetMessageService.GetMessage().then(function(response) {
 			console.log(response.data.result);
 			$scope.messageData = response.data.result;
@@ -47,9 +50,10 @@
 		};
 
 		socket.on('new message', function(data) {
-			chat.append('<li class="media-body">' + data.message + '<br><small class="text-muted">' + data.username + ' | ' + currentTime + '</small></li>');
-			/*var myDiv = document.getElementById('chat-element');
-			myDiv.scrollTop = myDiv.scrollHeight;*/
+			chat.append('<p><li class="media-body">' + data.message + '<br><small class="text-muted">' + data.username + ' | ' + currentTime + '</small></li></p>');
+			$('.current-chat-area').animate({
+				scrollTop: $('.current-chat-area')[0].scrollHeight
+			}, 2000);
 		});
 
 		socket.on('get users', function(data) {
