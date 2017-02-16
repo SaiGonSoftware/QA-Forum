@@ -18,7 +18,8 @@ router.get('/GetNextQuestionViaCategory/:id/requestTime=:requestTime', api.GetNe
 router.get('/Search/:queryString', api.FindQuestion);
 router.get('/Account/Contrib/:currentUser', api.GetAllContrib);
 router.get('/GetHotTopic', api.GetHotTopic);
-router.get('/GetUnanswerQuestion', api.GetUnanswerQuestion);
+router.get('/GetUnAnswerQuestion', api.GetUnAnswerQuestion);
+router.get('/Account/GetMessage', api.GetAllMessages);
 
 
 router.post('/Account/Register', api.Register);
@@ -26,10 +27,12 @@ router.post('/Account/Login', api.Login);
 router.post('/Account/PostAnswer/:id', api.Answer);
 router.post('/Account/PostQuestion', api.Question);
 router.post('/Account/LikeAnswer', api.Like);
+router.post('/Account/SaveMessage', api.SaveMessage);
 router.post('/Answer/UnLike', api.UnLike);
 router.post('/Account/DislikeAnswer', api.Dislike);
 router.post('/Answer/UnDislike', api.UnDislike);
 router.post('/Question/FindQuestion', api.FindQuestion);
 router.post('/Answer/RemoveAnswer', api.RemoveAnswer);
 router.post('/Answer/EditAnswer/:id', api.EditAnswer);
+
 module.exports = router;

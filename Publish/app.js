@@ -10,7 +10,7 @@ var express = require('express'),
 	port = process.env.PORT || 3000,
 	http = require('http'),
 	server = http.createServer(app),
-	env = process.env.NODE_ENV || 'development',
+	env = process.env.NODE_ENV || 'production',
 	io = require('socket.io').listen(server),
 	users = [],
 	connections = [];
@@ -61,12 +61,11 @@ if(env === 'production') {
 }
 
 io.sockets.on('connection', function(socket) {
-	connections.push(socket);
 	console.log('Connected: %s sockets connected', connections.length);
 
 	//disconnect
 	socket.on('disconnect', function(data) {
-		users.splice(users.indexOf(socket.username, 1));
+		users.splice(users.indexOf(socket.username), 1);
 		updateUsername();
 		connections.splice(connections.indexOf(socket), 1);
 		console.log('Disconnected: %s sockets disconnected', connections.length);
@@ -77,9 +76,11 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('new user', function(data) {
-		socket.username = data;
-		users.push(socket.username);
-		updateUsername();
+		if(data !== null) {
+			socket.username = data;
+			users.push(socket.username);
+			updateUsername();
+		}
 	});
 
 	function updateUsername() {

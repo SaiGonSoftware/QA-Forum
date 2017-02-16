@@ -2,7 +2,9 @@
     .container
         .row(ng-controller="DetailController")
             .col-md-8.blog-main
-                article.blog-post
+                div.loading-img
+                    img(src='/img/icon/detail-loading.gif',ng-show='isLoadingDetailPage')
+                article.blog-post(ng-hide='isLoadingDetailPage')
                     header
                         h1 {{detail.Title}}
                         .lead-image
@@ -10,7 +12,7 @@
                             .meta.clearfix
                                 .author
                                     i.fa.fa-user
-                                    span.data {{detail.UserQuestion}}    
+                                    span.data {{detail.UserQuestion}} 
                                 .date
                                     i.fa.fa-calendar
                                     span.data {{detail.CreateDate | date : "short" }}
@@ -20,18 +22,18 @@
                                         a(href='#create-comment') {{listOfAnswersData.length}} Câu Trả Lời
                                 .views
                                     i.fa.fa-eye
-                                    span.data  {{detail.ViewTime}} Lượt Xem        
+                                    span.data  {{detail.ViewTime}} Lượt Xem
                     .body
                         br
                         p#question-detail
-                            | {{detail.Content}}
+                            div(ng-bind-html="rawText(detail.Content)")
                 aside#comments.comments
                     hr
                     h2
                         i.fa.fa-comments
                         |  {{listOfAnswersData.length}} Câu Trả Lời
                     .comment-wrapper
-                        article.comment(ng-repeat="answerListData in listOfAnswersData")
+                        article.comment(ng-init="listOfAnswersData = listOfAnswersData;avatarLists=avatarLists",ng-repeat='answerListData in listOfAnswersData track by $index')
                             header.clearfix
                                 vote
                                 .meta
@@ -43,7 +45,7 @@
                                         | -
                                     span  Đã Trả Lời
                             .body
-                                | {{answerListData.Content}}
+                                div(ng-bind-html="rawText(answerListData.Content)")
                 aside#create-comment.create-comment(ng-controller='AnswerController')
                     hr
                     h2
@@ -55,6 +57,6 @@
                         label(for='Content', ng-show='(AnswerForm.Content.$dirty || AnswerFormSubmmit) && AnswerForm.Content.$error.required') Câu trả lời không được để trống
                         .buttons.clearfix
                             button.btn.btn-primary.btn-lg(type='submit',ng-hide='HideAnswerBtn') Đăng câu trả lời
-                            div(style='text-align:center;margin:10%')
+                            div.loading-img
                                 img(src='/img/icon/loading.gif',ng-show='ShowLoading')
             include ../../layout/client/side_content

@@ -4,12 +4,12 @@
     .container
         .row
             .col-md-8.blog-main(ng-controller='ForumContainController')
-                include ../../layout/client/search
                 .row
                     .col-md-6.col-sm-6(ng-repeat='question in questions')
                         .bs-callout.bs-callout-info
-                            a(href='/bai-viet/{{question._id}}') {{question.Title}}
-                            h5 Hỏi vào lúc {{question.CreateDate | date : "short" }}
-                            h5 Đăng bởi {{question.UserQuestion}} | {{question.ViewTime}} lượt xem
+                            a(href='/bai-viet/{{question._id}}')
+                                h3 {{question.Title}}
+                                h5 Hỏi vào lúc {{question.CreateDate | date : "short" }}
+                                h5 Đăng bởi {{question.UserQuestion}} | {{question.ViewTime}} lượt xem
                 button.btn.btn-primary.btn-block(type='button',ng-click='LoadMoreQuestionCategory()') Click để xem tiếp
             include ../../layout/client/side_content

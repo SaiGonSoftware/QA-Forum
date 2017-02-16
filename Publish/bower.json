@@ -1,20 +1,20 @@
 {
-    "name": "ChatBot",
-    "description": "",
-    "main": "app.js",
-    "authors": [
-        "hoangphucvu <ngohungphuc95@gmail.com>"
-    ],
-    "license": "MIT",
-    "homepage": "https://github.com/hoangphucvu/Chat-Bot",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "angular-local-storage": "^0.5.2"
-    }
+  "name": "ChatBot",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "hoangphucvu <ngohungphuc95@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/hoangphucvu/Chat-Bot",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-local-storage": "^0.5.2"
+  }
 }

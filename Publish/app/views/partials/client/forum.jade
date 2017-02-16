@@ -5,7 +5,6 @@
     .container
         .row
             .col-md-8.blog-main(ng-controller='ForumController')
-                include ../../layout/client/search
                 .forum-cat.bs-callout.bs-callout-info(ng-init="categories = categories;postCount=postCount",ng-repeat='data in categories track by $index')
                     a(href='/chuyen-muc/{{data._id}}',class='cat-name-content')
                         h3 {{data.Name}}

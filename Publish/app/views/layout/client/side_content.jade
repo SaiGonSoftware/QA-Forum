@@ -4,8 +4,8 @@ aside.col-md-4.blog-aside
             p
                 a.btn.btn-primary.btn-md(href='/tao-cau-hoi',style='width:305px') Bạn có thắc mắc ?
             p
-                .input-group(ng-controller='SearchController',ng-if="isDetailPage")
-                    input#QueryString.form-control(type='text', name='QueryString', ng-model='SearchData.QueryString', placeholder='Tìm câu hỏi',ng-keydown="$event.which == 13 && Search()")
+                .input-group(ng-controller='SearchController')
+                    input#QueryString.form-control(type='text', name='QueryString', ng-model='QueryString', placeholder='Tìm câu hỏi',ng-keydown="$event.which == 13 && Search()")
                     span.input-group-btn
                         button.btn.btn-default(type='button', ng-click='Search()') Go!
         header
@@ -17,18 +17,18 @@ aside.col-md-4.blog-aside
 
     .aside-widget(ng-if='refs')
         header
-            h3 Tài liệu tham khảo
+            h3 Link Tham Khảo
         .body
             ul.tales-list
                 li(ng-repeat='ref in refs')
                     a(href='{{ref.Link}}',target='_blank') {{ref.Title}}
-    .aside-widget
+    .aside-widget(ng-controller='UnAnswerQuestionController')
         header
             h3 Câu Hỏi Chưa Được Trả Lời
         .body
-            ul.tales-list
+            ul.tales-list(ng-repeat='unAnswerQuestion in unAnswerQuestions')
                 li
-                    a(href='index.html') Email Encryption Explained
+                    a(href='/bai-viet/{{unAnswerQuestion._id}}') {{unAnswerQuestion.Title}} | {{unAnswerQuestion.ViewTime}} Lượt xem
     .aside-widget
         header
             h3 Tags

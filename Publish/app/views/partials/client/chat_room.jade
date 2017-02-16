@@ -4,6 +4,12 @@
             .row.current-chat-area
                 .col-md-12
                     ul.media-list
+                        p#message-item
+                            li(ng-repeat="message in messageData")
+                                {{message.Message}}
+                                br
+                                small.text-muted {{message.User}} | {{message.SentDate}}
+
             .row.current-chat-footer
                 .panel-footer
                     .input-group#chat-wrapper
@@ -14,5 +20,3 @@
                     a.list-group-item(href='#')
                         p Online:
                         p.list-online
-                .col-md-12
-                    a.list-group-item(href='#') Các bạn trò truyện lịch sự nhé
