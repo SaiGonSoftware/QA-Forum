@@ -28,11 +28,11 @@ router.post('/Account/PostAnswer/:id', api.Answer);
 router.post('/Account/PostQuestion', api.Question);
 router.post('/Account/LikeAnswer', api.Like);
 router.post('/Account/SaveMessage', api.SaveMessage);
-router.post('/Answer/UnLike', api.UnLike);
 router.post('/Account/DislikeAnswer', api.Dislike);
-router.post('/Answer/UnDislike', api.UnDislike);
 router.post('/Question/FindQuestion', api.FindQuestion);
-router.post('/Answer/RemoveAnswer', api.RemoveAnswer);
-router.post('/Answer/EditAnswer/:id', api.EditAnswer);
+//router.post('/Answer/UnLike', api.UnLike);
+//router.post('/Answer/UnDislike', api.UnDislike);
+//router.post('/Answer/RemoveAnswer', api.RemoveAnswer);
+//router.post('/Answer/EditAnswer/:id', api.EditAnswer);
 
 module.exports = router;

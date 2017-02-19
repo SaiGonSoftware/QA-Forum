@@ -19,9 +19,8 @@ exports.GetQuestion = function(req, res) {
 	var limitItem = CONSTANT.LIMIT_ITEM;
 	Question.getQuestion(limitItem, function(err, questions) {
 		if(err)
-			res.json({ msg: err });
-		else
-			res.json({ questions: questions });
+			return res.json({ msg: err });
+		return res.json({ questions: questions });
 	});
 };
 exports.GetNextQuestion = function(req, res) {
@@ -31,9 +30,8 @@ exports.GetNextQuestion = function(req, res) {
 	}
 	Question.getQuestion(limitItem, function(err, questions) {
 		if(err)
-			res.json({ msg: err });
-		else
-			res.json({ questions: questions });
+			return res.json({ msg: err });
+		return res.json({ questions: questions });
 	});
 };
 /*exports.QuestionIndex = function (req, res) {
@@ -71,7 +69,7 @@ exports.QuestionDetail = function(req, res) {
 				});
 			}
 		], function(err, questionDetail, answers) {
-			// this is when we complete excute async db query 
+			// this is when we complete excute async db query
 			if(err) {
 				return res.json({
 					msg: err
@@ -123,8 +121,8 @@ exports.Question = function(req, res) {
 		Question.submitQuestion(newQuestion, function(err, newInsertQuestion) {
 			var questionInsertId = newInsertQuestion.ops[0]._id;
 			if(err)
-				res.json({ success: false, msg: "Có lỗi xảy ra vui lòng thử lại" });
-			res.json({
+				return res.json({ success: false, msg: "Có lỗi xảy ra vui lòng thử lại" });
+			return res.json({
 				success: true,
 				url: '/bai-viet/' + questionInsertId,
 				msg: "Đăng câu hỏi thành công"
@@ -155,28 +153,50 @@ exports.Like = function(req, res) {
 	if(username !== null && answerId !== null) {
 		Answer.checkLikeExists(answerId, username, function(err, exists) {
 			if(exists.length > CONSTANT.EXIST_ITEM) {
-				Answer.unLike(answerId, username, function(err, result) {
-					Answer.getAnswerViaId(answerId, function(err, total) {
-						res.json({
+				async.waterfall([
+					function(callback) {
+						Answer.unLike(answerId, username, function(err, result) {
+							callback(null, answerId);
+						});
+					},
+					function(answerId, callback) {
+						Answer.getAnswerViaId(answerId, function(err, total) {
+							callback(null, total);
+						});
+					}
+				], function(err, total) {
+					if(err) {
+						return res.json({ err: err });
+					} else {
+						return res.json({
 							success: true,
 							checkLikeAndDislike: true,
 							totalLike: total.Like.length,
 							totalDislike: total.Dislike.length
 						});
-					});
+					}
 				});
 			} else {
-				Answer.addLike(answerId, username, function(err, like) {
-					if(err) {
-						res.json({ success: false, msg: "Error" });
-					} else {
+				async.waterfall([
+					function(callback) {
+						Answer.addLike(answerId, username, function(err, like) {
+							callback(null, answerId);
+						});
+					},
+					function(answerId, callback) {
 						Answer.countLike(answerId, function(err, total) {
-							res.json({
-								success: true,
-								alreadyLike: false,
-								totalLike: total.Like.length,
-								msg: "Đã thích câu trả lời"
-							});
+							callback(null, total);
+						});
+					}
+				], function(err, total) {
+					if(err) {
+						return res.json({ err: err });
+					} else {
+						return res.json({
+							success: true,
+							alreadyLike: false,
+							totalLike: total.Like.length,
+							msg: "Đã thích câu trả lời"
 						});
 					}
 				});
@@ -190,28 +210,50 @@ exports.Dislike = function(req, res) {
 	if(username !== null && answerId !== null) {
 		Answer.checkDislikeExists(answerId, username, function(err, exists) {
 			if(exists.length > CONSTANT.EXIST_ITEM) {
-				Answer.unDislike(answerId, username, function(err, result) {
-					Answer.getAnswerViaId(answerId, function(err, total) {
-						res.json({
+				async.waterfall([
+					function(callback) {
+						Answer.unDislike(answerId, username, function(err, result) {
+							callback(null, answerId);
+						});
+					},
+					function(answerId, callback) {
+						Answer.getAnswerViaId(answerId, function(err, total) {
+							callback(null, total);
+						});
+					}
+				], function(err, total) {
+					if(err) {
+						return res.json({ err: err });
+					} else {
+						return res.json({
 							success: true,
 							checkLikeAndDislike: true,
 							totalLike: total.Like.length,
 							totalDislike: total.Dislike.length
 						});
-					});
+					}
 				});
 			} else {
-				Answer.addDislike(answerId, username, function(err, like) {
-					if(err) {
-						res.json({ success: false, msg: "Error" });
-					} else {
+				async.waterfall([
+					function(callback) {
+						Answer.addDislike(answerId, username, function(err, dislike) {
+							callback(null, answerId);
+						});
+					},
+					function(answerId, callback) {
 						Answer.countDislike(answerId, function(err, total) {
-							res.json({
-								success: true,
-								alreadyDislike: false,
-								totalDislike: total.Dislike.length,
-								msg: "Đã dislike câu trả lời"
-							});
+							callback(null, total);
+						});
+					}
+				], function(err, total) {
+					if(err) {
+						return res.json({ err: err });
+					} else {
+						return res.json({
+							success: true,
+							alreadyDislike: false,
+							totalDislike: total.Dislike.length,
+							msg: "Đã dislike câu trả lời"
 						});
 					}
 				});
@@ -219,7 +261,7 @@ exports.Dislike = function(req, res) {
 		});
 	}
 };
-exports.UnLike = function(req, res) {
+/*exports.UnLike = function(req, res) {
 	var username = req.body.UserLike;
 	var answerId = req.body.AnswerId;
 	Answer.unLike(answerId, username, function(err) {
@@ -250,10 +292,10 @@ exports.EditAnswer = function(req, res) {
 	var answerContent = req.body.answerContent;
 	Answer.editAnswer(answerId, answerContent, function(err) {
 		if(err)
-			res.json({ success: false, msg: "Error" });
-		res.json({ success: true, msg: "Update answer success" });
+			return res.json({ success: false, msg: "Error" });
+		return res.json({ success: true, msg: "Update answer success" });
 	});
-};
+};*/
 //account relative
 exports.Register = function(req, res) {
 	var usernameRegis = req.body.UsernameRegis;
@@ -335,36 +377,55 @@ exports.Login = function(req, res) {
 };
 exports.GetAllContrib = function(req, res) {
 	var currentUser = req.params.currentUser;
-	Question.getAllContrib(currentUser, function(err, user_contrib) {
-		User.getUserInfo(currentUser, function(err, userInfo) {
-			if(err)
-				return res.json({ err: err });
-			return res.json({ user_contrib: user_contrib, userInfo: userInfo });
-		});
+	async.waterfall([
+		function(callback) {
+			Question.getAllContrib(currentUser, function(err, user_contrib) {
+				callback(null, user_contrib, currentUser);
+			});
+		},
+		function(user_contrib, currentUser, callback) {
+			User.getUserInfo(currentUser, function(err, userInfo) {
+				callback(null, user_contrib, userInfo);
+			});
+		}
+	], function(err, user_contrib, userInfo) {
+		if(err)
+			return res.json({ err: err });
+		return res.json({ user_contrib: user_contrib, userInfo: userInfo });
 	});
-}
+};
 //category relative
 exports.Category = function(req, res) {
 	Category.getCategories(function(err, categories) {
 		if(err)
 			return res.status(500).send();
-		else
-			res.send(categories);
+		return res.send(categories);
 	});
 };
 exports.GetCategoryInfo = function(req, res) {
 	var listCount = [];
 	var indexCount = 0;
-	Category.getCategories(function(err, categories) {
-		categories.forEach(function(category) {
-			Question.countTotalQuestionViaCategory(category._id, function(err, total) {
-				listCount.push(total);
-				if(indexCount == categories.length - 1) {
-					res.json({ postCount: listCount, categories: categories });
-				}
-				indexCount++;
+	async.waterfall([
+		function(callback) {
+			Category.getCategories(function(err, categories) {
+				callback(null, categories);
 			});
-		});
+		},
+		function(categories, callback) {
+			categories.forEach(function(category) {
+				Question.countTotalQuestionViaCategory(category._id, function(err, total) {
+					listCount.push(total);
+					if(indexCount == categories.length - 1) {
+						callback(null, listCount, categories);
+					}
+					indexCount++;
+				});
+			});
+		}
+	], function(err, listCount, categories) {
+		if(err)
+			return res.json({ err: err });
+		return res.json({ postCount: listCount, categories: categories });
 	});
 };
 exports.QuestionViaCategory = function(req, res) {
@@ -372,10 +433,8 @@ exports.QuestionViaCategory = function(req, res) {
 	var limitItem = CONSTANT.LIMIT_ITEM;
 	Question.getQuestionViaCategory(id, limitItem, function(err, questions) {
 		if(err)
-			res.json({ id: id, found: false, msg: "Not Found" });
-		else {
-			res.json({ found: true, msg: "Found", questions: questions });
-		}
+			return res.json({ id: id, found: false, msg: "Not Found" });
+		return res.json({ found: true, msg: "Found", questions: questions });
 	});
 };
 exports.GetNextQuestionViaCategory = function(req, res) {
@@ -386,49 +445,52 @@ exports.GetNextQuestionViaCategory = function(req, res) {
 	}
 	Question.getQuestionViaCategory(categoryId, limitItem, function(err, questions) {
 		if(err)
-			res.json({ msg: err });
-		else
-			res.json({ questions: questions });
+			return res.json({ msg: err });
+		return res.json({ questions: questions });
 	});
 };
 exports.FindQuestion = function(req, res) {
 	var queryString = req.params.queryString;
 	Question.findQuestion(queryString, function(err, questions) {
 		if(err)
-			res.json({ msg: err });
-		else
-			res.json({ questions: questions });
+			return res.json({ msg: err });
+		return res.json({ questions: questions });
 	});
 };
 exports.GetHotTopic = function(req, res) {
 	Question.getHotTopic(function(err, hotToipics) {
 		if(err)
-			res.json({ msg: err });
-		else
-			res.json({ hotToipics: hotToipics });
+			return res.json({ msg: err });
+		return res.json({ hotToipics: hotToipics });
 	});
 };
 exports.GetUnAnswerQuestion = function(req, res) {
-	Answer.getDistinctId(function(err, idArray) {
-		Question.getUnAnswerQuestion(idArray, function(err, unAnswerQuestions) {
-			if(err)
-				res.json({ msg: err });
-			else
-				res.json({ unAnswerQuestions: unAnswerQuestions });
-		});
+	async.waterfall([
+		function(callback) {
+			Answer.getDistinctId(function(err, idArray) {
+				callback(null, idArray);
+			});
+		},
+		function(idArray, callback) {
+			Question.getUnAnswerQuestion(idArray, function(err, unAnswerQuestions) {
+				callback(null, unAnswerQuestions);
+			});
+		}
+	], function(err, unAnswerQuestions) {
+		if(err)
+			return res.json({ msg: err });
+		return res.json({ unAnswerQuestions: unAnswerQuestions });
 	});
 };
 
+//chat sections
 exports.GetAllMessages = function(req, res) {
 	Message.getMessage(function(err, result) {
-		if(err) {
+		if(err)
 			return res.json({ err: err });
-		} else {
-			return res.json({ success: true, result: result });
-		}
+		return res.json({ success: true, result: result });
 	});
 };
-
 exports.SaveMessage = function(req, res) {
 	var message = [{
 		'User': req.body.username,
@@ -437,10 +499,8 @@ exports.SaveMessage = function(req, res) {
 		'CreateDate': new Date()
 	}];
 	Message.saveMessage(message, function(err, result) {
-		if(err) {
+		if(err)
 			return res.json({ err: err });
-		} else {
-			return res.json({ success: true, result: result });
-		}
+		return res.json({ success: true, result: result });
 	});
 }
