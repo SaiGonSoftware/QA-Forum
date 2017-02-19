@@ -341,18 +341,30 @@ exports.Login = function(req, res) {
 	var password = req.body.PasswordLogin;
 	var socialAccount = req.body.SocialAccount;
 	if(username !== undefined && password !== undefined) {
-		User.checkAccountExists(username, function(err, user) {
-			if(user == null) {
-				res.json({ login: false });
-				return;
-			}
-			var AuthUser = User.validPassword(password, user.Password);
-			if(!AuthUser) {
-				res.json({ login: false });
-			} else {
+		async.waterfall([
+			function(callback) {
+				User.checkAccountExists(username, function(err, user) {
+					if(user == null) {
+						res.json({ login: false });
+						return;
+					} else
+						callback(null, user);
+				});
+			},
+			function(user, callback) {
+				var authUser = User.validPassword(password, user.Password);
+				if(!authUser) {
+					res.json({ login: false });
+				} else callback(null, user);
+			},
+			function(user, callback) {
 				var userSession = user.Account;
-				res.json({ login: true, url: '/', userSession: userSession });
+				callback(null, userSession);
 			}
+		], function(err, userSession) {
+			if(err)
+				return res.json({ err: err });
+			return res.json({ login: true, url: '/', userSession: userSession });
 		});
 	}
 	if(socialAccount !== undefined) {
@@ -362,16 +374,27 @@ exports.Login = function(req, res) {
 			'Level': CONSTANT.DEFAULT_LEVEL,
 			'Avatar': null
 		}];
-		User.checkSocialAccountExists(req.body.SocialId, function(err, account) {
-			if(account === null) {
+
+		async.waterfall([
+			function(callback) {
+				User.checkSocialAccountExists(req.body.SocialId, function(err, account) {
+					if(account === null)
+						callback(null, facebookUser);
+					else
+						return res.json({ success: true, url: '/' });
+
+				});
+			},
+			function(facebookUser, callback) {
 				User.createUser(facebookUser, function(err) {
 					if(err)
 						return res.json({ err: err });
-					return res.json({ success: true, url: '/' });
+
+					callback(null, true);
 				});
-			} else {
-				return res.json({ success: true, url: '/' });
 			}
+		], function(err, result) {
+			return res.json({ success: true, url: '/' });
 		});
 	}
 };
