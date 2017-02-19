@@ -4,6 +4,7 @@
  * @Last Modified by:   Ngo Hung Phuc
  * @Last Modified time: 2017-01-16 21:26:21
  */
+
 var User = require('../../models/client/user.server.model');
 var Question = require('../../models/client/question.server.model');
 var Answer = require('../../models/client/answer.server.model');
@@ -12,6 +13,7 @@ var Message = require('../../models/client/message.server.model');
 var CONSTANT = require('../../helpers/constant.helper.server');
 var ObjectId = require('mongodb').ObjectId;
 var google = require('google');
+var async = require('async');
 //index page
 exports.GetQuestion = function(req, res) {
 	var limitItem = CONSTANT.LIMIT_ITEM;
@@ -49,26 +51,39 @@ exports.GetNextQuestion = function(req, res) {
  };*/
 //details page
 exports.QuestionDetail = function(req, res) {
-	var avatarList = [];
-	var count = 0;
 	var id = req.params.id;
 	if(id !== null) {
-		Question.getQuestionDetail(id, function(err, questionDetail) {
-			Question.updateViewTime(id, function(err, data) {
-				if(err) {
-					res.json({ found: false, msg: "Not Found" });
-				} else {
-					Answer.getAnswerViaQuestion(id, function(err, answers) {
-						answers = answers.map(function(answer) {
-							return answer.UserAnswer;
-						});
-						console.log(answers);
-						User.getUserAvatar(answers, function(err, userAvatar) {
-							console.log(userAvatar);
-						});
-					});
-				}
-			});
+		async.waterfall([
+			function(callback) {
+				Question.getQuestionDetail(id, function(err, questionDetail) {
+					//pass questionDetail data to next function and so on
+					callback(null, questionDetail);
+				});
+			},
+			function(questionDetail, callback) {
+				Question.updateViewTime(id, function(err, data) {
+					callback(null, questionDetail);
+				});
+			},
+			function(questionDetail, callback) {
+				Answer.getAnswerViaQuestion(id, function(err, answers) {
+					callback(null, questionDetail, answers);
+				});
+			}
+		], function(err, questionDetail, answers) {
+			// this is when we complete excute async db query 
+			if(err) {
+				return res.json({
+					msg: err
+				});
+			} else {
+				return res.json({
+					found: true,
+					msg: "Found",
+					questionDetail: questionDetail,
+					answers: answers
+				});
+			}
 		});
 	}
 };
