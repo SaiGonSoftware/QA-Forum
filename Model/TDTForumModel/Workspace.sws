@@ -7,7 +7,8 @@
 		<Model Expanded="Yes" ID="{DECD89B0-E610-44B7-A13D-E3E03A9D0E97}" Name="Class Diagram_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Class Diagram.oom"/>
 		<Model Expanded="Yes" ID="{30D24F54-51E9-44FB-8FA4-37217779E93E}" Name="Use Cases Definition_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Use Cases Not Login.oom"/>
 		<Model Expanded="Yes" ID="{9A459B8C-69C9-4DE4-A62E-A1CCB68D2322}" Name="Use Cases Definition_2" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="UC register &amp; login.oom"/>
-		<Model Expanded="Yes" ID="{2816D7E6-4ABE-4ACC-8C78-D126B9CB55CB}" Name="UC After Login" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="UC After Login.oom"/>
+		<Model Expanded="Yes" ID="{2816D7E6-4ABE-4ACC-8C78-D126B9CB55CB}" Name="UC After Login" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="UC After Login.oom"/>
+		<Model Expanded="Yes" ID="{F48EC25B-6281-47C5-BDF9-D4A1B073DCD0}" Name="UC Post Question" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="UC Post Question.oom"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
