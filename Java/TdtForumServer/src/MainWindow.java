@@ -13,6 +13,7 @@ import algorithm.QuestionSimilariry_1_Gram;
 import algorithm.QuestionSimilariry_2_Gram;
 import database.MongoDatabase;
 import entity.Question;
+import ultilities.ClassifierQuestion;
 import ultilities.Tokenizer;
 
 import javax.swing.JTextArea;
@@ -58,6 +59,8 @@ public class MainWindow {
 		mongoDatabase.Connect();
 		listQuestion= mongoDatabase.getAllQuestion();
 		
+		
+		
 		initialize();
 		
 	}
@@ -96,7 +99,12 @@ public class MainWindow {
 		JButton btnFindSimilarity = new JButton("Find Question");
 		btnFindSimilarity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// Find with full text search
 				List<Question> questionFinded= mongoDatabase.findQuestion(textArea.getText());
+				// Find wh question
+				String type =MongoDatabase.classifierQuestion.classifier(textArea.getText());
+				System.out.println("Type of Question: "+type);
+				questionFinded= mongoDatabase.classifierQuestion(questionFinded, type);
 				if(comboBox.getSelectedIndex()==0){
 					chooseAlgorithm= new ChooseAlgorithm(listQuestion, new QuestionSimilariry_1_Gram());
 					chooseAlgorithm.excuteAlgorithm(textArea.getText());

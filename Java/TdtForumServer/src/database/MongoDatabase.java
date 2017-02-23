@@ -2,6 +2,7 @@ package database;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,13 +15,17 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
 import entity.Question;
+import ultilities.ClassifierQuestion;
 
 public class MongoDatabase {
 	private  MongoClient m;
 	public  DB db;
 	private Gson gson;
 	DBCollection coll;
+	public static ClassifierQuestion classifierQuestion;
 	public void Connect(){
+		classifierQuestion= new ClassifierQuestion();
+		classifierQuestion.train();
 		gson = new GsonBuilder().setLenient().serializeNulls().create();
 		try{
 			String textUri = "mongodb://nhatnguyen95:abc123@ds139937.mlab.com:39937/tdtforumdb";
@@ -52,6 +57,7 @@ public class MongoDatabase {
         }
         return listQuestion;
 	}
+	//Filter Question using Fulltext Search
 	public List<Question> findQuestion(String question){
 		
         List<Question> list = new ArrayList<>();
@@ -71,8 +77,19 @@ public class MongoDatabase {
         }
 
         return list;
-
 }
+	//Filter Question using Classifier Question
+	public List<Question> classifierQuestion(List<Question> listQuestion, String type){
+		List<Question> temp = new ArrayList<>();
+		for(Question q: listQuestion){
+			String[] childQuestion = q.getContent().split(Pattern.quote("?"));
+			for(int i=0; i< childQuestion.length;i++){
+				if(classifierQuestion.classifier(childQuestion[i]).equals(type)) temp.add(q);
+			}
+			
+		}
+		return temp;
+	}
 	
 	private  String removeLastChar(String str) {
         return str.substring(0,str.length()-1);
