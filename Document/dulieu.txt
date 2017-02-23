@@ -1,0 +1,136 @@
+﻿what	Điều kiện để nhận học bổng, thư khen là gì?
+which	Quyết định kỷ luật thời hạn hiệu lực của từng mức là bao lâu?
+what	Điều kiện để được xét vào ở Ký túc xá là gì?
+how	Mỗi học kỳ tổ chức đối thoại giữa khoa, nhà trường với sinh viên bao nhiêu lần?
+what	Điều kiện để được sinh viên 5 tốt là gì?
+what	Thông tin chi tiết 3 nội dung đạo đức của sinh viên?
+what	Điều kiện tham gia thực tập tốt nghiệp các ngành?
+what	Điều kiện được làm đồ án tốt nghiệp các ngành?
+how	Thời gian đào tạo tối đa của các ngành?
+how	Cách tính điểm TTTN và KNTHCM như thế nào?
+how	Điều kiện để được học vét và học trả nợ?
+yesno	Có thể đăng kí vào lớp đầy sỉ số được không?
+which	Học phí bao nhiêu một tín chỉ?
+yesno	Đã đăng kí KHHT rồi thì không cần ĐKMH được không?
+yesno	Lỡ đăng kí KHHT nhưng không ĐKMH thì có tính tiền học phí không?
+yesno	Thông báo đóng tiền học phí có đợt 2 không?
+yesno	Em quên đăng kí môn học (hoặc đăng kí KHHT) thì còn đợt nào đăng kí nữa không?
+how	Em bị công việc đột xuất không đi thi được (hoặc quên đi thi) thì có cách nào thi lại không?
+what	Môn tương đương của môn A là môn gì?
+what	Điều kiện làm luận văn? 
+what	Điều kiện tốt nghiệp?
+which	Thủ tục và cách thức gia hạn đóng học phí như thế nào?
+which 	Trường Đại học Tôn Đức Thắng hiện có bao nhiêu câu lạc bộ đội nhóm?
+how	Cách thức để SV đăng ký?  
+yesno	SV có thể đăng ký trực tuyến được không?
+what	Sinh viên muốn xem  lại bài thi thì làm những thủ tục gì?
+where	Sinh viên muốn xem danh mục các môn tương đương thì xem ở đâu? 
+how	hiện tại em có một người bạn đang học ngành Dược ở Đại học khác và muốn chuyển sang học tiếp tại trường Tôn Đức Thắng, thì cần có những thủ tục như thế nào ạ ?
+what	về các slide bài giảng bằng tiếng Anh, hiện tại trình độ tiếng Anh của em vẫn chưa đủ để hiểu và học theo. Nếu như vậy thì giải pháp nào cho vấn đề này ạ ?
+yesno	Nếu em hiến máu tình nguyện bên ngoài thì có được cộng điểm rèn luyện không ạ ?
+yesno	Em hiện tại là sinh viên năm hai và nếu bây giờ thi Toeic thì 2 năm sau bằng Toeic sẽ hết hạn vậy em có phải thi lại để nộp bằng không ạ?
+why	Thưa thầy, tại sao không cho chúng em học bằng tiếng Việt vì nếu học tiếng Việt chúng em sẽ có thể nắm được kiến thức rất nhiều hơn so với học bằng tiếng Anh?
+yesno	Học phí học kỳ hè có cao hơn học kỳ 1 và học kỳ 2 trong cùng một năm học không? 
+when	Sinh viên chất lượng cao được miễn học anh văn thì phần học phí đó sẽ được hoàn lại như thế nào và vào thời điểm nào?
+how	Sinh viên lớp chất lượng cao đăng ký học lại các môn với lớp thường hoặc lớp chất lượng cao khóa dưới thì cách thức đăng ký như thế nào? 
+yesno	Sinh viên mới học năm 2 mà đã thi TOEIC và đạt trên 500 điểm, khi đến lúc xét tốt nghiệp mà TOEIC hết hạn thì có phải thi lại không? 
+yesno	SV thi bị rớt môn anh văn 3 (khóa 19), môn anh văn này có tính chung vào với điểm trung bình học tập của học kỳ để xét học bổng hay không?   
+yesno	Khi đăng ký kế hoạch học tập SV không đăng ký môn A, đến đợt đăng ký môn học chính thức thì SV có được đăng ký thêm môn này thì có được không?  
+what	Sau khi thi tốt nghiệp trước tiến độ xong thì sinh viên cần thực hiện thủ tục gì để được xét tốt nghiệp trước tiến độ? 
+yesno	Sinh viên thực tập tốt nghiệp trước tiến độ có được làm luận văn tốt nghiệp hay không? 
+how	Cách thức xét điều kiện khóa luận của những sinh viên này như thế nào?   
+why	Một số sinh viên khóa 19 học hết năm 1 nhưng không đủ số TCTL theo chương trình đào tạo năm 1 do không học kịp anh văn. Lịch học anh văn các em không chủ động được mà do phòng Đại học xếp lịch nên việc thiếu số TCTL không phải là do lỗi của sinh viên vậy tại sao lại không nhận được Thư khen? 
+yesno	Sinh viên lớp thường học trả nợ với lớp chất lượng cao được không? 
+how	Nếu được thì học phí sẽ được tính như thế nào? 
+what	EAC là gì?
+how	Em muốn tham gia EAC thì làm thế nào?
+what	Thông tin liên hệ của EAC là gì?
+what	Mục đích và vai trò của EAC, tham gia EAC em sẽ được gì?
+what	Nếu tham gia EAC, em sẽ hỗ trợ các công việc gì?
+what	Học phí năm sau tăng bao nhiêu % so với năm trước?
+how	học kỳ hè đóng học phí như thế nào?
+what	Điều kiện xét học bổng là gì?
+what	Điều kiện để miễn anh văn?
+yesno	Điểm toeic đã nộp thấp, nộp bằng mới cao hơn có được cập nhật?
+yesno	Anh văn đầu ra có được hoãn thi không? 
+yesno	Có bị ảnh hưởng đến xét học bổng?
+yesno	Sinh viên ngành Tiếng Trung, nếu học chuyên ngành 2 là Ngôn ngữ anh và chọn Ngoại ngữ phụ trong chuyên ngành 2  là Tiếng Trung thì có được miễn không?
+yesno	Sinh viên có được phúc khảo bài thi hay không? 
+yesno	Sau khi phúc khảo có được xem lại bài không? 
+how	Cách thức nộp đơn và thời gian nộp đơn xin phúc khảo?
+yesno	Điểm rèn luyện có ảnh hưởng đến xếp loại tốt nghiệp không?
+yesno	Sau khi đăng ký môn học thành công, em muốn chuyển nhóm để có lịch học phù hợp hơn thì có được hay không?
+how	Em muốn hỏi về cách tính điểm trung bình?
+yesno	Em muốn hỏi SV lớp chất lượng cao có thể đăng ký môn GDTC cùng với các bạn lớp thường được không?
+yesno	Em là SV lớp CLC học theo lịch của Trường xếp, Vậy em có thể đăng ký trước môn học để tốt nghiệp trước tiến độ không?
+how	Em sẽ đăng ký như thế nào nếu được?
+how	Sau khi thi xong em phải nộp lại tất cả giấy nháp và đề thi và không được sửa bài. Vậy làm thế nào em biết em làm bài sai chỗ nào?
+what	Em muốn hỏi điều kiện để xét học bổng là như thế nào?
+how	Nếu thực địa đa dạng sinh học bị trùng với những môn đang học hè thì phải giải quyết như thế nào? 
+why	Tại sao các môn học chung của các khoa lại có học phí khác nhau? 
+how	Làm sao để học tốt tiếng anh?
+yesno	Học ngành công nghệ sinh học ra khó kiếm việc làm có đúng không?
+why	Vì sao khi tăng học phí, Nhà trường không có thông báo trước cho sinh viên?
+why	Với mức tăng học phí mới, vì sao Nhà trường không công bố rộng rãi để sinh viên biết?
+where 	Sinh viên xin nộp đơn phúc khảo bài thi ở đâu?
+how	Như thế nào?
+where	Xem thời gian nộp đơn phúc khảo bài thi ở đâu?
+when	Thời gian nhận kết quả phúc khảo bài thi?
+what	Trường hợp sinh viên không hài lòng với kết quả phúc khảo Muốn xem bài thi thì phải làm gì?
+yesno	Lịch thi có 02 môn trùng nhau vì em quên phản hồi giờ em xin thi 1 môn ra sớm rồi sang thi môn còn lại có được không?
+what	Khi đến nhận bằng tốt nghiệp cần mang theo giấy tờ gì?
+yesno	Có thể nhờ người khác nhận bằng tốt nghiệp thay được không?
+yesno	Có thể nhận bằng tốt nghiệp vào ngày thứ 7?
+yesno	Bằng tốt nghiệp bị mất có thể được cấp lại không?
+where	Sinh viên chương trình liên kết xem thời khóa biểu và lịch thi ở đâu?
+what	Hình thức thi kết thúc học phần các môn cơ sở tin học 1,2 và 3 của sinh viên chương trình liên kết?
+yesno	Sinh viên chương trình liên kết có phải học các môn học chính trị Mác – Lênin, Tư tưởng Hồ Chí Minh, Đường lối cách mạng Việt Nam, GDTC và GDQP?
+yesno	Sinh viên chương trình liên kết có bắt buộc phải học chương trình tiếng Anh bổ trợ tại Trường?
+what	Em cần bao nhiêu điểm để qua môn MOS?
+which	Em thi với mức điểm bao nhiêu thì được hỗ trợ của Nhà trường trong lần thi tiếp theo?
+where	Em nhận chứng chỉ MOS ở đâu?
+what	Lệ phí thi chứng chỉ MOS là bao nhiêu?
+yesno	Em có cần đăng ký thi MOS?
+when	Ngày thi MOS?
+what	Lịch thi và danh sách thi MOS?
+where	Đóng chi phí thi MOS ở đâu?
+what	Giấy tờ cần thiết để đi thi?
+yesno	Trong đề thi có song ngữ không ạ?
+yesno	Trong đề thi có Tip giống như phần mềm không ạ?
+yesno	Trong đề thi có mở ngoặc ghi từ khóa tiếng anh không ạ?
+yesno	Em đang học môn CSTH2 (CSTH1) cuối kỳ này em có thể đăng ký thi cả 2 môn được không ạ?
+yesno	Em thi chỉ đạt điểm qua môn thôi, không có chứng chỉ, giờ em muốn có chứng chỉ thì em phải làm gì ạh? đóng tiền bao nhiêu, có được nhà tường trợ giá không ạ?
+which	Chứng minh thư như thế nào thì không hợp lệ? 
+what	Nếu CMT không hợp lệ em phải làm gì?
+where	Em không nhớ điểm lần thi trước, xem lại điểm ở đâu?
+yesno	Nếu em thi rớt môn, em có phải đăng ký học lại không?
+what	Em lỡ quên đóng lệ phí thi theo thông báo của Phòng Tài Chính, em phải làm sao?
+when	Khi nào có lớp ôn thi MOS ạ?
+where	Em có thể tự ôn tập lại MOS ở đâu ạ?
+what	Điểm thi của em không đạt yêu cầu. Vì em không nắm quy định nên đã đăng ký học lại. Giờ em nên làm gì ạ?
+what	Em không bị cấm thi nhưng chưa muốn thi đợt này. Em nên làm gì ạ?
+yesno	Em thi rớt lần đầu, lần sau em đăng ký học lại nhưng bị cấm thi. Vậy em có bị bắt buộc đăng ký học lại không hay chỉ cần thi lại?
+yesno	Em được đi thi nhưng rớt thì có phải đăng ký học lại môn này không?
+yesno	Chứng chỉ MOS có khác nhau khi thi MOS bằng tiếng Anh hay tiếng Việt không?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
