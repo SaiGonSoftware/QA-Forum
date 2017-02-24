@@ -110,7 +110,10 @@ var getAllQuestion = function(callback) {
 var getUnAnswerQuestion = function(idArray, callback) {
 	Question.find({ _id: { $nin: idArray } }, callback);
 };
-
+// "i" is for case insensitive match
+var getRelatedQuestion = function(searchString, callback) {
+	Question.find({ 'Title': new RegExp(searchString, 'i') }).limit(10).exec(callback);;
+};
 module.exports = {
 	Question: Question,
 	countQuestion: countQuestion,
@@ -126,5 +129,6 @@ module.exports = {
 	getHotTopic: getHotTopic,
 	updateViewTime: updateViewTime,
 	getAllQuestion: getAllQuestion,
-	getUnAnswerQuestion: getUnAnswerQuestion
+	getUnAnswerQuestion: getUnAnswerQuestion,
+	getRelatedQuestion: getRelatedQuestion
 };

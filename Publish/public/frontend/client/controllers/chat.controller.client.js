@@ -15,7 +15,7 @@
 		}
 		$('.current-chat-area').animate({
 			scrollTop: $('.current-chat-area')[0].scrollHeight
-		}, 2000);
+		}, 5000);
 		GetMessageService.GetMessage().then(function(response) {
 			console.log(response.data.result);
 			$scope.messageData = response.data.result;
@@ -53,7 +53,7 @@
 			chat.append('<p><li class="media-body">' + data.message + '<br><small class="text-muted">' + data.username + ' | ' + currentTime + '</small></li></p>');
 			$('.current-chat-area').animate({
 				scrollTop: $('.current-chat-area')[0].scrollHeight
-			}, 2000);
+			}, 5000);
 		});
 
 		socket.on('get users', function(data) {

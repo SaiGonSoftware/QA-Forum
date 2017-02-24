@@ -527,3 +527,11 @@ exports.SaveMessage = function(req, res) {
 		return res.json({ success: true, result: result });
 	});
 }
+
+exports.AutoComplete = function(req, res) {
+	var searchString = req.params.searchString;
+	Question.getRelatedQuestion(searchString, function(err, result) {
+		console.log(result);
+		return res.json({ autoCompleteResults: result });
+	});
+}

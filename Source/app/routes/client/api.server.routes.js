@@ -16,6 +16,7 @@ router.get('/GetCategoryInfo', api.GetCategoryInfo);
 router.get('/GetQuestionViaCategory/:id', api.QuestionViaCategory);
 router.get('/GetNextQuestionViaCategory/:id/requestTime=:requestTime', api.GetNextQuestionViaCategory);
 router.get('/Search/:queryString', api.FindQuestion);
+router.get('/AutoComplete/:searchString', api.AutoComplete);
 router.get('/Account/Contrib/:currentUser', api.GetAllContrib);
 router.get('/GetHotTopic', api.GetHotTopic);
 router.get('/GetUnAnswerQuestion', api.GetUnAnswerQuestion);
