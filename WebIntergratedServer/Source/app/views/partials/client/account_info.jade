@@ -1,0 +1,43 @@
+div(id="accountMangeContent")
+    .row(ng-controller="AccountInfoController")
+        .col-md-4
+            .list-group
+                a.list-group-item.active(href='#')
+                    | Quản Lý Thông Tin Tài Khoản
+                a.list-group-item(href='#',ng-click="showme=false") Thông Tin Cá  Nhân
+                a.list-group-item(href='#',ng-click="showme=true") Câu Hỏi
+        .col-md-8
+            .panel.panel-primary(ng-hide="showme")
+                .panel-heading
+                    h3.panel-title Thông Tin Cá  Nhân
+                .panel-body(ng-repeat='userInfo in userInfos')
+                    p Tài khoản : {{userInfo.Account}}
+                    p Email :{{userInfo.Email}}
+                    p
+                        .panel.panel-default#avatar-contain
+                            .panel-heading Ảnh đại diện
+                            .panel-body
+                                img.img-responsive.user-avatar(ng-src='/img/{{userInfo.Avatar}}',ng-if='userInfo.Avatar')
+                                img.img-responsive.user-avatar(ng-src='/img/user-icon.png',ng-if='!userInfo.Avatar')
+                                br
+                                form(ng-submit='UploadAvatar()' novalidate name='UploadAvatarForm')
+                                    span.btn.btn-default.btn-file
+                                        | Chọn hình đại diện
+                                        input(type='file', onchange='angular.element(this).scope().CheckFile(this)',required='',ng-class="IsAvatarFormSubmitted?'ng-dirty':''")
+                                    button.btn.btn-primary(type='submit', ng-hide='HideUploadBtn')
+                                        | Upload
+                                        i.fa.fa-paper-plane-o(aria-hidden='true')
+                                    br
+                                    label(ng-show='(UploadAvatarForm.file.$dirty || IsAvatarFormSubmitted) && UploadAvatarForm.file.$error.required') Vui Lòng Chọn File
+                                    img(src='/img/icon/detail-loading.gif', ng-show='Loading')
+
+                                .row
+                                    | {{fileMessage}}
+
+            .panel.panel-primary(ng-show="showme")
+                .panel-heading
+                    h3.panel-title Câu Hỏi
+                .panel-body
+                    .panel.panel-default(ng-repeat="user_contrib in user_contribs")
+                        .panel-body
+                            a(href='/bai-viet/{{user_contrib._id}}',target='_blank') {{user_contrib.Title}}

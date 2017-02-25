@@ -1,0 +1,1454 @@
+//colors
+$color_bright_gray_approx: #37424c;
+$color_limed_spruce_approx: #3e4953;
+$color_trout_approx: #49545d;
+$color_desert_storm_approx: #f8f8f9;
+$color_mako_approx: #404b55;
+$color_white_approx: #feffff;
+$color_mid_gray_approx: #5b6268;
+$color_mischka_approx: #ced5db;
+$color_shuttle_gray_approx: #566572;
+$color_silver_chalice_approx: #ababab;
+$color_shark_approx: #242b32;
+$color_french_gray_approx: #b6bfc8;
+$color_bombay_approx: #b3b5b7;
+$color_waterloo__approx: #7b8690;
+$color_mercury_approx: #e6e6e6;
+$black_20: rgba(0, 0, 0, 0.2);
+$color_nevada_approx: #636c74;
+$white_15: rgba(255, 255, 255, 0.15);
+$black_6: rgba(0, 0, 0, 0.06);
+$color_aqua_forest_approx: #55a773;
+$color_raven_approx: #757e88;
+$color_wild_sand_approx: #f6f5f5;
+$color_cararra_approx: #ebeaea;
+$color_periwinkle_gray_approx: #c1d2e1;
+$color_shady_lady_approx: #a8a8a8;
+$color_tuna_approx: #343a3f;
+$color_aqua_forest_85_approx: rgba(85, 167, 115, 0.85);
+$color_skeptic_approx: #ccecd7;
+$color_de_york_approx: #7dbd95;
+$color_biloba_flower_approx: #bb9ce2;
+$color_deluge_approx: #74549f;
+$color_viking_approx: #64c4ee;
+$color_boston_blue_approx: #3f8ebd;
+$black_7_5: rgba(0, 0, 0, 0.075);
+$white: #ffffff;
+$color_celeste_approx: #cccccc;
+$color_fuscous_gray_approx: #555555;
+$color_cadet_blue_approx: #a5b1bc;
+$color_silver_tree_approx: #69bc87;
+$color_fruit_salad_approx: #48a068;
+$color_ocean_green_approx: #4eae71;
+$color_amazon_approx: #3f7753;
+$color_outer_space_approx: #2e363e;
+
+//fonts
+$font_0: Open Sans;
+$font_1: sans-serif;
+$font_2: PT Serif;
+$font_3: serif;
+
+//@extend-elements
+//original selectors
+//.tales-nav .dropdown-menu >li >a:hover, .tales-nav .dropdown-menu >li >a:focus
+%extend_1 {
+	background-color: $color_nevada_approx;
+	background-color: $white_15;
+	background-image: none;
+	color: $color_desert_storm_approx;
+	filter: none;
+}
+
+
+body {
+	font-size: 16px;
+	line-height: 27px;
+	font-family: $font_0, $font_1;
+	color: $color_mako_approx;
+	background-color: $color_white_approx;
+}
+a {
+	color: $color_mid_gray_approx;
+	&:hover {
+		text-decoration: none;
+		color: $color_mid_gray_approx;
+	}
+	&:focus {
+		text-decoration: none;
+		color: $color_mid_gray_approx;
+	}
+}
+h1 {
+	font-size: 45px;
+	line-height: 60px;
+	font-weight: normal;
+	font-family: $font_2, $font_3;
+}
+h2 {
+	font-size: 30px;
+	line-height: 40px;
+	font-family: $font_0, $font_1;
+}
+h3 {
+	font-size: 21px;
+	line-height: 30px;
+	font-weight: normal;
+	font-family: $font_0, $font_1;
+}
+hr {
+	border-top-color: $color_mischka_approx;
+}
+.fa {
+	font-size: 24px;
+}
+::selection {
+	background: $color_shuttle_gray_approx;
+	color: $color_white_approx;
+}
+::-moz-selection {
+	background: $color_shuttle_gray_approx;
+	color: $color_white_approx;
+}
+.masthead {
+	padding-top: 55px;
+	padding-bottom: 55px;
+	#logo {
+		float: left;
+		display: block;
+		color: $color_desert_storm_approx;
+		font-family: $font_2, $font_3;
+		font-size: 39px;
+		text-transform: uppercase;
+		margin-top: 10px;
+		img {
+			margin-top: -10px;
+		}
+	}
+}
+.widewrapper {
+	background-color: $color_white_approx;
+	&.main {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 1px 10px 8px -8px $color_silver_chalice_approx;
+	}
+	&.masthead {
+		background-color: $color_shark_approx;
+		color: $color_desert_storm_approx;
+	}
+	&.subheader {
+		background-color: $color_bright_gray_approx;
+		color: $color_french_gray_approx;
+		font-size: 16px;
+		min-height: 63px;
+	}
+	&.footer {
+		background-color: $color_shark_approx;
+		color: $color_bombay_approx;
+		font-size: 14px;
+		a {
+			color: $color_waterloo__approx;
+		}
+		h1 {
+			color: $color_mercury_approx;
+		}
+		h2 {
+			color: $color_mercury_approx;
+		}
+		h3 {
+			color: $color_mercury_approx;
+		}
+		h4 {
+			color: $color_mercury_approx;
+		}
+		h5 {
+			color: $color_mercury_approx;
+		}
+	}
+	&.copyright {
+		background-color: $color_bright_gray_approx;
+		color: $color_french_gray_approx;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		a {
+			color: $color_mercury_approx;
+		}
+	}
+}
+.tales-nav {
+	.nav-pills {
+		margin-top: 10px;
+		margin-bottom: 0;
+		font-size: 16px;
+		> li {
+			margin-left: 10px;
+			> a {
+				color: $color_desert_storm_approx;
+				padding: 11px 16px;
+				line-height: 14px;
+				&:hover {
+					color: $color_desert_storm_approx;
+					background-color: $color_bright_gray_approx;
+				}
+				&:focus {
+					color: $color_desert_storm_approx;
+					background-color: $color_bright_gray_approx;
+				}
+			}
+			&.dropdown.open.active > a {
+				&:hover {
+					background-color: $color_bright_gray_approx;
+				}
+				&:focus {
+					background-color: $color_bright_gray_approx;
+				}
+			}
+		}
+		.dropdown-menu {
+			font-size: 16px;
+			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+			border-radius: 6px;
+		}
+		.open .dropdown-toggle {
+			background-color: $color_bright_gray_approx;
+		}
+		> .active > a {
+			background-color: $color_bright_gray_approx;
+			&:hover {
+				background-color: $color_bright_gray_approx;
+			}
+			&:focus {
+				background-color: $color_bright_gray_approx;
+			}
+		}
+	}
+	.caret {
+		border-color: $color_desert_storm_approx transparent transparent transparent !important;
+		display: none;
+	}
+	.dropdown-menu {
+		background-color: $color_trout_approx;
+		border-color: transparent;
+		border: 1px solid $black_20;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 5px 10px $black_20;
+		margin: 2px 0 0;
+		min-width: 160px;
+		padding: 5px 0;
+		> li > a {
+			color: $color_desert_storm_approx;
+			line-height: 30px;
+			white-space: nowrap;
+			&:hover {
+				@extend %extend_1;
+			}
+			&:focus {
+				@extend %extend_1;
+			}
+		}
+	}
+	.navbar-collapse {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: none;
+	}
+	.dropdown .caret {
+		margin-left: 7px;
+	}
+	.navbar-nav > li > .dropdown-menu {
+		margin-top: 2px;
+	}
+}
+#mobile-nav-toggle {
+	display: none;
+	margin-top: 10px;
+	a {
+		&:hover {
+			text-decoration: none;
+		}
+		&:focus {
+			text-decoration: none;
+		}
+	}
+	.fa {
+		color: $color_desert_storm_approx;
+	}
+}
+@media(max-width: 767px) {
+	#mobile-nav-toggle {
+		display: block;
+	}
+	.masthead {
+		padding-bottom: 0;
+	}
+	.tales-nav {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: none;
+		background-color: $color_bright_gray_approx;
+		float: left !important;
+		width: 100%;
+		margin-top: 30px;
+		margin-bottom: 20px;
+		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+		border-radius: 6px;
+		.navbar-collapse {
+			max-height: none;
+		}
+		.nav-pills {
+			> li {
+				margin-left: 0;
+				float: none;
+				> a {
+					margin-left: 40px;
+					margin-right: 40px;
+					&:hover {
+						background: transparent;
+					}
+					&:focus {
+						background: transparent;
+					}
+				}
+				a {
+					font-weight: normal;
+					font-size: 20px;
+					line-height: 30px;
+					padding-left: 10px;
+					padding-right: 10px;
+					//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+					border-radius: 0;
+				}
+				&:first-child > a {
+					border-top: none;
+				}
+				&.dropdown.open.active > a {
+					&:hover {
+						background: transparent;
+					}
+					&:focus {
+						background: transparent;
+					}
+				}
+			}
+			.dropdown-menu {
+				background-color: $color_trout_approx;
+			}
+			.active > a {
+				background: transparent;
+				&:hover {
+					background: transparent;
+				}
+				&:focus {
+					background: transparent;
+				}
+			}
+			.open .dropdown-toggle {
+				background-color: transparent;
+				border-color: $color_limed_spruce_approx;
+				padding-bottom: 7px;
+			}
+			.dropdown-toggle .caret {
+				float: right;
+				margin-top: 14px;
+			}
+			.dropdown.open {
+				background-color: $color_trout_approx;
+			}
+		}
+		.caret {
+			border-color: $color_desert_storm_approx transparent transparent transparent !important;
+			border-width: 6px;
+			display: block;
+		}
+		.dropdown-menu {
+			margin-top: 0;
+			padding-top: 0;
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: none;
+			border: none;
+			> li {
+				margin-left: 35px;
+				> a {
+					padding-top: 9px;
+					padding-bottom: 9px !important;
+					font-size: 18px;
+					line-height: 27px;
+					&:hover {
+						background-color: transparent;
+					}
+					&:focus {
+						background-color: transparent;
+					}
+				}
+			}
+		}
+		.navbar-nav .open .dropdown-menu > li > a {
+			padding-top: 9px;
+			padding-bottom: 9px;
+			line-height: 27px;
+		}
+	}
+	.blog-aside {
+		padding-top: 50px;
+		&:before {
+			display: none;
+		}
+	}
+	.social-icon {
+		margin-left: 10px;
+		width: 81px;
+		height: 81px;
+		margin-bottom: 40px;
+		.inner-circle {
+			position: absolute;
+			top: 8px;
+			left: 8px;
+			display: block;
+			height: 65px;
+			width: 65px;
+		}
+		i {
+			font-size: 35px;
+			top: 25px;
+			left: 25px;
+			&.fa-facebook {
+				left: 32px;
+			}
+			&.fa-github-alt {
+				top: 22px;
+			}
+		}
+		&:hover .inner-circle {
+			height: 65px;
+			width: 65px;
+			top: 8px;
+			left: 8px;
+		}
+	}
+	aside {
+		&.comments hr {
+			width: 100%;
+		}
+		&.create-comment hr {
+			width: 100%;
+		}
+	}
+	.about-portrait {
+		float: none;
+		margin: 40px auto;
+	}
+	.about-large {
+		display: block;
+	}
+	.about-medium {
+		display: block;
+	}
+	.about-small {
+		display: block;
+	}
+	.credits {
+		text-align: center;
+		img {
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.details {
+			margin-top: 10px;
+		}
+	}
+	.blog-main:before {
+		display: none;
+	}
+}
+.tales-breadcrumb {
+	color: $color_french_gray_approx;
+	float: left;
+	margin-top: 19px;
+	a {
+		color: $color_french_gray_approx;
+		&:hover {
+			text-decoration: none;
+		}
+		&:focus {
+			text-decoration: none;
+		}
+	}
+	.separator {
+		margin: 0 10px;
+	}
+}
+.tales-searchbox {
+	float: right;
+	display: inline-block;
+	min-width: 210px;
+	margin-bottom: 16px;
+	margin-top: 16px;
+	form {
+		margin: 0;
+	}
+	.fa {
+		color: $color_french_gray_approx;
+		font-size: 19px;
+	}
+	.searchbutton {
+		color: $color_french_gray_approx;
+		background-color: $color_shark_approx;
+		display: inline-block;
+		border: none;
+		line-height: 20px;
+		padding: 4px 5px 4px 15px;
+		height: 31px;
+		vertical-align: middle;
+		//Instead of the line below you could use @include border-top-left-radius($radius)
+		border-top-left-radius: 15px;
+		//Instead of the line below you could use @include border-bottom-left-radius($radius)
+		border-bottom-left-radius: 15px;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 3px 5px 0 -4px $black_6;
+		a {
+			&:hover {
+				text-decoration: none;
+			}
+			&:focus {
+				text-decoration: none;
+			}
+		}
+	}
+	.searchfield {
+		color: $color_french_gray_approx;
+		background-color: $color_shark_approx;
+		border: none;
+		height: 22px;
+		line-height: 22px;
+		//Instead of the line below you could use @include box-sizing($bs)
+		box-sizing: content-box;
+		padding: 4px 6px 5px;
+		vertical-align: middle;
+		display: inline-block;
+		margin-bottom: 0;
+		width: 160px;
+		font-size: 16px;
+		//Instead of the line below you could use @include border-top-right-radius($radius)
+		border-top-right-radius: 15px;
+		//Instead of the line below you could use @include border-bottom-right-radius($radius)
+		border-bottom-right-radius: 15px;
+		//Instead of the line below you could use @include border-top-left-radius($radius)
+		border-top-left-radius: 0;
+		//Instead of the line below you could use @include border-bottom-left-radius($radius)
+		border-bottom-left-radius: 0;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 3px 5px 0 -4px $black_6;
+		margin-left: -4px;
+		outline: none;
+		&:-moz-placeholder {
+			color: $color_french_gray_approx;
+		}
+		&:-ms-input-placeholder {
+			color: $color_french_gray_approx;
+		}
+		&:focus {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: none;
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: inset 3px 5px 0 -4px $black_6;
+		}
+	}
+	.searchfield::-webkit-input-placeholder {
+		color: $color_french_gray_approx;
+	}
+	.searchfield::-moz-placeholder {
+		color: $color_french_gray_approx;
+	}
+}
+.tales-list {
+	list-style: none;
+	li {
+		line-height: 23px;
+		margin-bottom: 14px;
+		a {
+			&:hover {
+				color: $color_aqua_forest_approx;
+			}
+			&:focus {
+				color: $color_aqua_forest_approx;
+			}
+		}
+		&:before {
+			content: "";
+			border-color: transparent transparent transparent $color_raven_approx;
+			border-style: solid;
+			border-width: 3px 8px;
+			display: block;
+			width: 8px;
+			left: -20px;
+			top: 15px;
+			position: relative;
+		}
+	}
+}
+.footer-widget {
+	margin-top: 25px;
+	margin-bottom: 50px;
+	line-height: 23px;
+	h3 {
+		margin-bottom: 20px;
+		.fa {
+			font-size: 21px;
+			margin-right: 11px;
+		}
+	}
+	.stats {
+		margin-top: 23px;
+		.line {
+			font-size: 18px;
+			margin-top: 10px;
+			.counter {
+				font-weight: 600;
+				float: left;
+				display: block;
+			}
+			.caption {
+				color: $color_waterloo__approx;
+				margin-left: 56px;
+				display: block;
+			}
+		}
+	}
+	.email {
+		display: block;
+		margin-top: 10px;
+	}
+}
+.blog-main {
+	position: relative;
+	padding-top: 36px;
+	padding-bottom: 20px;
+	&:before {
+		border-left: 1px solid $color_mischka_approx;
+		height: 100%;
+		content: "";
+		position: absolute;
+		top: 0;
+		width: 1px;
+		right: -16px;
+	}
+}
+.blog-aside {
+	position: relative;
+	padding-top: 125px;
+	&:before {
+		border-left: 1px solid $color_mischka_approx;
+		height: 100%;
+		content: "";
+		position: absolute;
+		top: 0;
+		width: 1px;
+		left: 15px;
+	}
+}
+@media(min-width: 768px) and(max-width: 979px) {
+	.blog-teaser {
+		display: block;
+		float: none;
+		width: 95%;
+	}
+	.social-icon {
+		margin-left: 40px;
+		width: 122px;
+		height: 122px;
+		.inner-circle {
+			position: absolute;
+			top: 11px;
+			left: 11px;
+			display: block;
+			height: 100px;
+			width: 100px;
+		}
+		i {
+			font-size: 50px;
+			top: 36px;
+			left: 37px;
+			&.fa-facebook {
+				left: 50px;
+			}
+		}
+		&:hover .inner-circle {
+			width: 122px;
+			height: 122px;
+		}
+	}
+	aside {
+		&.comments hr {
+			width: 415px;
+		}
+		&.create-comment hr {
+			width: 415px;
+		}
+	}
+	.blog-main:before {
+		display: none;
+	}
+	.blog-aside:before {
+		display: none;
+	}
+	.span6 .social-icon {
+		margin-left: -8px;
+	}
+	.credits .details {
+		margin-top: 45px;
+	}
+}
+.aside-widget {
+	margin-bottom: 100px;
+	header {
+		background-image: linear-gradient(to bottom, $color_wild_sand_approx 0, $color_cararra_approx 100%);
+		background-repeat: repeat-x;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6f5f5', endColorstr='#ffebeaea', GradientType=0);
+		border: 1px $color_mischka_approx solid;
+		h3 {
+			font-size: 24px;
+			padding: 10px 20px 3px;
+			margin-top: 0;
+			color: $color_trout_approx;
+		}
+	}
+	.body {
+		margin-top: 30px;
+		padding-left: 20px;
+	}
+	a {
+		color: $color_mid_gray_approx;
+	}
+}
+.tags {
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+	li {
+		float: left;
+		a {
+			padding: 10px 15px;
+			margin-right: 16px;
+			margin-bottom: 17px;
+			display: inline-block;
+			background: $color_mercury_approx;
+			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+			border-radius: 5px;
+			&:focus {
+				background-color: $color_periwinkle_gray_approx;
+			}
+			&:hover {
+				background-color: $color_periwinkle_gray_approx;
+			}
+		}
+	}
+}
+.blog-teaser {
+	background-color: $color_cararra_approx;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 10px;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 1px 5px $color_shady_lady_approx;
+	margin-bottom: 40px;
+	header {
+		padding-top: 20px;
+		padding-right: 45px;
+		padding-left: 45px;
+		text-align: center;
+		img {
+			margin-bottom: 20px;
+			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+			border-radius: 200px;
+		}
+		h3 {
+			color: $color_mako_approx;
+			margin-top: 0;
+			font-size: 28px;
+			margin-bottom: 10px;
+			a {
+				color: $color_mako_approx;
+				&:focus {
+					color: $color_mako_approx;
+				}
+				&:hover {
+					color: $color_mako_approx;
+				}
+			}
+		}
+		.meta {
+			color: $color_mid_gray_approx;
+		}
+		hr {
+			border-top-color: $color_mischka_approx;
+			border-bottom: none;
+		}
+	}
+	.body {
+		padding-right: 45px;
+		padding-left: 45px;
+		margin-bottom: 10px;
+		color: $color_tuna_approx;
+	}
+	.btn {
+		float: right;
+		margin-right: 45px;
+		margin-bottom: 18px;
+	}
+}
+.paging {
+	margin-bottom: 20px;
+	text-align: right;
+	a {
+		margin-left: 10px;
+		&:hover {
+			color: $color_aqua_forest_approx;
+		}
+		&:focus {
+			color: $color_aqua_forest_approx;
+		}
+	}
+	i {
+		font-size: 16px;
+	}
+	span {
+		margin-left: 10px;
+	}
+	.newer i {
+		margin-right: 5px;
+	}
+	.older i {
+		margin-left: 5px;
+	}
+}
+.blog-post {
+	margin-bottom: 90px;
+	header {
+		h1 {
+			font-family: $font_2, $font_3;
+			margin-bottom: 22px;
+		}
+		.lead-image {
+			position: relative;
+			.meta {
+				padding-left: 30px;
+				padding-bottom: 10px;
+				position: absolute;
+				bottom: 15px;
+				background-color: $color_aqua_forest_approx;
+				background-color: $color_aqua_forest_85_approx;
+				color: $color_skeptic_approx;
+				a {
+					color: $color_skeptic_approx;
+				}
+				.author {
+					float: left;
+					margin: 10px 55px 0 0;
+					.data {
+						line-height: 30px;
+					}
+					i {
+						font-size: 30px;
+						float: left;
+						margin-right: 10px;
+					}
+				}
+				.date {
+					float: left;
+					margin: 10px 55px 0 0;
+					.data {
+						line-height: 30px;
+					}
+					i {
+						font-size: 30px;
+						float: left;
+						margin-right: 10px;
+					}
+				}
+				.comments {
+					float: left;
+					margin: 10px 55px 0 0;
+					.data {
+						line-height: 30px;
+					}
+					i {
+						font-size: 30px;
+						float: left;
+						margin-right: 10px;
+					}
+				}
+			}
+		}
+	}
+	.body {
+		margin-top: 20px;
+		p {
+			margin-bottom: 20px;
+		}
+	}
+}
+@media(max-width: 979px) {
+	.blog-post header .lead-image .meta {
+		position: relative;
+		bottom: 0;
+	}
+}
+@media(min-width: 980px) and(max-width: 1199px) {
+	.blog-post header .lead-image .meta {
+		.author {
+			margin-right: 20px;
+		}
+		.date {
+			margin-right: 20px;
+		}
+		.comments {
+			margin-right: 20px;
+		}
+	}
+	.span6 .social-icon {
+		margin-left: 15px;
+	}
+}
+@media(min-width: 1200px) {
+	.blog-post .body {
+		padding-right: 30px;
+	}
+}
+.social-icons {
+	text-align: center;
+}
+.social-icon {
+	position: relative;
+	margin-bottom: 90px;
+	display: inline-block;
+	width: 135px;
+	height: 135px;
+	margin-left: 70px;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 200px;
+	.inner-circle {
+		position: absolute;
+		top: 11px;
+		left: 11px;
+		display: block;
+		height: 113px;
+		width: 113px;
+		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+		border-radius: 200px;
+		//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all 0.5s ease-in;
+	}
+	i {
+		color: $color_desert_storm_approx;
+		font-size: 70px;
+		position: absolute;
+		top: 36px;
+		left: 37px;
+		&.fa-google-plus {
+			left: 25px;
+		}
+		&.fa-facebook {
+			left: 45px;
+		}
+		&.fa-github-alt {
+			top: 32px;
+		}
+	}
+	&:first-child {
+		margin-left: 0;
+	}
+	&.color-one {
+		background-color: $color_de_york_approx;
+		.inner-circle {
+			background-color: $color_aqua_forest_approx;
+		}
+	}
+	&.color-two {
+		background-color: $color_biloba_flower_approx;
+		.inner-circle {
+			background-color: $color_deluge_approx;
+		}
+	}
+	&.color-three {
+		background-color: $color_viking_approx;
+		.inner-circle {
+			background-color: $color_boston_blue_approx;
+		}
+	}
+	&:hover .inner-circle {
+		top: 0;
+		left: 0;
+		width: 135px;
+		height: 135px;
+	}
+}
+aside {
+	&.comments {
+		margin-bottom: 100px;
+		hr {
+			width: 515px;
+			margin-left: auto;
+			margin-right: auto;
+			border-top-color: $color_mischka_approx;
+			margin-bottom: 130px;
+		}
+		h2 {
+			text-align: center;
+			font-weight: normal;
+			margin-bottom: 130px;
+			i {
+				font-size: 36px;
+			}
+		}
+		.comment {
+			margin: 130px 0 0;
+			&.reply {
+				margin-left: 100px;
+			}
+			header {
+				img {
+					float: left;
+					//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+					border-radius: 100px;
+				}
+				.meta {
+					margin-left: 100px;
+					font-size: 14px;
+					h3 {
+						margin: 10px 0 0;
+						line-height: 27px;
+						a {
+							color: $color_mid_gray_approx;
+						}
+					}
+					a {
+						color: $color_aqua_forest_approx;
+					}
+				}
+			}
+			.body {
+				margin-top: 10px;
+				margin-left: 100px;
+			}
+		}
+	}
+	&.create-comment {
+		margin-bottom: 100px;
+		hr {
+			width: 515px;
+			margin-left: auto;
+			margin-right: auto;
+			border-top-color: $color_mischka_approx;
+			margin-bottom: 130px;
+		}
+		h2 {
+			text-align: center;
+			font-weight: normal;
+			margin-bottom: 130px;
+			i {
+				font-size: 36px;
+			}
+		}
+	}
+}
+.create-comment {
+	input {
+		margin-top: 15px;
+	}
+	textarea {
+		margin-top: 15px;
+	}
+	.btn {
+		margin: 15px 0 0 30px;
+		float: right;
+	}
+}
+.contact-form {
+	input {
+		margin-top: 15px;
+	}
+	textarea {
+		margin-top: 15px;
+	}
+	.btn {
+		margin: 15px 0 0 30px;
+		float: right;
+	}
+}
+.content {
+	padding-top: 36px;
+	padding-bottom: 80px;
+}
+.about {
+	padding-top: 36px;
+	padding-bottom: 80px;
+	hr {
+		margin-top: 75px;
+	}
+}
+.about-portrait {
+	float: right;
+	margin-top: 20px;
+	margin-left: 70px;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 180px;
+}
+.about-button {
+	margin-top: 30px;
+}
+.about-bold {
+	font-weight: bold;
+}
+.about-italic {
+	font-style: italic;
+}
+.about-large {
+	font-family: $font_2, $font_3;
+	line-height: 60px;
+	font-size: 40px;
+}
+.about-medium {
+	font-family: $font_2, $font_3;
+	line-height: 60px;
+	font-size: 36px;
+}
+.about-small {
+	font-family: $font_2, $font_3;
+	line-height: 60px;
+	font-size: 30px;
+}
+.tales-superblock {
+	margin-bottom: 80px;
+	h2 {
+		font-size: 40px;
+		text-align: center;
+		margin-bottom: 80px;
+	}
+}
+.credits {
+	.image {
+		margin-top: 60px;
+	}
+	.details {
+		margin-top: 60px;
+		margin-bottom: 75px;
+	}
+	img {
+		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+		border-radius: 200px;
+	}
+	.bold {
+		font-weight: bold;
+	}
+}
+.form-control {
+	background-color: $white;
+	border-color: $color_celeste_approx;
+	color: $color_fuscous_gray_approx;
+	&:focus {
+		border-color: $color_de_york_approx;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 1px 1px $black_7_5, 0 0 8px $color_de_york_approx;
+	}
+	&:-moz-placeholder {
+		color: $color_cadet_blue_approx;
+	}
+	&:-ms-input-placeholder {
+		color: $color_cadet_blue_approx;
+	}
+}
+.form-control::-webkit-input-placeholder {
+	color: $color_cadet_blue_approx;
+}
+.form-control::-moz-placeholder {
+	color: $color_cadet_blue_approx;
+}
+.btn-tales-one {
+	color: $white;
+	background-color: $color_silver_tree_approx;
+	border-color: $color_aqua_forest_approx;
+	background-image: linear-gradient(to bottom, $color_silver_tree_approx 0, $color_fruit_salad_approx 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff69bc87', endColorstr='#ff48a068', GradientType=0);
+	background-repeat: repeat-x;
+	border-color: $color_fruit_salad_approx;
+	&:hover {
+		color: $white;
+		background-color: $color_ocean_green_approx;
+		border-color: $color_amazon_approx;
+		background-color: $color_fruit_salad_approx;
+		background-position: 0 -15px;
+	}
+	&:focus {
+		color: $white;
+		background-color: $color_ocean_green_approx;
+		border-color: $color_amazon_approx;
+		background-color: $color_fruit_salad_approx;
+		background-position: 0 -15px;
+	}
+	&:active {
+		color: $white;
+		background-color: $color_ocean_green_approx;
+		border-color: $color_amazon_approx;
+		background-image: none;
+		background-color: $color_fruit_salad_approx;
+		border-color: $color_fruit_salad_approx;
+	}
+	&.active {
+		color: $white;
+		background-color: $color_ocean_green_approx;
+		border-color: $color_amazon_approx;
+		background-image: none;
+		background-color: $color_fruit_salad_approx;
+		border-color: $color_fruit_salad_approx;
+	}
+	&.disabled {
+		background-color: $color_silver_tree_approx;
+		border-color: $color_aqua_forest_approx;
+		&:hover {
+			background-color: $color_silver_tree_approx;
+			border-color: $color_aqua_forest_approx;
+		}
+		&:focus {
+			background-color: $color_silver_tree_approx;
+			border-color: $color_aqua_forest_approx;
+		}
+		&:active {
+			background-color: $color_silver_tree_approx;
+			border-color: $color_aqua_forest_approx;
+		}
+		&.active {
+			background-color: $color_silver_tree_approx;
+			border-color: $color_aqua_forest_approx;
+		}
+	}
+	.caret {
+		border-top-color: $white;
+	}
+}
+.btn-tales-one[disabled] {
+	background-color: $color_silver_tree_approx;
+	border-color: $color_aqua_forest_approx;
+	&:hover {
+		background-color: $color_silver_tree_approx;
+		border-color: $color_aqua_forest_approx;
+	}
+	&:focus {
+		background-color: $color_silver_tree_approx;
+		border-color: $color_aqua_forest_approx;
+	}
+	&:active {
+		background-color: $color_silver_tree_approx;
+		border-color: $color_aqua_forest_approx;
+	}
+	&.active {
+		background-color: $color_silver_tree_approx;
+		border-color: $color_aqua_forest_approx;
+	}
+}
+fieldset[disabled] {
+	.btn-tales-one {
+		background-color: $color_silver_tree_approx;
+		border-color: $color_aqua_forest_approx;
+		&:hover {
+			background-color: $color_silver_tree_approx;
+			border-color: $color_aqua_forest_approx;
+		}
+		&:focus {
+			background-color: $color_silver_tree_approx;
+			border-color: $color_aqua_forest_approx;
+		}
+		&:active {
+			background-color: $color_silver_tree_approx;
+			border-color: $color_aqua_forest_approx;
+		}
+		&.active {
+			background-color: $color_silver_tree_approx;
+			border-color: $color_aqua_forest_approx;
+		}
+	}
+	.btn-tales-two {
+		background-color: $color_trout_approx;
+		border-color: $color_limed_spruce_approx;
+		&:hover {
+			background-color: $color_trout_approx;
+			border-color: $color_limed_spruce_approx;
+		}
+		&:focus {
+			background-color: $color_trout_approx;
+			border-color: $color_limed_spruce_approx;
+		}
+		&:active {
+			background-color: $color_trout_approx;
+			border-color: $color_limed_spruce_approx;
+		}
+		&.active {
+			background-color: $color_trout_approx;
+			border-color: $color_limed_spruce_approx;
+		}
+	}
+}
+.btn-tales-two {
+	color: $white;
+	background-color: $color_trout_approx;
+	border-color: $color_limed_spruce_approx;
+	background-image: linear-gradient(to bottom, $color_trout_approx 0, $color_outer_space_approx 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff485561', endColorstr='#ff2e363e', GradientType=0);
+	background-repeat: repeat-x;
+	border-color: $color_outer_space_approx;
+	&:hover {
+		color: $white;
+		background-color: $color_bright_gray_approx;
+		border-color: $color_shark_approx;
+		background-color: $color_outer_space_approx;
+		background-position: 0 -15px;
+	}
+	&:focus {
+		color: $white;
+		background-color: $color_bright_gray_approx;
+		border-color: $color_shark_approx;
+		background-color: $color_outer_space_approx;
+		background-position: 0 -15px;
+	}
+	&:active {
+		color: $white;
+		background-color: $color_bright_gray_approx;
+		border-color: $color_shark_approx;
+		background-image: none;
+		background-color: $color_outer_space_approx;
+		border-color: $color_outer_space_approx;
+	}
+	&.active {
+		color: $white;
+		background-color: $color_bright_gray_approx;
+		border-color: $color_shark_approx;
+		background-image: none;
+		background-color: $color_outer_space_approx;
+		border-color: $color_outer_space_approx;
+	}
+	&.disabled {
+		background-color: $color_trout_approx;
+		border-color: $color_limed_spruce_approx;
+		&:hover {
+			background-color: $color_trout_approx;
+			border-color: $color_limed_spruce_approx;
+		}
+		&:focus {
+			background-color: $color_trout_approx;
+			border-color: $color_limed_spruce_approx;
+		}
+		&:active {
+			background-color: $color_trout_approx;
+			border-color: $color_limed_spruce_approx;
+		}
+		&.active {
+			background-color: $color_trout_approx;
+			border-color: $color_limed_spruce_approx;
+		}
+	}
+	.caret {
+		border-top-color: $white;
+	}
+}
+.btn-tales-two[disabled] {
+	background-color: $color_trout_approx;
+	border-color: $color_limed_spruce_approx;
+	&:hover {
+		background-color: $color_trout_approx;
+		border-color: $color_limed_spruce_approx;
+	}
+	&:focus {
+		background-color: $color_trout_approx;
+		border-color: $color_limed_spruce_approx;
+	}
+	&:active {
+		background-color: $color_trout_approx;
+		border-color: $color_limed_spruce_approx;
+	}
+	&.active {
+		background-color: $color_trout_approx;
+		border-color: $color_limed_spruce_approx;
+	}
+}
+.btn-xlarge {
+	padding: 12px 46px;
+	font-size: 20px;
+	line-height: normal;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 5px;
+}
+#fof {
+	display: block;
+	width: 100%;
+	margin: 100px 0;
+	line-height: 1.6em;
+	text-align: center;
+	.hgroup {
+		text-transform: uppercase;
+		h1 {
+			margin-bottom: 25px;
+			font-size: 80px;
+			span {
+				display: inline-block;
+				margin-left: 5px;
+				padding: 2px;
+				border: 1px solid $color_celeste_approx;
+				overflow: hidden;
+				strong {
+					display: inline-block;
+					padding: 0 20px 20px;
+					border: 1px solid $color_celeste_approx;
+					font-weight: normal;
+				}
+			}
+		}
+		h2 {
+			font-size: 60px;
+			span {
+				display: block;
+				font-size: 30px;
+			}
+		}
+	}
+	p {
+		margin: 25px 0 0;
+		padding: 0;
+		font-size: 16px;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
+.footer .tales-list {
+	margin-top: -6px;
+	padding-left: 23px;
+	li {
+		margin-bottom: 5px;
+		a {
+			color: $color_bombay_approx;
+			padding-bottom: 5px;
+		}
+		&:before {
+			left: -21px;
+			border-color: transparent transparent transparent $color_bombay_approx;
+		}
+	}
+}
+.open .dropdown-toggle {
+	&.btn-tales-one {
+		color: $white;
+		background-color: $color_ocean_green_approx;
+		border-color: $color_amazon_approx;
+		background-image: none;
+	}
+	&.btn-tales-two {
+		color: $white;
+		background-color: $color_bright_gray_approx;
+		border-color: $color_shark_approx;
+		background-image: none;
+	}
+}
+#main-page.ng-enter {
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: 0.5s linear all;
+	opacity: 0;
+	&.ng-enter-active {
+		opacity: 1;
+	}
+}
