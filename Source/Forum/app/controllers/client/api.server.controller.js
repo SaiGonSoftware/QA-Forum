@@ -15,6 +15,8 @@ var ObjectId = require("mongodb").ObjectId;
 var google = require("google");
 var async = require("async");
 var net = require("net");
+var config = require("../../../config/secret");
+var jwt = require("jsonwebtoken");
 //index page
 exports.GetQuestion = function(req, res) {
 	var limitItem = CONSTANT.LIMIT_ITEM;
@@ -360,6 +362,11 @@ exports.Login = function(req, res) {
 			},
 			function(user, callback) {
 				var userSession = user.Account;
+				var token = jwt.sign({
+					user
+				}, "superscrettoken", { expiresIn: '1h' });
+
+				console.log(token);
 				callback(null, userSession);
 			}
 		], function(err, userSession) {
