@@ -13,9 +13,14 @@
 		if(currentUser === null) {
 			$location.path('/dang-nhap');
 		}
-		$('.current-chat-area').animate({
-			scrollTop: $('.current-chat-area')[0].scrollHeight
-		}, 5000);
+		var checkChatDomExist = setInterval(function() {
+			console.log($(".current-chat-area").length);
+			if($(".current-chat-area").length) {
+				$('.current-chat-area').animate({
+					scrollTop: $('.current-chat-area')[0].scrollHeight
+				}, 100);
+			}
+		}, 1000);
 		GetMessageService.GetMessage().then(function(response) {
 			console.log(response.data.result);
 			$scope.messageData = response.data.result;
@@ -53,7 +58,7 @@
 			chat.append('<p><li class="media-body">' + data.message + '<br><small class="text-muted">' + data.username + ' | ' + currentTime + '</small></li></p>');
 			$('.current-chat-area').animate({
 				scrollTop: $('.current-chat-area')[0].scrollHeight
-			}, 5000);
+			}, 10);
 		});
 
 		socket.on('get users', function(data) {
