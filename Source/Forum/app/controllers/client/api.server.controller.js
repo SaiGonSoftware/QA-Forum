@@ -2,7 +2,7 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-18 20:06:26
  * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2017-01-16 21:26:21
+ * @Last Modified time: 2017-03-01 23:03:55
  */
 
 var User = require("../../models/client/user.server.model");
@@ -37,20 +37,6 @@ exports.GetNextQuestion = function(req, res) {
 		return res.json({ questions: questions });
 	});
 };
-/*exports.QuestionIndex = function (req, res) {
- var limitItemOnePage = 10;
- var currentPage = req.params.pageRequest || 1;
- //pagination
- Question.countQuestion({}, function (err, totalItem) {
- var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
- Question.getQuestionPaginate(limitItemOnePage, currentPage,
- function (err, questions) {
- if (err) res.json({msg: err});
- else res.json({questions: questions, pages: numberOfPage});
- });
- });
- };*/
-//details page
 exports.QuestionDetail = function(req, res) {
 	var id = req.params.id;
 	if(id !== null) {
@@ -264,41 +250,6 @@ exports.Dislike = function(req, res) {
 		});
 	}
 };
-/*exports.UnLike = function(req, res) {
-	var username = req.body.UserLike;
-	var answerId = req.body.AnswerId;
-	Answer.unLike(answerId, username, function(err) {
-		if(err)
-			res.json({ success: false, msg: "Error" });
-		res.json({ success: true, msg: "UnLike success" });
-	});
-};
-exports.UnDislike = function(req, res) {
-	var username = req.body.UserLike;
-	var answerId = req.body.AnswerId;
-	Answer.unDislike(answerId, username, function(err) {
-		if(err)
-			res.json({ success: false, msg: "Error" });
-		res.json({ success: true, msg: "UnDislike success" });
-	});
-};
-exports.RemoveAnswer = function(req, res) {
-	var answerId = req.body.answerId;
-	Answer.removeAnswer(answerId, function(err) {
-		if(err)
-			res.json({ success: false, msg: "Error" });
-		res.json({ success: true, msg: "Remove answer success" });
-	});
-};
-exports.EditAnswer = function(req, res) {
-	var answerId = req.params.id;
-	var answerContent = req.body.answerContent;
-	Answer.editAnswer(answerId, answerContent, function(err) {
-		if(err)
-			return res.json({ success: false, msg: "Error" });
-		return res.json({ success: true, msg: "Update answer success" });
-	});
-};*/
 //account relative
 exports.Register = function(req, res) {
 	var usernameRegis = req.body.UsernameRegis;
@@ -485,11 +436,6 @@ exports.FindQuestion = function(req, res) {
 	var queryString = req.params.queryString;
 	var questionsResult = [];
 	var indexCount = 0;
-	/*	Question.findQuestion(queryString, function(err, questions) {
-			if(err)
-				return res.json({ msg: err });
-			return res.json({ questions: questions });
-		});*/
 	var client = net.connect(2345, "localhost");
 	client.write(queryString);
 	client.on("data", function(data) {
@@ -533,7 +479,6 @@ exports.GetUnAnswerQuestion = function(req, res) {
 		return res.json({ unAnswerQuestions: unAnswerQuestions });
 	});
 };
-
 //chat sections
 exports.GetAllMessages = function(req, res) {
 	Message.getMessage(function(err, result) {
@@ -555,7 +500,6 @@ exports.SaveMessage = function(req, res) {
 		return res.json({ success: true, result: result });
 	});
 }
-
 exports.AutoComplete = function(req, res) {
 	var searchString = req.params.searchString;
 	Question.getRelatedQuestion(searchString, function(err, result) {
@@ -563,3 +507,53 @@ exports.AutoComplete = function(req, res) {
 		return res.json({ autoCompleteResults: result });
 	});
 }
+
+
+/*exports.UnLike = function(req, res) {
+	var username = req.body.UserLike;
+	var answerId = req.body.AnswerId;
+	Answer.unLike(answerId, username, function(err) {
+		if(err)
+			res.json({ success: false, msg: "Error" });
+		res.json({ success: true, msg: "UnLike success" });
+	});
+};
+exports.UnDislike = function(req, res) {
+	var username = req.body.UserLike;
+	var answerId = req.body.AnswerId;
+	Answer.unDislike(answerId, username, function(err) {
+		if(err)
+			res.json({ success: false, msg: "Error" });
+		res.json({ success: true, msg: "UnDislike success" });
+	});
+};
+exports.RemoveAnswer = function(req, res) {
+	var answerId = req.body.answerId;
+	Answer.removeAnswer(answerId, function(err) {
+		if(err)
+			res.json({ success: false, msg: "Error" });
+		res.json({ success: true, msg: "Remove answer success" });
+	});
+};
+exports.EditAnswer = function(req, res) {
+	var answerId = req.params.id;
+	var answerContent = req.body.answerContent;
+	Answer.editAnswer(answerId, answerContent, function(err) {
+		if(err)
+			return res.json({ success: false, msg: "Error" });
+		return res.json({ success: true, msg: "Update answer success" });
+	});
+};*/
+/*exports.QuestionIndex = function (req, res) {
+ var limitItemOnePage = 10;
+ var currentPage = req.params.pageRequest || 1;
+ //pagination
+ Question.countQuestion({}, function (err, totalItem) {
+ var numberOfPage = Math.ceil(totalItem / limitItemOnePage);
+ Question.getQuestionPaginate(limitItemOnePage, currentPage,
+ function (err, questions) {
+ if (err) res.json({msg: err});
+ else res.json({questions: questions, pages: numberOfPage});
+ });
+ });
+ };*/

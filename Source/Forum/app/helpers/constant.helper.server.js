@@ -2,7 +2,7 @@
  * Created by ngohungphuc on 05/01/2017.
  */
 module.exports = {
-    LIMIT_ITEM: 24,
+    LIMIT_ITEM: 28,
     DEFAULT_LEVEL: 2,
     SEARCH_RESULT: 4,
     SEARCH_STRING: ' Đại học tôn đức thắng',
