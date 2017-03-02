@@ -12,6 +12,7 @@
 		var currentUser = loginUser ? loginUser : facebookUser;
 		if(currentUser === null) {
 			$location.path('/dang-nhap');
+			toastr.warning("Vui lòng đăng nhập để tham gia phòng chat");
 		}
 		var checkChatDomExist = setInterval(function() {
 			console.log($(".current-chat-area").length);
