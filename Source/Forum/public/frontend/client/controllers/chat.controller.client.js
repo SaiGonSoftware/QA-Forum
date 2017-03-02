@@ -10,11 +10,13 @@
 		var loginUser = localStorageService.cookie.get('currentUser');
 		var facebookUser = localStorageService.cookie.get('facebookUser');
 		var currentUser = loginUser ? loginUser : facebookUser;
+
 		if(currentUser === null) {
 			$location.path('/dang-nhap');
 			toastr.warning("Vui lòng đăng nhập để tham gia phòng chat");
 		}
-		var checkChatDomExist = setInterval(function() {
+
+		var checkChatDomExist = setTimeout(function() {
 			console.log($(".current-chat-area").length);
 			if($(".current-chat-area").length) {
 				$('.current-chat-area').animate({
@@ -22,16 +24,16 @@
 				}, 100);
 			}
 		}, 1000);
+
 		GetMessageService.GetMessage().then(function(response) {
-			console.log(response.data.result);
 			$scope.messageData = response.data.result;
 		});
+
 		var socket = io.connect();
 		var currentTime = new Date().toLocaleString();
 		socket.emit('new user', currentUser);
 		var chat = $('.media-list');
 		var onlineList = $('.list-online');
-
 
 		$scope.SendMessage = function() {
 			if(!currentUser) {
@@ -50,7 +52,6 @@
 			};
 			socket.emit('send message', messageInfo);
 			SaveMessageService.SaveMessage(messageInfo).then(function(result) {
-				console.log(result);
 				$("#chatMessageSend").val('');
 			});
 		};

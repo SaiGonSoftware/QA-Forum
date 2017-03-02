@@ -1,12 +1,12 @@
 (function () {
     'use strict';
-
+    
     angular.module('ChatBotApp')
         .controller('AccountInfoController', AccountInfoController);
 
-    AccountInfoController.$inject = ['$scope', '$location', 'localStorageService', 'AccountContribService'];
+    AccountInfoController.$inject = ['$scope', '$location', 'localStorageService', 'AccountContribService','UploadAvatarService'];
 
-    function AccountInfoController($scope, $location, localStorageService, AccountContribService) {
+    function AccountInfoController($scope, $location, localStorageService, AccountContribService,UploadAvatarService) {
         $scope.HideUploadBtn = false;
         $scope.Loading = false;
         $scope.IsFormValid = false;
@@ -31,30 +31,54 @@
                 $scope.fileUpload = element.files[0];
                 $scope.fileMessage = '';
                 var fileName = $scope.fileUpload.name;
-                console.log(fileName.length);
                 var fileIndex = fileName.lastIndexOf('.');
                 var fileExtension = fileName.substring(fileIndex, fileName.length);
-                console.log(fileExtension);
+
                 if (fileExtension === '.jpeg' ||
                     fileExtension === '.jpg' ||
                     fileExtension === '.png') {
                     $scope.IsFileValid = true;
                 } else {
-                    $scope.fileMessage = 'FIle phải có định dạng .jpeg, .jpg hoặc .png';
+                    toastr.warning('FIle phải có định dạng .jpeg, .jpg hoặc .png');
                 }
             });
         };
 
-        $scope.$watch('UploadAvatarForm.$valid', function (isValid) {
-            $scope.IsFormValid = isValid;
-        });
+         $scope.ChangeAvatar = function(input){
+            var reader = new FileReader();
+            reader.onload = function(){
+                var userAvatar = document.getElementById('user-avatar');
+                if(userAvatar) userAvatar.src = reader.result;
+                var defaultAvatar = document.getElementById('user-avatar-default');
+                if(defaultAvatar) defaultAvatar.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
 
+
+      
         $scope.UploadAvatar = function () {
             $scope.IsAvatarFormSubmitted = true;
-            if ($scope.IsFileValid && $scope.IsFormValid) {
-                console.log('a');
+            if($scope.fileUpload === null) {
+                toastr.warning('Vui Lòng Chọn File');
+                return false;
             }
-
+            else {
+                $scope.IsFormValid = true;
+            }
+            if ($scope.IsFormValid) {
+                $scope.HideUploadBtn = true;
+                for (var i = 0; i <=100; i++) { 
+                    $(".progress-bar").width(i + "%");
+                    $(".sr-only").html(i + "%");
+                }
+                UploadAvatarService.UploadAvatar($scope.fileUpload).then(function(result){
+                    toastr.success('Upload thành công');
+                });
+                
+            }
         };
+
+
     }
 })();

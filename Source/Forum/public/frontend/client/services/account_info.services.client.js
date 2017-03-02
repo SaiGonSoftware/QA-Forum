@@ -2,9 +2,10 @@
     'use strict';
 
     angular.module('ChatBotApp')
-        .factory('AccountContribService', AccountContribService);
-
+        .factory('AccountContribService', AccountContribService)
+        .factory('UploadAvatarService',UploadAvatarService);
     AccountContribService.$inject = ['$http'];
+    UploadAvatarService.$inject = ['$http','$q'];
 
     function AccountContribService($http) {
         var accountContribService = {};
@@ -14,5 +15,31 @@
             });
         };
         return accountContribService;
+    }
+
+    function UploadAvatarService($http,$q) {
+        var uploadAvatarService = {};
+        uploadAvatarService.UploadAvatar = function (file) {
+            var url = '/api/Account/UploadAvatar/';
+            var formData = new FormData();
+            formData.append('file',file);
+            var defer = $q.defer();
+            $http.post(url,
+                    formData,
+                    {
+                        headers: {
+                            'Content-type': undefined
+                        },
+                        transformRequest: angular.identity
+                    })
+                .success(function (data) {
+                    defer.resolve(data);
+                })
+                .error(function () {
+                    defer.reject("File Upload Failed!");
+                });
+            return defer.promise;
+        };
+        return uploadAvatarService;
     }
 })();

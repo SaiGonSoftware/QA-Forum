@@ -2,7 +2,7 @@
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-18 20:06:26
  * @Last Modified by:   hoangphucvu
- * @Last Modified time: 2017-03-02 07:16:41
+ * @Last Modified time: 2017-03-02 11:22:16
  */
 
 var User = require("../../models/client/user.server.model");
@@ -316,8 +316,6 @@ exports.Login = function(req, res) {
 				var token = jwt.sign({
 					user
 				}, "superscrettoken", { expiresIn: '1h' });
-
-				console.log(token);
 				callback(null, userSession);
 			}
 		], function(err, userSession) {
@@ -376,6 +374,10 @@ exports.GetAllContrib = function(req, res) {
 		return res.json({ user_contrib: user_contrib, userInfo: userInfo });
 	});
 };
+exports.UploadAvatar = function(req,res) {
+	var file = req.files;
+	console.log(file);
+}
 //category relative
 exports.Category = function(req, res) {
 	Category.getCategories(function(err, categories) {
@@ -503,7 +505,6 @@ exports.SaveMessage = function(req, res) {
 exports.AutoComplete = function(req, res) {
 	var searchString = req.params.searchString;
 	Question.getRelatedQuestion(searchString, function(err, result) {
-		console.log(result);
 		return res.json({ autoCompleteResults: result });
 	});
 }
