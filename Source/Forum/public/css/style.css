@@ -2335,7 +2335,9 @@ aside.comments .comment .body {
     border-left-color: #1557b5 !important;
 }
 
-
+.bs-callout-info h4,.bs-callout-info h5 {
+    color:#5b6268;
+}
 
 
 

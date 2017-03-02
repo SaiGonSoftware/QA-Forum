@@ -1,8 +1,8 @@
 /*
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-18 20:06:26
- * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2017-03-01 23:03:55
+ * @Last Modified by:   hoangphucvu
+ * @Last Modified time: 2017-03-02 07:16:41
  */
 
 var User = require("../../models/client/user.server.model");
@@ -543,8 +543,8 @@ exports.EditAnswer = function(req, res) {
 			return res.json({ success: false, msg: "Error" });
 		return res.json({ success: true, msg: "Update answer success" });
 	});
-};*/
-/*exports.QuestionIndex = function (req, res) {
+};
+exports.QuestionIndex = function (req, res) {
  var limitItemOnePage = 10;
  var currentPage = req.params.pageRequest || 1;
  //pagination
