@@ -313,23 +313,20 @@ exports.Login = function(req, res) {
 			},
 			function(user, callback) {
 				var userSession = user.Account;
-				var token = jwt.sign({
-					user
-				}, "superscrettoken", { expiresIn: '1h' });
 				callback(null, userSession);
 			}
 		], function(err, userSession) {
 			if(err)
 				return res.json({ err: err });
-			return res.json({ login: true, url: "/", userSession: userSession });
+			return res.json({ login: true, url: '/', userSession: userSession });
 		});
 	}
 	if(socialAccount !== undefined) {
 		var facebookUser = [{
-			"Account": req.body.SocialAccount,
-			"SocialId": req.body.SocialId,
-			"Level": CONSTANT.DEFAULT_LEVEL,
-			"Avatar": null
+			'Account': req.body.SocialAccount,
+			'SocialId': req.body.SocialId,
+			'Level': CONSTANT.DEFAULT_LEVEL,
+			'Avatar': null
 		}];
 
 		async.waterfall([
@@ -338,7 +335,7 @@ exports.Login = function(req, res) {
 					if(account === null)
 						callback(null, facebookUser);
 					else
-						return res.json({ success: true, url: "/" });
+						return res.json({ success: true, url: '/' });
 
 				});
 			},
@@ -351,7 +348,7 @@ exports.Login = function(req, res) {
 				});
 			}
 		], function(err, result) {
-			return res.json({ success: true, url: "/" });
+			return res.json({ success: true, url: '/' });
 		});
 	}
 };
@@ -374,7 +371,7 @@ exports.GetAllContrib = function(req, res) {
 		return res.json({ user_contrib: user_contrib, userInfo: userInfo });
 	});
 };
-exports.UploadAvatar = function(req,res) {
+exports.UploadAvatar = function(req, res) {
 	var file = req.files;
 	console.log(file);
 }

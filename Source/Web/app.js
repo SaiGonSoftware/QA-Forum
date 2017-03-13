@@ -5,8 +5,7 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
 	session = require('express-session')
-	bb = require('express-busboy'),
-	db = require('./config/db'),
+db = require('./config/db'),
 	app = express(),
 	port = process.env.PORT || 3000,
 	http = require('http'),
@@ -16,11 +15,7 @@ var express = require('express'),
 	users = [],
 	connections = [];
 
-bb.extend(app, {
-    upload: true,
-    path: '/public/img',
-    allowedPath: /./
-});
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
