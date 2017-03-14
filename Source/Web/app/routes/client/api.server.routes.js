@@ -21,7 +21,7 @@ router.get('/Account/Contrib/:currentUser', api.GetAllContrib);
 router.get('/GetHotTopic', api.GetHotTopic);
 router.get('/GetUnAnswerQuestion', api.GetUnAnswerQuestion);
 router.get('/Account/GetMessage', api.GetAllMessages);
-
+router.get('/SearchMobile/:queryString',api.FindQuestionMobile);
 
 router.post('/Account/Register', api.Register);
 router.post('/Account/Login', api.Login);
