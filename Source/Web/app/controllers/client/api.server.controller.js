@@ -524,7 +524,28 @@ exports.AutoComplete = function(req, res) {
         return res.json({ autoCompleteResults: result });
     });
 }
-
+exports.FindQuestionMobile = function(req, res) {
+	var queryString = req.params.queryString;
+	var questionsResult = [];
+	var indexCount = 0;
+	var client = net.connect(2345, "localhost");
+	client.write(queryString);
+	client.on("data", function(data) {
+		outputString = data.toString("utf8");
+		var stringSplitArray = outputString.split(",");
+		stringSplitArray.forEach(function(id, index) {
+			Question.findQuestionById(id, function(err, question) {
+				questionsResult.push(question[0]);
+				if(indexCount == stringSplitArray.length - 1) {
+					return res.json({ questions: questionsResult });
+				}
+				indexCount++;
+			});
+		});
+		client.destroy();
+	});
+	client.end();
+};
 
 /*exports.UnLike = function(req, res) {
 	var username = req.body.UserLike;
