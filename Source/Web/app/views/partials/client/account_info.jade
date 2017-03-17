@@ -20,7 +20,7 @@ div(id="accountMangeContent")
                                 img.img-responsive#user-avatar(ng-src='/img/{{userInfo.Avatar}}',ng-if='userInfo.Avatar')
                                 img.img-responsive#user-avatar-default(ng-src='/img/user-icon.png',ng-if='!userInfo.Avatar')
                                 br
-                                form(ng-submit='UploadAvatar()', novalidate='', name='UploadAvatarForm')
+                                form(ng-submit='UploadAvatar()', novalidate='', name='UploadAvatarForm',enctype="multipart/form-data")
                                     span.btn.btn-default.btn-file
                                         | Chọn hình đại diện
                                         input#AvatarUpload(type='file',name='AvatarUpload', onchange='angular.element(this).scope().CheckFile(this);angular.element(this).scope().ChangeAvatar(this)', required='',ng-class="IsAvatarFormSubmitted?'ng-dirty':''")
