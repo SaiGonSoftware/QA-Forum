@@ -17,7 +17,7 @@ var async = require("async");
 var net = require("net");
 var config = require("../../../config/secret");
 var jwt = require("jsonwebtoken");
-var multer = require('multer');
+var fs    = require("fs");
 
 
 //index page
@@ -375,23 +375,13 @@ exports.GetAllContrib = function(req, res) {
     });
 };
 exports.UploadAvatar = function(req, res) {
-    var storage = multer.diskStorage({
-        destination: function(req, file, cb) {
-            cb(null, '../../../public/img');
-        },
-        filename: function(req, file, cb) {
-            cb(null, file.fieldname + '-' + Date.now() + '.jpg');
-        }
-    });
-
-    var upload = multer({ storage: storage });
-    upload(req, res, function(err) {
-        if (err) {
-            // An error occurred when uploading
-            return;
-        }
-        console.log(req.file);
-        // Everything went fine
+    req.pipe(req.busboy);
+    req.busboy.on('file', function(fieldname, file, filename) {
+        var fstream = fs.createWriteStream('public/img/upload/' + filename); 
+        file.pipe(fstream);
+        fstream.on('close', function () {
+            res.send('upload succeeded!');
+        });
     });
 };
 //category relative
@@ -525,26 +515,26 @@ exports.AutoComplete = function(req, res) {
     });
 }
 exports.FindQuestionMobile = function(req, res) {
-	var queryString = req.params.queryString;
-	var questionsResult = [];
-	var indexCount = 0;
-	var client = net.connect(2345, "localhost");
-	client.write(queryString);
-	client.on("data", function(data) {
-		outputString = data.toString("utf8");
-		var stringSplitArray = outputString.split(",");
-		stringSplitArray.forEach(function(id, index) {
-			Question.findQuestionById(id, function(err, question) {
-				questionsResult.push(question[0]);
-				if(indexCount == stringSplitArray.length - 1) {
-					return res.json({ questions: questionsResult });
-				}
-				indexCount++;
-			});
-		});
-		client.destroy();
-	});
-	client.end();
+    var queryString = req.params.queryString;
+    var questionsResult = [];
+    var indexCount = 0;
+    var client = net.connect(2345, "localhost");
+    client.write(queryString);
+    client.on("data", function(data) {
+        outputString = data.toString("utf8");
+        var stringSplitArray = outputString.split(",");
+        stringSplitArray.forEach(function(id, index) {
+            Question.findQuestionById(id, function(err, question) {
+                questionsResult.push(question[0]);
+                if (indexCount == stringSplitArray.length - 1) {
+                    return res.json({ questions: questionsResult });
+                }
+                indexCount++;
+            });
+        });
+        client.destroy();
+    });
+    client.end();
 };
 
 /*exports.UnLike = function(req, res) {
