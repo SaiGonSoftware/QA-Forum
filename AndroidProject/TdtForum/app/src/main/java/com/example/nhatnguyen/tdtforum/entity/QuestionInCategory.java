@@ -16,7 +16,7 @@ public class QuestionInCategory {
     @SerializedName("msg")
     @Expose
     private String msg;
-    @SerializedName("categories")
+    @SerializedName("questions")
     @Expose
     private List<Question> listQuestion;
 

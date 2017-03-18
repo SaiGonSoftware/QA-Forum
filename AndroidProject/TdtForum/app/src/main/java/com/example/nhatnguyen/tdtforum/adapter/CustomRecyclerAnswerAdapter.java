@@ -137,7 +137,9 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
             imageViewLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
-
+                    if(sessionManager.getUserSession().getUsernameLogin()==null || sessionManager.getUserSession().getUsernameLogin().equals("")){
+                        return;
+                    }
                     LikeData likeData = new LikeData();
                     likeData.setUserLike(sessionManager.getUserSession().getUsernameLogin());
                     likeData.setAnswerIdLike(listAnswer.get(getAdapterPosition()-1).get_id());
@@ -192,6 +194,9 @@ public class CustomRecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerVi
             imageViewDisLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(sessionManager.getUserSession().getUsernameLogin()==null || sessionManager.getUserSession().getUsernameLogin().equals("")){
+                        return;
+                    }
                     LikeData likeData = new LikeData();
                     likeData.setUserLike(sessionManager.getUserSession().getUsernameLogin());
                     likeData.setAnswerIdLike(listAnswer.get(getAdapterPosition()-1).get_id());

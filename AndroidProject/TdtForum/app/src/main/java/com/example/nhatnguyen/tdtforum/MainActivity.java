@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         editTextAddQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NewQuestionActivity.class);
+                Intent intent = new Intent(MainActivity.this, FindQuestionActivity.class);
                 startActivity(intent);
             }
         });
@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     case R.id.navigation_item_main_page:
 
                         break;
-                    case R.id.navigation_item_search:
-                        Intent intentSearchQuestion = new Intent(MainActivity.this,FindQuestionActivity.class);
+                    case R.id.navigation_item_question:
+                        Intent intentSearchQuestion = new Intent(MainActivity.this,NewQuestionActivity.class);
                         startActivity(intentSearchQuestion);
                         break;
                     case R.id.navigation_item_category:

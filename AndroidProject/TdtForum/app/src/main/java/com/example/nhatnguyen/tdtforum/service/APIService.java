@@ -8,8 +8,8 @@ import com.example.nhatnguyen.tdtforum.entity.LikeData;
 import com.example.nhatnguyen.tdtforum.entity.LoginData;
 import com.example.nhatnguyen.tdtforum.entity.Question;
 import com.example.nhatnguyen.tdtforum.entity.QuestionDetails;
-import com.example.nhatnguyen.tdtforum.entity.QuestionFind;
 import com.example.nhatnguyen.tdtforum.entity.QuestionInCategory;
+import com.example.nhatnguyen.tdtforum.entity.QuestionSearch;
 import com.example.nhatnguyen.tdtforum.entity.Questions;
 import com.example.nhatnguyen.tdtforum.entity.RegisData;
 import com.example.nhatnguyen.tdtforum.entity.ResultLogin;
@@ -38,13 +38,11 @@ import retrofit2.http.Path;
 
 public interface APIService {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").setLenient().create();
-    HeaderInterceptor headerInterceptor = new HeaderInterceptor().create();
-    Retrofit retrofit = new Retrofit.Builder()
-              .baseUrl("http://192.168.1.44:3000/api/")
-
-            // .baseUrl("http://tdtforum.herokuapp.com/api/")
+    static Retrofit retrofit = new Retrofit.Builder()
+             // .baseUrl("http://10.0.0.2:3000/api/")
+            .baseUrl("http://192.168.43.110:3000/api/")
+             //.baseUrl("http://tdtforum.herokuapp.com/api/")
             // .baseUrl("http://10.0.0.156:3000/api/")
-            .client(HeaderInterceptor.client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
@@ -90,12 +88,15 @@ public interface APIService {
     @POST("Answer/UnDislike")
     Call<ResultPost> unDislike(@Body LikeData likeData);
 
-    @POST("Question/FindQuestion")
-    Call<Questions> findQuestion(@Body QuestionFind questionFind);
+    @GET("SearchMobile/{queryString}")
+    Call<QuestionSearch> findQuestion(@Path("queryString") String queryString);
 
     @POST("Answer/RemoveAnswer")
     Call<ResultPost> removeAnswer(@Body AnswerRemove answerRemove);
 
     @POST("Answer/EditAnswer/{id}")
     Call<ResultPost> editAnswer(@Path("id")String id, @Body AnswerEdit answerEdit);
+
+
+
 }

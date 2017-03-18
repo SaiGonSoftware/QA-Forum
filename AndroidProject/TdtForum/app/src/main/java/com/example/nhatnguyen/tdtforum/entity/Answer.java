@@ -29,10 +29,10 @@ public class Answer {
     @SerializedName("references")
     @Expose
     private List<String> references;
-    @SerializedName("dislike")
+    @SerializedName("Dislike")
     @Expose
     private List<String> dislike;
-    @SerializedName("like")
+    @SerializedName("Like")
     @Expose
     private List<String> like;
 

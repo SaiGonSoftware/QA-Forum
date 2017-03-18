@@ -24,8 +24,8 @@
             android:title="Diễn đàn">
             <menu>
                 <item
-                    android:id="@+id/navigation_item_search"
-                    android:title="Tìm kiếm" />
+                    android:id="@+id/navigation_item_question"
+                    android:title="Đăng câu hỏi" />
                 <item
                     android:id="@+id/navigation_item_category"
                     android:title="Chủ đề" />

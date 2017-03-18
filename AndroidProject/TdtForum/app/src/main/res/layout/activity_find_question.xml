@@ -10,11 +10,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.example.nhatnguyen.tdtforum.FindQuestionActivity">
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_text_find_string"
-        android:hint="Nhập từ khóa"/>
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/edit_text_find_string"
+            android:hint="Nhập câu hỏi"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_find_question"
+            android:background="@drawable/rounded_button"
+            android:text="Gửi"
+           />
+        <Button
+            android:id="@+id/button_tap_to_speech_find_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/rounded_button"
+            android:drawableRight="@android:drawable/ic_btn_speak_now"/>
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

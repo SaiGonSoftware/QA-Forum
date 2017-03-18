@@ -6,20 +6,23 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by nhatnguyen on 28/12/2016.
+ * Created by nhatnguyen on 07/03/2017.
  */
 
-public class QuestionFind {
-    @SerializedName("questions")
-    @Expose
-    QuestionSearch questionSearch;
-    public QuestionSearch getQuestionSearch() {
+public class QuestionSearch {
+
+    public List<Question> getQuestionSearch() {
         return questionSearch;
     }
 
-    public void setQuestionSearch(QuestionSearch questionSearch) {
+    public void setQuestionSearch(List<Question> questionSearch) {
         this.questionSearch = questionSearch;
     }
+
+    @SerializedName("questions")
+    @Expose
+    List<Question>questionSearch;
+
 
 
 
