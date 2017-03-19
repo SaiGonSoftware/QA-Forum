@@ -379,9 +379,10 @@ exports.UploadAvatar = function(req, res) {
     req.pipe(req.busboy);
     req.busboy.on('file', function(fieldname, file, filename) {
         mkdirp('public/img/upload/' + username, function(err) {
-            var fstream = fs.createWriteStream('public/img/upload/' + username + "/" + filename);
+            var uploadDir = 'public/img/upload/' + username + '/' + filename;
+            var fstream = fs.createWriteStream('public/img/upload/' + username + '/' + filename);
             file.pipe(fstream);
-            User.updateAvatar(username, filename, function(err, data) {
+            User.updateAvatar(username, uploadDir, function(err, data) {
                 if (err) return res.json({ err: err });
                 else res.json({ success: true, msg: "Upload thành công" });
             });

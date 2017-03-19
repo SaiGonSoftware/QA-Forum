@@ -73,8 +73,8 @@ var getUserAvatar = function(user, callback) {
 };
 
 
-var updateAvatar = function(username, avatar, callback) {
-    User.update({ Account: username }, { Avatar: avatar }, callback);
+var updateAvatar = function(username, uploadDir, callback) {
+    User.update({ Account: username }, { Avatar: uploadDir }, callback);
 };
 module.exports = {
     User: User,
