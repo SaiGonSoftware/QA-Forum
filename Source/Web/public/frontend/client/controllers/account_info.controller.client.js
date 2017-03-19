@@ -67,12 +67,14 @@
             }
             if ($scope.IsFormValid) {
                 $scope.HideUploadBtn = true;
-                for (var i = 0; i <= 100; i++) {
+                /* for (var i = 0; i <= 100; i++) {
                     $(".progress-bar").width(i + "%");
                     $(".sr-only").html(i + "%");
-                }
-                UploadAvatarService.UploadAvatar($scope.fileUpload).then(function(result) {
-                    toastr.success('Upload thành công');
+                }*/
+                UploadAvatarService.UploadAvatar($scope.fileUpload, currentUser).then(function(result) {
+                    if (result.success) {
+                        toastr.success(result.msg);
+                    } else toastr.warning("Có lỗi xảy ra vui lòng thử lại");
                 });
 
             }

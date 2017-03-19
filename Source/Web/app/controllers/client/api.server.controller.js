@@ -17,8 +17,8 @@ var async = require("async");
 var net = require("net");
 var config = require("../../../config/secret");
 var jwt = require("jsonwebtoken");
-var fs    = require("fs");
-
+var fs = require("fs");
+var mkdirp = require('mkdirp');
 
 //index page
 exports.GetQuestion = function(req, res) {
@@ -375,13 +375,21 @@ exports.GetAllContrib = function(req, res) {
     });
 };
 exports.UploadAvatar = function(req, res) {
+    var username = req.params.user;
     req.pipe(req.busboy);
     req.busboy.on('file', function(fieldname, file, filename) {
-        var fstream = fs.createWriteStream('public/img/upload/' + filename); 
-        file.pipe(fstream);
-        fstream.on('close', function () {
-            res.send('upload succeeded!');
+        mkdirp('public/img/upload/' + username, function(err) {
+            var fstream = fs.createWriteStream('public/img/upload/' + username + "/" + filename);
+            file.pipe(fstream);
+            User.updateAvatar(username, filename, function(err, data) {
+                if (err) return res.json({ err: err });
+                else res.json({ success: true, msg: "Upload thành công" });
+            });
         });
+
+        /*fstream.on('close', function() {
+            res.send('upload succeeded!');
+        });*/
     });
 };
 //category relative

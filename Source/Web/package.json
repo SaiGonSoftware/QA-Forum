@@ -17,6 +17,7 @@
     "google": "^2.1.0",
     "jade": "^1.11.0",
     "jsonwebtoken": "^7.3.0",
+    "mkdirp": "^0.5.1",
     "mongodb": "^2.2.16",
     "mongoose": "^4.7.2",
     "morgan": "^1.7.0",

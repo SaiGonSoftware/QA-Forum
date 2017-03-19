@@ -30,7 +30,7 @@ router.post('/Account/PostQuestion', api.Question);
 router.post('/Account/LikeAnswer', api.Like);
 router.post('/Account/SaveMessage', api.SaveMessage);
 router.post('/Account/DislikeAnswer', api.Dislike);
-router.post('/Account/UploadAvatar',api.UploadAvatar);
+router.post('/Account/UploadAvatar/:user',api.UploadAvatar);
 router.post('/Question/FindQuestion', api.FindQuestion);
 //router.post('/Answer/UnLike', api.UnLike);
 //router.post('/Answer/UnDislike', api.UnDislike);
