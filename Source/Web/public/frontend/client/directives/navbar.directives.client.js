@@ -17,9 +17,9 @@
             scope: false,
             controller: function($scope) {
                 var loginUser = localStorageService.cookie.get('currentUser');
-                var facebookUser = localStorageService.cookie.get('facebookUser');
                 var userAvatar = localStorageService.cookie.get('userAvatar');
-                console.log(userAvatar);
+                var facebookUser = localStorageService.cookie.get('facebookUser');
+                var facebookAvatar = localStorageService.cookie.get('facebookAvatar');
                 if (loginUser && !facebookUser) {
                     $rootScope.loginUser = loginUser;
                     $rootScope.userAvatar = userAvatar;
@@ -29,6 +29,7 @@
                 }
                 if (facebookUser && !loginUser) {
                     $rootScope.facebookUser = facebookUser;
+                    $rootScope.facebookAvatar = facebookAvatar;
                     $rootScope.HideLoginSection = true;
                     $rootScope.IsFacebookLogin = true;
                     $rootScope.IsLogin = false;

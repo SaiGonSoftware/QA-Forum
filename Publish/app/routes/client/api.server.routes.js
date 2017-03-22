@@ -1,8 +1,8 @@
 /*
  * @Author: Ngo Hung Phuc
  * @Date:   2016-11-18 20:05:10
- * @Last Modified by:   Ngo Hung Phuc
- * @Last Modified time: 2016-11-26 00:10:11
+ * @Last Modified by:   hoangphucvu
+ * @Last Modified time: 2017-03-02 11:10:21
  */
 var express = require('express');
 var router = express.Router();
@@ -21,7 +21,7 @@ router.get('/Account/Contrib/:currentUser', api.GetAllContrib);
 router.get('/GetHotTopic', api.GetHotTopic);
 router.get('/GetUnAnswerQuestion', api.GetUnAnswerQuestion);
 router.get('/Account/GetMessage', api.GetAllMessages);
-
+router.get('/SearchMobile/:queryString',api.FindQuestionMobile);
 
 router.post('/Account/Register', api.Register);
 router.post('/Account/Login', api.Login);
@@ -30,6 +30,7 @@ router.post('/Account/PostQuestion', api.Question);
 router.post('/Account/LikeAnswer', api.Like);
 router.post('/Account/SaveMessage', api.SaveMessage);
 router.post('/Account/DislikeAnswer', api.Dislike);
+router.post('/Account/UploadAvatar/:user',api.UploadAvatar);
 router.post('/Question/FindQuestion', api.FindQuestion);
 //router.post('/Answer/UnLike', api.UnLike);
 //router.post('/Answer/UnDislike', api.UnDislike);

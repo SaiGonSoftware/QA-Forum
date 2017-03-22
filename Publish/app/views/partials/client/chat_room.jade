@@ -6,7 +6,7 @@
                     ul.media-list
                         p#message-item
                             li(ng-repeat="message in messageData")
-                                {{message.Message}}
+                                | {{message.Message}}
                                 br
                                 small.text-muted {{message.User}} | {{message.SentDate}}
 

@@ -28,53 +28,54 @@ var userSchema = new mongoose.Schema({
     },
     Level: {
         type: Number
-    },
-    Avatar: {
-        type: String
     }
 });
 var User = mongoose.model('members', userSchema);
 
-var checkAccountExists = function (username, callback) {
+var checkAccountExists = function(username, callback) {
     User.findOne({
         'Account': username
     }, callback);
 };
 
-var checkSocialAccountExists = function (id, callback) {
+var checkSocialAccountExists = function(id, callback) {
     User.findOne({
         'SocialId': id
     }, callback);
 };
 
-var checkEmailExists = function (email, callback) {
+var checkEmailExists = function(email, callback) {
     User.findOne({
         'Email': email
     }, callback);
 };
 // generating a hash
-var generateHash = function (password) {
+var generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 //check password valid or not
-var validPassword = function (password, sourcePassword) {
+var validPassword = function(password, sourcePassword) {
     return bcrypt.compareSync(password, sourcePassword);
 };
 
-var createUser = function (user, callback) {
+var createUser = function(user, callback) {
     User.collection.insert(user, callback);
 };
 
-var getUserInfo = function (currentUser, callback) {
+var getUserInfo = function(currentUser, callback) {
     User.find({
         Account: currentUser
     }).exec(callback);
 };
 
-var getUserAvatar = function (user, callback) {
-    
+var getUserAvatar = function(user, callback) {
+
 };
 
+
+var updateAvatar = function(username, uploadDir, callback) {
+    User.update({ Account: username }, { Avatar: uploadDir }, callback);
+};
 module.exports = {
     User: User,
     checkAccountExists: checkAccountExists,
@@ -84,5 +85,6 @@ module.exports = {
     validPassword: validPassword,
     checkSocialAccountExists: checkSocialAccountExists,
     getUserInfo: getUserInfo,
-    getUserAvatar: getUserAvatar
+    getUserAvatar: getUserAvatar,
+    updateAvatar: updateAvatar
 };

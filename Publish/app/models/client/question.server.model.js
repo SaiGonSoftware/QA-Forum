@@ -77,7 +77,11 @@ var getQuestionViaCategory = function(id, limitItem, callback) {
 		"CategoryId": ObjectId(id)
 	}).limit(limitItem).exec(callback);
 };
-
+var findQuestionById = function(id, callback) {
+	Question.find({
+		"_id": ObjectId(id)
+	}, callback);
+};
 var submitQuestion = function(question, callback) {
 	Question.collection.insert(question, callback);
 };
@@ -130,5 +134,6 @@ module.exports = {
 	updateViewTime: updateViewTime,
 	getAllQuestion: getAllQuestion,
 	getUnAnswerQuestion: getUnAnswerQuestion,
-	getRelatedQuestion: getRelatedQuestion
+	getRelatedQuestion: getRelatedQuestion,
+	findQuestionById: findQuestionById
 };

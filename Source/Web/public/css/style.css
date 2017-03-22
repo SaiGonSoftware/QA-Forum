@@ -1375,6 +1375,9 @@ fieldset[disabled] .btn-tales-two:hover {
 .bs-callout-info {
     border-left-color: #1557b5 !important;
 }
+.bs-callout-info a:hover {
+    text-decoration: none !important;
+}
 .bs-callout-info h4,
 .bs-callout-info h5 {
     color: #5b6268;

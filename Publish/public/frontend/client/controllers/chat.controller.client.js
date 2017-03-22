@@ -10,22 +10,30 @@
 		var loginUser = localStorageService.cookie.get('currentUser');
 		var facebookUser = localStorageService.cookie.get('facebookUser');
 		var currentUser = loginUser ? loginUser : facebookUser;
+
 		if(currentUser === null) {
 			$location.path('/dang-nhap');
+			toastr.warning("Vui lòng đăng nhập để tham gia phòng chat");
 		}
-		$('.current-chat-area').animate({
-			scrollTop: $('.current-chat-area')[0].scrollHeight
-		}, 5000);
+
+		var checkChatDomExist = setTimeout(function() {
+			console.log($(".current-chat-area").length);
+			if($(".current-chat-area").length) {
+				$('.current-chat-area').animate({
+					scrollTop: $('.current-chat-area')[0].scrollHeight
+				}, 100);
+			}
+		}, 1000);
+
 		GetMessageService.GetMessage().then(function(response) {
-			console.log(response.data.result);
 			$scope.messageData = response.data.result;
 		});
+
 		var socket = io.connect();
 		var currentTime = new Date().toLocaleString();
 		socket.emit('new user', currentUser);
 		var chat = $('.media-list');
 		var onlineList = $('.list-online');
-
 
 		$scope.SendMessage = function() {
 			if(!currentUser) {
@@ -44,7 +52,6 @@
 			};
 			socket.emit('send message', messageInfo);
 			SaveMessageService.SaveMessage(messageInfo).then(function(result) {
-				console.log(result);
 				$("#chatMessageSend").val('');
 			});
 		};
@@ -53,7 +60,7 @@
 			chat.append('<p><li class="media-body">' + data.message + '<br><small class="text-muted">' + data.username + ' | ' + currentTime + '</small></li></p>');
 			$('.current-chat-area').animate({
 				scrollTop: $('.current-chat-area')[0].scrollHeight
-			}, 5000);
+			}, 10);
 		});
 
 		socket.on('get users', function(data) {

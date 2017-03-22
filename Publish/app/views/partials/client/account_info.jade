@@ -17,23 +17,21 @@ div(id="accountMangeContent")
                         .panel.panel-default#avatar-contain
                             .panel-heading Ảnh đại diện
                             .panel-body
-                                img.img-responsive.user-avatar(ng-src='/img/{{userInfo.Avatar}}',ng-if='userInfo.Avatar')
-                                img.img-responsive.user-avatar(ng-src='/img/user-icon.png',ng-if='!userInfo.Avatar')
+                                img.img-responsive#user-avatar(ng-src='/{{userInfo.Avatar}}',ng-if='userInfo.Avatar')
+                                img.img-responsive#user-avatar-default(ng-src='/img/user-icon.png',ng-if='!userInfo.Avatar')
                                 br
-                                form(ng-submit='UploadAvatar()' novalidate name='UploadAvatarForm')
+                                form(ng-submit='UploadAvatar()', novalidate='', name='UploadAvatarForm',enctype="multipart/form-data")
                                     span.btn.btn-default.btn-file
                                         | Chọn hình đại diện
-                                        input(type='file', onchange='angular.element(this).scope().CheckFile(this)',required='',ng-class="IsAvatarFormSubmitted?'ng-dirty':''")
+                                        input#AvatarUpload(type='file',name='AvatarUpload', onchange='angular.element(this).scope().CheckFile(this);angular.element(this).scope().ChangeAvatar(this)', required='',ng-class="IsAvatarFormSubmitted?'ng-dirty':''")
                                     button.btn.btn-primary(type='submit', ng-hide='HideUploadBtn')
                                         | Upload
                                         i.fa.fa-paper-plane-o(aria-hidden='true')
-                                    br
-                                    label(ng-show='(UploadAvatarForm.file.$dirty || IsAvatarFormSubmitted) && UploadAvatarForm.file.$error.required') Vui Lòng Chọn File
+                                    .progress(ng-show="showLoadingProgress")
+                                          .progress-bar.progress-bar-striped.active(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100', style='width: 0%')
+                                            span.sr-only 0% Complete
+                                            br
                                     img(src='/img/icon/detail-loading.gif', ng-show='Loading')
-
-                                .row
-                                    | {{fileMessage}}
-
             .panel.panel-primary(ng-show="showme")
                 .panel-heading
                     h3.panel-title Câu Hỏi
