@@ -317,12 +317,13 @@ exports.Login = function(req, res) {
             },
             function(user, callback) {
                 var userSession = user.Account;
-                callback(null, userSession);
+                var userAvatar = user.Avatar;
+                callback(null, userSession, userAvatar);
             }
-        ], function(err, userSession) {
+        ], function(err, userSession, userAvatar) {
             if (err)
                 return res.json({ err: err });
-            return res.json({ login: true, url: '/', userSession: userSession });
+            return res.json({ login: true, url: '/', userSession: userSession, userAvatar: userAvatar });
         });
     }
     if (socialAccount !== undefined) {

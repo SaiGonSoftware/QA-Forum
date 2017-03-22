@@ -2,23 +2,27 @@
  * Created by phuc.ngo on 12/20/2016.
  */
 
-(function () {
+(function() {
     'use strict';
     angular
         .module('ChatBotApp')
         .directive('navbar', navbar);
 
     navbar.$inject = ['localStorageService', '$rootScope'];
+
     function navbar(localStorageService, $rootScope) {
         return {
             restrict: 'E',
             templateUrl: '/directives/navbar.html',
             scope: false,
-            controller: function ($scope) {
+            controller: function($scope) {
                 var loginUser = localStorageService.cookie.get('currentUser');
                 var facebookUser = localStorageService.cookie.get('facebookUser');
+                var userAvatar = localStorageService.cookie.get('userAvatar');
+                console.log(userAvatar);
                 if (loginUser && !facebookUser) {
                     $rootScope.loginUser = loginUser;
+                    $rootScope.userAvatar = userAvatar;
                     $rootScope.HideLoginSection = true;
                     $rootScope.IsLogin = true;
                     $rootScope.IsFacebookLogin = false;
@@ -34,12 +38,12 @@
                     $rootScope.IsLogin = false;
                     $rootScope.IsFacebookLogin = false;
                 }
-                $scope.LogOut = function () {
+                $scope.LogOut = function() {
                     localStorageService.cookie.remove('currentUser');
                     location.reload();
                 };
 
-                $scope.FacebookLogOut = function () {
+                $scope.FacebookLogOut = function() {
                     localStorageService.cookie.remove('facebookUser');
                     location.reload();
                 };
@@ -47,4 +51,3 @@
         };
     }
 })();
-
