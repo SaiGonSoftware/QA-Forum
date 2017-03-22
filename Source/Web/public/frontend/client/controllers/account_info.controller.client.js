@@ -13,7 +13,7 @@
         $scope.IsFileValid = false;
         $scope.IsAvatarFormSubmitted = false;
         $scope.fileUpload = null;
-
+        $scope.showLoadingProgress = false;
         var loginUser = localStorageService.cookie.get('currentUser');
         var facebookUser = localStorageService.cookie.get('facebookUser');
         var currentUser = loginUser ? loginUser : facebookUser;
@@ -67,19 +67,20 @@
             }
             if ($scope.IsFormValid) {
                 $scope.HideUploadBtn = true;
-                /* for (var i = 0; i <= 100; i++) {
+                $scope.showLoadingProgress = true;
+                for (var i = 0; i <= 100; i++) {
                     $(".progress-bar").width(i + "%");
                     $(".sr-only").html(i + "%");
-                }*/
+                }
                 UploadAvatarService.UploadAvatar($scope.fileUpload, currentUser).then(function(result) {
                     if (result.success) {
+                        $scope.HideUploadBtn = false;
+                        $scope.showLoadingProgress = false;
                         toastr.success(result.msg);
                     } else toastr.warning("Có lỗi xảy ra vui lòng thử lại");
                 });
 
             }
         };
-
-
     }
 })();

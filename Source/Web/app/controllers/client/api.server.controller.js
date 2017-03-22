@@ -19,6 +19,7 @@ var config = require("../../../config/secret");
 var jwt = require("jsonwebtoken");
 var fs = require("fs");
 var mkdirp = require('mkdirp');
+var randomstring = require("randomstring");
 
 //index page
 exports.GetQuestion = function(req, res) {
@@ -379,8 +380,9 @@ exports.UploadAvatar = function(req, res) {
     req.pipe(req.busboy);
     req.busboy.on('file', function(fieldname, file, filename) {
         mkdirp('public/img/upload/' + username, function(err) {
-            var uploadDir = 'public/img/upload/' + username + '/' + filename;
-            var fstream = fs.createWriteStream('public/img/upload/' + username + '/' + filename);
+            filename = `${randomstring.generate()}.jpg`;
+            var uploadDir = `img/upload/${username}/${filename}`;
+            var fstream = fs.createWriteStream(`public/img/upload/${username}/${filename}`);
             file.pipe(fstream);
             User.updateAvatar(username, uploadDir, function(err, data) {
                 if (err) return res.json({ err: err });
