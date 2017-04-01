@@ -6,5 +6,5 @@
  */
 
 module.exports = {
-    'secret_token': 'superscrettoken'
+    secret_token: 'superscrettokenoftony'
 };

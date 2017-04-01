@@ -13,6 +13,9 @@ var express = require('express'),
     env = process.env.NODE_ENV || 'development',
     io = require('socket.io').listen(server),
     busboy = require("connect-busboy"),
+    errorhandler = require('errorhandler'),
+    notifier = require('node-notifier'),
+    customErrorHandler = require('./config/error_handler'),
     users = [],
     connections = [];
 
@@ -37,7 +40,7 @@ var indexRoute = require('./app/routes/client/index.server.routes'),
     apiRoute = require('./app/routes/client/api.server.routes');
 
 //set route for specific request
-app.get('/partials/:partialPath', function(req, res) {
+app.get('/partials/:partialPath', function (req, res) {
     res.render('partials/client/' + req.params.partialPath);
 });
 app.use('/directives', express.static(path.join(__dirname, 'app/views/directives/client')));
@@ -46,31 +49,31 @@ app.get('*', indexRoute);
 
 
 if (env === 'development') {
-    // TODO
+    app.use(errorhandler({log: customErrorHandler.errorNotification}));
 }
 if (env === 'production') {
-    // TODO
+//Todo
 }
 
-io.sockets.on('connection', function(socket) {
+io.sockets.on('connection', function (socket) {
     console.log('Connected: %s sockets connected', connections.length);
 
     //disconnect
-    socket.on('disconnect', function(data) {
+    socket.on('disconnect', function (data) {
         users.splice(users.indexOf(socket.username), 1);
         updateUsername();
         connections.splice(connections.indexOf(socket), 1);
         console.log('Disconnected: %s sockets disconnected', connections.length);
     });
 
-    socket.on('send message', function(data) {
+    socket.on('send message', function (data) {
         io.sockets.emit('new message', {
             username: data.username,
             message: data.message
         });
     });
 
-    socket.on('new user', function(data) {
+    socket.on('new user', function (data) {
         if (data !== null) {
             socket.username = data;
             users.push(socket.username);
@@ -84,6 +87,6 @@ io.sockets.on('connection', function(socket) {
 });
 
 
-server.listen(port, function() {
+server.listen(port, function () {
     console.log("Web server listening on port " + port);
 });
