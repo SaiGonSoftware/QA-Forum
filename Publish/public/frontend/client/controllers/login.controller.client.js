@@ -4,7 +4,7 @@
  * @Last Modified by:   hoangphucvu
  * @Last Modified time: 2016-11-10 11:40:25
  */
-(function() {
+(function () {
     'use strict';
     angular
         .module('ChatBotApp')
@@ -24,16 +24,16 @@
             PasswordLogin: ''
         };
 
-        $scope.$watch('LoginForm.$valid', function(newValue) {
+        $scope.$watch('LoginForm.$valid', function (newValue) {
             $scope.IsLoginFormValid = newValue;
         });
 
-        $scope.Login = function() {
+        $scope.Login = function () {
             $scope.LoginFormSubmmit = true;
             if ($scope.IsLoginFormValid) {
                 $scope.ShowLoading = true;
                 $scope.HideLoginBtn = true;
-                LoginService.LoginAccess($scope.LoginData).then(function(result) {
+                LoginService.LoginAccess($scope.LoginData).then(function (result) {
                     $scope.HideLoginBtn = false;
                     $scope.ShowLoading = false;
                     if (!result.data.login) {
@@ -42,6 +42,7 @@
                     } else {
                         localStorageService.cookie.set('currentUser', result.data.userSession, 7);
                         localStorageService.cookie.set('userAvatar', result.data.userAvatar, 7);
+                        localStorageService.cookie.set('access_token', result.data.token, 1);
                         $rootScope.loginUser = result.data.userSession;
                         $rootScope.userAvatar = result.data.userAvatar;
                         $rootScope.HideLoginSection = true;

@@ -14,7 +14,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" ng-show="IsFacebookLogin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img ng-src="{{facebookAvatar}}" class="userAvatar"> Xin chào {{facebookUser}} <span class="caret"></span></a>
+                    <img ng-src="{{facebookAvatar}}"> Xin chào {{facebookUser}} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/tai-khoan">Quản Lý Tài Khoản</a></li>
                     <li><a href="#" ng-click="FacebookLogOut()">Đăng Xuất</a></li>
@@ -22,7 +22,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" ng-show="IsLogin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img ng-src="{{userAvatar}}"> Xin chào {{loginUser}}<span class="caret"></span></a>
+                    <img ng-src="{{userAvatar}}" class="userAvatar"> Xin chào {{loginUser}}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/tai-khoan">Quản Lý Tài Khoản</a></li>
                     <li><a href="#" ng-click="LogOut()">Đăng Xuất</a></li>

@@ -7,6 +7,7 @@
 var express = require('express');
 var router = express.Router();
 var api = require('../../controllers/client/api.server.controller');
+var auth = require('../../auth/auth.services.server');
 
 router.get('/GetQuestion/', api.GetQuestion);
 router.get('/GetNextQuestion/:requestTime', api.GetNextQuestion);
@@ -21,16 +22,16 @@ router.get('/Account/Contrib/:currentUser', api.GetAllContrib);
 router.get('/GetHotTopic', api.GetHotTopic);
 router.get('/GetUnAnswerQuestion', api.GetUnAnswerQuestion);
 router.get('/Account/GetMessage', api.GetAllMessages);
-router.get('/SearchMobile/:queryString',api.FindQuestionMobile);
+router.get('/SearchMobile/:queryString', api.FindQuestionMobile);
 
 router.post('/Account/Register', api.Register);
 router.post('/Account/Login', api.Login);
-router.post('/Account/PostAnswer/:id', api.Answer);
-router.post('/Account/PostQuestion', api.Question);
-router.post('/Account/LikeAnswer', api.Like);
-router.post('/Account/SaveMessage', api.SaveMessage);
-router.post('/Account/DislikeAnswer', api.Dislike);
-router.post('/Account/UploadAvatar/:user',api.UploadAvatar);
+router.post('/Account/PostAnswer/:id', auth.IsAuthenticated(), api.Answer);
+router.post('/Account/PostQuestion', auth.IsAuthenticated(), api.Question);
+router.post('/Account/LikeAnswer', auth.IsAuthenticated(), api.Like);
+router.post('/Account/SaveMessage', auth.IsAuthenticated(), api.SaveMessage);
+router.post('/Account/DislikeAnswer', auth.IsAuthenticated(), api.Dislike);
+router.post('/Account/UploadAvatar/:user', auth.IsAuthenticated(), api.UploadAvatar);
 router.post('/Question/FindQuestion', api.FindQuestion);
 //router.post('/Answer/UnLike', api.UnLike);
 //router.post('/Answer/UnDislike', api.UnDislike);
