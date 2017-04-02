@@ -323,7 +323,7 @@ exports.Login = function (req, res) {
                 return res.json({err: err});
             var userSession = user.Account;
             var userAvatar = user.Avatar;
-            var token = jwt.sign({_id: user.userSession}, config.secret_token, {expiresIn: 3600});
+            var token = jwt.sign({_id: user._id}, config.secret_token, {expiresIn: 86400});
             return res.json({login: true, url: '/', userSession: userSession, userAvatar: userAvatar, token: token});
         });
     }

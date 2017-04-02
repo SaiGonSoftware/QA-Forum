@@ -13,16 +13,19 @@ var User = require('../models/client/user.server.model');
  *  Check the token is pass along in header per request
  */
 function IsAuthenticated() {
+
     return compose().use(function (req, res, next) {
-        if (req.query && req.query.hasOwnProperty('access_token')) {
-            req.headers.authorization = 'Bearer ' + req.query.access_token;
-        }
-    }).use(function (req, res, next) {
-        User.checkAccountExists(req.username, function (err, user) {
-            if (err) return next(err);
-            if (!user) return res.send(401);
-            req.user = user;
-            next();
+        var headers = req.headers.authorization.split(' ');
+        var token = headers;
+        if (!token) return res.send(401);
+        jwt.verify(token[1], config.secret_token, function (err, decoded) {
+            if (err) return res.send(401);
+            User.findUserById(decoded._id, function (err, user) {
+                if (err) return next(err);
+                if (!user) return res.send(401);
+                req.user = user;
+                next();
+            });
         });
     });
 }
