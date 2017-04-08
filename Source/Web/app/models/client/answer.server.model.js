@@ -40,7 +40,7 @@ var answerSchema = new mongoose.Schema({
 
 var Answer = mongoose.model('answers', answerSchema);
 var getAnswerViaQuestion = function (id, callback) {
-    Answer.find({"QuestionId": id}).sort({
+    Answer.find({ "QuestionId": id }).sort({
         'CreateDate': 'descending'
     }).exec(callback);
 };
@@ -51,10 +51,10 @@ var addLike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$addToSet": {
-            "Like": username
-        }
-    }, callback);
+            "$addToSet": {
+                "Like": username
+            }
+        }, callback);
 };
 var countLike = function (answerId, callback) {
     Answer.findById(answerId, callback);
@@ -66,28 +66,28 @@ var unLike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$pull": {
-            "Like": username
-        }
-    }, callback);
+            "$pull": {
+                "Like": username
+            }
+        }, callback);
 };
 var addDislike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$addToSet": {
-            "Dislike": username
-        }
-    }, callback);
+            "$addToSet": {
+                "Dislike": username
+            }
+        }, callback);
 };
 var unDislike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$pull": {
-            "Dislike": username
-        }
-    }, callback);
+            "$pull": {
+                "Dislike": username
+            }
+        }, callback);
 };
 var checkLikeExists = function (answerId, username, callback) {
     Answer.find({
@@ -105,31 +105,31 @@ var removeLike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$pull": {
-            Like: username
-        }
-    }, Answer.collection.update({
-        _id: ObjectId(answerId)
-    }, {
-        "$addToSet": {
-            Like: username
-        }
-    }, callback));
+            "$pull": {
+                Like: username
+            }
+        }, Answer.collection.update({
+            _id: ObjectId(answerId)
+        }, {
+                "$addToSet": {
+                    Like: username
+                }
+            }, callback));
 };
 var removeDislike = function (answerId, username, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$pull": {
-            Like: username
-        }
-    }, Answer.collection.update({
-        _id: ObjectId(answerId)
-    }, {
-        "$addToSet": {
-            Like: username
-        }
-    }, callback));
+            "$pull": {
+                Like: username
+            }
+        }, Answer.collection.update({
+            _id: ObjectId(answerId)
+        }, {
+                "$addToSet": {
+                    Like: username
+                }
+            }, callback));
 };
 var removeAnswer = function (answerId, callback) {
     Answer.collection.remove({
@@ -143,22 +143,18 @@ var editAnswer = function (answerId, answerContent, callback) {
     Answer.collection.update({
         _id: ObjectId(answerId)
     }, {
-        "$set": {
-            "Content": answerContent
-        }
-    }, callback);
+            "$set": {
+                "Content": answerContent
+            }
+        }, callback);
 };
 
 var getDistinctId = function (callback) {
     Answer.find({}).distinct('QuestionId', callback);
 };
 
-/*var getUserAnswer = function(questionId,callback){
- Answer.find({QuestionId:questionId},'UserAnswer',callback);
- };*/
-
 var getUserAnswer = function (questionId, callback) {
-    Answer.find({QuestionId: {$in: questionId}}, '-_id UserAnswer', callback);
+    Answer.find({ QuestionId: { $in: questionId } }, '-_id UserAnswer', callback);
 };
 module.exports = {
     Answer: Answer,

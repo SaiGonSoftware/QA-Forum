@@ -43,6 +43,8 @@ exports.GetNextQuestion = function (req, res) {
 };
 exports.QuestionDetail = function (req, res) {
     var id = req.params.id;
+    var avatarLists = [];
+    var count = 0;
     if (id !== null) {
         async.waterfall([
             function (callback) {
@@ -60,8 +62,20 @@ exports.QuestionDetail = function (req, res) {
                 Answer.getAnswerViaQuestion(id, function (err, answers) {
                     callback(null, questionDetail, answers);
                 });
+            },
+            function (questionDetail, answers, callback) {
+                answers.forEach(function (answer) {
+                    User.getUserAvatar(answer.UserAnswer, function (err, avatarArr) {
+                        avatarLists.push(avatarArr);
+                        count++;
+                        if (count === answers.length) {
+                            console.log(avatarLists);
+                            callback(null, questionDetail, answers, avatarLists);
+                        }
+                    });
+                });
             }
-        ], function (err, questionDetail, answers) {
+        ], function (err, questionDetail, answers, avatarLists) {
             // this is when we complete excute async db query
             if (err) {
                 return res.json({
@@ -72,7 +86,8 @@ exports.QuestionDetail = function (req, res) {
                     found: true,
                     msg: "Found",
                     questionDetail: questionDetail,
-                    answers: answers
+                    answers: answers,
+                    avatarLists: avatarLists
                 });
             }
         });
@@ -382,7 +397,7 @@ exports.UploadAvatar = function (req, res) {
     req.busboy.on('file', function (fieldname, file, filename) {
         mkdirp('public/img/upload/' + username, function (err) {
             filename = `${randomstring.generate()}.jpg`;
-            var uploadDir = `img/upload/${username}/${filename}`;
+            var uploadDir = `/img/upload/${username}/${filename}`;
             var fstream = fs.createWriteStream(`public/img/upload/${username}/${filename}`);
             file.pipe(fstream);
             User.updateAvatar(username, uploadDir, function (err, data) {
