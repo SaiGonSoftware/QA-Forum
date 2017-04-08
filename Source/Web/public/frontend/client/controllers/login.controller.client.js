@@ -40,8 +40,8 @@
                         toastr.warning("Vui lòng kiểm tra thông tin đăng nhập");
                         return false;
                     } else {
-                        localStorageService.cookie.set('currentUser', result.data.userSession, 7);
-                        localStorageService.cookie.set('userAvatar', result.data.userAvatar, 7);
+                        localStorageService.cookie.set('currentUser', result.data.userSession, 1);
+                        localStorageService.cookie.set('userAvatar', result.data.userAvatar, 1);
                         localStorageService.cookie.set('access_token', result.data.token, 1);
                         $rootScope.loginUser = result.data.userSession;
                         $rootScope.userAvatar = result.data.userAvatar;

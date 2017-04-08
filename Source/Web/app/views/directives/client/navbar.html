@@ -1,31 +1,54 @@
-<div class="pull-right" id="mobile-nav-toggle"><a href="#" data-toggle="collapse" data-target=".tales-nav .navbar-collapse"><i
-        class="fa fa-bars"></i></a></div>
+<div class="pull-right" id="mobile-nav-toggle">
+    <a href="#" data-toggle="collapse" data-target=".tales-nav .navbar-collapse">
+        <i class="fa fa-bars"></i>
+    </a>
+</div>
 <nav class="pull-right tales-nav" id="header-nav">
     <div class="collapse navbar-collapse">
         <ul class="nav nav-pills">
-            <li class="navbar-menu"><a href="/dien-dan">Diễn Đàn</a></li>
-            <li class="navbar-menu"><a href="/phong-chat">Phòng Chat</a></li>
-            <li class="dropdown navbar-menu"><a class="dropdown-toggle" ng-hide="HideLoginSection" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tài Khoản<span
-                    class="caret"></span></a>
+            <li class="navbar-menu">
+                <a href="/dien-dan">Diễn Đàn</a>
+            </li>
+            <li class="navbar-menu">
+                <a href="/phong-chat">Phòng Chat</a>
+            </li>
+            <li class="dropdown navbar-menu">
+                <a class="dropdown-toggle" ng-hide="HideLoginSection" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Tài Khoản<span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/dang-nhap">Đăng Nhập</a></li>
-                    <li><a href="/dang-ky">Đăng Ký</a></li>
+                    <li>
+                        <a href="/dang-nhap">Đăng Nhập</a>
+                    </li>
+                    <li>
+                        <a href="/dang-ky">Đăng Ký</a>
+                    </li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" ng-show="IsFacebookLogin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img ng-src="{{facebookAvatar}}"> Xin chào {{facebookUser}} <span class="caret"></span></a>
+                    <img ng-src="{{facebookAvatar}}"> Xin chào {{facebookUser}} <span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/tai-khoan">Quản Lý Tài Khoản</a></li>
-                    <li><a href="#" ng-click="FacebookLogOut()">Đăng Xuất</a></li>
+                    <li>
+                        <a href="/tai-khoan">Quản Lý Tài Khoản</a>
+                    </li>
+                    <li>
+                        <a href="#" ng-click="FacebookLogOut()">Đăng Xuất</a>
+                    </li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" ng-show="IsLogin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img ng-src="{{userAvatar}}" class="userAvatar"> Xin chào {{loginUser}}<span class="caret"></span></a>
+                    <img ng-src="{{userAvatar}}" class="userAvatar"> Xin chào {{loginUser}}<span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/tai-khoan">Quản Lý Tài Khoản</a></li>
-                    <li><a href="#" ng-click="LogOut()">Đăng Xuất</a></li>
+                    <li>
+                        <a href="/tai-khoan">Quản Lý Tài Khoản</a>
+                    </li>
+                    <li>
+                        <a href="#" ng-click="LogOut()">Đăng Xuất</a>
+                    </li>
                 </ul>
             </li>
         </ul>

@@ -2,7 +2,7 @@
  * Created by phuc.ngo on 12/20/2016.
  */
 
-(function() {
+(function () {
     'use strict';
     angular
         .module('ChatBotApp')
@@ -15,11 +15,12 @@
             restrict: 'E',
             templateUrl: '/directives/navbar.html',
             scope: false,
-            controller: function($scope) {
+            controller: function ($scope) {
                 var loginUser = localStorageService.cookie.get('currentUser');
                 var userAvatar = localStorageService.cookie.get('userAvatar');
                 var facebookUser = localStorageService.cookie.get('facebookUser');
                 var facebookAvatar = localStorageService.cookie.get('facebookAvatar');
+
                 if (loginUser && !facebookUser) {
                     $rootScope.loginUser = loginUser;
                     $rootScope.userAvatar = userAvatar;
@@ -27,6 +28,7 @@
                     $rootScope.IsLogin = true;
                     $rootScope.IsFacebookLogin = false;
                 }
+
                 if (facebookUser && !loginUser) {
                     $rootScope.facebookUser = facebookUser;
                     $rootScope.facebookAvatar = facebookAvatar;
@@ -34,17 +36,20 @@
                     $rootScope.IsFacebookLogin = true;
                     $rootScope.IsLogin = false;
                 }
+
                 if (!loginUser && !facebookUser) {
                     $rootScope.HideLoginSection = false;
                     $rootScope.IsLogin = false;
                     $rootScope.IsFacebookLogin = false;
                 }
-                $scope.LogOut = function() {
+
+                $scope.LogOut = function () {
                     localStorageService.cookie.remove('currentUser');
+                    localStorageService.cookie.remove('access_token');
                     location.reload();
                 };
 
-                $scope.FacebookLogOut = function() {
+                $scope.FacebookLogOut = function () {
                     localStorageService.cookie.remove('facebookUser');
                     location.reload();
                 };

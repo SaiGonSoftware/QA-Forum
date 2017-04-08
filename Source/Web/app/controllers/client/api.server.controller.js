@@ -26,8 +26,8 @@ exports.GetQuestion = function (req, res) {
     var limitItem = CONSTANT.LIMIT_ITEM;
     Question.getQuestion(limitItem, function (err, questions) {
         if (err)
-            return res.json({msg: err});
-        return res.json({questions: questions});
+            return res.json({ msg: err });
+        return res.json({ questions: questions });
     });
 };
 exports.GetNextQuestion = function (req, res) {
@@ -37,8 +37,8 @@ exports.GetNextQuestion = function (req, res) {
     }
     Question.getQuestion(limitItem, function (err, questions) {
         if (err)
-            return res.json({msg: err});
-        return res.json({questions: questions});
+            return res.json({ msg: err });
+        return res.json({ questions: questions });
     });
 };
 exports.QuestionDetail = function (req, res) {
@@ -114,7 +114,7 @@ exports.Question = function (req, res) {
         Question.submitQuestion(newQuestion, function (err, newInsertQuestion) {
             var questionInsertId = newInsertQuestion.ops[0]._id;
             if (err)
-                return res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
+                return res.json({ success: false, msg: "Có lỗi xảy ra vui lòng thử lại" });
             return res.json({
                 success: true,
                 url: "/bai-viet/" + questionInsertId,
@@ -135,9 +135,9 @@ exports.Answer = function (req, res) {
     }];
     Answer.submitAnswer(newAnswer, function (err, answer) {
         if (err) {
-            res.json({success: false, msg: "Có lỗi xảy ra vui lòng thử lại"});
+            res.json({ success: false, msg: "Có lỗi xảy ra vui lòng thử lại" });
         }
-        res.json({success: true, msg: "Đăng câu trả lời thành công"});
+        res.json({ success: true, msg: "Đăng câu trả lời thành công" });
     });
 };
 exports.Like = function (req, res) {
@@ -159,7 +159,7 @@ exports.Like = function (req, res) {
                     }
                 ], function (err, total) {
                     if (err) {
-                        return res.json({err: err});
+                        return res.json({ err: err });
                     } else {
                         return res.json({
                             success: true,
@@ -183,7 +183,7 @@ exports.Like = function (req, res) {
                     }
                 ], function (err, total) {
                     if (err) {
-                        return res.json({err: err});
+                        return res.json({ err: err });
                     } else {
                         return res.json({
                             success: true,
@@ -216,7 +216,7 @@ exports.Dislike = function (req, res) {
                     }
                 ], function (err, total) {
                     if (err) {
-                        return res.json({err: err});
+                        return res.json({ err: err });
                     } else {
                         return res.json({
                             success: true,
@@ -240,7 +240,7 @@ exports.Dislike = function (req, res) {
                     }
                 ], function (err, total) {
                     if (err) {
-                        return res.json({err: err});
+                        return res.json({ err: err });
                     } else {
                         return res.json({
                             success: true,
@@ -263,15 +263,15 @@ exports.Register = function (req, res) {
         User.checkAccountExists(usernameRegis, function (err, account) {
             User.checkEmailExists(emailRegis, function (err, email) {
                 if (err)
-                    return res.json({err: err});
+                    return res.json({ err: err });
                 if (account && email) {
-                    return res.json({foundBoth: true});
+                    return res.json({ foundBoth: true });
                 }
                 if (account && !email) {
-                    return res.json({foundAccount: true});
+                    return res.json({ foundAccount: true });
                 }
                 if (email && !account) {
-                    return res.json({foundEmail: true});
+                    return res.json({ foundEmail: true });
                 }
                 if (!account && !email) {
                     var hashPassword = User.generateHash(passwordRegis);
@@ -284,14 +284,14 @@ exports.Register = function (req, res) {
                     }];
                     User.createUser(newUser, function (err) {
                         if (err)
-                            return res.json({err: err});
-                        return res.json({success: true, url: "/"});
+                            return res.json({ err: err });
+                        return res.json({ success: true, url: "/" });
                     });
                 }
             });
         });
     } else {
-        res.json({msg: "Error"});
+        res.json({ msg: "Error" });
     }
 };
 exports.Login = function (req, res) {
@@ -303,7 +303,7 @@ exports.Login = function (req, res) {
             function (callback) {
                 User.checkAccountExists(username, function (err, user) {
                     if (!user) {
-                        res.json({login: false});
+                        res.json({ login: false });
                         return;
                     } else
                         callback(null, user);
@@ -312,7 +312,7 @@ exports.Login = function (req, res) {
             function (user, callback) {
                 var authUser = User.validPassword(password, user.Password);
                 if (!authUser) {
-                    res.json({login: false});
+                    res.json({ login: false });
                 } else callback(null, user);
             },
             function (user, callback) {
@@ -320,11 +320,11 @@ exports.Login = function (req, res) {
             }
         ], function (err, user) {
             if (err)
-                return res.json({err: err});
+                return res.json({ err: err });
             var userSession = user.Account;
             var userAvatar = user.Avatar;
             var token = authServices.SignToken(user._id);
-            return res.json({login: true, url: '/', userSession: userSession, userAvatar: userAvatar, token: token});
+            return res.json({ login: true, url: '/', userSession: userSession, userAvatar: userAvatar, token: token });
         });
     }
     if (socialAccount !== undefined) {
@@ -341,20 +341,19 @@ exports.Login = function (req, res) {
                     if (account === null)
                         callback(null, facebookUser);
                     else
-                        return res.json({success: true, url: '/'});
-
+                        return res.json({ success: true, url: '/' });
                 });
             },
             function (facebookUser, callback) {
                 User.createUser(facebookUser, function (err) {
                     if (err)
-                        return res.json({err: err});
+                        return res.json({ err: err });
 
                     callback(null, true);
                 });
             }
         ], function (err, result) {
-            return res.json({success: true, url: '/'});
+            return res.json({ success: true, url: '/' });
         });
     }
 };
@@ -373,8 +372,8 @@ exports.GetAllContrib = function (req, res) {
         }
     ], function (err, user_contrib, userInfo) {
         if (err)
-            return res.json({err: err});
-        return res.json({user_contrib: user_contrib, userInfo: userInfo});
+            return res.json({ err: err });
+        return res.json({ user_contrib: user_contrib, userInfo: userInfo });
     });
 };
 exports.UploadAvatar = function (req, res) {
@@ -387,14 +386,10 @@ exports.UploadAvatar = function (req, res) {
             var fstream = fs.createWriteStream(`public/img/upload/${username}/${filename}`);
             file.pipe(fstream);
             User.updateAvatar(username, uploadDir, function (err, data) {
-                if (err) return res.json({err: err});
-                else res.json({success: true, msg: "Upload thành công"});
+                if (err) return res.json({ err: err });
+                else res.json({ success: true, uploadDir: uploadDir, msg: "Upload thành công" });
             });
         });
-
-        /*fstream.on('close', function() {
-         res.send('upload succeeded!');
-         });*/
     });
 };
 //category relative
@@ -411,7 +406,6 @@ exports.GetCategoryInfo = function (req, res) {
     async.waterfall([
         function (callback) {
             Category.getCategories(function (err, categories) {
-
                 callback(null, categories);
             });
         },
@@ -419,7 +413,7 @@ exports.GetCategoryInfo = function (req, res) {
             categories.forEach(function (category) {
                 Question.countTotalQuestionViaCategory(category._id, function (err, total) {
                     listCount.push(total);
-                    if (indexCount == categories.length - 1) {
+                    if (indexCount === categories.length - 1) {
                         callback(null, listCount, categories);
                     }
                     indexCount++;
@@ -428,8 +422,8 @@ exports.GetCategoryInfo = function (req, res) {
         }
     ], function (err, listCount, categories) {
         if (err)
-            return res.json({err: err});
-        return res.json({postCount: listCount, categories: categories});
+            return res.json({ err: err });
+        return res.json({ postCount: listCount, categories: categories });
     });
 };
 exports.QuestionViaCategory = function (req, res) {
@@ -437,8 +431,8 @@ exports.QuestionViaCategory = function (req, res) {
     var limitItem = CONSTANT.LIMIT_ITEM;
     Question.getQuestionViaCategory(id, limitItem, function (err, questions) {
         if (err)
-            return res.json({id: id, found: false, msg: "Not Found"});
-        return res.json({found: true, msg: "Found", questions: questions});
+            return res.json({ id: id, found: false, msg: "Not Found" });
+        return res.json({ found: true, msg: "Found", questions: questions });
     });
 };
 exports.GetNextQuestionViaCategory = function (req, res) {
@@ -449,8 +443,8 @@ exports.GetNextQuestionViaCategory = function (req, res) {
     }
     Question.getQuestionViaCategory(categoryId, limitItem, function (err, questions) {
         if (err)
-            return res.json({msg: err});
-        return res.json({questions: questions});
+            return res.json({ msg: err });
+        return res.json({ questions: questions });
     });
 };
 exports.FindQuestion = function (req, res) {
@@ -465,8 +459,8 @@ exports.FindQuestion = function (req, res) {
         stringSplitArray.forEach(function (id, index) {
             Question.findQuestionById(id, function (err, questions) {
                 questionsResult.push(questions);
-                if (indexCount == stringSplitArray.length - 1) {
-                    return res.json({questions: questionsResult});
+                if (indexCount === stringSplitArray.length - 1) {
+                    return res.json({ questions: questionsResult });
                 }
                 indexCount++;
             });
@@ -478,8 +472,8 @@ exports.FindQuestion = function (req, res) {
 exports.GetHotTopic = function (req, res) {
     Question.getHotTopic(function (err, hotToipics) {
         if (err)
-            return res.json({msg: err});
-        return res.json({hotToipics: hotToipics});
+            return res.json({ msg: err });
+        return res.json({ hotToipics: hotToipics });
     });
 };
 exports.GetUnAnswerQuestion = function (req, res) {
@@ -496,16 +490,16 @@ exports.GetUnAnswerQuestion = function (req, res) {
         }
     ], function (err, unAnswerQuestions) {
         if (err)
-            return res.json({msg: err});
-        return res.json({unAnswerQuestions: unAnswerQuestions});
+            return res.json({ msg: err });
+        return res.json({ unAnswerQuestions: unAnswerQuestions });
     });
 };
 //chat sections
 exports.GetAllMessages = function (req, res) {
     Message.getMessage(function (err, result) {
         if (err)
-            return res.json({err: err});
-        return res.json({success: true, result: result});
+            return res.json({ err: err });
+        return res.json({ success: true, result: result });
     });
 };
 exports.SaveMessage = function (req, res) {
@@ -517,16 +511,16 @@ exports.SaveMessage = function (req, res) {
     }];
     Message.saveMessage(message, function (err, result) {
         if (err)
-            return res.json({err: err});
-        return res.json({success: true, result: result});
+            return res.json({ err: err });
+        return res.json({ success: true, result: result });
     });
-}
+};
 exports.AutoComplete = function (req, res) {
     var searchString = req.params.searchString;
     Question.getRelatedQuestion(searchString, function (err, result) {
-        return res.json({autoCompleteResults: result});
+        return res.json({ autoCompleteResults: result });
     });
-}
+};
 exports.FindQuestionMobile = function (req, res) {
     var queryString = req.params.queryString;
     var questionsResult = [];
@@ -539,8 +533,8 @@ exports.FindQuestionMobile = function (req, res) {
         stringSplitArray.forEach(function (id, index) {
             Question.findQuestionById(id, function (err, question) {
                 questionsResult.push(question[0]);
-                if (indexCount == stringSplitArray.length - 1) {
-                    return res.json({questions: questionsResult});
+                if (indexCount === stringSplitArray.length - 1) {
+                    return res.json({ questions: questionsResult });
                 }
                 indexCount++;
             });

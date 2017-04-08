@@ -17,36 +17,39 @@
         .factory('LikeService', LikeService)
         .factory('DislikeService', DislikeService);
 
-    LikeService.$inject = ['$http'];
-    DislikeService.$inject = ['$http'];
-    function LikeService($http) {
+    LikeService.$inject = ['$http', 'AuthService'];
+    DislikeService.$inject = ['$http', 'AuthService'];
+    function LikeService($http, AuthService) {
         var likeService = {};
+        var token = AuthService.getAuthToken();
         likeService.LikeAnswer = function (data) {
             return $http({
                 url: '/api/Account/LikeAnswer/',
                 method: 'POST',
                 data: JSON.stringify(data),
-                header: {
-                    'content-type': 'application/json'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
                 }
             });
         };
         return likeService;
     }
 
-    function DislikeService($http) {
+    function DislikeService($http, AuthService) {
         var disLikeService = {};
+        var token = AuthService.getAuthToken();
         disLikeService.DislikeAnswer = function (data) {
             return $http({
                 url: '/api/Account/DislikeAnswer/',
                 method: 'POST',
                 data: JSON.stringify(data),
-                header: {
-                    'content-type': 'application/json'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
                 }
             });
         };
         return disLikeService;
     }
 })();
-

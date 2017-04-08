@@ -13,21 +13,22 @@
     angular.module('ChatBotApp')
         .factory('AnswerService', AnswerService);
 
-    AnswerService.$inject = ['$http'];
+    AnswerService.$inject = ['$http', 'AuthService'];
 
-    function AnswerService($http) {
+    function AnswerService($http, AuthService) {
         var answerService = {};
+        var token = AuthService.getAuthToken();
         answerService.PostAnswer = function (result, id) {
             return $http({
                 url: '/api/Account/PostAnswer/' + id,
                 method: 'POST',
                 data: JSON.stringify(result),
-                header: {
-                    'content-type': 'application/json'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
                 }
             });
         };
         return answerService;
     }
 })();
-
