@@ -64,17 +64,25 @@ exports.QuestionDetail = function (req, res) {
                 });
             },
             function (questionDetail, answers, callback) {
-                answers.forEach(function (answer) {
-                    //console.log(answer.UserAnswer + '\r\n');
-                    User.getUserAvatar(answer.UserAnswer, function (err, avatarArr) {
-                        //console.log("Avatar array" + avatarArr + '\r\n');
-                        avatarLists.push(avatarArr);
-                        //console.log(avatarLists + '\r\n');
-                        count++;
-                        if (count === answers.length) {
-                            //console.log(avatarLists);
-                            callback(null, questionDetail, answers, avatarLists);
-                        }
+                //answers.forEach(function (answer) {
+                //    User.getUserAvatar(answer.UserAnswer, function (err, avatarArr) {
+                //        avatarLists.push(avatarArr);
+                //        if (count === answers.length - 1) {
+                //            callback(null, questionDetail, answers, avatarLists);
+                //        }
+                //        count++;
+                //    });
+                //});
+                var getUserAvatar = new Promise(function (resolve, reject) {
+                    answers.forEach(function (answer) {
+                        User.getUserAvatar(answer.UserAnswer, function (err, avatarArr) {
+                            avatarLists.push(avatarArr);
+                            if (count === answers.length - 1) {
+                                callback(null, questionDetail, answers, avatarLists);
+                                resolve(avatarArr);
+                            }
+                            count++;
+                        });
                     });
                 });
             }
