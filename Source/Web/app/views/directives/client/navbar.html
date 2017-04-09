@@ -13,7 +13,7 @@
                 <a href="/phong-chat">Phòng Chat</a>
             </li>
             <li class="dropdown navbar-menu">
-                <a class="dropdown-toggle" ng-hide="HideLoginSection" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="dropdown-toggle" ng-if="!HideLoginSection" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     Tài Khoản<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -25,8 +25,8 @@
                     </li>
                 </ul>
             </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" ng-show="IsFacebookLogin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <li class="dropdown account-login">
+                <a class="dropdown-toggle" ng-if="IsFacebookLogin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <img ng-src="{{facebookAvatar}}"> Xin chào {{facebookUser}} <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -38,8 +38,8 @@
                     </li>
                 </ul>
             </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" ng-show="IsLogin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <li class="dropdown account-login">
+                <a class="dropdown-toggle" ng-if="IsLogin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <img ng-src="{{userAvatar}}" class="userAvatar"> Xin chào {{loginUser}}<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">

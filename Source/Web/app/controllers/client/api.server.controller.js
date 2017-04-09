@@ -65,11 +65,14 @@ exports.QuestionDetail = function (req, res) {
             },
             function (questionDetail, answers, callback) {
                 answers.forEach(function (answer) {
+                    //console.log(answer.UserAnswer + '\r\n');
                     User.getUserAvatar(answer.UserAnswer, function (err, avatarArr) {
+                        //console.log("Avatar array" + avatarArr + '\r\n');
                         avatarLists.push(avatarArr);
+                        //console.log(avatarLists + '\r\n');
                         count++;
                         if (count === answers.length) {
-                            console.log(avatarLists);
+                            //console.log(avatarLists);
                             callback(null, questionDetail, answers, avatarLists);
                         }
                     });

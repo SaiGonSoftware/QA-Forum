@@ -17,7 +17,7 @@ div(id="accountMangeContent")
                         .panel.panel-default#avatar-contain
                             .panel-heading Ảnh đại diện
                             .panel-body
-                                img.img-responsive#user-avatar(ng-src='/{{userInfo.Avatar}}',ng-if='userInfo.Avatar')
+                                img.img-responsive#user-avatar(ng-src='{{userInfo.Avatar}}',ng-if='userInfo.Avatar')
                                 img.img-responsive#user-avatar-default(ng-src='/img/user-icon.png',ng-if='!userInfo.Avatar')
                                 br
                                 form(ng-submit='UploadAvatar()', novalidate='', name='UploadAvatarForm',enctype="multipart/form-data")

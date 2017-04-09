@@ -73,7 +73,7 @@ var getUserInfo = function (currentUser, callback) {
 
 //excluded id column
 var getUserAvatar = function (user, callback) {
-    User.find({ Account: user }).select('Avatar -_id').exec(callback);
+    User.find({ Account: user }).select('Avatar').exec(callback);
 };
 
 var updateAvatar = function (username, uploadDir, callback) {
