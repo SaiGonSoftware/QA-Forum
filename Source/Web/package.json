@@ -25,7 +25,8 @@
     "net": "^1.0.2",
     "randomstring": "^1.1.5",
     "serve-favicon": "^2.3.2",
-    "socket.io": "*"
+    "socket.io": "*",
+    "morgan": "^1.7.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
@@ -39,7 +40,6 @@
     "grunt-nodemon": "^0.4.2",
     "open": "0.0.5",
     "errorhandler": "^1.5.0",
-    "morgan": "^1.7.0",
     "node-notifier": "^5.1.2"
   }
 }

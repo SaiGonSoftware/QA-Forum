@@ -10,12 +10,12 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     http = require('http'),
     server = http.createServer(app),
-    env = process.env.NODE_ENV || 'development',
+    env = process.env.NODE_ENV || 'production',
     io = require('socket.io').listen(server),
     busboy = require("connect-busboy"),
-    errorhandler = require('errorhandler'),
+    /*    errorhandler = require('errorhandler'),
     notifier = require('node-notifier'),
-    customErrorHandler = require('./config/error_handler'),
+    customErrorHandler = require('./config/error_handler'),*/
     users = [],
     connections = [];
 
@@ -29,11 +29,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
-
 
 //require route for app
 var indexRoute = require('./app/routes/client/index.server.routes'),
@@ -47,12 +45,11 @@ app.use('/directives', express.static(path.join(__dirname, 'app/views/directives
 app.use('/api', apiRoute);
 app.get('*', indexRoute);
 
-
 if (env === 'development') {
-    app.use(errorhandler({log: customErrorHandler.errorNotification}));
+    //app.use(errorhandler({log: customErrorHandler.errorNotification}));
 }
 if (env === 'production') {
-//Todo
+    //Todo
 }
 
 io.sockets.on('connection', function (socket) {
@@ -85,7 +82,6 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('get users', users);
     }
 });
-
 
 server.listen(port, function () {
     console.log("Web server listening on port " + port);

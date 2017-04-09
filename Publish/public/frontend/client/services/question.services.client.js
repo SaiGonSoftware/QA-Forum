@@ -26,7 +26,6 @@
     function PostQuestionService($http, AuthService) {
         var questionService = {};
         var token = AuthService.getAuthToken();
-        console.log('Get token service ' + token);
         questionService.PostQuestion = function (result) {
             return $http({
                 url: '/api/Account/PostQuestion',
