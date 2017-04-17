@@ -1,8 +1,8 @@
 <div class="vote-wrapper">
     <div class="row">
         <div class="col-md-12">
-            <img ng-if="avatarLists[$index][0].Avatar != ''" class="avatar" ng-src='{{avatarLists[$index][0].Avatar}}' , alt='{{answerListData.UserAnswer}}' />
-            <img ng-if="avatarLists[$index][0].Avatar  == ''" class="avatar" ng-src='/img/user-icon.png' , alt='{{answerListData.UserAnswer}}' />
+            <!--<img ng-if="avatarLists[$index][0].Avatar != ''" class="avatar" ng-src='{{avatarLists[$index][0].Avatar}}' , alt='{{answerListData.UserAnswer}}' />
+            <img ng-if="avatarLists[$index][0].Avatar  == ''" class="avatar" ng-src='/img/user-icon.png' , alt='{{answerListData.UserAnswer}}' />-->
         </div>
         <div class="col-md-12">
             <div class="glyphicon glyphicon-thumbs-up{{isActive}}" id="likeBtn-{{answerListData._id}}" ng-controller="LikeController" ng-click="LikeAnswer(answerListData._id)">
